@@ -1,7 +1,7 @@
 
 # Tema 5- Procesamiento de imagen: Segmentación
 
-En este tema veremos cómo segmentar imágenes, extrayendo los píxeles de interés pertenecientes a los objetos a detectar.
+En este tema veremos cómo segmentar imágenes, detectando los píxeles pertenecientes a los objetos de interés.
 
 ## Umbralización
 
@@ -93,13 +93,13 @@ El algoritmo **k-means** se implementa en OpenCV mediante la función `kmeans`. 
 
 En [este enlace](https://docs.opencv.org/3.1.0/de/d63/kmeans_8cpp-example.html) puedes encontrar un ejemplo completo de código que usa _k-means_.
 
-## Métodos basados en grafos
+## Métodos basados en grafos
 
 El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ejemplo de esta función usada de forma interactiva en [este enlace](https://docs.opencv.org/3.4.1/de/dd0/grabcut_8cpp-example.html).
 
 ![grabcut](images/segmentacion/grabcut.jpg)
 
-## Métodos de saliency
+## Métodos de saliency
 
 OpenCV implementa algunos algoritmos de `saliency`, entre los que se encuentra `Spectral Residual`. Veamos un ejemplo de código:
 
@@ -176,7 +176,7 @@ Se puede con este código (findContours) marcar el contorno y buscar el centroid
 
 ---
 
-###Ejercicio
+# Ejercicio
 
 Dada la imagen de una retina, se pide hacer un programa que segmente lo mejor posible los vasos sanguíneos.  Se trata de detectar si un píxel pertenece al fondo de ojo o a un vaso, por lo que es un problema de umbralización binaria. Llamaremos a este ejercicio `retinaSegment.cpp`, y el programa debe recibir tres parámetros:
 
