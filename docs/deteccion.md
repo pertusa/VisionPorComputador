@@ -119,7 +119,7 @@ También podemos aplicar un filtro **bilateral**:
 bilateralFilter(src, dst, 15, 80, 80); // Aplica un filtro bilateral con un diámetro de 15 pixeles vecinos y una intensidad mínima 80.
 ```
 
-Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero sirven para las imágenes en color). Normalmente se usa el mismo valor para estos dos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la  [referencia](http://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html?highlight=bilateralfilter#void%20bilateralFilter(InputArray%20src,%20OutputArray%20dst,%20int%20d,%20double%20sigmaColor,%20double%20sigmaSpace,%20int%20borderType) de la función.
+Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero sirven para las imágenes en color). Normalmente se usa el mismo valor para estos dos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la  [referencia](http://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html?highlight=bilateralfilter#void%20bilateralFilter\(InputArray%20src,%20OutputArray%20dst,%20int%20d,%20double%20sigmaColor,%20double%20sigmaSpace,%20int%20borderType) de la función.
 
 Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 
