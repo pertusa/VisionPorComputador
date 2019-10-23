@@ -1,0 +1,43 @@
+site_name: GIR-VC
+use_directory_urls: false
+
+nav:
+- Instalación de OpenCV : 'install.md'
+- T1- Introducción a OpenCV : 'install.md'
+- T2- Imagen digital y vídeo : 'imagenvideo.md'
+- T3- Procesamiento\: Transformaciones : 'transformaciones.md'
+- T4- Procesamiento\: Detección : 'deteccion.md'
+- T5- Procesamiento\: Segmentación : 'segmentacion.md'
+
+theme:
+    language: es
+    name: 'material'
+    palette:
+        primary: 'Teal'
+        accent: 'Teal'
+    font:
+        text: 'Roboto'
+        code: 'Roboto Mono'
+#    logo: 'imagenes/logo.png'
+
+# Ponemos como idioma de búsqueda el inglés
+# para conseguir que busque correctamente
+# todas las palabras en castellano, sin eliminar
+# los excesivos derivados que se definen en
+# https://github.com/MihaiValentin/lunr-languages/blob/master/lunr.es.js
+
+extra:
+    search:
+        language: 'en'
+
+markdown_extensions:
+    - admonition
+    - codehilite:
+        linenums: true
+    - footnotes
+    - meta
+    - sane_lists
+    - toc:
+       permalink: true
+       toc_depth: 3
+    - pymdownx.superfences
