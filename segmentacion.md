@@ -11,7 +11,7 @@ Pedir que implementen el "Algoritmo sencillo"?
 
 Como puede verse en [este enlace](https://docs.opencv.org/2.4/doc/tutorials/imgproc/threshold/threshold.html), OpenCV proporciona muchos métodos para realizar umbralización básica mediante la función `threshold`.
 
-La umbralización de **Otsu** también se puede implementar mediante esta misma función, [indicando](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html#double%20threshold(InputArray%20src,%20OutputArray%20dst,%20double%20thresh,%20double%20maxval,%20int%20type) como parámetro el flag `CV_THRES_OTSU`:
+La umbralización de **Otsu** también se puede implementar mediante esta misma función, [indicando](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html#double%20threshold\(InputArray%20src,%20OutputArray%20dst,%20double%20thresh,%20double%20maxval,%20int%20type) como parámetro el flag `CV_THRES_OTSU`:
 
 ```cpp
 threshold(src, dst, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
