@@ -194,7 +194,7 @@ Syntax: ./retinaSegment <image> <mask> <output>
 
 Se proporcionan los datos de las retinas y las imágenes correctamente segmentadas para evaluar el resultado. También está disponible el sistema de evaluación.
 
-Descarga todos los materiales de este ejercicio que se encuentran en el  fichero [ejercicioRetinas.zip](https://pertusa.gitbooks.io/vision-por-computador/content/images/segmentacion/ejercicioRetinas.zip). En la carpeta `retinas` tenemos las imágenes a procesar. Estas imágenes son un subconjunto sacado de la base de datos [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/). Cuando descomprimas este archivo, podrás ver en el directorio `retinas` lo siguiente:
+Descarga todos los materiales de este ejercicio que se encuentran en el  fichero [ejercicioRetinas.zip](images/segmentacion/ejercicioRetinas.zip). En la carpeta `retinas` tenemos las imágenes a procesar. Estas imágenes son un subconjunto sacado de la base de datos [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/). Cuando descomprimas este archivo, podrás ver en el directorio `retinas` lo siguiente:
 
 * `images`: imágenes de entrada que debe segmentar tu algoritmo.
 * `mask`: máscaras de las imágenes originales.
