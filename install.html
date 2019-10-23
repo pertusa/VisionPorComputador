@@ -1,0 +1,543 @@
+
+
+
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copiar al portapapeles">
+      
+        <meta name="lang:clipboard.copied" content="Copiado al portapapeles">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No se encontraron documentos">
+      
+        <meta name="lang:search.result.one" content="1 documento encontrado">
+      
+        <meta name="lang:search.result.other" content="# documentos encontrados">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>T1- Introducción a OpenCV - GIR-VC</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#instalacion-de-opencv3" tabindex="1" class="md-skip">
+        Saltar a contenido
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="GIR-VC" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              GIR-VC
+            </span>
+            <span class="md-header-nav__topic">
+              
+                T1- Introducción a OpenCV
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Teclee para comenzar búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="GIR-VC" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    GIR-VC
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="install.html" title="Instalación de OpenCV" class="md-nav__link">
+      Instalación de OpenCV
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T1- Introducción a OpenCV
+      </label>
+    
+    <a href="install.html" title="T1- Introducción a OpenCV" class="md-nav__link md-nav__link--active">
+      T1- Introducción a OpenCV
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-linux-ubuntu-1604" class="md-nav__link">
+    Instalación en Linux (Ubuntu 16.04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-linux-ubuntu-1804" class="md-nav__link">
+    Instalación en Linux (Ubuntu 18.04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-la-maquina-virtual-de-la-eps" class="md-nav__link">
+    Instalación de la máquina virtual de la EPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-macos" class="md-nav__link">
+    Instalación en MacOS
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="imagenvideo.html" title="T2- Imagen digital y vídeo" class="md-nav__link">
+      T2- Imagen digital y vídeo
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="transformaciones.html" title="T3- Procesamiento, Transformaciones" class="md-nav__link">
+      T3- Procesamiento, Transformaciones
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="deteccion.html" title="T4- Procesamiento, Detección" class="md-nav__link">
+      T4- Procesamiento, Detección
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="segmentacion.html" title="T5- Procesamiento, Segmentación" class="md-nav__link">
+      T5- Procesamiento, Segmentación
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-linux-ubuntu-1604" class="md-nav__link">
+    Instalación en Linux (Ubuntu 16.04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-linux-ubuntu-1804" class="md-nav__link">
+    Instalación en Linux (Ubuntu 18.04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-la-maquina-virtual-de-la-eps" class="md-nav__link">
+    Instalación de la máquina virtual de la EPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-en-macos" class="md-nav__link">
+    Instalación en MacOS
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="instalacion-de-opencv3">Instalación de OpenCV3<a class="headerlink" href="#instalacion-de-opencv3" title="Permanent link">&para;</a></h1>
+<p><a href="http://opencv.org">OpenCV</a> es la librería más usada para procesamiento de imágenes, y puede usarse en Windows, Linux, MacOS, iOS y Android. También puede <a href="http://wiki.ros.org/vision_opencv">integrarse con ROS</a>, lo que hace que OpenCV sea muy utilizado en el ámbito de la robótica. Está disponible para Python y C++.</p>
+<p>En la asignatura de Visión por Computador usaremos <strong>OpenCV 3.4.6 sobre Linux en C++</strong>. Para hacer las prácticas puedes también instalarlo en MacOS, pero se desaconseja usar Windows.</p>
+<p>En esta parte veremos cómo instalar OpenCV 3.4.6. Para empezar debemos descargar el código fuente (en <code>.zip</code>) desde <a href="https://github.com/opencv/opencv/releases/tag/3.4.6">aquí</a>.</p>
+<h2 id="instalacion-en-linux-ubuntu-1604">Instalación en Linux (Ubuntu 16.04)<a class="headerlink" href="#instalacion-en-linux-ubuntu-1604" title="Permanent link">&para;</a></h2>
+<p>Si queremos instalarlo en <strong>Ubuntu 16.04</strong> debemos descomprir el código fuente y compilarlo siguiendo los pasos que pueden verse en <a href="http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/">esta url</a>.</p>
+<h2 id="instalacion-en-linux-ubuntu-1804">Instalación en Linux (Ubuntu 18.04)<a class="headerlink" href="#instalacion-en-linux-ubuntu-1804" title="Permanent link">&para;</a></h2>
+<p>Instalarlo en <strong>Ubuntu 18.04</strong> es mucho más sencillo, simplemente hay que indicar lo siguiente desde el terminal:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>sudo apt-get install libopencv-dev
+</pre></div>
+</td></tr></table>
+
+<p>Esta instrucción instalará OpenCV 3.2, que también puedes usar en la asignatura.</p>
+<!---
+1. Instalar los paquetes de los que depende OpenCV3:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>sudo apt-get install build-essential
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+sudo apt-get install libqt4-dev-bin libqt4-help libqt4-scripttools libqt4-test qt4-qmake libqt4-dev libqt4-opengl-dev
+</pre></div>
+</td></tr></table>
+2. Preparar la compilación de OpenCV3:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">cd</span> ~/opencv-3.4.3
+mkdir release
+<span class="nb">cd</span> release
+cmake -D <span class="nv">BUILD_TIFF</span><span class="o">=</span>ON <span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>RELEASE -D <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span>/usr/local <span class="se">\</span>
+-D <span class="nv">WITH_TBB</span><span class="o">=</span>ON -D <span class="nv">WITH_V4L</span><span class="o">=</span>ON <span class="se">\</span>
+-D <span class="nv">INSTALL_C_EXAMPLES</span><span class="o">=</span>ON -D <span class="nv">BUILD_EXAMPLES</span><span class="o">=</span>ON <span class="se">\</span>
+-D <span class="nv">OPENCV_EXTRA_MODULES_PATH</span><span class="o">=</span>/opt/opencv_contrib/modules /opt/opencv/ <span class="se">\</span>
+-D <span class="nv">WITH_QT</span><span class="o">=</span>ON -D <span class="nv">WITH_GTK</span><span class="o">=</span>ON -D <span class="nv">WITH_OPENGL</span><span class="o">=</span>ON ..
+</pre></div>
+</td></tr></table>
+
+3. Compilar OpenCV3. Desde el directorio `release` ejecutamos:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>make -j2
+sudo make install
+</pre></div>
+</td></tr></table>
+4. Añadir esta línea al final del fichero `.profile` que ya existe en el directorio principal de tu usuario (está oculto, para verlo desde el terminal debes indicar `ls -l`). Para esto puedes usar cualquier editor de texto, como por ejemplo `gedit`:
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/opencv/lib
+</pre></div>
+</td></tr></table>
+Por último cerramos la terminal y volvemos a abrirla para que los cambios de `.profile` sean efectivos.
+
+-->
+
+<h2 id="instalacion-de-la-maquina-virtual-de-la-eps">Instalación de la máquina virtual de la EPS<a class="headerlink" href="#instalacion-de-la-maquina-virtual-de-la-eps" title="Permanent link">&para;</a></h2>
+<p>Alternativamente puedes instalar <a href="https://www.virtualbox.org">VirtualBox</a> en tu ordenador, y ejecutar la máquina virtual que contiene el software de los laboratorios.  En <a href="https://blogs.ua.es/labseps/2018/11/13/virtual-ubuntu-eps-2018-vdi/">este enlace</a> puedes encontrar las instrucciones de instalación de este VDI que han creado los técnicos de la EPS para el curso 2018/2019. El VDI del curso 2019/2020 se publicará durante el curso.</p>
+<h2 id="instalacion-en-macos">Instalación en MacOS<a class="headerlink" href="#instalacion-en-macos" title="Permanent link">&para;</a></h2>
+<p>Si queremos instalarlo en <strong>MacOS</strong> se recomienda usar <code>homebrew</code>. Para
+esto, debemos:</p>
+<ul>
+<li>Instalar XCode desde App Store (para el compilador de g++)</li>
+<li>Instalar homebrew siquiendo estas <a href="https://brew.sh">instrucciones</a>.</li>
+<li>Desde el terminal, ejecutar:</li>
+</ul>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>brew update
+brew install opencv@3
+brew brew upgrade
+</pre></div>
+</td></tr></table>
+
+<p>Añadir las siguientes líneas al fichero .bash_profile que está en el
+directorio raiz del usuario (si no existe, debes crearlo):</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L/usr/local/Cellar/opencv\@3/3.4.5_6/lib&quot;</span>
+<span class="nb">export</span> <span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-I/usr/local/Cellar/opencv\@3/3.4.5_6/include&quot;</span>
+<span class="nb">export</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/Cellar/opencv\@3/3.4.5_6/lib/pkgconfig&quot;</span>
+</pre></div>
+</td></tr></table>
+
+<p>Si la versión instalada es distinta de la 3.4.5_6, debes cambiar el número en las
+líneas anteriores.</p>
+<p>Por último, debemos ejecutar desde el terminal:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>cp /usr/local/Cellar/opencv@3/3.4.5_6/lib/pkgconfig/opencv.pc /usr/local/lib/pkgconfig/
+pkg-config update
+</pre></div>
+</td></tr></table>
+
+<p>Cerrar el terminal y volver a abrirlo para probar que se puede compilar
+usando opencv.</p>
+<p>Si tienes MacPorts en lugar de HomeBrew, entonces es mejor seguir <a href="http://tilomitra.com/opencv-on-mac-osx/">este otro</a> tutorial.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="install.html" title="Instalación de OpenCV" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                Instalación de OpenCV
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="imagenvideo.html" title="T2- Imagen digital y vídeo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                T2- Imagen digital y vídeo
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+    
+  </body>
+</html>
