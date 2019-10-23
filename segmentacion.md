@@ -176,7 +176,7 @@ Se puede con este código (findContours) marcar el contorno y buscar el centroid
 
 ---
 
-### Ejercicio
+###Ejercicio
 
 Dada la imagen de una retina, se pide hacer un programa que segmente lo mejor posible los vasos sanguíneos.  Se trata de detectar si un píxel pertenece al fondo de ojo o a un vaso, por lo que es un problema de umbralización binaria. Llamaremos a este ejercicio `retinaSegment.cpp`, y el programa debe recibir tres parámetros:
 
