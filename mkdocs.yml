@@ -3,7 +3,7 @@ use_directory_urls: false
 
 nav:
 - Instalación de OpenCV : 'install.md'
-- T1- Introducción a OpenCV : 'intro.md'
+- T1- Introducción : 'intro.md'
 - T2- Imagen digital y vídeo : 'imagenvideo.md'
 - T3- Transformaciones : 'transformaciones.md'
 - T4- Detección : 'deteccion.md'
@@ -29,6 +29,10 @@ theme:
 extra:
     search:
         language: 'en'
+        
+# Problema: pdf-export solo admite que las imagenes de la pagina sean pdf o svg, no otros formatos
+#plugins:
+#    - pdf-export
 
 markdown_extensions:
     - admonition
