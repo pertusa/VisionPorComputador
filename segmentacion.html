@@ -626,7 +626,7 @@ Se puede con este código (findContours) marcar el contorno y buscar el centroid
 <li><code>images</code>: imágenes de entrada que debe segmentar tu algoritmo.</li>
 <li><code>mask</code>: máscaras de las imágenes originales.</li>
 <li><code>output</code>: directorio vacío (de momento).</li>
-<li><code>1st_manual</code>: imágenes correctamente etiquetadas para evaluar los resultados del programa.</li>
+<li><code>2nd_manual</code>: imágenes correctamente etiquetadas para evaluar los resultados del programa.</li>
 </ul>
 <p>En el directorio principal que se descomprime también hay un programa <code>iou.cpp</code>. Compílalo con OpenCV, generando el ejecutable <code>iou</code>. Este programa calcula la intersección sobre la unión de dos imágenes (en palabras simples, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). Este programa lo usa el script <code>evaluate.sh</code> que calcula el porcentaje de acierto de vuestro programa.</p>
 <p>En el directorio <code>ejercicioRetinas</code> debes implementar el programa <code>retinaSegment.cpp</code>, compilarlo, y evaluarlo  ejecutando desde el terminal:</p>
