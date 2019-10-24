@@ -124,7 +124,7 @@ El rango de valores que representa la matriz puede ser:
 * `CV_16U`: Unsigned short (0~65535)
 * `CV_16S`: Signed short (-32768~32767)
 * `CV_32S`: Signed int (-2147483648~2147483647)
-* `CV_32F`: Signed float (-1.18*10-38~3.40*10-38)
+* `CV_32F`: Signed float (-1.18\*10-38~3.40\*10-38)
 * `CV_64F`: Signed double (mucho!)
 
 El número de canales puede ser `C1`, `C2`, `C3` y `C4` con cualquier tipo de dato.
