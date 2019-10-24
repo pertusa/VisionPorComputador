@@ -199,7 +199,7 @@ Descarga todos los materiales de este ejercicio que se encuentran en el  fichero
 * `images`: imágenes de entrada que debe segmentar tu algoritmo.
 * `mask`: máscaras de las imágenes originales.
 * `output`: directorio vacío (de momento).
-* `1st_manual`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
+* `2nd_manual`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
 
 En el directorio principal que se descomprime también hay un programa `iou.cpp`. Compílalo con OpenCV, generando el ejecutable `iou`. Este programa calcula la intersección sobre la unión de dos imágenes (en palabras simples, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). Este programa lo usa el script `evaluate.sh` que calcula el porcentaje de acierto de vuestro programa.
 
