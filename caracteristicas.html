@@ -312,15 +312,15 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#ejercicio" class="md-nav__link">
     Ejercicio
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -452,15 +452,15 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#ejercicio" class="md-nav__link">
     Ejercicio
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -610,7 +610,7 @@ WM: false);
 
 <p>En este ejemplo <code>pointsQuery</code> y <code>pointsRef</code> son vectores de puntos aleatorios del contorno de cada una de las imágenes que queremos comparar.</p>
 <hr />
-<h2 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h2>
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
 <p>En este ejercicio extraeremos una serie de descriptores de contorno a partir de imágenes binarizadas. El objetivo es encontrar las imágenes más similares a una imagen de referencia (a la que llamaremos <code>query</code>).</p>
 <p>Se pide completar el siguiente código implementando los comentarios marcados con <code>TODO</code>. Crea el programa con el nombre <code>contourDescriptors.cpp</code>.</p>
 <!---
@@ -1335,9 +1335,9 @@ Cuando hayas terminado, puedes intentar mejorar la precisión de los resultados 
 4
 5
 6
-7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">vector</span> <span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">matToFloatVector</span><span class="p">(</span><span class="n">Mat</span> <span class="n">matToConvert</span><span class="p">)</span>
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">matToFloatVector</span><span class="p">(</span><span class="n">Mat</span> <span class="n">matToConvert</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">vector</span><span class="o">&lt;</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">convert</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">convert</span><span class="p">;</span>
     <span class="n">convert</span><span class="p">.</span><span class="n">assign</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">matToConvert</span><span class="p">.</span><span class="n">datastart</span><span class="p">,</span> <span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">matToConvert</span><span class="p">.</span><span class="n">dataend</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="n">convert</span><span class="p">;</span>
