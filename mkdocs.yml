@@ -8,6 +8,7 @@ nav:
 - T3- Transformaciones : 'transformaciones.md'
 - T4- Detección : 'deteccion.md'
 - T5- Segmentación : 'segmentacion.md'
+- T6- Características : 'caracteristicas.md'
 
 theme:
     language: es
