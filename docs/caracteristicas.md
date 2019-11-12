@@ -69,7 +69,7 @@ En este ejemplo `pointsQuery` y `pointsRef` son vectores de puntos aleatorios de
 
 -----
 
-## Ejercicio
+### Ejercicio
 
 En este ejercicio extraeremos una serie de descriptores de contorno a partir de imágenes binarizadas. El objetivo es encontrar las imágenes más similares a una imagen de referencia (a la que llamaremos `query`).
 
@@ -568,9 +568,9 @@ Mat neuralCodes = net.forward("pool5/7x7_s1");
 Después hay que convertir la matriz _neuralCodes_ a un vector de float (por ejemplo usando la siguiente función), y ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otro sistema de aprendizaje automático como  kNN o SVM.
 
 ```cpp
-vector <float> matToFloatVector(Mat matToConvert)
+vector<float> matToFloatVector(Mat matToConvert)
 {
-    vector< float> convert;
+    vector<float> convert;
     convert.assign((float*)matToConvert.datastart, (float*)matToConvert.dataend);
 
     return convert;
