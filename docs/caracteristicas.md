@@ -208,7 +208,25 @@ int main(int argc, char* argv[])
 }
 ```
 
-Para este ejercicio necesitarás descargarte [estas imágenes](images/caracteristicas/shape_sample.zip), que debes descomprimir en un directorio llamado `shape_sample`.
+En este ejercicio necesitarás descargarte [estas imágenes](images/caracteristicas/shape_sample.zip), que debes descomprimir en un directorio llamado `shape_sample`.
+
+Para extraer los descriptores puedes usar algunas de [estas funciones]( https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html) de OpenCV.
+
+En el cálculo de la arcotangente (para la orientación) debes usar la función _atan2_ en lugar de _atan_, ya que esta última no calcula los valores en los cuatro cuadrantes.
+
+Cuando vayamos a calcular la distancia entre dos números `float`, debemos usar el valor absoluto de su diferencia. En el caso del centroide (que es un punto con sus coordenadas _u,v_), deberemos calcular la **distancia Euclídea** entre los dos puntos.
+
+Para calcular las distancias de los descriptores Hu debes usar las siguientes ecuaciones:
+
+![Eq1](images/caracteristicas/contoursMatch1.png)
+
+donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
+
+![Eq2](images/caracteristicas/contoursMatch2.png)
+
+En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral 1.e-5. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de 1.e-5 en ambas imágenes (con que en una sea menor, no se considera). En C++, el logaritmo se calcula con la función _log10_, ya que si se usa _log_ se calcula el neperiano (que no es el que necesitamos en este caso).
+
+Este es el cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `CV_CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.
 
 La salida del programa debe ser como la siguiente (si no indicamos ningún parámetro, por defecto se usa la imagen número 5):
 
@@ -274,25 +292,7 @@ Imagen 6:
 
 > Si tienes OpenCV para Mac, hay un bug en el comparador de SC que hará que salgan valores muy altos para la variable `dSC`. Si esto ocurre, prueba tu programa en Linux antes de la entrega.
 
-Para extraer los descriptores puedes usar algunas de [estas funciones]( https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html) de OpenCV.
-
-Para calcular la arcotangente (en la orientación), usa la función _atan2_ en lugar de _atan_.
-
-Cuando vayamos a calcular la distancia entre dos números `float`, debemos usar el valor absoluto de su diferencia. En el caso del centroide (que es un punto con sus coordenadas _u,v_), deberemos calcular la **distancia Euclídea** entre los dos puntos.
-
-Para calcular las distancias de los descriptores Hu debes usar las siguientes ecuaciones:
-
-![Eq1](images/caracteristicas/contoursMatch1.png)
-
-donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
-
-![Eq2](images/caracteristicas/contoursMatch2.png)
-
-En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral 1.e-5. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de 1.e-5 en ambas imágenes (con que en una sea menor, no se considera).
-
-Este es el cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `CV_CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.
-
-Revisa los resultados probando con distintas imágenes, cuando menor sea la distancia más se parecerán. Evidentemente habrá algunos descriptores que funcionarán mucho mejor que otros.
+Revisa los resultados probando con distintas imágenes, cuando menor sea la distancia más se parecerán. Evidentemente, algunos descriptores funcionarán mucho mejor que otros.
 
 -----
 
