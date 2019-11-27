@@ -396,6 +396,18 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="reconocimiento.html" title="T7- Reconocimiento" class="md-nav__link">
+      T7- Reconocimiento
+    </a>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -863,7 +875,16 @@ WM: Descriptors { (BS)
 </pre></div>
 </td></tr></table>
 
-<p>Para este ejercicio necesitarás descargarte <a href="images/caracteristicas/shape_sample.zip">estas imágenes</a>, que debes descomprimir en un directorio llamado <code>shape_sample</code>.</p>
+<p>En este ejercicio necesitarás descargarte <a href="images/caracteristicas/shape_sample.zip">estas imágenes</a>, que debes descomprimir en un directorio llamado <code>shape_sample</code>.</p>
+<p>Para extraer los descriptores puedes usar algunas de <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html">estas funciones</a> de OpenCV.</p>
+<p>En el cálculo de la arcotangente (para la orientación) debes usar la función <em>atan2</em> en lugar de <em>atan</em>, ya que esta última no calcula los valores en los cuatro cuadrantes.</p>
+<p>Cuando vayamos a calcular la distancia entre dos números <code>float</code>, debemos usar el valor absoluto de su diferencia. En el caso del centroide (que es un punto con sus coordenadas <em>u,v</em>), deberemos calcular la <strong>distancia Euclídea</strong> entre los dos puntos.</p>
+<p>Para calcular las distancias de los descriptores Hu debes usar las siguientes ecuaciones:</p>
+<p><img alt="Eq1" src="images/caracteristicas/contoursMatch1.png" /></p>
+<p>donde <code>A</code> y <code>B</code> son las dos imágenes a comparar, y <code>m</code> se define como:</p>
+<p><img alt="Eq2" src="images/caracteristicas/contoursMatch2.png" /></p>
+<p>En este caso, <code>sign</code> es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y <code>h</code> son los momentos Hu número <code>i</code>. Sólo debe sumarse un momento <code>i</code> si sus componentes son mayores que un umbral 1.e-5. Es decir, si el valor absoluto del descriptor Hu número <code>i</code> es mayor de 1.e-5 en ambas imágenes (con que en una sea menor, no se considera). En C++, el logaritmo se calcula con la función <em>log10</em>, ya que si se usa <em>log</em> se calcula el neperiano (que no es el que necesitamos en este caso).</p>
+<p>Este es el cálculo que hace internamente el método <code>matchShapes</code> de OpenCV (algoritmo <code>CV_CONTOURS_MATCH_I1</code>) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.</p>
 <p>La salida del programa debe ser como la siguiente (si no indicamos ningún parámetro, por defecto se usa la imagen número 5):</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
@@ -984,16 +1005,7 @@ Imagen <span class="m">6</span>:
 <blockquote>
 <p>Si tienes OpenCV para Mac, hay un bug en el comparador de SC que hará que salgan valores muy altos para la variable <code>dSC</code>. Si esto ocurre, prueba tu programa en Linux antes de la entrega.</p>
 </blockquote>
-<p>Para extraer los descriptores puedes usar algunas de <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html">estas funciones</a> de OpenCV.</p>
-<p>Para calcular la arcotangente (en la orientación), usa la función <em>atan2</em> en lugar de <em>atan</em>.</p>
-<p>Cuando vayamos a calcular la distancia entre dos números <code>float</code>, debemos usar el valor absoluto de su diferencia. En el caso del centroide (que es un punto con sus coordenadas <em>u,v</em>), deberemos calcular la <strong>distancia Euclídea</strong> entre los dos puntos.</p>
-<p>Para calcular las distancias de los descriptores Hu debes usar las siguientes ecuaciones:</p>
-<p><img alt="Eq1" src="images/caracteristicas/contoursMatch1.png" /></p>
-<p>donde <code>A</code> y <code>B</code> son las dos imágenes a comparar, y <code>m</code> se define como:</p>
-<p><img alt="Eq2" src="images/caracteristicas/contoursMatch2.png" /></p>
-<p>En este caso, <code>sign</code> es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y <code>h</code> son los momentos Hu número <code>i</code>. Sólo debe sumarse un momento <code>i</code> si sus componentes son mayores que un umbral 1.e-5. Es decir, si el valor absoluto del descriptor Hu número <code>i</code> es mayor de 1.e-5 en ambas imágenes (con que en una sea menor, no se considera).</p>
-<p>Este es el cálculo que hace internamente el método <code>matchShapes</code> de OpenCV (algoritmo <code>CV_CONTOURS_MATCH_I1</code>) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.</p>
-<p>Revisa los resultados probando con distintas imágenes, cuando menor sea la distancia más se parecerán. Evidentemente habrá algunos descriptores que funcionarán mucho mejor que otros.</p>
+<p>Revisa los resultados probando con distintas imágenes, cuando menor sea la distancia más se parecerán. Evidentemente, algunos descriptores funcionarán mucho mejor que otros.</p>
 <hr />
 <h2 id="textura">Textura<a class="headerlink" href="#textura" title="Permanent link">&para;</a></h2>
 <p>Los filtros de Gabor se implementan en OpenCV creando un kernel mediante la función <code>getGaborKernel</code>, y después convolucionándolo con <code>filter2D</code> como ocurre con cualquier otro filtro.</p>
@@ -1378,6 +1390,20 @@ Cuando hayas terminado, puedes intentar mejorar la precisión de los resultados 
             </div>
           </a>
         
+        
+          <a href="reconocimiento.html" title="T7- Reconocimiento" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                T7- Reconocimiento
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
