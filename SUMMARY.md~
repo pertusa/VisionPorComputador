@@ -8,3 +8,4 @@
 * [T4- Procesamiento: Detección](deteccion.md)
 * [T5- Procesamiento: Segmentación](segmentacion.md)
 * [T6- Características](caracteristicas.md)
+* [T7- Reconocimiento](reconocimiento.md)
