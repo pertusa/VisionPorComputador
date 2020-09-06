@@ -537,7 +537,7 @@
 </pre></div>
 </td></tr></table>
 
-<p>Esto es porque la opción por defecto es <code>IMREAD_COLOR</code>, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Podemos ver todos los modos de apertura con <code>imread</code> en <a href="http://docs.opencv.org/3.1.0/d4/da8/group__imgcodecs.html#ga61d9b0126a3e57d9277ac48327799c80">este enlace</a>.</p>
+<p>Esto es porque la opción por defecto es <code>IMREAD_COLOR</code>, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Podemos ver todos los modos de apertura con <code>imread</code> en <a href="https://docs.opencv.org/3.2.0/d4/da8/group__imgcodecs.html#ga61d9b0126a3e57d9277ac48327799c80">este enlace</a>.</p>
 <h3 id="la-clase-mat">La clase Mat<a class="headerlink" href="#la-clase-mat" title="Permanent link">&para;</a></h3>
 <p>La clase <code>Mat</code> contiene los valores numéricos de la matriz que almacena, y además una cabecera (con el tipo de datos que contiene, las dimensiones de la matriz, etc). Esta clase de C++ tiene su constructor y destructor, por lo que no hace falta gestionar manualmente su memoria. La clase <code>Mat</code> sustituye al registro de C llamado <code>IplImage</code> que se usaba en las primeras versiones de OpenCV, y que se desaconseja usar actualmente ya que necesita liberar a mano la memoria.</p>
 <p>En OpenCV podemos crear una matriz arbitraria, contenga o no los datos de una imagen:</p>
