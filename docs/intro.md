@@ -97,7 +97,7 @@ La función `imread` tiene un parámetro opcional. Cuando carguemos una imagen e
 Mat image = imread("lena.jpg", IMREAD_GRAYSCALE);
 ```
 
-Esto es porque la opción por defecto es `IMREAD_COLOR`, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Podemos ver todos los modos de apertura con `imread` en [este enlace](http://docs.opencv.org/3.1.0/d4/da8/group__imgcodecs.html#ga61d9b0126a3e57d9277ac48327799c80).
+Esto es porque la opción por defecto es `IMREAD_COLOR`, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Podemos ver todos los modos de apertura con `imread` en [este enlace](https://docs.opencv.org/3.2.0/d4/da8/group__imgcodecs.html#ga61d9b0126a3e57d9277ac48327799c80).
 
 ### La clase Mat
 
