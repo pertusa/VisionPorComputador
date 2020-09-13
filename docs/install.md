@@ -69,7 +69,7 @@ esto, debemos:
 ```bash
 brew update
 brew install opencv@3
-brew brew upgrade
+brew upgrade
 ```
 
 Añadir las siguientes líneas al fichero .bash_profile que está en el
@@ -91,8 +91,7 @@ cp /usr/local/Cellar/opencv@3/3.4.5_6/lib/pkgconfig/opencv.pc /usr/local/lib/pkg
 pkg-config update
 ```
 
-Cerrar el terminal y volver a abrirlo para probar que se puede compilar
+Hay que cerrar el terminal y volver a abrirlo para probar que se puede compilar
 usando opencv.
  
-
 Si tienes MacPorts en lugar de HomeBrew, entonces es mejor seguir [este otro](http://tilomitra.com/opencv-on-mac-osx/) tutorial.
