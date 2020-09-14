@@ -57,6 +57,10 @@ Por último cerramos la terminal y volvemos a abrirla para que los cambios de `.
 
 Alternativamente puedes instalar [VirtualBox](https://www.virtualbox.org) en tu ordenador, y ejecutar la máquina virtual que contiene el software de los laboratorios.  En [este enlace](https://blogs.ua.es/labseps/2019/11/05/virtual-ubuntu-eps-2019-vdi/) puedes encontrar las instrucciones de instalación de este VDI que han creado los técnicos de la EPS para el curso 2019/2020. El VDI del curso 2020/2021 se publicará durante el curso, pero en el caso de Visión por Computador el software a utilizar no cambia con respecto al curso 2019/2020.
 
+## Instalación en Microsoft con Ubuntu Terminal
+
+Las instrucciones de instalación son las mismas que la versión de Ubuntu que lleve equipada Windows. Por ejemplo, si tiene instalada la 20.04 hay que descargar el código y compilarlo, si la versión es 18.04 hay que usar simplemente el instalador de paquetes de Ubuntu.
+
 ## Instalación en MacOS
 
 Si queremos instalarlo en **MacOS** se recomienda usar `homebrew`. Para
