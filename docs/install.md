@@ -6,9 +6,9 @@ En la asignatura de Visión por Computador usaremos **OpenCV 3.4.6 sobre Linux e
 
 En esta parte veremos cómo instalar OpenCV 3.4.6. Para empezar debemos descargar el código fuente (en `.zip`) desde [aquí](https://github.com/opencv/opencv/releases/tag/3.4.6).
 
-## Instalación en Linux (Ubuntu 16.04)
+## Instalación en Linux (Ubuntu 16.04 y Ubuntu 20.04)
 
-Si queremos instalarlo en **Ubuntu 16.04** debemos descomprir el código fuente y compilarlo siguiendo los pasos que pueden verse en [esta url](http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/).
+Si queremos instalarlo en **Ubuntu 16.04** o **Ubuntu 20.04** debemos descomprir el código fuente y compilarlo siguiendo los pasos que pueden verse en [esta url](http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/).
 
 ## Instalación en Linux (Ubuntu 18.04)
 
