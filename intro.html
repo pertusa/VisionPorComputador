@@ -1127,7 +1127,8 @@ f ** f
 36
 37
 38
-39</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
+39
+40</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
@@ -1162,7 +1163,8 @@ f ** f
 
         <span class="c1">// La función waitKey(n) se usa para introducir un retardo de n milisegundos al renderizar imagenes en un bucle.</span>
         <span class="c1">// Cuando se usa como waitKey(0) devuelve la tecla pulsada por el usuario en la ventana activa.</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+        <span class="c1">// En este caso, paramos el bucle sólo si se pulsa la tecla ESC.</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">==</span> <span class="mi">27</span> <span class="p">)</span> <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
