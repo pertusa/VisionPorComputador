@@ -555,7 +555,8 @@ int main() {
 
         // La función waitKey(n) se usa para introducir un retardo de n milisegundos al renderizar imagenes en un bucle.
         // Cuando se usa como waitKey(0) devuelve la tecla pulsada por el usuario en la ventana activa.
-        if(waitKey(30) >= 0) break;
+        // En este caso, paramos el bucle sólo si se pulsa la tecla ESC.
+        if( waitKey(30) == 27 ) break;
     }
     return 0;
 }
