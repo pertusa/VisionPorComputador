@@ -36,7 +36,7 @@
     
     
       
-        <title>Tema 2- Imagen digital y vídeo - Visión por Computador</title>
+        <title>T2- Imagen digital y vídeo - Visión por Computador</title>
       
     
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Tema 2- Imagen digital y vídeo
+                T2- Imagen digital y vídeo
               
             </span>
           
@@ -196,6 +196,123 @@
   </li>
 
     
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T2- Imagen digital y vídeo
+      </label>
+    
+    <a href="imagenvideo.html" title="T2- Imagen digital y vídeo" class="md-nav__link md-nav__link--active">
+      T2- Imagen digital y vídeo
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cambios-de-resolucion-espacial-y-radiometrica" class="md-nav__link">
+    Cambios de resolución espacial y radiométrica
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brillocontraste" class="md-nav__link">
+    Brillo/contraste
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#histogramas" class="md-nav__link">
+    Histogramas
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversion-de-espacios-de-color" class="md-nav__link">
+    Conversión de espacios de color
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_2" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pseudocolor" class="md-nav__link">
+    Pseudocolor
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -224,8 +341,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#histogramas" class="md-nav__link">
-    Histogramas
+  <a href="#brillocontraste" class="md-nav__link">
+    Brillo/contraste
   </a>
   
     <nav class="md-nav">
@@ -244,8 +361,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#brillocontraste" class="md-nav__link">
-    Brillo/contraste
+  <a href="#histogramas" class="md-nav__link">
+    Histogramas
   </a>
   
     <nav class="md-nav">
@@ -330,6 +447,51 @@
 </pre></div>
 </td></tr></table>
 
+<h2 id="brillocontraste">Brillo/contraste<a class="headerlink" href="#brillocontraste" title="Permanent link">&para;</a></h2>
+<p>Tal como puedes ver en las transparencias de teoría, el brillo y contraste de una imagen se definen con las siguientes ecuaciones:</p>
+<p><img alt="Brightness" src="images/imagenvideo/brightness.png" /></p>
+<p><img alt="Contrast" src="images/imagenvideo/contrast.png" /></p>
+<hr />
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<p>Implementa un programa en OpenCV llamado <code>bc.cpp</code> que reciba por parámetro el nombre de una imagen (la cargaremos en escala de grises) y muestre por el terminal su brillo y contraste. Ejemplo de ejecución:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./bc lena.jpg
+<span class="nv">b</span><span class="o">=</span><span class="m">120</span>.445
+<span class="nv">c</span><span class="o">=</span><span class="m">48</span>.2231
+</pre></div>
+</td></tr></table>
+
+<blockquote>
+<p>Importante: Como la corrección de prácticas es automática, la salida del programa debe tener exactamente el formato que se indica, por lo que la última línea del código debería ser como la siguiente:</p>
+</blockquote>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;b=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">brillo</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;c=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">contraste</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<blockquote>
+<p>Las variables <em>brillo</em> y <em>contraste</em> deben ser de tipo <em>float</em>.</p>
+</blockquote>
+<!---
+_Pista_: Para implementar el brillo se puede usar la función `mean` de OpenCV, que devuelve la media de los valores de una matriz:
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">Scalar</span> <span class="n">meanI</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;b= &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">meanI</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+Sin embargo esto no serviría para el contraste por lo que en este ejercicio hay que implementar el bucle a mano.
+--->
+
+<hr />
+<!--
+Mat dx,dy;
+Sobel(img,dx,1,0,3,CV_32F);
+Sobel(img,dy,0,1,3,CV_32F);
+G= sqrt(G2^2+G2^2)
+-->
+
 <h2 id="histogramas">Histogramas<a class="headerlink" href="#histogramas" title="Permanent link">&para;</a></h2>
 <p>Podemos calcular el histograma de una imagen con la función <code>calcHist</code>. Esta función recibe muchos parámetros porque está pensada para calcular a la vez todos los histogramas de un array de imágenes.</p>
 <p>Parámetros de <code>calcHist</code>:</p>
@@ -348,12 +510,11 @@
 <p>Veamos un ejemplo que calcula el histograma de una imagen en escala de  grises, lo muestra por el terminal y crea una gráfica en una ventana:</p>
 <!---
 WM: 
- Removed space after "el histograma"
- Added space after GRAYSCALE);
- One tab less in cout << " " loop
- i=1, i<histSize (antes i = 1, i < histSize)
- Scalar(255,0,0), 2, 8, 0);  Antes: Scalar(255, 0, 0), 2, 8, 0  );
- BS after waitkey
+ Variable donde guardaremos el histograma -> En esta variable guardaremos el histograma
+ Primer bucle for: Eliminados espacios al principio y al final
+ Ultimo bucle for: Lo mismo
+ int hist_h = 400; en línea separada (antes iba justo tras la instrucción anterior)
+ Removed WS after waitKey
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
@@ -399,7 +560,8 @@ WM:
 41
 42
 43
-44</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
+44
+45</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
@@ -413,17 +575,18 @@ WM:
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">Mat</span> <span class="n">hist</span><span class="p">;</span>  <span class="c1">// Variable donde guardaremos el histograma</span>
+    <span class="n">Mat</span> <span class="n">hist</span><span class="p">;</span>  <span class="c1">// En esta variable guardaremos el histograma</span>
     <span class="kt">int</span> <span class="n">histSize</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>  <span class="c1">// Numero de bins del histograma</span>
     <span class="n">calcHist</span><span class="p">(</span><span class="o">&amp;</span><span class="n">image</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Mat</span><span class="p">(),</span> <span class="n">hist</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">histSize</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// Calculamos el histograma</span>
 
     <span class="c1">// Mostramos los valores por pantalla</span>
-    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">histSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">histSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span>  <span class="n">hist</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
     <span class="c1">// Mostramos una grafica con el histograma</span>
-    <span class="kt">int</span> <span class="n">hist_w</span> <span class="o">=</span> <span class="mi">512</span><span class="p">;</span> <span class="kt">int</span> <span class="n">hist_h</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">hist_w</span> <span class="o">=</span> <span class="mi">512</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">hist_h</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">bin_w</span> <span class="o">=</span> <span class="n">cvRound</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">hist_w</span><span class="o">/</span><span class="n">histSize</span><span class="p">);</span>
 
     <span class="n">Mat</span> <span class="n">histImage</span><span class="p">(</span><span class="n">hist_h</span><span class="p">,</span> <span class="n">hist_w</span><span class="p">,</span> <span class="n">CV_8UC1</span><span class="p">,</span> <span class="n">Scalar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
@@ -432,7 +595,7 @@ WM:
     <span class="n">normalize</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="n">hist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">histImage</span><span class="p">.</span><span class="n">rows</span><span class="p">,</span> <span class="n">NORM_MINMAX</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Mat</span><span class="p">());</span>
 
     <span class="c1">// Dibujamos la grafica del histograma usando line, que crea una linea entre dos puntos.</span>
-    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">histSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">histSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">line</span><span class="p">(</span> <span class="n">histImage</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">bin_w</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">hist_h</span> <span class="o">-</span> <span class="n">cvRound</span><span class="p">(</span><span class="n">hist</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))),</span>
                        <span class="n">Point</span><span class="p">(</span><span class="n">bin_w</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">hist_h</span> <span class="o">-</span> <span class="n">cvRound</span><span class="p">(</span><span class="n">hist</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">))),</span>
                        <span class="n">Scalar</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -441,7 +604,7 @@ WM:
     <span class="n">namedWindow</span><span class="p">(</span><span class="s">&quot;Result&quot;</span><span class="p">,</span> <span class="n">WINDOW_AUTOSIZE</span><span class="p">);</span>
     <span class="n">imshow</span><span class="p">(</span><span class="s">&quot;Result&quot;</span><span class="p">,</span> <span class="n">histImage</span><span class="p">);</span>
 
-    <span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> 
+    <span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table>
@@ -484,7 +647,7 @@ WM:
 </td></tr></table>
 
 <hr />
-<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
 <p>Haz un programa llamado <code>histograma_color.cpp</code> que reciba por parámetro el nombre de fichero de una imagen y el nombre de otra imagen donde guardaremos el resultado. El programa debe mostrar en una ventana el histograma de sus tres colores básicos, y además guardarlo en el fichero de salida. Ejemplo de ejecución:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./histograma_color lena.jpg histograma.jpg
 </pre></div>
@@ -497,57 +660,12 @@ WM:
 </td></tr></table>
 
 <!---
-Watermark .
+WM: añadido el punto al final
 --->
 
 <hr />
 <!--
 Opción B: Dar este código e implementar el histograma de grayscale a mano.
--->
-
-<h2 id="brillocontraste">Brillo/contraste<a class="headerlink" href="#brillocontraste" title="Permanent link">&para;</a></h2>
-<p>Tal como puedes ver en las transparencias de teoría, el brillo y contraste de una imagen se definen con las siguientes ecuaciones:</p>
-<p><img alt="Brightness" src="images/imagenvideo/brightness.png" /></p>
-<p><img alt="Contrast" src="images/imagenvideo/contrast.png" /></p>
-<hr />
-<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
-<p>Implementa un programa en OpenCV llamado <code>bc.cpp</code> que reciba por parámetro el nombre de una imagen (la cargaremos en escala de grises) y muestre por el terminal su brillo y contraste. Ejemplo de ejecución:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./bc lena.jpg
-<span class="nv">b</span><span class="o">=</span><span class="m">120</span>.445
-<span class="nv">c</span><span class="o">=</span><span class="m">48</span>.2231
-</pre></div>
-</td></tr></table>
-
-<blockquote>
-<p>Importante: Como la corrección de prácticas es automática, la salida del programa debe tener exactamente el formato que se indica, por lo que la última línea del código debería ser como la siguiente:</p>
-</blockquote>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;b=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">brillo</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;c=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">contraste</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</pre></div>
-</td></tr></table>
-
-<blockquote>
-<p>Las variables <em>brillo</em> y <em>contraste</em> deben ser de tipo <em>float</em>.</p>
-</blockquote>
-<!---
-_Pista_: Para implementar el brillo se puede usar la función `mean` de OpenCV, que devuelve la media de los valores de una matriz:
-
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">Scalar</span> <span class="n">meanI</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;b= &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">meanI</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</pre></div>
-</td></tr></table>
-
-Sin embargo esto no serviría para el contraste por lo que en este ejercicio hay que implementar el bucle a mano.
---->
-
-<hr />
-<!--
-Mat dx,dy;
-Sobel(img,dx,1,0,3,CV_32F);
-Sobel(img,dy,0,1,3,CV_32F);
-G= sqrt(G2^2+G2^2)
 -->
 
 <h2 id="conversion-de-espacios-de-color">Conversión de espacios de color<a class="headerlink" href="#conversion-de-espacios-de-color" title="Permanent link">&para;</a></h2>
@@ -578,9 +696,16 @@ G= sqrt(G2^2+G2^2)
 </td></tr></table>
 
 <p>Puedes consultar <a href="http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html">en este enlace</a> todas las fórmulas que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299<em>R + 0.587</em>G+ 0.114*B.</p>
+<p>Ten en cuenta que OpenCV a veces no usa el mismo orden de canales del estándar del espacio de color. Por ejemplo, RGB se codifica en OpenCV como BGR, y HSL se codifica como HLS, por lo que el último canal que almacena en este caso es S en lugar de L.</p>
 <hr />
 <h3 id="ejercicio_2">Ejercicio<a class="headerlink" href="#ejercicio_2" title="Permanent link">&para;</a></h3>
-<p>Haz un programa llamado <code>colorLight.cpp</code> que reciba por parámetro el nombre de una imagen y muestre con <code>imshow</code> la imagen original (en color) RGB, el canal <strong>L</strong> de CIELab, el canal <strong>V</strong> de HSV, el canal <strong>L</strong> de HSL y el canal <strong>Y</strong> de YCbCr. También debe guardar en escala de grises las tres imágenes correspondientes a estos canales con los nombres <code>cielab_l.jpg</code>, <code>hsv_v.jpg</code>, <code>hsl_l.jpg</code> y <code>ycrcb_y.jpg</code>.</p>
+<p>Haz un programa llamado <code>colorLight.cpp</code> que reciba por parámetro el nombre de una imagen y extraiga los canales que se muestran a continuación, guardándolos <strong>exactamente</strong> con el siguiente nombre de fichero:</p>
+<ul>
+<li>El canal <strong>L</strong> de CIELab, fichero <code>cielab_l.jpg</code>.</li>
+<li>El canal <strong>V</strong> de HSV, fichero  <code>hsv_v.jpg</code>.</li>
+<li>El canal <strong>L</strong> de HSL, fichero  <code>hsl_l.jpg</code>.</li>
+<li>El canal <strong>Y</strong> de YCbCr, fichero  <code>ycrcb_y.jpg</code>.</li>
+</ul>
 <p>Para hacer pruebas puedes usar la siguiente imagen de entrada:</p>
 <!---
 ![Fire breathing](https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg")
@@ -624,6 +749,27 @@ G= sqrt(G2^2+G2^2)
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="intro.html" title="T1- Introducción" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                T1- Introducción
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
