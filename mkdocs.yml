@@ -4,6 +4,7 @@ use_directory_urls: false
 nav:
 - Instalación de OpenCV : 'install.md'
 - T1- Introducción : 'intro.md'
+- T2- Imagen digital y vídeo : 'imagenvideo.md'
 
 theme:
     language: es
