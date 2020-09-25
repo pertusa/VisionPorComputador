@@ -52,20 +52,30 @@ En OpenCV existen técnicas alternativas de binarización como el umbralizado ad
 
 ### Ejercicio
 
-Haz un programa llamado `bct.cpp` que reciba 3 parámetros: El nombre de la imagen (que leeremos en escala de grises), un valor para el contraste (lo llamaremos _alpha_, de tipo `double`) y un valor para el brillo (_beta_, de tipo `int`). Ejemplo de uso:
+Haz un programa llamado `bct.cpp` que reciba 3 parámetros: El nombre de la imagen (que leeremos en escala de grises), un valor para el contraste (lo llamaremos _alpha_, de tipo `double`) y un valor para el brillo (_beta_, de tipo `int`). Debes comprobar que el programa recibe los parámetros indicados. Ejemplo de uso:
 
 ```bash
-./bct lena.jpg 1.0 0
+./bct lena.jpg 0.5 2
 ```
+
+Con este ejemplo, el resultado debería ser como la siguiente imagen:
+
+![Transformaciones brillo contraste](images/transformaciones/bct.jpg)
+
+
+
+<!--- TODO: PONER IMAGEN SALIDA EJEMPLO --->
+
 
 <!---
 Cambiados rangos [0,3] por [0,2] y [0,100] por [-50,50]
 --->
 
-El programa debe guardar en el fichero `bct.jpg` el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de _alpha_ en el rango [0,2] y de _beta_ en el rango [-50,50].
+El programa debe guardar en un fichero llamado `bct.jpg` (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de _alpha_ en el rango [0,2] y de _beta_ en el rango [-50,50].
 
+<!---
 > Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar `CommandLineParser`, ya que [esta función](http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html) lo hace por nosotros. Usa este código como base para tu programa:
-
+--->
 <!---
 WM: removed bs after "original"
 WM: removed bs after "printmessage"
@@ -74,7 +84,7 @@ WM: imageFilename=
 WM: aqui -> a continuacion
 WM: double -> float
 --->
-
+<!---
 ```cpp
 const string keys =
        "{help h usage ? |   | imprimir este mensaje }"
@@ -104,6 +114,7 @@ int main(int argc, char* argv[])
 
 }
 ```
+--->
 
 <!---
 // PROBAR: Check if params are correctly parsed in his variables -> No funciona
@@ -118,7 +129,7 @@ if (!parser.check())
 
 ## Transformaciones globales
 
-Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula la transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En esta asignatura no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](http://docs.opencv.org/trunk/d8/d01/tutorial_discrete_fourier_transform.html).
+Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](http://docs.opencv.org/trunk/d8/d01/tutorial_discrete_fourier_transform.html).
 
 ## Transformaciones geométricas
 
@@ -158,7 +169,7 @@ Mat translate(Mat &src, int offsetx, int offsety)
 Mat dst = translate(image, 0, -10);
 ```
 
-La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en la [su documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
+La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
 
 En general, podemos usar `warpAffine` para implementar cualquier transformación afín, pero existen funciones específicas para ayudar a gestionar algunas transformaciones como veremos a continuación.
 
@@ -275,14 +286,14 @@ También tenemos otra opción muy práctica para implementar una transformación
 Implementa un programa llamado `perspectiva.cpp` para corregir la perspectiva de una imagen `damas.jpg` dados estos 4 puntos de sus esquinas:
 
 <!---
-WM: bs after derecha 
+WM: Añadidos puntos después de cada comentario
 --->
 
 ```cpp
-278, 27  // Esquina superior izquierda
-910, 44  // Esquina superior derecha 
-27, 546  // Esquina inferior izquierda
-921, 638 // Esquina inferior derecha
+278, 27  // Esquina superior izquierda.
+910, 44  // Esquina superior derecha.
+27, 546  // Esquina inferior izquierda.
+921, 638 // Esquina inferior derecha.
 ```
 
 Esta es la imagen de entrada:
@@ -418,7 +429,6 @@ El programa a implementar debe cargar directamente la imagen resultante del ejer
 
 #### Fichas blancas
 
-* Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien, ¿por qué crees que es mucho más complicado?
+* Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado al confundirse el color de las fichas con el de las casillas blancas.
 
 ---
-
