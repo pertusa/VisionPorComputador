@@ -36,7 +36,7 @@
     
     
       
-        <title>Tema 3- Procesamiento de imagen: Transformaciones - Visión por Computador</title>
+        <title>T3- Transformaciones - Visión por Computador</title>
       
     
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Tema 3- Procesamiento de imagen: Transformaciones
+                T3- Transformaciones
               
             </span>
           
@@ -205,6 +205,157 @@
     <a href="imagenvideo.html" title="T2- Imagen digital y vídeo" class="md-nav__link">
       T2- Imagen digital y vídeo
     </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T3- Transformaciones
+      </label>
+    
+    <a href="transformaciones.html" title="T3- Transformaciones" class="md-nav__link md-nav__link--active">
+      T3- Transformaciones
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-puntuales" class="md-nav__link">
+    Transformaciones puntuales
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-globales" class="md-nav__link">
+    Transformaciones globales
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-geometricas" class="md-nav__link">
+    Transformaciones geométricas
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-en-entorno-de-vecindad" class="md-nav__link">
+    Transformaciones en entorno de vecindad
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtros-de-convolucion" class="md-nav__link">
+    Filtros de convolución
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtro-de-mediana" class="md-nav__link">
+    Filtro de mediana
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-morfologicas" class="md-nav__link">
+    Transformaciones morfológicas
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erosion-y-dilatacion" class="md-nav__link">
+    Erosión y dilatación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apertura-cierre-y-top-hat" class="md-nav__link">
+    Apertura, cierre y Top-Hat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_2" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -397,19 +548,24 @@
 <p>En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.</p>
 <hr />
 <h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
-<p>Haz un programa llamado <code>bct.cpp</code> que reciba 3 parámetros: El nombre de la imagen (que leeremos en escala de grises), un valor para el contraste (lo llamaremos <em>alpha</em>, de tipo <code>double</code>) y un valor para el brillo (<em>beta</em>, de tipo <code>int</code>). Ejemplo de uso:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./bct lena.jpg <span class="m">1</span>.0 <span class="m">0</span>
+<p>Haz un programa llamado <code>bct.cpp</code> que reciba 3 parámetros: El nombre de la imagen (que leeremos en escala de grises), un valor para el contraste (lo llamaremos <em>alpha</em>, de tipo <code>double</code>) y un valor para el brillo (<em>beta</em>, de tipo <code>int</code>). Debes comprobar que el programa recibe los parámetros indicados. Ejemplo de uso:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>./bct lena.jpg <span class="m">0</span>.5 <span class="m">2</span>
 </pre></div>
 </td></tr></table>
+
+<p>Con este ejemplo, el resultado debería ser como la siguiente imagen:</p>
+<p><img alt="Transformaciones brillo contraste" src="images/transformaciones/bct.jpg" /></p>
+<!--- TODO: PONER IMAGEN SALIDA EJEMPLO --->
 
 <!---
 Cambiados rangos [0,3] por [0,2] y [0,100] por [-50,50]
 --->
 
-<p>El programa debe guardar en el fichero <code>bct.jpg</code> el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de <em>alpha</em> en el rango [0,2] y de <em>beta</em> en el rango [-50,50].</p>
-<blockquote>
-<p>Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar <code>CommandLineParser</code>, ya que <a href="http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html">esta función</a> lo hace por nosotros. Usa este código como base para tu programa:</p>
-</blockquote>
+<p>El programa debe guardar en un fichero llamado <code>bct.jpg</code> (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de <em>alpha</em> en el rango [0,2] y de <em>beta</em> en el rango [-50,50].</p>
+<!---
+> Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar `CommandLineParser`, ya que [esta función](http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html) lo hace por nosotros. Usa este código como base para tu programa:
+--->
+
 <!---
 WM: removed bs after "original"
 WM: removed bs after "printmessage"
@@ -419,6 +575,7 @@ WM: aqui -> a continuacion
 WM: double -> float
 --->
 
+<!---
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
@@ -474,6 +631,7 @@ WM: double -> float
 <span class="p">}</span>
 </pre></div>
 </td></tr></table>
+--->
 
 <!---
 // PROBAR: Check if params are correctly parsed in his variables -> No funciona
@@ -486,7 +644,7 @@ if (!parser.check())
 
 <hr />
 <h2 id="transformaciones-globales">Transformaciones globales<a class="headerlink" href="#transformaciones-globales" title="Permanent link">&para;</a></h2>
-<p>Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función <code>dft</code> que calcula la transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En esta asignatura no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar <a href="http://docs.opencv.org/trunk/d8/d01/tutorial_discrete_fourier_transform.html">este enlace</a>.</p>
+<p>Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función <code>dft</code> que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar <a href="http://docs.opencv.org/trunk/d8/d01/tutorial_discrete_fourier_transform.html">este enlace</a>.</p>
 <h2 id="transformaciones-geometricas">Transformaciones geométricas<a class="headerlink" href="#transformaciones-geometricas" title="Permanent link">&para;</a></h2>
 <p>En OpenCV la mayoría de transformaciones geométricas se implementan creando una matriz de transformación y aplicándola a la imagen original con <code>warpAffine</code>.</p>
 <p>Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa las transformaciones afines mediante matrices aumentadas. Como hemos visto en teoría, la última fila de la matriz aumentada en una transformación afín es siempre (0,0,1) por lo que no hay que indicarla (por este motivo se indica una matriz de 2x3 en lugar de 3x3).</p>
@@ -531,7 +689,7 @@ M=\begin{bmatrix}
 </pre></div>
 </td></tr></table>
 
-<p>La función <code>warpAffine</code> tiene también parámetros para indicar el tipo de interpolación (<code>flags</code>) y el comportamiento en los bordes, tal como puede verse en la <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&amp;%20borderValue)">su documentación</a>.</p>
+<p>La función <code>warpAffine</code> tiene también parámetros para indicar el tipo de interpolación (<code>flags</code>) y el comportamiento en los bordes, tal como puede verse en su <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&amp;%20borderValue)">documentación</a>.</p>
 <p>En general, podemos usar <code>warpAffine</code> para implementar cualquier transformación afín, pero existen funciones específicas para ayudar a gestionar algunas transformaciones como veremos a continuación.</p>
 <ul>
 <li><strong>Rotación</strong></li>
@@ -671,16 +829,16 @@ WM: tamaños
 <h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
 <p>Implementa un programa llamado <code>perspectiva.cpp</code> para corregir la perspectiva de una imagen <code>damas.jpg</code> dados estos 4 puntos de sus esquinas:</p>
 <!---
-WM: bs after derecha 
+WM: Añadidos puntos después de cada comentario
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="mi">278</span><span class="p">,</span> <span class="mi">27</span>  <span class="c1">// Esquina superior izquierda</span>
-<span class="mi">910</span><span class="p">,</span> <span class="mi">44</span>  <span class="c1">// Esquina superior derecha </span>
-<span class="mi">27</span><span class="p">,</span> <span class="mi">546</span>  <span class="c1">// Esquina inferior izquierda</span>
-<span class="mi">921</span><span class="p">,</span> <span class="mi">638</span> <span class="c1">// Esquina inferior derecha</span>
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="mi">278</span><span class="p">,</span> <span class="mi">27</span>  <span class="c1">// Esquina superior izquierda.</span>
+<span class="mi">910</span><span class="p">,</span> <span class="mi">44</span>  <span class="c1">// Esquina superior derecha.</span>
+<span class="mi">27</span><span class="p">,</span> <span class="mi">546</span>  <span class="c1">// Esquina inferior izquierda.</span>
+<span class="mi">921</span><span class="p">,</span> <span class="mi">638</span> <span class="c1">// Esquina inferior derecha.</span>
 </pre></div>
 </td></tr></table>
 
@@ -796,7 +954,7 @@ Haz un programa que reciba como parámetro una imagen, la lea en escala de grise
 </ul>
 <h4>Fichas blancas</h4>
 <ul>
-<li>Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero <code>blancas.jpg</code>. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien, ¿por qué crees que es mucho más complicado?</li>
+<li>Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero <code>blancas.jpg</code>. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado al confundirse el color de las fichas con el de las casillas blancas.</li>
 </ul>
 <hr />
                 
@@ -815,6 +973,27 @@ Haz un programa que reciba como parámetro una imagen, la lea en escala de grise
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="imagenvideo.html" title="T2- Imagen digital y vídeo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                T2- Imagen digital y vídeo
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
