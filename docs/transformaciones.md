@@ -73,6 +73,13 @@ Cambiados rangos [0,3] por [0,2] y [0,100] por [-50,50]
 
 El programa debe guardar en un fichero llamado `bct.jpg` (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de _alpha_ en el rango [0,2] y de _beta_ en el rango [-50,50].
 
+Para leer un _float_ o un _int_ en C++ desde los argumentos del programa, puedes usar las funciones _atof_ o _atoi_ respectivamente:
+
+```cpp
+float real = atof(argv[x]);
+int entero = atoi(argv[x]);
+```
+
 <!---
 > Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar `CommandLineParser`, ya que [esta función](http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html) lo hace por nosotros. Usa este código como base para tu programa:
 --->
