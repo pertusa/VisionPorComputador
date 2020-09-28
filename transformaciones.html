@@ -562,6 +562,13 @@ Cambiados rangos [0,3] por [0,2] y [0,100] por [-50,50]
 --->
 
 <p>El programa debe guardar en un fichero llamado <code>bct.jpg</code> (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de <em>alpha</em> en el rango [0,2] y de <em>beta</em> en el rango [-50,50].</p>
+<p>Para leer un <em>float</em> o un <em>int</em> en C++ desde los argumentos del programa, puedes usar las funciones <em>atof</em> o <em>atoi</em> respectivamente:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="kt">float</span> <span class="n">real</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+<span class="kt">int</span> <span class="n">entero</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+</pre></div>
+</td></tr></table>
+
 <!---
 > Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar `CommandLineParser`, ya que [esta función](http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html) lo hace por nosotros. Usa este código como base para tu programa:
 --->
