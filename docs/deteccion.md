@@ -55,6 +55,10 @@ También podemos usar OpenCV para extraer los gradientes en ambas direcciones de
 
 Podemos usar distintos kernels para implementar otros gradientes mediante convolución. Crea un programa llamado `prewitt.cpp` a partir del siguiente código, realizando las convoluciones correspondientes de los filtros Prewitt en horizontal y vertical y completando las partes marcadas con **TODO**:
 
+<!---
+WM: Cambiado input fijo "lena" y output "prewitt_lena" por argv[1], argv[2] 
+--->
+
 ```cpp
 #include <opencv2/opencv.hpp>
 #include <iostream>
@@ -62,8 +66,14 @@ Podemos usar distintos kernels para implementar otros gradientes mediante convol
 using namespace std;
 using namespace cv;
 
-int main() {
-    Mat image = imread("lena.jpg", IMREAD_GRAYSCALE);
+int main(int argc, char *argv[])
+{
+    if (argc!=3) {
+      cerr << "Syntax: " << argv[0] << " <input_image> <output_image>" << endl;
+      exit(-1);
+    }
+
+    Mat image = imread(argv[1], IMREAD_GRAYSCALE);
     Mat gu, gv;
 
     if (image.data) {
@@ -82,22 +92,22 @@ int main() {
       // Convertimos de float a uchar para poder visualizar la imagen
       magn.convertTo(magn, CV_8UC1);
 
-      // TODO: Guardar resultado en lena_prewitt.jpg
+      // TODO: Guardar resultado en argv[2]
 
       imshow("Magnitud", magn);
       waitKey(0);
     }
-    else cout << "Error opening lena.jpg" << endl;
+    else cout << "Error opening input file" << endl;
 }
 ```
 
 Como puedes ver, usamos una resolución radiométrica `CV_32F` para evitar _overflow_. Después devolvemos el resultado a su resolución  original mediante `convertTo`.
 
-El programa debe leer en escala de grises la imagen `lena.jpg`, calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen `lena_prewitt.jpg`. El resultado debería ser como la siguiente imagen:
+El programa lee en escala de grises la imagen de entrada y debe calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada en `argv[2]`. En el caso de introducir la imagen _lena.jpg_, el resultado debería ser como el siguiente:
 
 ![Lena prewitt](images/deteccion/lena_prewitt.jpg)
 
-Verás que el resultado de ejecutar ambos programas es distinto y que Sobel detecta los bordes mejor que Prewitt.
+Verás que el resultado de ejecutar ambos programas es distinto y que en este caso Sobel detecta los bordes mejor que Prewitt.
 
 ---
 
@@ -138,10 +148,9 @@ Como ocurre con las funciones anteriores, los filtros Canny también pueden tene
 Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso, partiremos de este código que tendrás que descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.cpp`.
 
 <!---
-WM: 150. -> 150
-WM: Canny -> canny
-WM: BS tras "Con los bordes"
-WM: En imwrite ,BSresult
+WM: 150 -> 150.
+WM: tipica -> típica  
+WM: 0 -> 0.
 --->
 
 ```cpp
@@ -166,7 +175,7 @@ int main(int argc, const char* argv[])
 	// Aplicamos un filtro de mediana de tamaño 7x7 para quitar ruido.
 	// TODO
 
-	// Detectamos los bordes con canny, umbral inferior 50 y superior 150
+	// Detectamos los bordes con canny, umbral inferior 50 y superior 150.
 	// TODO
 
 	// Dilatamos los bordes mediante un filtro cuadrado de 2x2
@@ -178,19 +187,19 @@ int main(int argc, const char* argv[])
 	// Convertimos la imagen a float para permitir multiplicaciones con valores entre 0 y 1
 	imgCanny.convertTo(imgCannyf, CV_32FC3);
 
-	// Aplicamos un filtro gaussiano de 5x5 pixels con desviacion tipica 0
+	// Aplicamos un filtro gaussiano de 5x5 pixels con desviacion típica 0.
 	// TODO	(guardar en imgCannyf)
 
 
 /** COLOR **/
-	// Sobre la imagen original, aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150. 
+	// Sobre la imagen original, aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150.
 	// TODO (guardar en imgBF)
 
 	// Truncamos los colores. En este caso usamos un valor de 25 (cuanto mas alto mas "cartoonizado")
         result = imgBF / 25;
         result = result * 25;
 
-	// Convertimos la imagen a float, igual que hemos hecho con los bordes 
+	// Convertimos la imagen a float, igual que hemos hecho con los bordes
 	// TODO (guardar en resultf)
 
 
@@ -216,7 +225,7 @@ int main(int argc, const char* argv[])
 }
 ```
 
-El resultado del programa debería ser idéntico a este:
+El resultado del programa debería ser **exactamente** este:
 
 ![cartoonized](images/deteccion/cartoonized.jpg)
 
@@ -333,9 +342,9 @@ Puedes encontrar un buen ejemplo de Harris [en este enlace](http://docs.opencv.o
 Escribe el siguiente código, llámalo `harris.cpp` y complétalo como se indica:
 
 <!---
-WM: 10000. -> 10000
-WM: damasHarris.jpg -> Added .
-WM: 
+WM: 10000-> 10000.
+WM: src) -> src).
+WM: ademas -> además
 --->
 
 ```cpp
@@ -356,10 +365,10 @@ int main() {
     // TODO (guardar en dst)
 
     // Sobre la imagen original, poner en color azul los píxeles detectados como borde.
-    // Son aquellos que en los que dst(i,j) tiene un valor mayor de 10000
-    // TODO (guardar en src)
+    // Son aquellos que en los que dst(i,j) tiene un valor mayor de 10000.
+    // TODO (guardar en src).
 
-    // Mostrar por pantalla src y ademas guardarlo en el fichero llamado  "damasHarris.jpg".
+    // Mostrar por pantalla src y además guardarlo en el fichero llamado  "damasHarris.jpg".
     // TODO
 }
 ```
