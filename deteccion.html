@@ -36,7 +36,7 @@
     
     
       
-        <title>Tema 4 - Procesamiento de imagen: Filtrado y detección de bordes, líneas, puntos aislados y esquinas - Visión por Computador</title>
+        <title>T4- Detección - Visión por Computador</title>
       
     
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Tema 4 - Procesamiento de imagen: Filtrado y detección de bordes, líneas, puntos aislados y esquinas
+                T4- Detección
               
             </span>
           
@@ -217,6 +217,117 @@
     <a href="transformaciones.html" title="T3- Transformaciones" class="md-nav__link">
       T3- Transformaciones
     </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T4- Detección
+      </label>
+    
+    <a href="deteccion.html" title="T4- Detección" class="md-nav__link md-nav__link--active">
+      T4- Detección
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-bordes" class="md-nav__link">
+    Detección de bordes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduccion-de-ruido" class="md-nav__link">
+    Reducción de ruido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-lineas" class="md-nav__link">
+    Detección de líneas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-puntos-aislados" class="md-nav__link">
+    Detección de puntos aislados
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-esquinas-harris" class="md-nav__link">
+    Detección de esquinas: Harris
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_2" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -403,6 +514,10 @@ Alternativa: Que lo implementen ellos. OJO: También se puede implementar con So
 <p>También podemos usar OpenCV para extraer los gradientes en ambas direcciones de una imagen en <strong>escala de grises</strong> usando las fórmulas vistas en teoría, y esto es lo que haremos en el siguiente ejercicio.</p>
 <h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
 <p>Podemos usar distintos kernels para implementar otros gradientes mediante convolución. Crea un programa llamado <code>prewitt.cpp</code> a partir del siguiente código, realizando las convoluciones correspondientes de los filtros Prewitt en horizontal y vertical y completando las partes marcadas con <strong>TODO</strong>:</p>
+<!---
+WM: Cambiado input fijo "lena" y output "prewitt_lena" por argv[1], argv[2] 
+--->
+
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
@@ -435,14 +550,26 @@ Alternativa: Que lo implementen ellos. OJO: También se puede implementar con So
 30
 31
 32
-33</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Mat</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">&quot;lena.jpg&quot;</span><span class="p">,</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span><span class="o">!=</span><span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Syntax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &lt;input_image&gt; &lt;output_image&gt;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Mat</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
     <span class="n">Mat</span> <span class="n">gu</span><span class="p">,</span> <span class="n">gv</span><span class="p">;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
@@ -461,20 +588,20 @@ Alternativa: Que lo implementen ellos. OJO: También se puede implementar con So
       <span class="c1">// Convertimos de float a uchar para poder visualizar la imagen</span>
       <span class="n">magn</span><span class="p">.</span><span class="n">convertTo</span><span class="p">(</span><span class="n">magn</span><span class="p">,</span> <span class="n">CV_8UC1</span><span class="p">);</span>
 
-      <span class="c1">// TODO: Guardar resultado en lena_prewitt.jpg</span>
+      <span class="c1">// TODO: Guardar resultado en argv[2]</span>
 
       <span class="n">imshow</span><span class="p">(</span><span class="s">&quot;Magnitud&quot;</span><span class="p">,</span> <span class="n">magn</span><span class="p">);</span>
       <span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error opening lena.jpg&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error opening input file&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table>
 
 <p>Como puedes ver, usamos una resolución radiométrica <code>CV_32F</code> para evitar <em>overflow</em>. Después devolvemos el resultado a su resolución  original mediante <code>convertTo</code>.</p>
-<p>El programa debe leer en escala de grises la imagen <code>lena.jpg</code>, calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen <code>lena_prewitt.jpg</code>. El resultado debería ser como la siguiente imagen:</p>
+<p>El programa lee en escala de grises la imagen de entrada y debe calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada en <code>argv[2]</code>. En el caso de introducir la imagen <em>lena.jpg</em>, el resultado debería ser como el siguiente:</p>
 <p><img alt="Lena prewitt" src="images/deteccion/lena_prewitt.jpg" /></p>
-<p>Verás que el resultado de ejecutar ambos programas es distinto y que Sobel detecta los bordes mejor que Prewitt.</p>
+<p>Verás que el resultado de ejecutar ambos programas es distinto y que en este caso Sobel detecta los bordes mejor que Prewitt.</p>
 <hr />
 <h3 id="reduccion-de-ruido">Reducción de ruido<a class="headerlink" href="#reduccion-de-ruido" title="Permanent link">&para;</a></h3>
 <p>Como hemos visto en teoría, los filtros <strong>gaussianos</strong> sirven para suavizar la imagen y eliminar ruido. Se suelen usar como paso previo a los sistemas de detección de bordes para evitar que el ruido les afecte.</p>
@@ -506,10 +633,9 @@ Alternativa: Que lo implementen ellos. OJO: También se puede implementar con So
 <h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
 <p>Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso, partiremos de este código que tendrás que descargar, completando las instrucciones indicadas con <strong>TODO</strong>. Se trata de un ejercicio para <em>cartoonizar</em> una imagen. Llama al siguiente programa <code>cartoonize.cpp</code>.</p>
 <!---
-WM: 150. -> 150
-WM: Canny -> canny
-WM: BS tras "Con los bordes"
-WM: En imwrite ,BSresult
+WM: 150 -> 150.
+WM: tipica -> típica  
+WM: 0 -> 0.
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
@@ -601,7 +727,7 @@ WM: En imwrite ,BSresult
     <span class="c1">// Aplicamos un filtro de mediana de tamaño 7x7 para quitar ruido.</span>
     <span class="c1">// TODO</span>
 
-    <span class="c1">// Detectamos los bordes con canny, umbral inferior 50 y superior 150</span>
+    <span class="c1">// Detectamos los bordes con canny, umbral inferior 50 y superior 150.</span>
     <span class="c1">// TODO</span>
 
     <span class="c1">// Dilatamos los bordes mediante un filtro cuadrado de 2x2</span>
@@ -613,19 +739,19 @@ WM: En imwrite ,BSresult
     <span class="c1">// Convertimos la imagen a float para permitir multiplicaciones con valores entre 0 y 1</span>
     <span class="n">imgCanny</span><span class="p">.</span><span class="n">convertTo</span><span class="p">(</span><span class="n">imgCannyf</span><span class="p">,</span> <span class="n">CV_32FC3</span><span class="p">);</span>
 
-    <span class="c1">// Aplicamos un filtro gaussiano de 5x5 pixels con desviacion tipica 0</span>
+    <span class="c1">// Aplicamos un filtro gaussiano de 5x5 pixels con desviacion típica 0.</span>
     <span class="c1">// TODO (guardar en imgCannyf)</span>
 
 
 <span class="cm">/** COLOR **/</span>
-    <span class="c1">// Sobre la imagen original, aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150. </span>
+    <span class="c1">// Sobre la imagen original, aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150.</span>
     <span class="c1">// TODO (guardar en imgBF)</span>
 
     <span class="c1">// Truncamos los colores. En este caso usamos un valor de 25 (cuanto mas alto mas &quot;cartoonizado&quot;)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">imgBF</span> <span class="o">/</span> <span class="mi">25</span><span class="p">;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">25</span><span class="p">;</span>
 
-    <span class="c1">// Convertimos la imagen a float, igual que hemos hecho con los bordes </span>
+    <span class="c1">// Convertimos la imagen a float, igual que hemos hecho con los bordes</span>
     <span class="c1">// TODO (guardar en resultf)</span>
 
 
@@ -652,7 +778,7 @@ WM: En imwrite ,BSresult
 </pre></div>
 </td></tr></table>
 
-<p>El resultado del programa debería ser idéntico a este:</p>
+<p>El resultado del programa debería ser <strong>exactamente</strong> este:</p>
 <p><img alt="cartoonized" src="images/deteccion/cartoonized.jpg" /></p>
 <hr />
 <h2 id="deteccion-de-lineas">Detección de líneas<a class="headerlink" href="#deteccion-de-lineas" title="Permanent link">&para;</a></h2>
@@ -777,9 +903,9 @@ Hacer un programa llamado `hough.cpp` que escriba las líneas detectadas de la i
 <h3 id="ejercicio_2">Ejercicio<a class="headerlink" href="#ejercicio_2" title="Permanent link">&para;</a></h3>
 <p>Escribe el siguiente código, llámalo <code>harris.cpp</code> y complétalo como se indica:</p>
 <!---
-WM: 10000. -> 10000
-WM: damasHarris.jpg -> Added .
-WM: 
+WM: 10000-> 10000.
+WM: src) -> src).
+WM: ademas -> además
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
@@ -821,10 +947,10 @@ WM:
     <span class="c1">// TODO (guardar en dst)</span>
 
     <span class="c1">// Sobre la imagen original, poner en color azul los píxeles detectados como borde.</span>
-    <span class="c1">// Son aquellos que en los que dst(i,j) tiene un valor mayor de 10000</span>
-    <span class="c1">// TODO (guardar en src)</span>
+    <span class="c1">// Son aquellos que en los que dst(i,j) tiene un valor mayor de 10000.</span>
+    <span class="c1">// TODO (guardar en src).</span>
 
-    <span class="c1">// Mostrar por pantalla src y ademas guardarlo en el fichero llamado  &quot;damasHarris.jpg&quot;.</span>
+    <span class="c1">// Mostrar por pantalla src y además guardarlo en el fichero llamado  &quot;damasHarris.jpg&quot;.</span>
     <span class="c1">// TODO</span>
 <span class="p">}</span>
 </pre></div>
@@ -849,6 +975,27 @@ WM:
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="transformaciones.html" title="T3- Transformaciones" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                T3- Transformaciones
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
