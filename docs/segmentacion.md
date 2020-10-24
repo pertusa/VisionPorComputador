@@ -35,7 +35,7 @@ http://www.lengrand.fr/2011/11/simple-region-growing-implementation-in-python
 
 ## Watershed
 
-En OpenCV tenemos el algoritmo `Watershed`. Puedes ver ejemplos de uso de un programa   [interactivo](https://docs.opencv.org/trunk/d8/da9/watershed_8cpp-example.html) y también [no interactivo](https://docs.opencv.org/trunk/d2/dbd/tutorial_distance_transform.html), es decir, deduciendo de forma automática los marcadores iniciales.
+En OpenCV tenemos el algoritmo `Watershed`. Puedes ver ejemplos de uso de un programa   [interactivo](https://www.oreilly.com/library/view/opencv-computer-vision/9781849694889/video4_2.html) y también [no interactivo](https://docs.opencv.org/trunk/d2/dbd/tutorial_distance_transform.html), es decir, deduciendo de forma automática los marcadores iniciales.
 
 En el ejemplo no interactivo se segmenta la siguiente imagen:
 
@@ -192,24 +192,26 @@ Syntax: ./retinaSegment <image> <mask> <output>
 ![Ejemplo de máscara](images/segmentacion/21_training_mask.tif)
 ![Ejemplo de segmentación sin errores](images/segmentacion/21_manual1.tif)
 
-Se proporcionan los datos de las retinas y las imágenes correctamente segmentadas para evaluar el resultado. También está disponible el sistema de evaluación.
+Se proporcionan los datos de las retinas, las imágenes correctamente segmentadas para comprobar los resultados de la segmentación, y el script de evaluación.
 
-Descarga todos los materiales de este ejercicio que se encuentran en el  fichero [ejercicioRetinas.zip](images/segmentacion/ejercicioRetinas.zip). En la carpeta `retinas` tenemos las imágenes a procesar. Estas imágenes son un subconjunto sacado de la base de datos [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/). Cuando descomprimas este archivo, podrás ver en el directorio `retinas` lo siguiente:
+Para empezar descarga todos los materiales de este ejercicio, que se encuentran en el fichero [ejercicioRetinas.zip](images/segmentacion/ejercicioRetinas.zip). En la carpeta `retinas` tenemos las imágenes a procesar. Estas imágenes son un subconjunto sacado de la base de datos [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/). Cuando descomprimas este archivo, podrás ver en el directorio `retinas` las siguientes carpetas:
 
 * `images`: imágenes de entrada que debe segmentar tu algoritmo.
 * `mask`: máscaras de las imágenes originales.
-* `output`: directorio vacío (de momento).
-* `2nd_manual`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
+* `output`: directorio inicialmente vacío  donde se almacenarán los resultados de segmentación de tu método.
+* `1st_manual`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
 
-En el directorio principal que se descomprime también hay un programa `iou.cpp`. Compílalo con OpenCV, generando el ejecutable `iou`. Este programa calcula la intersección sobre la unión de dos imágenes (en palabras simples, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). Este programa lo usa el script `evaluate.sh` que calcula el porcentaje de acierto de vuestro programa.
+En el directorio principal también hay un programa `iou.cpp` que se usará para evaluar los resultados. Este programa calcula la intersección sobre la unión de dos imágenes (en otras palabras, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). 
 
-En el directorio `ejercicioRetinas` debes implementar el programa `retinaSegment.cpp`, compilarlo, y evaluarlo  ejecutando desde el terminal:
+Debes implementar el programa `retinaSegment.cpp` y guardarlo en el directorio `ejercicioRetinas`. Después puedes compilarlo y evaluar sus resultados ejecutando desde el terminal:
 
 ```bash
 ./evaluate.sh
 ```
 
-Para resolver este ejercicio puedes usar cualquier algoritmo de los que hemos visto en la asignatura.
+El script `evaluate.sh` compila `retinaSegment.cpp` y el programa de evaluación (`iou.cpp`), y devuelve el porcentaje de acierto de vuestro método con las imágenes de test. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
+
+Para resolver este problema puedes usar cualquier técnica que hayamos visto en la asignatura.
 
 <!---
 Para los algoritmos de umbralización:

@@ -7,6 +7,7 @@ nav:
 - T2- Imagen digital y vídeo : 'imagenvideo.md'
 - T3- Transformaciones : 'transformaciones.md'
 - T4- Detección : 'deteccion.md'
+- T5- Segmentación : 'segmentacion.md'
 
 theme:
     language: es
