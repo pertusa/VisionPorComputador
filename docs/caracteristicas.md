@@ -11,14 +11,15 @@ Comenzaremos viendo las características que se usan para describir contornos. E
 Una vez hemos extraido los contornos de una imagen, por ejemplo mediante la función `findContours`, podemos calcular sus momentos usando la función `moments`:
 
 <!---
-WM: false);
+WM: i = 0 -> i=0
+WM: i < contours.size() -> i<contours.size()
 --->
 
 ```cpp
 // Extraemos los momentos para cada contorno
 vector<Moments> momentos(contours.size());  
-for(int i = 0; i < contours.size(); i++) {
-  momentos[i] = moments(contours[i], false); 
+for(int i=0; i<contours.size(); i++) {
+  momentos[i] = moments(contours[i], false);
 }
 ```
 
@@ -76,15 +77,10 @@ En este ejercicio extraeremos una serie de descriptores de contorno a partir de 
 Se pide completar el siguiente código implementando los comentarios marcados con `TODO`. Crea el programa con el nombre `contourDescriptors.cpp`.
 
 <!---
-WM: Descriptors { (BS)
-    return points; (BS)
-    convexHull) (added 2 BS)
-    "aleatorios" -> "al azar"
-    - SC (BS)
-    caja de Feret (BS)
-    imageIndex = i+1;  (Removed BS)
-    << ".png"; (added BS at the end in the two samples)
-    - Rectangularidad: MRE no Feret
+WM: "al azar" -> "aleatorios"
+    convexHull); -> Added ;
+    << ".png"; (removed BS at the end in the two samples)
+    Compactación (con acento)
 --->
 
 ```cpp
@@ -102,7 +98,7 @@ struct Descriptors {
      double Hu[7];
 };
 
-// Funcion que recibe los contornos de una imagen y extrae de ellos n puntos al azar para calcular SC
+// Funcion que recibe los contornos de una imagen y extrae de ellos n puntos aleatorios para calcular SC
 vector<Point> SCPoints(const vector<vector<Point> > &contours, int n=300)
 {
     // Cada contorno dentro de contours es un vector de puntos. Sacamos todos los puntos del contorno y los guardamos en allPointsFromImage
@@ -117,7 +113,7 @@ vector<Point> SCPoints(const vector<vector<Point> > &contours, int n=300)
     for (int i=0; i<n && i<allPointsFromImage.size(); i++)
         points.push_back(allPointsFromImage[i]);
 
-    return points; 
+    return points;
 }
 
 Descriptors extractDescriptors(const Mat &image) {
@@ -132,10 +128,10 @@ Descriptors extractDescriptors(const Mat &image) {
 
    // TODO: Extraemos el mayor contorno de la imagen (para esto puedes usar la función contourArea), y de este contorno calculamos y guardamos en el descriptor:
     // - Perimetro
-    // - Compactacion
+    // - Compactación
     // - Elongacion (usando caja de Feret) 
     // - Rectangularidad (usando Menor Rectángulo Envolvente, MRE)
-    // - Area del cierre convexo (pista: funcion convexHull)  
+    // - Area del cierre convexo (pista: funcion convexHull);  
     // - Centroide (X,Y) y orientacion (usando los momentos)
     // - Momentos de Hu
 
@@ -154,11 +150,11 @@ void calcularDistancias(const Descriptors &queryDescriptors, const Descriptors &
    // - Elongacion
    // - Rectangularidad
    // - Area del cierre convexo
-   // - Orientacion
+   // - Orientación
    // - Centroide (distancia Euclidea entre los dos puntos con coordenadas u,v)
    // - Hu (formula explicada en los siguientes parrafos del libro)
 
-   cout << " dSC = " << dSC << endl;   
+   cout << " dSC = " << dSC << endl;
    cout << " dPer = " << dPer << endl;
    cout << " dComp = " << dComp << endl;
    cout << " dElong = " << dElong << endl;
@@ -180,7 +176,7 @@ int main(int argc, char* argv[])
 
     // Leemos imagen query
     stringstream queryName;
-    queryName << path << indexQuery << ".png"; 
+    queryName << path << indexQuery << ".png";
     Mat query=imread(queryName.str(), IMREAD_GRAYSCALE);
 
     // Calculamos sus descriptores
@@ -194,7 +190,7 @@ int main(int argc, char* argv[])
 
         // Leemos la imagen
         stringstream img;
-        img << path << imageIndex << ".png"; 
+        img << path << imageIndex << ".png";
         Mat image=imread(img.str(), IMREAD_GRAYSCALE);
 
         // Extraemos sus descriptores y los comparamos con los de la query
@@ -353,10 +349,6 @@ La función `compute` devuelve en `locations` los puntos donde se han encontrado
 
 Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo normal), se puede usar directamente este código:
 
-<!---
-WM: peatones -> personas
---->
-
 
 ```cpp
 // La siguiente instrucción inicializa un detector de personas.
@@ -369,38 +361,8 @@ hog.detectMultiScale(img, found, 0, Size(8,8), Size(32,32), 1.05, 2);
 
 Desafortunadamente no hay ninguna forma sencilla de visualizar el descriptor HOG en OpenCV con sus gradientes, pero si tienes curiosidad puedes consultar [este otro enlace](http://www.juergenwiki.de/old_wiki/doku.php?id=public:hog_descriptor_computation_and_visualization).
 
-### Ejercicio
+Puedes ver un ejemplo de detección de peatones en vídeos usando HOG en [este enlace](http://www.magicandlove.com/blog/2011/12/04/people-detection-sample-from-opencv/).
 
-Descarga el [siguiente fichero](images/caracteristicas/USCPedestrianSetB.zip) que contiene imágenes de peatones y sus correspondientes _bounding boxes_ en XML. Las  imágenes originales están descargadas de [esta]( http://iris.usc.edu/Vision-Users/OldUsers/bowu/DatasetWebpage/dataset.html) web.
-
-Implementa un programa llamado `hog.cpp` que reciba una imagen por parámetro. El programa debe mostrar por pantalla una imagen que contiene los `bounding boxes` (en negro) de los peatones detectados, e imprimir también por pantalla el resultado de la detección con el formato de los XML del siguiente ejemplo.
-
-Dada esta llamada:
-
-```bash
-$./hog USCPedestrianSetB/OSE1cor_1.bmp salida.jpg
-```
-
-El programa debería imprimir por pantalla algo parecido a esto:
-
-```bash
-<?xml version="1.0"?>
-<ObjectList>
-	<Object>
-		<Rect x="129" y="93" width="67" height="134"/>
-	</Object>
-</ObjectList>
-```
-
-Finalmente, también debe guardarse la imagen resultante en el fichero con el nombre recibido como segundo parámetro:
-
-![ejemplo detección HOG](images/caracteristicas/hog_sample.png)
-
-Para realizar este ejercicio puedes usar como base [este código](http://www.magicandlove.com/blog/2011/12/04/people-detection-sample-from-opencv/), que implementa un ejemplo completo de detección HOG sobre vídeo (tendrás que adaptarlo para que lea una sola imagen).
-
-<!---
-Cuando hayas terminado, puedes intentar mejorar la precisión de los resultados para que tu programa funcione mejor con esta base de datos.
---->
 
 ----
 
