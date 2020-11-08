@@ -36,7 +36,7 @@
     
     
       
-        <title>T6- Características de imagen - Visión por Computador</title>
+        <title>T6- Características - Visión por Computador</title>
       
     
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                T6- Características de imagen
+                T6- Características
               
             </span>
           
@@ -244,6 +244,145 @@
   </li>
 
     
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T6- Características
+      </label>
+    
+    <a href="caracteristicas.html" title="T6- Características" class="md-nav__link md-nav__link--active">
+      T6- Características
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-de-contorno" class="md-nav__link">
+    Descriptores de contorno
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#momentos" class="md-nav__link">
+    Momentos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentos-de-hu" class="md-nav__link">
+    Momentos de Hu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cadenas-freeman" class="md-nav__link">
+    Cadenas Freeman
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor-shape-context-sc" class="md-nav__link">
+    Descriptor Shape Context (SC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textura" class="md-nav__link">
+    Textura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hog" class="md-nav__link">
+    HOG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caracteristicas-locales" class="md-nav__link">
+    Características locales
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detector" class="md-nav__link">
+    Detector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor" class="md-nav__link">
+    Descriptor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-neuronales" class="md-nav__link">
+    Descriptores neuronales
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -324,19 +463,6 @@
     HOG
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ejercicio_1" class="md-nav__link">
-    Ejercicio
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -397,7 +523,8 @@
 <h3 id="momentos">Momentos<a class="headerlink" href="#momentos" title="Permanent link">&para;</a></h3>
 <p>Una vez hemos extraido los contornos de una imagen, por ejemplo mediante la función <code>findContours</code>, podemos calcular sus momentos usando la función <code>moments</code>:</p>
 <!---
-WM: false);
+WM: i = 0 -> i=0
+WM: i < contours.size() -> i<contours.size()
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
@@ -406,8 +533,8 @@ WM: false);
 4
 5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1">// Extraemos los momentos para cada contorno</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">Moments</span><span class="o">&gt;</span> <span class="n">momentos</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>  
-<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">contours</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">momentos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">moments</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">false</span><span class="p">);</span> 
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">contours</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">momentos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">moments</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">false</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table>
@@ -462,15 +589,10 @@ WM: false);
 <p>En este ejercicio extraeremos una serie de descriptores de contorno a partir de imágenes binarizadas. El objetivo es encontrar las imágenes más similares a una imagen de referencia (a la que llamaremos <code>query</code>).</p>
 <p>Se pide completar el siguiente código implementando los comentarios marcados con <code>TODO</code>. Crea el programa con el nombre <code>contourDescriptors.cpp</code>.</p>
 <!---
-WM: Descriptors { (BS)
-    return points; (BS)
-    convexHull) (added 2 BS)
-    "aleatorios" -> "al azar"
-    - SC (BS)
-    caja de Feret (BS)
-    imageIndex = i+1;  (Removed BS)
-    << ".png"; (added BS at the end in the two samples)
-    - Rectangularidad: MRE no Feret
+WM: "al azar" -> "aleatorios"
+    convexHull); -> Added ;
+    << ".png"; (removed BS at the end in the two samples)
+    Compactación (con acento)
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>  1
@@ -604,7 +726,7 @@ WM: Descriptors { (BS)
      <span class="kt">double</span> <span class="n">Hu</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
 <span class="p">};</span>
 
-<span class="c1">// Funcion que recibe los contornos de una imagen y extrae de ellos n puntos al azar para calcular SC</span>
+<span class="c1">// Funcion que recibe los contornos de una imagen y extrae de ellos n puntos aleatorios para calcular SC</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">SCPoints</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">contours</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// Cada contorno dentro de contours es un vector de puntos. Sacamos todos los puntos del contorno y los guardamos en allPointsFromImage</span>
@@ -619,7 +741,7 @@ WM: Descriptors { (BS)
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">allPointsFromImage</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">allPointsFromImage</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
-    <span class="k">return</span> <span class="n">points</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">points</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">Descriptors</span> <span class="n">extractDescriptors</span><span class="p">(</span><span class="k">const</span> <span class="n">Mat</span> <span class="o">&amp;</span><span class="n">image</span><span class="p">)</span> <span class="p">{</span>
@@ -634,10 +756,10 @@ WM: Descriptors { (BS)
 
    <span class="c1">// TODO: Extraemos el mayor contorno de la imagen (para esto puedes usar la función contourArea), y de este contorno calculamos y guardamos en el descriptor:</span>
     <span class="c1">// - Perimetro</span>
-    <span class="c1">// - Compactacion</span>
+    <span class="c1">// - Compactación</span>
     <span class="c1">// - Elongacion (usando caja de Feret) </span>
     <span class="c1">// - Rectangularidad (usando Menor Rectángulo Envolvente, MRE)</span>
-    <span class="c1">// - Area del cierre convexo (pista: funcion convexHull)  </span>
+    <span class="c1">// - Area del cierre convexo (pista: funcion convexHull);  </span>
     <span class="c1">// - Centroide (X,Y) y orientacion (usando los momentos)</span>
     <span class="c1">// - Momentos de Hu</span>
 
@@ -656,11 +778,11 @@ WM: Descriptors { (BS)
    <span class="c1">// - Elongacion</span>
    <span class="c1">// - Rectangularidad</span>
    <span class="c1">// - Area del cierre convexo</span>
-   <span class="c1">// - Orientacion</span>
+   <span class="c1">// - Orientación</span>
    <span class="c1">// - Centroide (distancia Euclidea entre los dos puntos con coordenadas u,v)</span>
    <span class="c1">// - Hu (formula explicada en los siguientes parrafos del libro)</span>
 
-   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; dSC = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dSC</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   
+   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; dSC = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dSC</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; dPer = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dPer</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; dComp = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dComp</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; dElong = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dElong</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -682,7 +804,7 @@ WM: Descriptors { (BS)
 
     <span class="c1">// Leemos imagen query</span>
     <span class="n">stringstream</span> <span class="n">queryName</span><span class="p">;</span>
-    <span class="n">queryName</span> <span class="o">&lt;&lt;</span> <span class="n">path</span> <span class="o">&lt;&lt;</span> <span class="n">indexQuery</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.png&quot;</span><span class="p">;</span> 
+    <span class="n">queryName</span> <span class="o">&lt;&lt;</span> <span class="n">path</span> <span class="o">&lt;&lt;</span> <span class="n">indexQuery</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.png&quot;</span><span class="p">;</span>
     <span class="n">Mat</span> <span class="n">query</span><span class="o">=</span><span class="n">imread</span><span class="p">(</span><span class="n">queryName</span><span class="p">.</span><span class="n">str</span><span class="p">(),</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
 
     <span class="c1">// Calculamos sus descriptores</span>
@@ -696,7 +818,7 @@ WM: Descriptors { (BS)
 
         <span class="c1">// Leemos la imagen</span>
         <span class="n">stringstream</span> <span class="n">img</span><span class="p">;</span>
-        <span class="n">img</span> <span class="o">&lt;&lt;</span> <span class="n">path</span> <span class="o">&lt;&lt;</span> <span class="n">imageIndex</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.png&quot;</span><span class="p">;</span> 
+        <span class="n">img</span> <span class="o">&lt;&lt;</span> <span class="n">path</span> <span class="o">&lt;&lt;</span> <span class="n">imageIndex</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.png&quot;</span><span class="p">;</span>
         <span class="n">Mat</span> <span class="n">image</span><span class="o">=</span><span class="n">imread</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">str</span><span class="p">(),</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
 
         <span class="c1">// Extraemos sus descriptores y los comparamos con los de la query</span>
@@ -894,10 +1016,6 @@ Imagen <span class="m">6</span>:
 
 <p>La función <code>compute</code> devuelve en <code>locations</code> los puntos donde se han encontrado las   personas, y en <code>descriptorsValues</code> los valores del descriptor para cada punto. Para calcular esto se usa un sistema de detección de peatones, que veremos en el tema 7.</p>
 <p>Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo normal), se puede usar directamente este código:</p>
-<!---
-WM: peatones -> personas
---->
-
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
@@ -913,36 +1031,7 @@ WM: peatones -> personas
 </td></tr></table>
 
 <p>Desafortunadamente no hay ninguna forma sencilla de visualizar el descriptor HOG en OpenCV con sus gradientes, pero si tienes curiosidad puedes consultar <a href="http://www.juergenwiki.de/old_wiki/doku.php?id=public:hog_descriptor_computation_and_visualization">este otro enlace</a>.</p>
-<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
-<p>Descarga el <a href="images/caracteristicas/USCPedestrianSetB.zip">siguiente fichero</a> que contiene imágenes de peatones y sus correspondientes <em>bounding boxes</em> en XML. Las  imágenes originales están descargadas de <a href="http://iris.usc.edu/Vision-Users/OldUsers/bowu/DatasetWebpage/dataset.html">esta</a> web.</p>
-<p>Implementa un programa llamado <code>hog.cpp</code> que reciba una imagen por parámetro. El programa debe mostrar por pantalla una imagen que contiene los <code>bounding boxes</code> (en negro) de los peatones detectados, e imprimir también por pantalla el resultado de la detección con el formato de los XML del siguiente ejemplo.</p>
-<p>Dada esta llamada:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>$./hog USCPedestrianSetB/OSE1cor_1.bmp salida.jpg
-</pre></div>
-</td></tr></table>
-
-<p>El programa debería imprimir por pantalla algo parecido a esto:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span>?&gt;
-&lt;ObjectList&gt;
-    &lt;Object&gt;
-        &lt;Rect <span class="nv">x</span><span class="o">=</span><span class="s2">&quot;129&quot;</span> <span class="nv">y</span><span class="o">=</span><span class="s2">&quot;93&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;67&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;134&quot;</span>/&gt;
-    &lt;/Object&gt;
-&lt;/ObjectList&gt;
-</pre></div>
-</td></tr></table>
-
-<p>Finalmente, también debe guardarse la imagen resultante en el fichero con el nombre recibido como segundo parámetro:</p>
-<p><img alt="ejemplo detección HOG" src="images/caracteristicas/hog_sample.png" /></p>
-<p>Para realizar este ejercicio puedes usar como base <a href="http://www.magicandlove.com/blog/2011/12/04/people-detection-sample-from-opencv/">este código</a>, que implementa un ejemplo completo de detección HOG sobre vídeo (tendrás que adaptarlo para que lea una sola imagen).</p>
-<!---
-Cuando hayas terminado, puedes intentar mejorar la precisión de los resultados para que tu programa funcione mejor con esta base de datos.
---->
-
+<p>Puedes ver un ejemplo de detección de peatones en vídeos usando HOG en <a href="http://www.magicandlove.com/blog/2011/12/04/people-detection-sample-from-opencv/">este enlace</a>.</p>
 <hr />
 <h2 id="caracteristicas-locales">Características locales<a class="headerlink" href="#caracteristicas-locales" title="Permanent link">&para;</a></h2>
 <p>Las características locales son fáciles de obtener en OpenCV, ya que esta librería implementa todo lo necesario para detectar <em>keypoints</em> y extraer sus correspondientes descriptores.</p>
@@ -1208,6 +1297,27 @@ Cuando hayas terminado, puedes intentar mejorar la precisión de los resultados 
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="segmentacion.html" title="T5- Segmentación" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                T5- Segmentación
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
