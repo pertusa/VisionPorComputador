@@ -36,7 +36,7 @@
     
     
       
-        <title>T7- Reconocimiento de imagen - Visión por Computador</title>
+        <title>T7- Reconocimiento - Visión por Computador</title>
       
     
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                T7- Reconocimiento de imagen
+                T7- Reconocimiento
               
             </span>
           
@@ -253,6 +253,137 @@
     <a href="caracteristicas.html" title="T6- Características" class="md-nav__link">
       T6- Características
     </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        T7- Reconocimiento
+      </label>
+    
+    <a href="reconocimiento.html" title="T7- Reconocimiento" class="md-nav__link md-nav__link--active">
+      T7- Reconocimiento
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Tabla de contenidos</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#busqueda-por-similitud" class="md-nav__link">
+    Búsqueda por similitud
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-binarios" class="md-nav__link">
+    Descriptores binarios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-locales-basados-en-puntos-de-interes" class="md-nav__link">
+    Descriptores locales basados en puntos de interés
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduccion-de-dimensionalidad" class="md-nav__link">
+    Reducción de dimensionalidad
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bag-of-words-bow" class="md-nav__link">
+    Bag of Words (BoW)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pca-y-lda" class="md-nav__link">
+    PCA y LDA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-caras" class="md-nav__link">
+    Detección de caras
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clasificacion" class="md-nav__link">
+    Clasificación
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    Ejercicio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -794,14 +925,13 @@ Ojo, faceRecognizer está en contrib!: https://docs.opencv.org/2.4/modules/contr
 <p>Ahora se trata de completar los puntos marcados con <code>TODO</code> en el siguiente código para realizar la clasificación. Guárdalo con el nombre <code>orbBF.cpp</code> e intenta entender bien todas las instrucciones antes de empezar a modificarlo.</p>
 <!---
 WM: 
-labelNames= -> labelNames = 
-Lee las imagenes -> Leemos las imagenes
-max=-1) -> max=-1 )
-sino como mucho max -> sino como maximo max
-de test" << endl; -> de test" <<  endl;
-conjunto test. -> conjunto de test.
-(*it)["descriptor"] >> desc; -> (*it)["descriptor"]>>desc;
-
+labelNames = -> labelNames= 
+imagenes -> imágenes
+parametro -> parámetro
+fi >> imagefn >> label -> fi>>imagefn>>label
+Funcion -> Función
+Extrayendo descriptores... -> Quitados los 3 puntos
+(float)(test.size())
 --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>  1
@@ -949,10 +1079,10 @@ conjunto test. -> conjunto de test.
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">labelNames</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;book&quot;</span><span class="p">,</span> <span class="s">&quot;cat&quot;</span><span class="p">,</span> <span class="s">&quot;chair&quot;</span><span class="p">,</span> <span class="s">&quot;dog&quot;</span><span class="p">,</span> <span class="s">&quot;glass&quot;</span><span class="p">,</span> <span class="s">&quot;laptop&quot;</span><span class="p">,</span> <span class="s">&quot;pen&quot;</span><span class="p">,</span> <span class="s">&quot;remote&quot;</span><span class="p">,</span> <span class="s">&quot;cellphone&quot;</span><span class="p">,</span> <span class="s">&quot;tv&quot;</span><span class="p">};</span>
+<span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">labelNames</span><span class="o">=</span> <span class="p">{</span><span class="s">&quot;book&quot;</span><span class="p">,</span> <span class="s">&quot;cat&quot;</span><span class="p">,</span> <span class="s">&quot;chair&quot;</span><span class="p">,</span> <span class="s">&quot;dog&quot;</span><span class="p">,</span> <span class="s">&quot;glass&quot;</span><span class="p">,</span> <span class="s">&quot;laptop&quot;</span><span class="p">,</span> <span class="s">&quot;pen&quot;</span><span class="p">,</span> <span class="s">&quot;remote&quot;</span><span class="p">,</span> <span class="s">&quot;cellphone&quot;</span><span class="p">,</span> <span class="s">&quot;tv&quot;</span><span class="p">};</span>
 
-<span class="c1">// Leemos las imagenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.</span>
-<span class="c1">// El ultimo parametro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino como maximo max imagenes (para hacer pruebas mas rapido)</span>
+<span class="c1">// Leemos las imágenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.</span>
+<span class="c1">// El ultimo parámetro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino como maximo max imagenes (para hacer pruebas mas rapido)</span>
 <span class="kt">void</span> <span class="nf">readData</span><span class="p">(</span><span class="n">string</span> <span class="n">filename</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">images</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">labels</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="o">=-</span><span class="mi">1</span> <span class="p">)</span>
 <span class="p">{</span>
    <span class="n">ifstream</span> <span class="n">fi</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
@@ -967,7 +1097,7 @@ conjunto test. -> conjunto de test.
    <span class="n">string</span> <span class="n">imagefn</span><span class="p">;</span>
    <span class="n">string</span> <span class="n">label</span><span class="p">;</span>
 
-   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">!=</span><span class="n">max</span> <span class="o">&amp;&amp;</span> <span class="n">fi</span> <span class="o">&gt;&gt;</span> <span class="n">imagefn</span> <span class="o">&gt;&gt;</span> <span class="n">label</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">!=</span><span class="n">max</span> <span class="o">&amp;&amp;</span> <span class="n">fi</span><span class="o">&gt;&gt;</span><span class="n">imagefn</span><span class="o">&gt;&gt;</span><span class="n">label</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
        <span class="n">Mat</span> <span class="n">image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">imagefn</span><span class="p">,</span> <span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
        <span class="kt">int</span> <span class="n">label_u</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">labelNames</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">find</span><span class="p">(</span><span class="n">labelNames</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">labelNames</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">label</span><span class="p">));</span>
 
@@ -977,7 +1107,7 @@ conjunto test. -> conjunto de test.
    <span class="n">fi</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="c1">// Funcion para extraer las caracteristicas ORB de una imagen</span>
+<span class="c1">// Función para extraer las caracteristicas ORB de una imagen</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="n">extractORBFeatures</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
      <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="n">features</span><span class="p">;</span>
@@ -992,7 +1122,7 @@ conjunto test. -> conjunto de test.
 <span class="c1">// Extraemos y guardamos todas las caracteristicas en el fichero trainORBDescriptors.yml, para poder usarlas luego en la fase de reconocimiento</span>
 <span class="kt">void</span> <span class="n">storeTrainORBDescriptors</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">train</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">labelsTrain</span><span class="p">)</span> <span class="p">{</span>
 
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Extrayendo descriptores...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Extrayendo descriptores&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="n">features</span> <span class="o">=</span> <span class="n">extractORBFeatures</span><span class="p">(</span><span class="n">train</span><span class="p">);</span>
 
         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Guardando los descriptores en el fichero trainORBDescriptors.yml&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1055,7 +1185,7 @@ conjunto test. -> conjunto de test.
            <span class="n">ok</span><span class="o">++</span><span class="p">;</span>
        <span class="p">}</span>
 
-       <span class="kt">float</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">ok</span><span class="o">/</span><span class="n">test</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+       <span class="kt">float</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">ok</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="n">test</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Accuracy=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">accuracy</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -1106,13 +1236,18 @@ conjunto test. -> conjunto de test.
 <p>Partimos de este otro código, que como verás tiene partes comunes con el anterior. Guárdalo con el nombre <code>HOGSVM.cpp</code> y complétalo con los comentarios marcados con <code>TODO</code>:</p>
 <!---
 WM: 
-labelNames = {
+labelNames = -> labelNames=
+tamanyo -> tamaño
+Anyadimos -> Añadimos
+j<descriptor_size -> j< descriptor_size
+EPS=1e-6 -> EPS=1e-5 (sale igual)
+
 ".push_back(image); " -> ".push_back(image);
 imagefn,~IMREAD_GRAYSCALE
 escalar a 128x128 
-svm= SVM::create(); -> svm = SVM::create();
-data~= TrainData::create(trainMat, ...
---->
+svm = SVM::create();
+ -> svm= SVM::create(); 
+ --->
 
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>  1
   2
@@ -1265,7 +1400,7 @@ data~= TrainData::create(trainMat, ...
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="o">::</span><span class="n">ml</span><span class="p">;</span>
 
-<span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">labelNames</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;book&quot;</span><span class="p">,</span> <span class="s">&quot;cat&quot;</span><span class="p">,</span> <span class="s">&quot;chair&quot;</span><span class="p">,</span> <span class="s">&quot;dog&quot;</span><span class="p">,</span> <span class="s">&quot;glass&quot;</span><span class="p">,</span> <span class="s">&quot;laptop&quot;</span><span class="p">,</span> <span class="s">&quot;pen&quot;</span><span class="p">,</span> <span class="s">&quot;remote&quot;</span><span class="p">,</span> <span class="s">&quot;cellphone&quot;</span><span class="p">,</span> <span class="s">&quot;tv&quot;</span><span class="p">};</span>
+<span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">labelNames</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;book&quot;</span><span class="p">,</span> <span class="s">&quot;cat&quot;</span><span class="p">,</span> <span class="s">&quot;chair&quot;</span><span class="p">,</span> <span class="s">&quot;dog&quot;</span><span class="p">,</span> <span class="s">&quot;glass&quot;</span><span class="p">,</span> <span class="s">&quot;laptop&quot;</span><span class="p">,</span> <span class="s">&quot;pen&quot;</span><span class="p">,</span> <span class="s">&quot;remote&quot;</span><span class="p">,</span> <span class="s">&quot;cellphone&quot;</span><span class="p">,</span> <span class="s">&quot;tv&quot;</span><span class="p">};</span>
 
 <span class="c1">// Lee las imagenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.</span>
 <span class="c1">// El ultimo parametro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino solo hasta max imagenes (para hacer pruebas mas rapido)</span>
@@ -1302,9 +1437,9 @@ data~= TrainData::create(trainMat, ...
      <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>  <span class="p">{</span>
            <span class="n">Mat</span> <span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 
-           <span class="c1">// TODO: Para que todas las imagenes tengan el mismo tamanyo de descriptor, las debemos escalar a 128x128 </span>
+           <span class="c1">// TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos escalar a 128x128</span>
            <span class="c1">// TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).</span>
-           <span class="c1">// TODO: Anyadimos el descriptor obtenido de la imagen al vector features con push_back.</span>
+           <span class="c1">// TODO: Añadimos el descriptor obtenido de la imagen al vector features con push_back.</span>
 
      <span class="p">}</span>
      <span class="k">return</span> <span class="n">features</span><span class="p">;</span>
@@ -1316,7 +1451,7 @@ data~= TrainData::create(trainMat, ...
     <span class="kt">int</span> <span class="n">descriptor_size</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
     <span class="n">Mat</span> <span class="nf">trainMat</span><span class="p">(</span><span class="n">features</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">descriptor_size</span><span class="p">,</span> <span class="n">CV_32F</span><span class="p">);</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">features</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">descriptor_size</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span> <span class="n">descriptor_size</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
            <span class="n">trainMat</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -1335,10 +1470,10 @@ data~= TrainData::create(trainMat, ...
 
     <span class="c1">// Configuramos el clasificador SVM</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Entrenando...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="n">Ptr</span><span class="o">&lt;</span><span class="n">SVM</span><span class="o">&gt;</span> <span class="n">svm</span> <span class="o">=</span> <span class="n">SVM</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+    <span class="n">Ptr</span><span class="o">&lt;</span><span class="n">SVM</span><span class="o">&gt;</span> <span class="n">svm</span><span class="o">=</span> <span class="n">SVM</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
     <span class="c1">// TODO: Debemos poner el clasificador con el tipo C_SVC</span>
     <span class="c1">// TODO: Su kernel debe ser LINEAR</span>
-    <span class="c1">// TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones maximas y EPS=1e-6.</span>
+    <span class="c1">// TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones maximas y EPS=1e-5.</span>
     <span class="c1">// Ayuda para los puntos anteriores: https://docs.opencv.org/3.3.0/d1/d2d/classcv_1_1ml_1_1SVM.html</span>
 
 
@@ -1408,7 +1543,7 @@ data~= TrainData::create(trainMat, ...
 </pre></div>
 </td></tr></table>
 
-<p>Como ves, esta técnica, además de ser mucho más eficiente, mejora claramente el resultado respecto al  ejercicio anterior.</p>
+<p>Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al  ejercicio anterior.</p>
 <!---
 ## TrainSVM
 https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python-tutorial/
@@ -1429,6 +1564,27 @@ https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="caracteristicas.html" title="T6- Características" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                T6- Características
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
