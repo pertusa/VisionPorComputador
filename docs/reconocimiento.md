@@ -302,15 +302,13 @@ Ahora se trata de completar los puntos marcados con `TODO` en el siguiente códi
 
 <!---
 WM: 
-labelNames= -> labelNames = 
-Lee las imagenes -> Leemos las imagenes
-max=-1) -> max=-1 )
-sino como mucho max -> sino como maximo max
-de test" << endl; -> de test" <<  endl;
-conjunto test. -> conjunto de test.
-(*it)["descriptor"] >> desc; -> (*it)["descriptor"]>>desc;
-
-
+labelNames = -> labelNames= 
+imagenes -> imágenes
+parametro -> parámetro
+fi >> imagefn >> label -> fi>>imagefn>>label
+Funcion -> Función
+Extrayendo descriptores... -> Quitados los 3 puntos
+(float)(test.size())
 --->
 
 
@@ -323,10 +321,10 @@ conjunto test. -> conjunto de test.
 using namespace cv;
 using namespace std;
 
-const vector<string> labelNames = {"book", "cat", "chair", "dog", "glass", "laptop", "pen", "remote", "cellphone", "tv"};
+const vector<string> labelNames= {"book", "cat", "chair", "dog", "glass", "laptop", "pen", "remote", "cellphone", "tv"};
 
-// Leemos las imagenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.
-// El ultimo parametro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino como maximo max imagenes (para hacer pruebas mas rapido)
+// Leemos las imágenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.
+// El ultimo parámetro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino como maximo max imagenes (para hacer pruebas mas rapido)
 void readData(string filename, vector<Mat> &images, vector<int> &labels, int max=-1 )
 {
    ifstream fi(filename.c_str());
@@ -341,7 +339,7 @@ void readData(string filename, vector<Mat> &images, vector<int> &labels, int max
    string imagefn;
    string label;
 
-   for (int i=0; i!=max && fi >> imagefn >> label; i++) {
+   for (int i=0; i!=max && fi>>imagefn>>label; i++) {
        Mat image = imread(imagefn, IMREAD_GRAYSCALE);
        int label_u = distance(labelNames.begin(), find(labelNames.begin(), labelNames.end(), label));
 
@@ -351,7 +349,7 @@ void readData(string filename, vector<Mat> &images, vector<int> &labels, int max
    fi.close();
 }
 
-// Funcion para extraer las caracteristicas ORB de una imagen
+// Función para extraer las caracteristicas ORB de una imagen
 vector<Mat> extractORBFeatures(const vector<Mat> &data)
 {
      vector<Mat> features;
@@ -366,7 +364,7 @@ vector<Mat> extractORBFeatures(const vector<Mat> &data)
 // Extraemos y guardamos todas las caracteristicas en el fichero trainORBDescriptors.yml, para poder usarlas luego en la fase de reconocimiento
 void storeTrainORBDescriptors(const vector<Mat> &train, const vector<int> &labelsTrain) {
 
-        cout << "Extrayendo descriptores..." << endl;
+        cout << "Extrayendo descriptores" << endl;
         vector<Mat> features = extractORBFeatures(train);
 
         cout << "Guardando los descriptores en el fichero trainORBDescriptors.yml" << endl;
@@ -429,7 +427,7 @@ void testORB(const vector<Mat> &test, const vector<int> &labelsTest)
            ok++;
        }
 
-       float accuracy = (float)ok/test.size();
+       float accuracy = (float)ok/(float)(test.size());
        cout << "Accuracy=" << accuracy << endl;
 }
 
@@ -489,13 +487,18 @@ Partimos de este otro código, que como verás tiene partes comunes con el anter
 
 <!---
 WM: 
-labelNames = {
+labelNames = -> labelNames=
+tamanyo -> tamaño
+Anyadimos -> Añadimos
+j<descriptor_size -> j< descriptor_size
+EPS=1e-6 -> EPS=1e-5 (sale igual)
+
 ".push_back(image); " -> ".push_back(image);
 imagefn,~IMREAD_GRAYSCALE
 escalar a 128x128 
-svm= SVM::create(); -> svm = SVM::create();
-data~= TrainData::create(trainMat, ...
---->
+svm = SVM::create();
+ -> svm= SVM::create(); 
+ --->
 
 
 ```cpp
@@ -508,7 +511,7 @@ using namespace cv;
 using namespace std;
 using namespace cv::ml;
 
-const vector<string> labelNames = {"book", "cat", "chair", "dog", "glass", "laptop", "pen", "remote", "cellphone", "tv"};
+const vector<string> labelNames={"book", "cat", "chair", "dog", "glass", "laptop", "pen", "remote", "cellphone", "tv"};
 
 // Lee las imagenes especificadas en un fichero de texto y las guarda en images, junto con sus etiquetas en labels.
 // El ultimo parametro (max) podemos indicarlo cuando queramos que no se cargen todos los datos sino solo hasta max imagenes (para hacer pruebas mas rapido)
@@ -545,9 +548,9 @@ vector<vector<float> > extractHOGFeatures(const vector<Mat> &data)
      for (unsigned i = 0; i<data.size(); i++)  {
            Mat image = data[i];
 
-           // TODO: Para que todas las imagenes tengan el mismo tamanyo de descriptor, las debemos escalar a 128x128 
+           // TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos escalar a 128x128
            // TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).
-           // TODO: Anyadimos el descriptor obtenido de la imagen al vector features con push_back.
+           // TODO: Añadimos el descriptor obtenido de la imagen al vector features con push_back.
 
      }
      return features;
@@ -559,7 +562,7 @@ Mat convertToMat(vector<vector<float> > features)
     int descriptor_size = features[0].size();
     Mat trainMat(features.size(), descriptor_size, CV_32F);
     for(int i=0; i<features.size(); i++){
-        for(int j = 0; j<descriptor_size; j++){
+        for(int j = 0; j< descriptor_size; j++){
            trainMat.at<float>(i,j) = features[i][j];
         }
     }
@@ -578,10 +581,10 @@ void trainHOGSVM(const vector<Mat> &train, const vector<int> &labelsTrain) {
 
     // Configuramos el clasificador SVM
     cout << "Entrenando..." << endl;
-    Ptr<SVM> svm = SVM::create();
+    Ptr<SVM> svm= SVM::create();
     // TODO: Debemos poner el clasificador con el tipo C_SVC
     // TODO: Su kernel debe ser LINEAR
-    // TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones maximas y EPS=1e-6.
+    // TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones maximas y EPS=1e-5.
     // Ayuda para los puntos anteriores: https://docs.opencv.org/3.3.0/d1/d2d/classcv_1_1ml_1_1SVM.html
 
 
@@ -652,7 +655,7 @@ El resultado tras comprobar el conjunto de test debe ser similar a este:
 Accuracy=0.477
 ```
 
-Como ves, esta técnica, además de ser mucho más eficiente, mejora claramente el resultado respecto al  ejercicio anterior.
+Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al  ejercicio anterior.
 
 <!---
 ## TrainSVM
