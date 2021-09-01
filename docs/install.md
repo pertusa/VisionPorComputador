@@ -1,12 +1,10 @@
-# Instalación de OpenCV3
+# Instalación de OpenCV
 
-[OpenCV](http://opencv.org) es la librería más usada para procesamiento de imágenes, y puede usarse en Windows, Linux, MacOS, iOS y Android. También puede [integrarse con ROS](http://wiki.ros.org/vision_opencv), lo que hace que OpenCV sea muy utilizado en el ámbito de la robótica. Está disponible para Python y C++.
+[OpenCV](http://opencv.org) es la librería más usada para procesamiento de imágenes, y puede instalarse en Windows, Linux, MacOS, iOS y Android. También puede [integrarse con ROS](http://wiki.ros.org/vision_opencv), lo que hace que OpenCV sea muy utilizado en el ámbito de la robótica. Está disponible para C++, Python y Java.
 
-En la asignatura de Visión por Computador usaremos **OpenCV 4.5 sobre Linux en Python3**. Para hacer las prácticas también puedes instalarlo en MacOS o en Windows.
+En la asignatura de Visión por Computador usaremos **OpenCV 4.5 en Python3**. Para hacer las prácticas en los laboratorios usaremos Linux (recomendado), aunque también puedes instalarlo en MacOS o en Windows.
 
-## Instalación en Windows, MacOs y Linux
-
-Hay dos opciones para instalar todo el software de la asignatura:
+Hay dos opciones para instalar el software necesario para hacer las prácticas de la asignatura tanto en Linux como en MacOs o Windows:
 
 ### Instalación con miniconda (recomendado)
 
