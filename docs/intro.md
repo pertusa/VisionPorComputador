@@ -2,63 +2,63 @@
 
 En este tema veremos las funcionalidades básicas de OpenCV: cargar una imagen o un vídeo, mostrarlo por pantalla y guardar ficheros.
 
+<!---
+TUTORIAL DE PYTHON: https://colab.research.google.com/github/cs231n/cs231n.github.io/blob/master/python-colab.ipynb#scrollTo=1L4Am0QATgOc
+--->
+
 ## Carga y visualización de imágenes
 
-Vamos a comprobar que la instalación se ha hecho de forma correcta compilando el siguiente programa de ejemplo.
+Vamos a comprobar que la instalación se ha hecho de forma correcta ejecutando el siguiente programa de ejemplo.
 
-```cpp
-#include <opencv2/opencv.hpp> // Incluimos OpenCV
-#include <iostream>
+```python
+import cv2 as cv
+import argparse
 
-using namespace cv;
-using namespace std;
+# Gestión de parámetros
+parser = argparse.ArgumentParser(description = 'Programa para cargar y mostrar una imagen')
+parser.add_argument('-imagen', '-i', type=str, default='lena.jpg')
+args = parser.parse_args()
 
-int main( int argc, char* argv[] ) {
+# Cargamos la imagen indicada por el usuario (por defecto, en color)
+img = cv.imread(args.imagen)
 
-    if( argc != 2) { 
-      cout <<" Uso: display_image <imagen>" << endl;
-      return -1;
-    }
+# Comprobamos que la imagen se ha podido leer
+if img is None:
+    print("Error al cargar la imagen", args.imagen)
+    quit()
 
-    Mat image = imread(argv[1]);   // Leer fichero de imagen
+# Mostramos la imagen en una ventana con el título "Imagen"
+cv.namedWindow('Ventana', cv.WINDOW_AUTOSIZE)
+cv.imshow('Ventana', img)
 
-    if (!image.data ) {        // Comprobar lectura
-        cout <<  "Could not open or find the image" << endl;
-        return -1;
-    }
-
-    namedWindow( "Ventana", WINDOW_AUTOSIZE );  // Crear una ventana
-    imshow( "Ventana", image );                 // Mostrar la imagen en la ventana
-
-    waitKey(0);   // Esperar a pulsar una tecla en la ventana
-
-    return 0;
-}
+# Esperar a pulsar una tecla en la ventana para cerrarla
+cv.waitKey(0)
 ```
 
-Llamamos a este fichero `lectura.cpp` y desde un terminal ejecutamos:
-
-```bash
-g++ lectura.cpp -o lectura `pkg-config opencv --cflags --libs`
-```
-
-Si todo va bien debería crearse un fichero ejecutable llamado `lectura`. Descargamos esta imagen de ejemplo y ejecutamos el programa de la siguiente forma:
+Primero guardamos este fichero con el nombre `lectura.py`. Para probar el código, descargamos esta imagen de ejemplo y ejecutamos el programa de la siguiente forma:
 
 ![lena](images/intro/lena.jpg)
 
 ```bash
-./lectura lena.jpg
+python3 lectura.py
 ```
 
-Como puede verse, se crea una ventana con la imagen que se cerrará cuando pulsamos una tecla.
+Como puede verse, se crea una ventana con la imagen, por defecto `lena.jpg`. Esta ventana se cerrará cuando pulsemos una tecla.
 
-Vamos a analizar este código en detalle. En la primera línea, el programa incluye OpenCV, y después se añade el espacio de nombres `cv`. Esto tenemos que hacerlo siempre que queramos usar la librería. En ocasiones es posible que necesitemos incluir algún fichero de cabecera adicional de OpenCV, pero en la mayoría de casos no es necesario.
+Podemos ejecutar el programa con otra imagen indicando la opción `--imagen` o alternativamente la versión corta, `-i`:
 
-Preparamos la función main para recibir parámetros, y comprobamos que el usuario ha introducido uno (si no es así, damos un mensaje de error y terminamos).
+```bash
+python3 lectura.py --imagen otraimagen.jpg
+# Equivalente a: python3 lectura.py -i otraimagen.jpg
+```
 
-A continuación creamos una matriz (`Mat`) para guardar la imagen, que leemos con `imread` usando el nombre de fichero que se le pasa por parámetro. Cada vez que se intenta cargar una imagen es importante comprobar que se ha leido correctamente.
+Vamos a analizar este código en detalle. En la primera línea, el programa incluye OpenCV. Esto tenemos que hacerlo siempre que queramos usar la librería. También es conveniente incluir la librería `numpy`, ya que es la que usa OpenCV para gestionar los arrays y por tanto nos permite acceder directamente a las imágenes. A veces es posible que necesitemos incluir algún fichero de cabecera adicional, como en este caso la librería `argparse` que sirve para gestionar los argumentos del programa.
 
-En este punto ya tenemos la imagen cargada en una matriz. Podríamos procesarla, pero de momento sólo vamos a mostrarla en una ventana. Para ello creamos primero una ventana con el nombre _"Ventana"_ y tamaño variable usando la función `namedWindow`. En la siguiente línea llamamos a la función `imshow` para mostrar la imagen en la ventana.
+La librería `argparse` se encarga de comprobar que el usuario ha introducido los parámetros especificados. Si falta algún parámetro se usan unos valores por defecto. Para que un parámetro sea opcional es imprescindible que comience por `--`.
+
+A continuación leemos una imagen con `imread` usando el nombre de fichero que se le pasa por parámetro y la guardamos en una matriz llamada `img`. Cada vez que intentemos cargar una imagen es importante comprobar que se ha podido leer  correctamente.
+
+En este punto ya tenemos la imagen cargada en una matriz. Podríamos procesarla, pero de momento sólo vamos a mostrarla en una ventana. Para ello creamos una ventana con el nombre _Ventana_ de tamaño variable, y llamamos al método `imshow` para mostrar la imagen en la ventana.
 
 > En este ejemplo la llamada a `namedWindow` puede omitirse sin consecuencias. Si `imshow` recibe como primer parámetro el nombre de una ventana que todavía no está creada, ésta se crea automáticamente con los parámetros por defecto.
 
@@ -68,8 +68,8 @@ Siempre que mostremos una imagen en pantalla debemos llamar a la función `waitK
 
 La siguiente instrucción carga en una matriz la imagen cuyo nombre recibe por parámetro.
 
-```cpp
-Mat image = imread(argv[1]);
+```python
+image = cv.imread('lena.jpg')
 ```
 
 Como sabes, las imágenes digitales se representan con matrices.
@@ -92,99 +92,183 @@ También soporta otros formatos a través de librerías auxiliares:
 
 La función `imread` tiene un parámetro opcional. Cuando carguemos una imagen en escala de grises debemos usar `IMREAD_GRAYSCALE`:
 
-```cpp
-// Cargamos la imagen (tanto si es en color como si no) en escala de grises
-Mat image = imread("lena.jpg", IMREAD_GRAYSCALE);
+```python
+# Cargamos la imagen (tanto si está en color como si no) en escala de grises
+img = cv.imread('lena.jpg', cv.IMREAD_GRAYSCALE)
 ```
 
-Esto es porque la opción por defecto es `IMREAD_COLOR`, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Podemos ver todos los modos de apertura con `imread` en [este enlace](https://docs.opencv.org/3.2.0/d4/da8/group__imgcodecs.html#ga61d9b0126a3e57d9277ac48327799c80).
+Esto es porque la opción por defecto es `IMREAD_COLOR`, y por tanto se cargará la imagen con 3 canales independientemente de que esté o no en escala de grises. Estos son los tres tipos de opciones que podemos usar con `imread`:
 
-### La clase Mat
+* `cv.IMREAD_GRAYSCALE`: Cargamos la imagen en escala de grises.
+* `cv.IMREAD_COLOR`: Cargamos la imagen en color. Si tenía canal alpha (transparente), se ignora.
+* `cv.IMREAD_UNCHANGED`: Cargamos la imagen tal como es incluyendo el canal alpha si lo tuviera.
 
-La clase `Mat` contiene los valores numéricos de la matriz que almacena, y además una cabecera (con el tipo de datos que contiene, las dimensiones de la matriz, etc). Esta clase de C++ tiene su constructor y destructor, por lo que no hace falta gestionar manualmente su memoria. La clase `Mat` sustituye al registro de C llamado `IplImage` que se usaba en las primeras versiones de OpenCV, y que se desaconseja usar actualmente ya que necesita liberar a mano la memoria.
+> En general, cuando necesites ayuda sobre la sintaxis de cualquier función de OpenCV, puedes escribir desde el mismo código en python: `help(cv.imshow)`, reemplazando `imshow` por el nombre de la función de la que deseas obtener ayuda.
 
-En OpenCV podemos crear una matriz arbitraria, contenga o no los datos de una imagen:
+### Imágenes en OpenCV
 
-```cpp
-// Para crear una matriz: Mat M(filas, columnas, tipo, valores iniciales)
-Mat m(10, 10, CV_8UC3, Scalar(0,0,255));
-cout << "m = " << endl << " " << m << endl << endl;
+<!---
+https://docs.opencv.org/4.5.1/d5/d98/tutorial_mat_operations.html
+--->
+
+En python, OpenCV usa arrays `numpy` para almacenar las imágenes. Para usar esta librería en nuestro código, tenemos que importarla al principio de nuestro código:
+
+```python
+import numpy as np
 ```
 
-Como puede verse, los dos primeros parámetros son las filas y columnas. El tipo de dato en este ejemplo es `CV_8UC3`. Significa que tenemos datos de 8 bits (entre 0 y 255) de tipo `unsigned char`, y con 3 canales. Por tanto, se trata de una matriz preparada para almacenar una imagen en color (por ejemplo, RGB).
+Una vez importada podemos crear una matriz de cualquier tamaño, contenga o no los datos de una imagen:
 
-> Es importante resaltar que cuando OpenCV carga una imagen RGB, internamente la almacena como BGR. Es decir, el canal 0 es el azul, el canal 1 el verde, y el canal 2 el rojo. Por tanto, en el ejemplo anterior hemos creado una imagen de 10x10 píxeles y color rojo.
-
-Los formatos más comunes son `CV_8UC3` para imágenes en color, y `CV_8UC1` para escala de grises, pero hay más.
-
-El rango de valores que representa la matriz puede ser:
-
-* `CV_8U`: Unsigned char (0~255)
-* `CV_8S`: Signed char (-128~127)
-* `CV_16U`: Unsigned short (0~65535)
-* `CV_16S`: Signed short (-32768~32767)
-* `CV_32S`: Signed int (-2147483648~2147483647)
-* `CV_32F`: Signed float (-1.18\*10-38~3.40\*10-38)
-* `CV_64F`: Signed double (mucho!)
-
-El número de canales puede ser `C1`, `C2`, `C3` y `C4` con cualquier tipo de dato.
-
-En la inicialización de esta matriz de ejemplo hemos usado el constructor `Scalar`. Esta instrucción declara un vector de tres elementos con los valores indicados. `Scalar` permite representar vectores de 4 elementos como máximo. En el contexto de la declaración de la matriz, inicializamos a cero todos los valores de los canales 0 y 1, y a 255 los del canal 2 (rojo). Si queremos asignar valores a una matriz que esté ya creada, podemos usar por ejemplo:
-
-```cpp
-m.setTo(50); // si la imagen es de 1 canal
-m.setTo(Scalar(10, 4, 50)); // si la imagen es de 3 canales (por ejemplo, BGR)
+```python
+img = np.full((100,100,3), (0,0,255), dtype=np.uint8)
+print(img)
 ```
 
-Si por ejemplo quisiéramos inicializar todos los valores de la matriz a cero, a uno, o a valores arbitrarios también podríamos escribir lo siguiente:
+En este ejemplo hemos creado una matriz de 100x100x3 (una imagen de 100 filas por 100 columnas con 3 canales), inicializada con el valor rojo (0,0,255), y de tipo `uint8` (8 bits). Este tipo de dato es el estándar para crear imágenes con una profundidad de 8 bits en python (en el caso de C++ es `uchar` en lugar de `uint8`). Con 8 bits se pueden representar valores que van desde 0 a 255.
 
-```cpp
-Mat m1 = Mat::zeros(3,3, CV_8UC1); // Inicialización con ceros
-Mat m2 = Mat::ones(3,3, CV_8UC1); // Inicialización con unos
-Mat m3 = (Mat_<double>(3,3) << 0, -1, 0,
-                              -1, 5, -1,
-                               0, -1, 0); // Inicialización con valores dados
+> Si visualizas esta imagen, verás que es roja. Esto es porque el valor rojo se representa en el último canal debido a que OpenCV carga las imágenes en modo **BGR** en lugar del estándar RGB. Es decir, el canal 0 es el azul, el canal 1 el verde, y el canal 2 el rojo. 
+
+Además del tipo `uint8`, que es el más común para imágenes, un array de numpy puede ser de [cualquiera de estos tipos](https://numpy.org/devdocs/user/basics.types.html).
+
+
+Existen varias alternativas para asignar valores a una matriz que ya está creada, por ejemplo:
+
+```python
+img.fill(255) # solo si la imagen es de 1 canal
+img[::]=(255,0,0) # Para cambiar todos los valores por (255,0,0)
 ```
 
-Para copiar los datos de una matriz en otra hay que usar el constructor de copia o el método `clone`:
+Para más información sobre la sintaxis de acceso a arrays de `numpy` puedes consultar [esta ayuda](https://cs231n.github.io/python-numpy-tutorial/#arrays
+)
 
-```cpp
-Mat m1(m2);  // Constructor de copia (sólo en declaración)
-m1 = m2.clone(); // Alternativa usando clone (cuando la primera matriz está ya declarada)
+ <!---   https://numpy.org/doc/stable/reference/arrays.indexing.html).
+-->
+
+
+En caso de que quisiéramos inicializar todos los valores de la matriz a 0, 1 o cualquier otro valor también podríamos indicarlo:
+
+```python
+img = np.zeros((100,100,3), dtype=np.uint8) # Inicialización con ceros
+img = np.ones((100,100,3), dtype=np.uint8) # Inicialización con unos
+
+img = np.array([[[255, 0, 0], [255, 0, 0]],
+                [[255, 0, 0], [255, 0, 0]],
+                [[255 ,0 ,0], [255, 0, 0]]], dtype=np.uint8) # Inicialización de una matriz de tamaño 3x3 con todos los píxeles de color azul
 ```
 
-> Ojo, el operador de asignación (`=`) no hace una copia de la matriz, sino que crea un puntero que apunta a la segunda matriz e incrementa el contador de referencias. Como alternativa a `clone` existe también el método `copyTo`, pero sólo puede usarse si la cabecera de la matriz destino (tipo, resolución, etc) es idéntica a la matriz origen.
+Para copiar una imagen en otra debemos llevar cuidado con usar el símbolo igual. Ejemplo:
 
-Para modificar una matriz ya creada:
-
-```cpp
-Mat m(7, 7, CV_32FC2, Scalar(1,3));
-// la cambiamos por una matriz uchar de 3 canales y tamaño 100x60
-m.create(100, 60, CV_8UC3);
+```python
+x = img
+y = np.copy(img)
 ```
 
-También podemos crear una matriz que contenga una región de interés (una zona rectangular dada) de otra imagen:
+Si tras este código modificamos `img` cambiará también el valor de `x` pero no el de `y`. Esto es porque el operador asignación (`=`) no hace una copia de la matriz, sino que crea un puntero que apunta a la variable. Para hacer una copia del objeto hay que usar el método `copy`.
 
-```cpp
-Mat roi(m, Rect(50, 50, 150, 150) );
+Para acceder a valores individuales de una matriz podemos hacer uso de las siguientes opciones:
+
+```python
+matrix = np.array([[1,2,3],[4,5,6]])    # Crea una matriz de 2x3
+print(matrix[0, 0], matrix[0, 1], matrix[1, 0])   # Imprime "1 2 4"
+matrix[0, 0] = 2 # Cambia a 2 el valor de la posición 0,0
 ```
 
-Para acceder a valores individuales de una matriz, podemos hacer uso de los siguientes valores:
+Si queremos obtener información sobre la estructura de la matriz podemos usar la siguiente instrucción:
 
-* `channels()`: Devuelve el número de canales de la matriz
-* `cols`: Devuelve el número de columnas de una matriz
-* `rows`: Devuelve el número de filas de una matriz
-
-Si queremos tener información sobre la estructura de la matriz, podemos usar las siguientes instrucciones:
-
-```cpp
-unsigned channels = image.channels();
-unsigned rows     = image.rows;
-unsigned columns  = image.cols;
+```python
+print(matrix.dtype) # Imprime el tipo de la matriz
+print(matrix.shape) # Imprime las dimensiones "(2, 3)"
+print(matrix.ndim)  # Imprime el número total de dimensiones (2)
+print(matrix.size)  # Imprime el número de elementos que tenemos en el array (6)
 ```
 
-La clase `Mat` también tiene métodos para invertir matrices, transponerlas, etc.
+Podemos hacer multitud de operaciones con arrays `numpy`, tales como invertir matrices, transponerlas, etc.
 
+En numpy se puede seleccionar parte de un array de forma sencilla, como se puede ver en el siguiente ejemplo extraido de la [ayuda de numpy](https://numpy.org/devdocs/user/absolute_beginners.html): 
+
+```python
+data = np.array([1, 2, 3])
+print(data[1])  # 2
+print(data[0:2]) # (1,2)
+print(data[1:])  # (2,3)
+print(data[-2:]) # (2, 3)
+```
+
+![lena](images/intro/np_indexing.png)
+
+Para acceder de forma iterativa a todos los elementos de un array se puede usar el siguiente bucle:
+
+```python
+for x in data:
+  print(x)
+```
+
+En caso de una imagen en la cual queremos iterar elemento a elemento:
+
+```python
+for x in img:
+  for y in x:
+    print(y)
+```
+
+Si queremos acceder a una una imagen usando índices en lugar de iteradores se puede utilizar `range`:
+
+```python
+rows,cols = img.shape
+for i in range(rows): 
+    for j in range(cols):  
+      print(img[i,j])
+```
+
+Es posible crear una matriz que almacene una región de interés (una zona rectangular) de otra imagen:
+
+```python
+r = img[y1:y2, x1:x2]
+```
+
+Donde `(x1,y1)` son las coordenadas de la esquina superior izquierda del rectángulo que queremos recortar, y `(x2,y2)` son las coordenadas de la esquina inferior derecha.
+
+Puedes probar este programa de ejemplo para ver cómo se extrae una subimagen, esta vez usando la función `selectROI` que nos permite seleccionar una región de interés mediante el interfaz:
+
+```python
+import cv2 as cv
+
+img = cv.imread('lena.jpg')
+
+r = cv.selectROI(img)
+
+imgCrop = img[r[1]:r[1]+r[3], r[0]:r[0]+r[2]]
+
+cv.imshow('Crop', imgCrop)
+cv.waitKey(0)
+```
+
+A veces es necesario cambiar el tipo de dato de un array o matriz. Podemos hacer este cambio de tipo de forma muy sencilla usando los tipos `numpy`:
+
+```python
+dst = np.float32(src) # Conversión a float
+dst = np.intc(src) # Conversión a int
+dst = np.uint8(src) # Conversión a uint8
+```
+
+<!----
+dst = src.astype(float) # Para pasar un array a float
+dst = src.astype(int) # Para pasar un array a int
+dst = src.astype(np.uint8) # Para pasar un array a uint8
+---->
+
+Hay veces en las que la conversión de tipos no puede hacerse directamente, por ejemplo cuando convertimos una matriz `float32` en `uint8`, ya que podemos salirnos de rango (en el primer caso representamos la variable con 32 bits, en el segundo con 8). Para evitar esto se suele aplicar normalización. Por ejemplo, si tenemos una matriz `m` de tipo `float32`:
+
+```python
+# Normalizamos los valores entre 0 y 255
+m = m - m.min()
+m = m/m.max() * 255
+
+# Ahora ya se puede convertir a uint8
+dst = np.uint8(m)
+```
+
+<!----
 ## Otros tipos básicos
 
 Además de la clase `Mat`, OpenCV define otros tipos básicos. Todos ellos tienen sobrecargado el operador salida, por lo que podemos mostrar su valor usando `<<` como con cualquier otra variable.
@@ -232,6 +316,7 @@ r.x = r.y = 0;
 r.width = r.height = 100;
 ```
 
+
 ## Acceso a los píxeles
 
 Para recorrer los valores de una matriz que tiene un canal y es de tipo `unsigned char`, podemos usar el método `at`:
@@ -278,57 +363,59 @@ if (m.channels == 3) {
 
 También podemos usar iteradores (`MatIterator`) para movernos por todos los píxeles, pero en esta asignatura se desaconseja (es limpio, pero más ineficiente que `at`).
 
+-->
+
 ## Guardar imágenes
 
 Para guardar una imagen en disco se usa la función `imwrite`. Ejemplo:
 
 ```cpp
-imwrite("output.jpg", m);
+cv.imwrite('output.jpg', img)
 ```
 
-Esta función determina el formato del fichero de salida a partir de la extensión proporcionada en el nombre del fichero (en este caso, JPG). Existe un tercer parámetro opcional en el que podemos indicar un vector con opciones de escritura. Por ejemplo:
+Esta función determina el formato del fichero de salida a partir de la extensión proporcionada en el nombre del fichero (en este caso, JPG). Existe un tercer parámetro opcional en el que podemos indicar un array con opciones de escritura. Por ejemplo:
 
-```cpp
- vector<int> compression_params;
- compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
- compression_params.push_back(9); // Compresion de nivel 9
-
- imwrite("alpha.png", m, compression_params);
+```python
+cv.imwrite('compress.png', img,  [cv.IMWRITE_PNG_COMPRESSION, 9]) # Compresión PNG de nivel 9
 ```
 
-Podemos escribir directamente con `imwrite`, pero hay casos en los que esta operación puede fallar (por ejemplo, cuando intentamos acceder a un directorio sin permisos). Si esto ocurre, la función devolverá `false`. Si queremos saber si se ha escrito la imagen, tenemos que comprobarlo. Siempre que escribamos una imagen, es recomendable comprobar que se ha podido hacer la operación:
+Podemos escribir directamente con `imwrite`, pero hay casos en los que esta operación puede fallar (por ejemplo, cuando intentamos acceder a un directorio sin permisos). Si esto ocurre, el método devolverá `false`. Si queremos saber si se ha guardado correctamente la imagen, tenemos que comprobarlo (es recomendable hacerlo siempre):
 
-```cpp
-bool ok = imwrite("alpha.png", m, compression_params);
-if (ok) {
-  // Se ha podido escribir
-}
+```python
+writeStatus = cv.imwrite('img.jpg', img)
+if writeStatus is True:
+    print('Imagen guardada')
+else:
+    print('Error al guardar la imagen') # Excepción u otro problema de escritura
 ```
 
 ---
 
 ### Ejercicio
 
-Haz un programa llamado `grayscale.cpp` que lea una imagen que está en color y la escriba en escala de grises. El programa recibirá como argumento el nombre del fichero de la imagen en color y el del fichero en el que vamos a almacenar la misma imagen pero en escala de grises. Sintaxis:
+Haz un programa llamado `grayscale.py` que lea una imagen en color y la guarde en escala de grises. El programa recibirá como argumento el nombre del fichero de la imagen en color y el del fichero en el que vamos a almacenar la misma imagen pero en escala de grises. Se proporciona la sintaxis de `argParse` para este ejercicio:
 
-```bash
-grayscale <imagen_entrada_color> <imagen_salida_gris>
+```python
+parser = argparse.ArgumentParser(description = 'Programa para cargar una imagen y guardarla en escala de grises')
+parser.add_argument('--entrada', '-i', type=str, default='lena.jpg')
+parser.add_argument('--salida', '-o', type=str, default='lenaGray.jpg')
 ```
 
-Si la imagen no puede guardarse, el programa debe imprimir por pantalla el mensaje `Error de escritura`.
+Si la imagen no puede cargarse o guardarse, el programa debe imprimir el mensaje `Error al cargar la imagen` o `Error al guardar la imagen` respectivamente.
 
 ---
 
 ## Persistencia
 
-Además de las funciones específicas para leer y escribir imágenes y vídeo, en OpenCV hay otra forma genérica de guardar o cargar datos. Esto se conoce como persistencia de datos. Los valores de los objetos y variables en el programa pueden guardarse (serializados) en disco, lo cual es útil para almacenar resultados y cargar datos de configuración.
+Además de las funciones específicas para leer y escribir imágenes y vídeo, en OpenCV hay otra forma genérica de guardar o cargar datos. Esto se conoce como persistencia de datos. Los valores de los objetos y variables en el programa pueden guardarse (_serializados_) en disco, lo cual es útil para almacenar resultados y cargar datos de configuración.
 
 Estos datos suelen guardarse en un fichero `xml` mediante un diccionario (en algunos lenguajes de programación como C++, a los diccionarios se les llama también _mapas_) usando pares clave/valor. Por ejemplo, si quisiéramos guardar una variable que contiene el número de objetos detectados en una imagen:
 
-```cpp
-FileStorage fs("config.xml", FileStorage::WRITE); // Abrimos el fichero para escritura
-fs << "numero_objetos" << num_objetos; // Guardamos el numero de objetos
-fs.release(); // Cerramos el fichero
+```python
+fs = cv.FileStorage('config.xml', cv.FileStorage_WRITE)
+# Abrimos el fichero para escritura
+fs.write('numero_objetos', num_objetos) # Guardamos el numero de objetos
+fs.release() # Cerramos el fichero
 ```
 
 Asumiendo que nuestra variable contiene el valor 10, se almacenará en disco el siguiente fichero `config.xml`:
@@ -343,20 +430,20 @@ Asumiendo que nuestra variable contiene el valor 10, se almacenará en disco el 
 Si posteriormente queremos cargar esta información del fichero, podemos usar el siguiente código:
 
 ```cpp
-FileStorage fs("config.xml", FileStorage::READ);
-fs["numero_objetos"] >> num_objetos;
-fs.release();
+fs = cv.FileStorage('config.xml', cv.FileStorage_READ)
+num_objetos = fs.getNode('numero_objetos')
+fs.release()
 ```
 
 ## Elementos visuales
 
-Como hemos visto al principio, podemos crear una ventana para mostrar una imagen mediante `namedWindow`. El segundo parámetro que recibe la función puede ser:
+Como hemos visto al principio, podemos crear una ventana para mostrar una imagen mediante la función `namedWindow`. El segundo parámetro que recibe puede ser:
 
-* `WINDOW_NORMAL`: El usuario puede cambiar el tamaño de la ventana una vez se muestra por pantalla.
-* `WINDOW_AUTOSIZE`: El tamaño de la ventana se ajusta al tamaño de la imagen y el usuario no puede redimensionarla. Es la opción por defecto.
-* `WINDOW_OPENGL`: Se crea la ventana con soporte para OpenGL (no es necesario en esta asignatura).
+* `cv.WINDOW_NORMAL`: El usuario puede cambiar el tamaño de la ventana una vez se muestra por pantalla.
+* `cv.WINDOW_AUTOSIZE`: El tamaño de la ventana se ajusta al tamaño de la imagen y el usuario no puede redimensionarla. Es la opción por defecto.
+* `cv.WINDOW_OPENGL`: Se crea la ventana con soporte para OpenGL (no es necesario en esta asignatura).
 
-Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](http://docs.opencv.org/3.3.0/d0/d28/group__highgui__c.html) podemos ver las funciones y constantes relacionadas con la gestión del entorno visual estándar.
+Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](https://docs.opencv.org/4.5.1/d7/dfc/group__highgui.html) podemos ver los métodos y constantes relacionados con la gestión del entorno visual estándar.
 
 Para capturar la posición del ratón podemos usar el método `setMouseCallback`, que recibe tres parámetros:
 
@@ -366,44 +453,31 @@ Para capturar la posición del ratón podemos usar el método `setMouseCallback`
 
 La función `callback` que hemos creado recibe cuatro parámetros: El código del evento, los valores x e y, unas opciones (_flags_) y el puntero al elemento pasado a la función.
 
-```cpp
-#include <opencv2/opencv.hpp>
-#include <iostream>
+```python
+import cv2 as cv
 
-using namespace cv;
-using namespace std;
+# Función que se invoca cuando se usa el ratón
+def mouse_click(event, x, y, flags, param):
+	# En caso de que se pulse el botón izquierdo 
+	if event == cv.EVENT_LBUTTONDOWN:
+		
+		mensaje = 'Boton izquierdo (' + str(x) + ',' + str(y) + ')'
+		
+		# Mostrar texto en la imagen.
+		cv.putText(img, mensaje, (x, y), cv.FONT_HERSHEY_TRIPLEX, 0.5, (255, 255, 255), 1) 
+		cv.imshow('image', img)
+		
+# Cargar imagen y mostrarla
+img = cv.imread('lena.jpg') 
+cv.imshow('image', img) 
+		
+# Indicar la función a llamar cuando se pulse el ratón sobre la ventana
+cv.setMouseCallback('image', mouse_click)
 
-
-void handleMouseEvent(int event, int x, int y, int flags, void* param)
-{
-    Mat* m = (Mat*)param;
-    if (event == CV_EVENT_LBUTTONDOWN) {
-        Vec3b d = m->at<Vec3b>(y,x);
-        cout << x << ", " << y << ": " << d << endl;
-        }
-}
-
-int main(int argc, char* argv[])
-{
-    Mat m = imread("lena.jpg");
-
-    if ( m.empty() ) {
-        cout << "Error loading the image" << endl;
-        return -1;
-    }
-
-    namedWindow("Ventana", 1);
-
-    // asignar la función callback para cualquier evento de raton
-    setMouseCallback("Ventana", handleMouseEvent, &m);
-
-    imshow("Ventana", m);
-
-    waitKey(0);
-
-    return 0;
-}
+cv.waitKey(0)
 ```
+
+Se puede encontrar más información sobre los parámetros de `putText` en [este enlace](https://www.geeksforgeeks.org/python-opencv-cv2-puttext-method/).
 
 <!---
 El código del evento (`event`) en este ejemplo puede ser:
@@ -435,164 +509,139 @@ CV_EVENT_FLAG_ALTKEY =32
 ```
 -->
 
-Podemos crear un _trackbar_ (también llamado _slider_) para ajustar algún valor en la ventana de forma interactiva usando la función `createTrackbar`. Al igual que ocurre con la función que gestiona el ratón, puede recibir como último parámetro un puntero a un objeto (en el siguiente ejemplo, `this`). Este puntero lo recibirá la función que se le pasa a `createTrackbar` como penúltimo parámetro (en el siguiente ejemplo, `onChange`):
+<!---
+EN PYTHON: https://docs.opencv.org/3.4/da/d6a/tutorial_trackbar.html
+---->
 
-```cpp
-#include <opencv2/opencv.hpp>
-#include <iostream>
+Mediante el método `createTrackbar` podemos crear un _trackbar_ (también llamado _slider_) para ajustar algún valor en la ventana de forma interactiva. Al igual que ocurre con el método que gestiona el ratón, puede recibir como último parámetro una referencia a una función (en el siguiente ejemplo, `onChange`):
 
-using namespace cv;
-using namespace std;
+```python
+import cv2 as cv
+import argparse
 
-class LinearBlend {
-    private:
-        static const int MAXALPHA = 100;
-        Mat *m1, *m2; // Punteros por eficiencia
+# Constante para indicar el valor máximo del slider
+alpha_slider_max = 100
 
-    public:
-        LinearBlend(Mat &img1, Mat &img2, int initialSliderValue) {
-            // Inicializar valores
-            m1 = &img1;
-            m2 = &img2;
+# Función que crea el trackbar
+def onChange(val):
+    alpha = val / alpha_slider_max
+    beta = 1.0 - alpha
+    # El método addWeighted se encarga de hacer la mezcla
+    dst = cv.addWeighted(img1, alpha, img2, beta, 0.0)
+    cv.imshow('Linear Blend', dst)
 
-            // Crear slider. Importante: el ultimo parametro es this. Se recibe desde onChange.
-            createTrackbar("Blend slider", "Window", &initialSliderValue, MAXALPHA, onChange, this);
+# Procesamos argumentos
+parser = argparse.ArgumentParser(description='Código de ejemplo para usar un trackbar')
+parser.add_argument('--imagen1', help='Ruta de la primera imagen',  default=cv.samples.findFile('LinuxLogo.jpg'))
+parser.add_argument('--imagen2', help='Ruta de la segunda imagen', default=cv.samples.findFile('WindowsLogo.jpg'))
+args = parser.parse_args()
 
-            // Llamar a la funcion para mostrar algo antes de llegar a modificar el slider
-            process(initialSliderValue);
-        }
+# Cargamos las imagenes y comprobamos que han podido abrirse
+img1 = cv.imread(args.imagen1)
+img2 = cv.imread(args.imagen2)
 
-        static void onChange(int v, void *ptr) {
-            // Conversion de tipo y llamada a la funcion que procesa
-            LinearBlend *lb = (LinearBlend*)ptr;
-            lb->process(v);
-        }
+if img1 is None:
+    print('No se ha podido abrir la imagen', args.imagen1)
+    quit()
+if img2 is None:
+    print('No se ha podido abrir la imagen', args.imagen2)
+    quit()
 
-        void process(int v) {  // Funcion que procesa el resultado
-            double alpha = (double)v/MAXALPHA;
-            double beta  = 1 - alpha;
+# Creamos la ventana
+cv.namedWindow('Linear Blend')
 
-            // Guardamos en dst la imagen procesada
-            Mat dst = *m1 * alpha + *m2 * beta;
+# Creamos el trackbar
+cv.createTrackbar('Alpha', 'Linear Blend' , 0, alpha_slider_max, onChange)
 
-            // Mostramos la imagen
-            imshow("Window",dst);
-        }
-};
+# Llamamos a la función que gestiona lo que se hace cuando se modifica el trackbar
+onChange(0)
 
-
-int main() {
-    // Importante: Las imagenes deben ser del mismo tipo y dimensiones
-    Mat img1 = imread("LinuxLogo.jpg");
-    Mat img2 = imread("WindowsLogo.jpg");
-
-    if (!img1.data || ! img2.data || img1.channels()!=img2.channels() || img1.cols!=img2.cols || img1.rows!=img2.rows) {
-        cout << "Error cargando imagenes" << endl;
-        return -1;
-    }
-
-    namedWindow("Window", CV_WINDOW_AUTOSIZE);
-    LinearBlend(img1, img2, 20);
-
-    waitKey(0);
-
-    return 0;
-}
+# Esperamos a que el usuario pulse una tecla para salir
+cv.waitKey()
 ```
 
 <!---
 f ** f
 -->
 
+<!---
 Necesitarás estas dos imágenes para probar el código:
 
 ![WindowsLogo](images/intro/WindowsLogo.jpg)
 ![LinuxLogo](images/intro/LinuxLogo.jpg)
+--->
 
-> Importante: la función que gestiona los cambios (en este caso, `onChange`) sólo puede recibir un puntero a una variable. Por tanto si, tal como ocurre en este ejemplo, es necesario pasar varias variables (varios `Mat`, etc.), lo limpio es hacer una clase y pasar un puntero a un objeto que sea una instancia de la misma como hemos hecho en este caso. Si buscáis por internet ejemplos de elementos visuales en OpenCV veréis que para evitar esto mucha gente usa variables globales. Se trata de una opción más rápida a la hora de implementar, pero no es limpia en absoluto.
-
+<!--
 Además de los eventos de ratón y los _sliders_, podemos añadir botones con la función `createButton` (sólo si hemos compilado OpenCV con la librería QT), y también existen opciones para dibujar sobre la ventana.
+-->
 
-Como alternativa a usar los elementos visuales nativos de la interfaz de OpenCV, puedes usar otras librerías más potentes como [imgui]( http://acodigo.blogspot.com.es/2017/07/cvui-construir-gui-para-opencv.html) o [QT](https://wiki.qt.io/OpenCV_with_Qt), aunque no nos hará falta para esta asignatura.
+Como alternativa a usar los elementos visuales nativos de la interfaz de OpenCV, puedes usar otras librerías más potentes como [imgui]( https://imgui-datascience.readthedocs.io/en/latest/), aunque en principo no nos hará falta para esta asignatura.
 
 ## Vídeo
 
-OpenCV permite cargar ficheros de vídeo o usar una _webcam_ para realizar procesamiento en tiempo real. Veamos un ejemplo de detección de bordes usando una _webcam_ (dará un error al ejecutarlo porque el laboratorio no está equipado con cámaras, pero si tienes un portátil puedes probarlo):
+OpenCV permite cargar ficheros de vídeo o usar una _webcam_ para realizar procesamiento en tiempo real. Veamos un ejemplo de detección de bordes usando una _webcam_ (dará un error al ejecutarlo si el laboratorio no está equipado con cámaras, aunque si tienes un portátil puedes probarlo):
 
-```cpp
-#include <opencv2/opencv.hpp>
-#include <iostream>
+```python
+import cv2 as cv
 
-using namespace cv;
-using namespace std;
+cap = cv.VideoCapture(0)
 
-int main() {
-    Mat edges, frame;
+while(True):
+    # Capturar frame a frame
+    ret, frame = cap.read()
 
-    // Abrimos la camara por defecto y comprobamos que se ha podido
-    VideoCapture cap(0);
+    # Aquí podemos procesar los frames
+    if ret:
+        edges = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        edges = cv.GaussianBlur(edges, (7,7), 1.5, 1.5);
+        edges = cv.Canny(edges, 0, 30, 3);
 
-    if(!cap.isOpened()) {
-        return -1;
-    }
+        # Mostrar el resultado
+        cv.imshow('frame',edges)
+   else:
+        break
 
-    // Creamos la ventana
-    namedWindow("edges");
+    # Parar cuando el usuario pulse 'q'
+    if cv.waitKey(1) & 0xFF == ord('q'):
+        break
 
-    // Bucle infinito (hasta pulsar una tecla)
-    while (true) {
-
-        // Cogemos un nuevo frame de la camara
-        cap >> frame;
-
-        // Detectamos los bordes con Canny (en otro tema veremos en detalle este algoritmo)
-        cvtColor(frame, edges, COLOR_BGR2GRAY);
-        GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
-        Canny(edges, edges, 0, 30, 3);
-
-        // Mostramos la salida en la ventana
-        imshow("edges", edges);
-
-        // La función waitKey(n) se usa para introducir un retardo de n milisegundos al renderizar imagenes en un bucle.
-        // Cuando se usa como waitKey(0) devuelve la tecla pulsada por el usuario en la ventana activa.
-        // En este caso, paramos el bucle sólo si se pulsa la tecla ESC.
-        if( waitKey(30) == 27 ) break;
-    }
-    return 0;
-}
+# Cuando terminemos, paramos la captura
+cap.release()
 ```
 
-Como puede verse, el código es bastante sencillo. Simplemente tenemos que inicializar una variable de captura de vídeo, y con el operador de entrada `>>` podemos obtener los frames para procesarlos.
+Como puede verse, el código es bastante sencillo. Simplemente tenemos que inicializar una variable de captura de vídeo, y con `read` podemos obtener los frames para procesarlos. Si `ret` es `True` es porque el frame se ha podido leer correctamente.
 
-En caso de que queramos cargar un fichero de vídeo (por ejemplo, [este](https://github.com/opencv/opencv/blob/master/samples/data/Megamind.avi?raw=true) ), sólo hay que cambiar una línea:
+En caso de que queramos cargar un fichero de vídeo (por ejemplo, [este](https://github.com/opencv/opencv/blob/master/samples/data/Megamind.avi?raw=true) ), sólo hay que cambiar un par de líneas:
 
-```cpp
-VideoCapture capture("Megamind.avi");
+```python
+cap = cv.VideoCapture('Megamind.avi')
+
+while(cap.isOpened()):
 ```
 
 Para **guardar** un fichero de vídeo hay que llamar a la función `VideoWriter` especificando el formato, _fps_ (_frames_ por segundo) y las dimensiones. Por ejemplo:
 
-```cpp
-VideoWriter video("out.avi", CV_FOURCC('M','J','P','G'), 20, Size(frame_width,frame_height)); // AVI, 20fps widthxheight
+```python
+out = cv.VideoWriter('output.avi',fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x480
 ```
+
+Para más información puedes consultar ![este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
 
 Estos son algunos de los formatos aceptados, aunque existen [muchos más](http://fourcc.org/codecs.php):
 
-```cpp
-CV_FOURCC('M','J','P','G') // AVI, recomendado en la asignatura
-CV_FOURCC('D','I', 'V', '3') // DivX MPEG-4 codec
-CV_FOURCC('M','P','E','G') // MPEG-1 codec
-CV_FOURCC('M','P', 'G', '4') // MPEG-4 codec
-CV_FOURCC('D','I', 'V', 'X') // DivX codec
+```python
+fourcc = cv.VideoWriter_fourcc('m','j','p','g') # AVI, recomendado en la asignatura
+fourcc = cv.VideoWriter_fourcc('d','i', 'v', '3') # DivX MPEG-4 codec
+fourcc = cv.VideoWriter_fourcc(('m','p','e','g')  # MPEG-1 codec
+fourcc = cv.VideoWriter_fourcc('m','p', 'g', '4') # MPEG-4 codec
+fourcc = cv.VideoWriter_fourcc('d','i', 'v', 'x') # DivX codec
 ```
 
-Para escribir un _frame_ de vídeo podemos usar el operador salida:
+Para escribir un _frame_ de vídeo podemos usar el método `write`:
 
-```cpp
-video << frame;
+```python
+out.write(frame)
 ```
-
-Puedes encontrar información detallada sobre procesamiento de vídeo en OpenCV [en este enlace](http://docs.opencv.org/3.0-beta/modules/videoio/doc/reading_and_writing_video.html).
 
 <!---
  Ejercicio 2. Problema: Guardar videos en grayscale es complicado (ultimo parametro del constructor de Videowriter debe ser false y problemas de escritura)

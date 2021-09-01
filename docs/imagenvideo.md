@@ -6,21 +6,19 @@ En este tema usaremos OpenCV para trabajar con cambios de resolución de imágen
 
 En OpenCV podemos cambiar la resolución espacial (es decir, el tamaño de la imagen) con la función `resize`:
 
-```cpp
-// Guardamos la imagen en destino con el 75% de su tamaño original
-resize(origen, destino, Size(), 0.75, 0.75);
+```python
+# Guardamos la imagen img en dst con el 75% de su tamaño original
+dst = cv.resize(img, (0,0), fx=0.75, fy=0.75)
 
-// Guardamos la imagen en destino con un tamanyo de 640(ancho)x480(alto)
-resize(origen, destino, Size(640,480));
+# Guardamos la imagen en destino con un tamaño de 640 x 480 (ancho x alto)
+dst = cv.resize(img, (640,480))
 ```
 
-Para cambiar sólo la resolución radiométrica (el número de bits usados para representar el valor de un píxel), también llamada _depth_, podemos usar el método `convertTo` indicando el nombre de la nueva imagen y su resolución:
+Para cambiar sólo el tipo de dato de la imagen, que está relacionado con la resolución radiométrica o _depth_ (el número de bits usados para representar el valor de un píxel), podemos realizar la conversión con `numpy`:
 
-```cpp
-Mat destino;
-origen.convertTo(destino, CV_8U); // Convertir a 8 bits y guardar en destino
+```python
+converted = np.float32(img) # Convertir a float y guardar en dst
 ```
-
 
 ## Brillo/contraste
 
@@ -34,21 +32,29 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 
 ### Ejercicio
 
-Implementa un programa en OpenCV llamado `bc.cpp` que reciba por parámetro el nombre de una imagen (la cargaremos en escala de grises) y muestre por el terminal su brillo y contraste. Ejemplo de ejecución:
+Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (la debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben ser estos:
+
+```python
+parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen')
+parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
+```
+
+Ejemplo de ejecución:
 
 ```bash
-./bc lena.jpg
-b=120.445
-c=48.2231
+python bc.py
+b= 120.444
+c= 48.221
 ```
 
 > Importante: Como la corrección de prácticas es automática, la salida del programa debe tener exactamente el formato que se indica, por lo que la última línea del código debería ser como la siguiente:
 
-```cpp
- cout << "b=" << brillo << endl << "c=" << contraste << endl;
+```python
+print('b= %.3f' % brillo)
+print('c= %.3f' % contraste)
 ```
 
-> Las variables _brillo_ y _contraste_ deben ser de tipo _float_.
+> Donde las variables _brillo_ y _contraste_ son los valores que debes calcular para la imagen.
 
 <!---
 _Pista_: Para implementar el brillo se puede usar la función `mean` de OpenCV, que devuelve la media de los valores de una matriz:
@@ -77,152 +83,87 @@ Podemos calcular el histograma de una imagen con la función `calcHist`. Esta fu
 
 Parámetros de `calcHist`:
 
-* `images`: Array de imágenes, deben tener la misma resolución, CV_8U, CV_16U o CV_32F, y el mismo tamaño, aunque pueden tener un número distinto de canales.
-* `nimages`: Número de imágenes en este array
-* `channels`: Lista de los canales usados para calcular el histograma, comenzando por el número de canal 0.
-* `mask`: Matriz opcional para usar una máscara binaria. Si no está vacía debe ser un array de 8 bits del mismo tamaño que images[i].
-* `hist`: Matriz donde guardaremos el histograma.
-* `dims`: Dimensionalidad del histograma
-* `histSize`: Array de tamaños de histogramas para cada dimensión.
-* `ranges`: Array de los valores mínimos y máximos para cada imagen. Cuando es el mismo para todas las imágenes (`uniform=true`), sólo hay que especificar un array de dos elementos.
-* `uniform` (opcional): Indica si el histograma es uniforme (por defecto, true).
-* `accumulate` (opcional): Si es true, el histograma no se resetea cuando se analiza otra imagen, de forma que podemos tener un histograma global de varias imágenes (por defecto, false).
+* `images`: Array de imágenes, deben tener la misma resolución, tipo y el mismo tamaño, aunque pueden tener un número distinto de canales. Tiene que indicarse entre corchetes, por ejemplo `[img]`.
+* `channels`: También se da entre corchetes. Es la lista de los canales usados para calcular el histograma, comenzando por el número de canal 0. Si es escala de grises se puede indicar `[0]`, y en color `[0]`, `[1]` o `[2]` para calcular los histogramas de azul, verde y rojo respectivamente.
+* `mask`: Matriz opcional para usar una máscara binaria. Para obtener el histograma de la imagen completa se pone `None`.
+* `histSize`: Representa cuántos elementos tenemos en el vector del histograma y se pone entre corchetes, normalmente serán `[256]`. 
+* `ranges`: Rango de los valores mínimos y máximos para cada imagen, normalmente es `[0,256]`.
 
 Veamos un ejemplo que calcula el histograma de una imagen en escala de  grises, lo muestra por el terminal y crea una gráfica en una ventana:
 
-<!---
-WM: 
- Variable donde guardaremos el histograma -> En esta variable guardaremos el histograma
- Primer bucle for: Eliminados espacios al principio y al final
- Ultimo bucle for: Lo mismo
- int hist_h = 400; en línea separada (antes iba justo tras la instrucción anterior)
- Removed WS after waitKey
---->
+<!----
+https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
+---->
 
-```cpp
+```python
+import cv2 as cv
+import argparse
+from matplotlib import pyplot as plt
 
-#include <opencv2/opencv.hpp>
-#include <iostream>
+parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen')
+parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
+parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
+args = parser.parse_args()
 
-using namespace std;
-using namespace cv;
+# Cargamos la imagen indicada por el usuario
+img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-int main() {
-    Mat image = imread("lena.jpg", IMREAD_GRAYSCALE); 
+# Comprobamos que la imagen se ha podido leer
+if img is None:
+    print("Error al cargar la imagen", args.imagen)
+    quit()
 
-    if (!image.data) {
-        cout << "Error opening image" << endl;
-        return -1;
-    }
+# Calculamos el histograma
+hist = cv.calcHist([img],[0],None,[256],[0,256])
 
-    Mat hist;  // En esta variable guardaremos el histograma
-    int histSize = 256;  // Numero de bins del histograma
-    calcHist(&image, 1, 0, Mat(), hist, 1, &histSize, 0); // Calculamos el histograma
+# Lo mostramos, para esto usamos la librería matplotlib
+plt.plot(hist, 'b') # El segundo parámetro es el color de la línea ('b', 'g', o 'r')
+plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores entre 0 y 255
 
-    // Mostramos los valores por pantalla
-    for (int i = 0; i < histSize; i++)
-        cout << " " <<  hist.at<float>(i);
-    cout << endl;
+# Guardamos el resultado en un fichero
+plt.savefig(args.histograma)
 
-    // Mostramos una grafica con el histograma
-    int hist_w = 512;
-    int hist_h = 400;
-    int bin_w = cvRound((double)hist_w/histSize);
-
-    Mat histImage(hist_h, hist_w, CV_8UC1, Scalar(0,0,0));
-
-    // Normalizamos el histograma entre 0 y histImage.rows
-    normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat());
-
-    // Dibujamos la grafica del histograma usando line, que crea una linea entre dos puntos.
-    for (int i=1; i<histSize; i++) {
-      line( histImage, Point(bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1))),
-                       Point(bin_w*(i), hist_h - cvRound(hist.at<float>(i))),
-                       Scalar(255,0,0), 2, 8, 0);
-    }
-
-    namedWindow("Result", WINDOW_AUTOSIZE);
-    imshow("Result", histImage);
-
-    waitKey(0);
-}
-```
-
-Cuando hay tres canales lo más frecuente es construir un histograma para cada uno de ellos. Para separar los canales de una imagen podemos usar la función `split`:
-
-```cpp
-
-#include <opencv2/opencv.hpp>
-#include <iostream>
-
-using namespace std;
-using namespace cv;
-
-int main() {
-    Mat color_image = imread("lena.jpg");
-    vector<Mat> channels;
-    split(color_image, channels);
-
-    imshow("Blue", channels[0]);
-    imshow("Green", channels[1]);
-    imshow("Red", channels[2]);
-
-    waitKey(0);
-}
+ # Mostramos la gráfica en pantalla
+plt.show()
 ```
 
 ---
+
 
 ### Ejercicio
 
-Haz un programa llamado `histograma_color.cpp` que reciba por parámetro el nombre de fichero de una imagen y el nombre de otra imagen donde guardaremos el resultado. El programa debe mostrar en una ventana el histograma de sus tres colores básicos, y además guardarlo en el fichero de salida. Ejemplo de ejecución:
+Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz un programa llamado `histograma_color.py` que reciba por parámetro el nombre de fichero de una imagen en color, y el nombre de otra imagen donde guardaremos el histograma resultante. El programa debe mostrar en una ventana el histograma de sus tres colores básicos, y además guardarlo en el fichero de salida. Ejemplo de ejecución:
 
 ```bash
-./histograma_color lena.jpg histograma.jpg
+python histograma_color.py lena.jpg histograma.png
 ```
 
-![Histograma color](images/imagenvideo/histogramacolor.png)
+![Histograma color](images/imagenvideo/histograma.png)
 
-Tendrás que usar como base el código anterior para calcular el histograma en un canal, y duplicar algunas líneas para hacerlo en BGR. Una vez divididos los canales con `split` puedes calcular el histograma de cada canal de este modo:
-
-```cpp
-calcHist(&bgr_planes[0], 1, 0, Mat(), b_hist, 1, &histSize, 0); // Calculamos el histograma B.
-```
-
-<!---
-WM: añadido el punto al final
---->
-
----
-
-<!--
-Opción B: Dar este código e implementar el histograma de grayscale a mano.
--->
 
 ## Conversión de espacios de color
 
 OpenCV soporta más de 150 espacios de color. La función que realiza las conversiones entre ellos es `cvtColor`, y admite hasta 4 parámetros:
 
 * `src`: Imagen de entrada
-* `dst`: Imagen de salida con el mismo tamaño y resolución (`depth`) que la imagen de entrada.
 * `code`: Código de conversión del espacio de color. Su estructura es `COLOR_SPACEsrc2SPACEdst`. Ejemplos: `COLOR_BGR2GRAY`, `COLOR_YCrCb2BGR`.
-* `dstCn` (opcional): El número de canales en la imagen destino. Si se omite el parámetro, se infiere del número de canales de la imagen `src`.
+* `dst` (opcional): Imagen de salida con el mismo tamaño y resolución (`depth`) que la imagen de entrada.
+* `dstCn` (opcional): El número de canales en la imagen destino. Si se omite el parámetro, se infiere del número de canales de la imagen `src` y de `code`.
 
 Ejemplo de uso:
 
-```cpp
-cvtColor(input_image, output_image, COLOR_BGR2GRAY);
+```python
+grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 ```
 
-> Importante: La función `cvtColor` sólo convierte de RGB a otro espacio de color o viceversa, por lo que si queremos convertir una imagen entre dos espacios distintos a RGB, primero tenemos que pasarla a RGB y después al espacio destino.
+> Importante: La función `cvtColor` sólo convierte de BGR a otro espacio de color o viceversa, por lo que si queremos convertir una imagen entre dos espacios distintos a BGR, primero tenemos que pasarla a BGR y después al espacio destino.
 
 Ejemplos de conversión:
 
-```cpp
-Mat converted;
-cvtColor(image, converted, COLOR_BGR2GRAY); // Convertir RGB a escala de grises
-cvtColor(image, converted, COLOR_BGR2Luv); // Convertir a LUV
-cvtColor(image, converted, COLOR_BGR2XYZ); // Convertir a CIEXYZ
+```python
+converted = cv.cvtColor(img, cv.COLOR_BGR2GRAY) # Convertir a escala de grises
+converted = cv.cvtColor(img, cv.COLOR_BGR2Luv) # Convertir a LUV
+converted = cv.cvtColor(img, cv.COLOR_BGR2XYZ) # Convertir a CIEXYZ
 ```
 
 Puedes consultar [en este enlace](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) todas las fórmulas que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299*R + 0.587*G+ 0.114*B.
@@ -233,7 +174,7 @@ Ten en cuenta que OpenCV a veces no usa el mismo orden de canales del estándar 
 
 ### Ejercicio
 
-Haz un programa llamado `colorLight.cpp` que reciba por parámetro el nombre de una imagen y extraiga los canales que se muestran a continuación, guardándolos **exactamente** con el siguiente nombre de fichero:
+Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de una imagen y extraiga los canales que se muestran a continuación, guardándolos **exactamente** con el siguiente nombre de fichero:
 
 * El canal **L** de CIELab, fichero `cielab_l.jpg`.
 * El canal **V** de HSV, fichero  `hsv_v.jpg`.
@@ -252,23 +193,25 @@ Para hacer pruebas puedes usar la siguiente imagen de entrada:
 Ejemplo de ejecución:
 
 ```bash
-./colorLight Fire_breathing_2_Luc_Viatour.jpg
+python colorLight.py Fire_breathing_2_Luc_Viatour.jpg
 ```
 
-> Pista: Tras convertir las imágenes con `cvtColor` puedes usar `split` para separar sus canales.
+> Pista: Puedes usar el método `split` para separar los canales de una imagen. Ejemplo:
 
+```python
+b,g,r = cv.split(img)
+```
 ---
 
 ## Pseudocolor
 
 Mediante la función `applyColorMap` también podemos pseudocolorear imágenes en escala de grises usando los [mapas de color predefinidos](http://docs.opencv.org/2.4.8/modules/contrib/doc/facerec/colormaps.html) en OpenCV. Por ejemplo:
 
-```cpp
-Mat im_gray = imread("pluto.jpg", IMREAD_GRAYSCALE);
-Mat im_color;
-applyColorMap(im_gray, im_color, COLORMAP_JET);
+```python
+img = cv.imread('pluto.jpg', cv.IMREAD_GRAYSCALE)
+imgray = cv.applyColorMap(img, cv.COLORMAP_JET)
 ```
 
-Escribe un programa completo que contenga este código de ejemplo (no hay que entregarlo) para visualizar el resultado de pseudocolorear la siguiente imagen de Plutón obtenida por la sonda New Horizons:
+Escribe un programa completo que contenga este código de ejemplo (no hay que entregarlo) para visualizar el resultado de pseudocolorear la siguiente imagen de Plutón obtenida por la sonda _New Horizons_:
 
 ![Pluto](images/imagenvideo/pluto.jpg)

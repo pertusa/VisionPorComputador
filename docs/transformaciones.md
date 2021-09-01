@@ -5,62 +5,70 @@ En este tema comenzaremos a modificar imágenes mediante transformaciones de var
 
 ## Transformaciones puntuales
 
-En OpenCV se pueden realizar operaciones directas con matrices. Por ejemplo, dada una imagen `src` podemos multiplicar el valor de todos sus píxeles por 4 de esta forma:
+Como hemos visto anteriormente, en OpenCV se pueden realizar operaciones directas con matrices mediante la librería `numpy`. Por ejemplo, podemos multiplicar por 4 el valor de todos los píxeles de una imagen esta forma:
 
-```cpp
-Mat dst = 4 * src;
+```python
+dst = src * 4
 ```
 
-Como puedes ver, en las operaciones aritméticas podemos usar tanto números como otras matrices. Si operamos con varias matrices debemos tener en cuenta que todas ellas deben tener la misma resolución radiométrica (_depth_) y deben ser del mismo tipo.
+Tal como puedes ver, en las operaciones aritméticas se pueden usar indistintamente tanto números como arrays o matrices. 
 
 Además de las operaciones aritméticas básicas (suma, resta, multiplicación y división), también podemos usar _AND_, _OR_, _XOR_ y _NOT_ mediante las siguientes funciones:
 
-```cpp
-Mat res;
-bitwise_and(src1, src2, dst);
-bitwise_or(src2, src2, dst);  
-bitwise_xor(src1, src2, dst);
-bitwise_not(src1, dst);
+```python
+dst = np.bitwise_and(src1, src2)
+dst = np.bitwise_or(src2, src2)
+dst = np.bitwise_xor(src1, src2)
+dst = np.bitwise_not(src1) # Alternativa: dst = np.invert(src1)
 ```
 
-Por ejemplo, para invertir una imagen (transformar lo blanco a negro y lo negro a blanco) podemos usar la instrucción `bitwise_not`.
+Por ejemplo, para invertir una imagen (transformar lo blanco a negro y lo negro a blanco) podemos usar la instrucción `bitwise_not`. Este método es un alias de `np.invert`.
 
-Ecualizar histogramas en escala de grises es muy sencillo con la función `equalizeHist`, que necesita recibir la imagen original y la imagen donde guardaremos el resultado:
+Ecualizar histogramas en escala de grises es muy sencillo con la función `equalizeHist`:
 
-```cpp
-Mat dst;
-equalizeHist(src, dst);
+```python
+equ = cv.equalizeHist(img)
 ```
 
-También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](http://docs.opencv.org/2.4/doc/tutorials/imgproc/threshold/threshold.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado, y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
+También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado, y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
 
-```cpp
-threshold(src, dst, 128, 255, CV_THRESH_BINARY); // Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima.
+```python
+# Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima
+dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY) 
 ```
 
-El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](http://docs.opencv.org/2.4/doc/tutorials/imgproc/threshold/threshold.html), aunque el valor más usado es `CV_THRESH_BINARY` (umbralización binaria).
+El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `CV_THRESH_BINARY` (umbralización binaria).
 
-Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal que contiene en blanco aquellos píxeles que están en un determinado rango, y en negro los que quedan fuera del mismo. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
+Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal que contiene en blanco aquellos píxeles que están en un determinado rango, y en negro los que quedan fuera del mismo. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
 
-```cpp
-inRange(src, Scalar(0, 10, 20), Scalar(40, 40, 51), dst);
+```python
+# Dejamos en blanco los píxeles que están entre (0,10,20) y (40,40,51)
+dst = cv.inRange(src, (0, 10, 20), (40, 40, 51)) 
 ```
 
 En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.
 
+
+
 ---
+
+<!---- Implementado en python pero en enunciado sigue en C++ porq no tengo claro si quitarlo, mirar el código y decidir ---->
+
+<!----- IMPORTANTE: MIRAR ESTO: https://stackoverflow.com/questions/39308030/how-do-i-increase-the-contrast-of-an-image-in-python-opencv --->
 
 ### Ejercicio
 
-Haz un programa llamado `bct.cpp` que reciba 3 parámetros: El nombre de la imagen (que leeremos en escala de grises), un valor para el contraste (lo llamaremos _alpha_, de tipo `double`) y un valor para el brillo (_beta_, de tipo `int`). Debes comprobar que el programa recibe los parámetros indicados. Ejemplo de uso:
+Haz un programa llamado `bct.py` que reciba 4 parámetros: El nombre de la imagen (que leeremos en escala de grises), el fichero de imagen de salida, un valor para el contraste (lo llamaremos _alpha_) y un valor para el brillo (_beta_). Debes comprobar que el programa recibe los parámetros indicados. Ejemplo de uso:
 
 ```bash
-./bct lena.jpg 0.5 2
+./bct lena.jpg lenaBct.jpg 0.5 2
 ```
 
 Con este ejemplo, el resultado debería ser como la siguiente imagen:
 
-![Transformaciones brillo contraste](images/transformaciones/bct.jpg)
+**Ojo, no sale igual!**
+
+![Transformaciones brillo contraste](images/transformaciones/bct.jpg) 
 
 
 
@@ -80,57 +88,8 @@ float real = atof(argv[x]);
 int entero = atoi(argv[x]);
 ```
 
-<!---
-> Ayuda: Podemos gestionar nosotros mismos los parámetros, pero cuando tenemos combinaciones complicadas es conveniente usar `CommandLineParser`, ya que [esta función](http://docs.opencv.org/3.0-beta/modules/core/doc/command_line_parser.html) lo hace por nosotros. Usa este código como base para tu programa:
---->
-<!---
-WM: removed bs after "original"
-WM: removed bs after "printmessage"
-WM: Added bs after contraste}
-WM: imageFilename= 
-WM: aqui -> a continuacion
-WM: double -> float
---->
-<!---
-```cpp
-const string keys =
-       "{help h usage ? |   | imprimir este mensaje }"
-       "{@image         |   | imagen original       }"
-       "{@alpha         |   | valor de contraste    }" 
-       "{@beta          |   | valor de brillo       }";
 
-int main(int argc, char* argv[])
-{
-   CommandLineParser parser(argc, argv, keys);
 
-   if (parser.has("help")) {
-       parser.printMessage();
-       return 0;
-   }
-
-   if (!parser.has("@image") || !parser.has("@alpha") || !parser.has("@beta")) {
-       parser.printMessage();
-       return -1;
-   }
-
-   string imageFilename= parser.get<string>("@image");
-   double alpha = parser.get<float>("@alpha");
-   double beta = parser.get<int>("@beta");
-
-   // El codigo del ejercicio debe ir a continuacion
-
-}
-```
---->
-
-<!---
-// PROBAR: Check if params are correctly parsed in his variables -> No funciona
-if (!parser.check())
-{
-        parser.printErrors();
-        return 0;
-}
--->
 
 ---
 
