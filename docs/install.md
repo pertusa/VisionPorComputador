@@ -14,25 +14,25 @@ Para esto, debéis instalar miniconda usando [este enlace](https://docs.conda.io
 
 Una vez instalado, ejecutar desde el terminal (sólo la primera vez):
 
-```bash
+```sh
  conda create -n vision
 ```
 
 Esto crea un **entorno de python**. Cada vez que se inicie un nuevo terminal es necesario activar este entorno:
 
-```bash
+```sh
 conda activate vision
 ```
 
 Una vez dentro del entorno se pueden instalar librerías de python (esto sólo hay que hacerlo una vez, ya que quedan instaladas para dicho entorno) o incluso paquetes de linux con `apt-get`, y estos se instalarán solo para el entorno:
 
-```bash
+```sh
 pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ```
 
 Se puede salir del entorno con el siguiente comando:
 
-```bash
+```sh
 conda deactivate
 ```
 
@@ -40,7 +40,7 @@ conda deactivate
 
 Desde el terminal (con python3 previamente instalado), ejecutar directamente:
 
-```bash
+```sh
 pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ````
 
