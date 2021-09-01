@@ -625,7 +625,7 @@ Para **guardar** un fichero de vídeo hay que llamar a la función `VideoWriter`
 out = cv.VideoWriter('output.avi',fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x480
 ```
 
-Para más información puedes consultar ![este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
+Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
 
 Estos son algunos de los formatos aceptados, aunque existen [muchos más](http://fourcc.org/codecs.php):
 
