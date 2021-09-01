@@ -20,7 +20,7 @@ Una vez instalado, ejecutar desde el terminal (sólo la primera vez):
  conda create -n vision
 ```
 
-Esto crea un **entorno de python** en el que podréis instalar cualquier librería. Cada vez que se inicie un nuevo terminal es necesario activar este entorno:
+Esto crea un **entorno de python**. Cada vez que se inicie un nuevo terminal es necesario activar este entorno:
 
 ```bash
 conda activate vision
@@ -32,7 +32,7 @@ Una vez dentro del entorno se pueden instalar librerías de python (esto sólo h
 pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ```
 
-Para salir del entorno:
+Se puede salir del entorno con el siguiente comando:
 
 ```bash
 conda deactivate
@@ -40,10 +40,10 @@ conda deactivate
 
 ### Instalación directa
 
-Desde el terminal (con python3 ya instalado), ejecutar directamente:
+Desde el terminal (con python3 previamente instalado), ejecutar directamente:
 
 ```bash
 pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ````
 
-Esto tiene la ventaja de no tener que cambiar al entorno cada vez que se inicia un terminal, pero el inconveniente de que si tenéis otras asignaturas (o en general otro software) que necesite versiones distintas de estas librerías puede haber problemas de compatibilidad.
+La ventaja es que no tendremos que cambiar al entorno cada vez que se arranca un terminal, pero el inconveniente de que si tenéis otras asignaturas (o en general otro software) que necesite versiones distintas de alguna de estas librerías puede haber problemas de compatibilidad.
