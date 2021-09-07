@@ -1,6 +1,6 @@
 # Tema 2- Imagen digital y vídeo
 
-En este tema usaremos OpenCV para trabajar con cambios de resolución de imágenes, histogramas, brillo/contraste y conversión entre espacios de color.
+En este tema trabajaremos con cambios de resolución de imágenes, histogramas, brillo/contraste y conversión entre espacios de color.
 
 ## Cambios de resolución espacial y radiométrica
 
@@ -14,7 +14,7 @@ dst = cv.resize(img, (0,0), fx=0.75, fy=0.75)
 dst = cv.resize(img, (640,480))
 ```
 
-Para cambiar sólo el tipo de dato de la imagen, que está relacionado con la resolución radiométrica o _depth_ (el número de bits usados para representar el valor de un píxel), podemos realizar la conversión con `numpy`:
+Para cambiar sólo el tipo de dato de la imagen, que está relacionado con la resolución radiométrica o _depth_ (el número de bits usados para representar el valor de un píxel), podemos realizar una conversión con `numpy`:
 
 ```python
 converted = np.float32(img) # Convertir a float y guardar en dst
@@ -32,7 +32,7 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 
 ### Ejercicio
 
-Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (la debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben ser estos:
+Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (que debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben indicarse de la siguiente forma:
 
 ```python
 parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen')
@@ -54,7 +54,7 @@ print('b= %.3f' % brillo)
 print('c= %.3f' % contraste)
 ```
 
-> Donde las variables _brillo_ y _contraste_ son los valores que debes calcular para la imagen.
+>  Las variables _brillo_ y _contraste_ son los valores que debes calcular usando las ecuaciones anteriores.
 
 <!---
 _Pista_: Para implementar el brillo se puede usar la función `mean` de OpenCV, que devuelve la media de los valores de una matriz:
@@ -79,7 +79,7 @@ G= sqrt(G2^2+G2^2)
 
 ## Histogramas
 
-Podemos calcular el histograma de una imagen con la función `calcHist`. Esta función recibe muchos parámetros porque está pensada para calcular a la vez todos los histogramas de un array de imágenes.
+Podemos calcular el histograma de una imagen con la función `calcHist`. Esta función recibe muchos parámetros porque está pensada para calcular de una pasada todos los histogramas de un array de imágenes.
 
 Parámetros de `calcHist`:
 
@@ -89,7 +89,7 @@ Parámetros de `calcHist`:
 * `histSize`: Representa cuántos elementos tenemos en el vector del histograma y se pone entre corchetes, normalmente serán `[256]`. 
 * `ranges`: Rango de los valores mínimos y máximos para cada imagen, normalmente es `[0,256]`.
 
-Veamos un ejemplo que calcula el histograma de una imagen en escala de  grises, lo muestra por el terminal y crea una gráfica en una ventana:
+Veamos un ejemplo de código que calcula el histograma de una imagen en escala de  grises, lo muestra por el terminal y crea una gráfica en una ventana:
 
 <!----
 https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
@@ -156,7 +156,7 @@ Ejemplo de uso:
 grayImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 ```
 
-> Importante: La función `cvtColor` sólo convierte de BGR a otro espacio de color o viceversa, por lo que si queremos convertir una imagen entre dos espacios distintos a BGR, primero tenemos que pasarla a BGR y después al espacio destino.
+> Importante: La función `cvtColor` sólo convierte de BGR a otro espacio de color o viceversa, por lo que si queremos convertir una imagen entre dos espacios distintos de BGR, primero tenemos que pasarla a BGR y después al espacio destino.
 
 Ejemplos de conversión:
 
@@ -166,9 +166,9 @@ converted = cv.cvtColor(img, cv.COLOR_BGR2Luv) # Convertir a LUV
 converted = cv.cvtColor(img, cv.COLOR_BGR2XYZ) # Convertir a CIEXYZ
 ```
 
-Puedes consultar [en este enlace](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) todas las fórmulas que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299*R + 0.587*G+ 0.114*B.
+Puedes consultar [en este enlace](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) todas las fórmulas que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299\*R + 0.587\*G+ 0.114\*B.
 
-Ten en cuenta que OpenCV a veces no usa el mismo orden de canales del estándar del espacio de color. Por ejemplo, RGB se codifica en OpenCV como BGR, y HSL se codifica como HLS, por lo que el último canal que almacena en este caso es S en lugar de L.
+Ten en cuenta que OpenCV a veces no usa el mismo orden de canales que el estándar del espacio de color. Por ejemplo, RGB se codifica en OpenCV como BGR, y HSL se codifica como HLS, por lo que el último canal que almacena en este caso es S en lugar de L.
 
 ---
 
@@ -188,9 +188,9 @@ Para hacer pruebas puedes usar la siguiente imagen de entrada:
 --->
 
 
-<a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg" alt="A full-color image shows a high-contrast and quite dramatic scene of a fire breather with a large orange-yellow flame extending from his lips. He wears dark but colorful orange-red clothing."></a><br>By I, <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541"></a>.
+<a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg" alt="A full-color image shows a high-contrast and quite dramatic scene of a fire breather with a large orange-yellow flame extending from his lips. He wears dark but colorful orange-red clothing."></a><br>Imagen de <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541">Wikimedia</a>.
 
-Ejemplo de ejecución:
+Ejemplo de ejecución del programa:
 
 ```bash
 python colorLight.py Fire_breathing_2_Luc_Viatour.jpg
@@ -201,6 +201,7 @@ python colorLight.py Fire_breathing_2_Luc_Viatour.jpg
 ```python
 b,g,r = cv.split(img)
 ```
+
 ---
 
 ## Pseudocolor

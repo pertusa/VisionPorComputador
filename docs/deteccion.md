@@ -8,7 +8,7 @@ En este tema aprenderemos a detectar zonas de interés en imágenes.
 Alternativa: Que lo implementen ellos. OJO: También se puede implementar con Sobel!!
 -->
 
-OpenCV tiene una función que implementa directamente el gradiente de **Sobel** en ambas direcciones usando un kernel de tamaño 3x3 (si no se indica ksize, este es el valor por defecto): 
+OpenCV tiene una función que implementa directamente el gradiente de **Sobel** en ambas direcciones usando un kernel de tamaño 3x3 (este es el valor por defecto si no se indica _ksize_): 
 
 ```python
 # Gradiente X
@@ -21,7 +21,7 @@ sobely = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=3)
 <!----ANTIGUO: Ejemplo de [uso](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel_derivatives/sobel_derivatives.html):
 --->
 
-Ejemplo de uso extraido desde [esta web](https://docs.opencv.org/3.4/d2/d2c/tutorial_sobel_derivatives.html):
+Ejemplo de uso adaptado desde [este enlace](https://docs.opencv.org/3.4/d2/d2c/tutorial_sobel_derivatives.html):
 
 ```python
 import cv2 as cv
@@ -55,15 +55,17 @@ Para convolucionar una imagen con un filtro hay que usar el método `filter2D`. 
 filtered = cv.filter2D(img, -1, kernel)
 ```
 
-Donde kernel es la matriz que convolucionaremos con la imagen `img`. Veremos la sintaxis completa de este método en el tema de transformaciones, aunque puedes consultar un ejemplo de uso en ![este enlace](https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html))
+Donde kernel es la matriz que convolucionaremos con la imagen `img`. Veremos la sintaxis completa de este método en el tema de transformaciones, aunque puedes consultar un ejemplo de uso en [este enlace](https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html).
 
 Se puede usar OpenCV para extraer los gradientes en ambas direcciones de una imagen en **escala de grises** usando convoluciones con las fórmulas vistas en teoría, y esto es lo que haremos en el siguiente ejercicio.
 
 ### Ejercicio
 
-Podemos usar distintos kernels para implementar otros gradientes mediante convolución. Crea un programa llamado `prewitt.py` a partir del siguiente código, realizando las convoluciones correspondientes de los filtros Prewitt en horizontal y vertical y completando las partes marcadas con **TODO**:
+Podemos usar distintos kernels para implementar gradientes mediante convolución. Crea un programa llamado `prewitt.py` a partir del siguiente código, realizando las convoluciones correspondientes de los filtros Prewitt en horizontal y vertical y completando las partes marcadas con **TODO**:
 
+<!---
 **OPCION: QUE HAGAN EL PROGRAMA COMPLETO!!!? TIENEN INFO DE CONVERSION DE TIPOS EN EL TEMA ANTERIOR***
+--->
 
 ```python
 import cv2 as cv
@@ -105,7 +107,7 @@ cv.imshow('Prewitt', dst)
 cv.waitKey(0)
 ```
 
-El programa lee en escala de grises la imagen de entrada y debe calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada como parámetro. En el caso de introducir la imagen _lena.jpg_, el resultado debería ser como el siguiente:
+El programa lee en escala de grises la imagen de entrada y debe calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada como parámetro. En el caso de usar _lena.jpg_ debería obtenerse la siguiente imagen:
 
 ![Lena prewitt](images/deteccion/lena_prewitt.jpg)
 
@@ -115,9 +117,9 @@ Verás que el resultado de ejecutar ambos programas es distinto y que en este ca
 
 ### Reducción de ruido
 
-Como hemos visto en teoría, los filtros **gaussianos** sirven para suavizar la imagen y eliminar ruido. Se suelen usar como paso previo a los sistemas de detección de bordes para evitar que el ruido les afecte.
+Como hemos visto en teoría, los filtros **Gaussianos** sirven para suavizar la imagen y eliminar ruido. Se suelen usar como paso previo a los sistemas de detección de bordes para evitar que el ruido les afecte.
 
-En OpenCV tenemos una implementación del filtro gaussiano en la función `GaussianBlur`, que requiere el tamaño del filtro y su desviación típica:
+En OpenCV tenemos una implementación del filtro gaussiano en la función `GaussianBlur`, que requiere que indiquemos el tamaño del filtro y su desviación típica:
 
 <!---
 https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html
@@ -136,7 +138,7 @@ También podemos aplicar un filtro **bilateral**:
 dst = cv.bilateralFilter(src, 15, 80, 80) #  Aplica un filtro bilateral con un diámetro de 15 pixeles vecinos y una intensidad mínima 80.
 ```
 
-Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero sirven para las imágenes en color). Normalmente se usa el mismo valor para estos dos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la  [referencia](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed) de la función.
+Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero se usan para las imágenes en color). Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la [referencia](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed) de la función.
 
 Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 
@@ -145,12 +147,12 @@ Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 dst = cv.Canny(src, 100, 200) # Filtro canny con los umbrales minimo y maximo (hysteresis) proporcionados
 ```
 
-Para más información sobre Canny en OpenCV puedes consultar ![este enlace](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed). Tal como ocurre con las funciones anteriores, los filtros Canny también pueden tener más parámetros.
+Para más información sobre Canny en OpenCV puedes consultar [este enlace](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed). Tal como ocurre con las funciones anteriores, los filtros Canny también pueden tener más parámetros.
 
 ---
 ### Ejercicio
 
-Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso, partiremos de este código que tendrás que descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
+Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que tendrás que descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
 
 ```python
 import cv2 as cv
@@ -307,21 +309,21 @@ Las líneas detectadas usando Hough:
 
 ![Damas Hough](images/deteccion/damas_hough.jpg)
 
-La transformada de Hough también se puede utilizar para detección de otras formas geométricas como círculos. A continuación podemos ver un ejemplo de llamada a la función `HoughCircles`:
+La transformada de Hough también se puede utilizar para detección de otras formas geométricas, por ejemplo  círculos. A continuación podemos ver un ejemplo de llamada a la función `HoughCircles`:
 
 ```python
-circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT,1,20,
-                            param1=50,param2=30,minRadius=0,maxRadius=0)
+circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT, 1, 20,
+                            param1=50, param2=30,minRadius=0, maxRadius=0)
 ```
 
-Puedes usar la [documentación de HoughCircles](https://docs.opencv.org/3.4/da/d53/tutorial_py_houghcircles.html) para obtener más información sobre estos parámetros.
+Puedes consultar la [documentación de HoughCircles](https://docs.opencv.org/3.4/da/d53/tutorial_py_houghcircles.html) para obtener más información sobre estos parámetros.
 
 <!---
 Hacer un programa llamado `hough.cpp` que escriba las líneas detectadas de la imagen  `damas_corrected.jpg` obtenida en el tema anterior?
 -->
 
 
-La función `approxPolyDP` aproxima una curva o un polígono con otra curva/polígono con menos vértices de forma que la distancia entre ambas sea menor o igual que la precisión especificada. Se implementa usando el algoritmo de **Douglas-Peucker**:
+La función `approxPolyDP` aproxima una curva o un polígono mediante otra curva/polígono con menos vértices, de forma que la distancia entre ambas sea menor o igual que la precisión especificada. Se implementa usando el algoritmo de **Douglas-Peucker**:
 
 ```python
 closed = True
@@ -329,7 +331,7 @@ epsilon = 0.1 * cv.arcLength(contour, closed)
 approx = cv.approxPolyDP(contour, epsilon, closed)
 ```
 
-El parámetro `epsilon` es la máxima distancia del contorno al contorno aproximado, y `closed` indica si el contorno es cerrado o no.
+El parámetro `epsilon` es la máxima distancia del contorno al contorno aproximado, y `closed` indica si el contorno es o no cerrado.
 
 Esta función suele usarse tras extraer los contornos de una imagen mediante la función `findContours`, que veremos en el siguiente tema de segmentación.
 
@@ -358,11 +360,9 @@ k = 0.04 # Umbral de Harris
 
 dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 ```
-
+<!----
 > **TODO Teoría**: Explicación buena de HARRIS: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
-
-
-Puedes encontrar un buen ejemplo de Harris [en este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html).
+--->
 
 ---
 

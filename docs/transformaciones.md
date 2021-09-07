@@ -5,7 +5,7 @@ En este tema comenzaremos a modificar imágenes mediante transformaciones de var
 
 ## Transformaciones puntuales
 
-Como hemos visto anteriormente, en OpenCV se pueden realizar operaciones directas con matrices mediante la librería `numpy`. Por ejemplo, podemos multiplicar por 4 el valor de todos los píxeles de una imagen esta forma:
+Como hemos visto anteriormente, en OpenCV se pueden realizar operaciones directas con matrices mediante la librería `numpy`. Por ejemplo, podemos multiplicar por 4  todos los píxeles de una imagen esta forma:
 
 ```python
 dst = src * 4
@@ -37,9 +37,9 @@ También podemos umbralizar una imagen en escala de grises mediante la función 
 dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY) 
 ```
 
-El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `CV_THRESH_BINARY` (umbralización binaria).
+El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `cv.THRESH_BINARY` (umbralización binaria).
 
-Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal que contiene en blanco aquellos píxeles que están en un determinado rango, y en negro los que quedan fuera del mismo. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
+Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal que con aquellos píxeles que están en un determinado rango coloreados en blanco, y los que quedan fuera del mismo en negro. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
 
 ```python
 # Dejamos en blanco los píxeles que están entre (0,10,20) y (40,40,51)
@@ -49,12 +49,13 @@ dst = cv.inRange(src, (0, 10, 20), (40, 40, 51))
 En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.
 
 
-
 ---
 
-<!---- Implementado en python pero en enunciado sigue en C++ porq no tengo claro si quitarlo, mirar el código y decidir ---->
+<!---- CREO QUE MEJOR QUITAR ESTE EJERCICIO ---->
 
 <!----- IMPORTANTE: MIRAR ESTO: https://stackoverflow.com/questions/39308030/how-do-i-increase-the-contrast-of-an-image-in-python-opencv --->
+
+<!----
 
 ### Ejercicio
 
@@ -66,30 +67,18 @@ Haz un programa llamado `bct.py` que reciba 4 parámetros: El nombre de la image
 
 Con este ejemplo, el resultado debería ser como la siguiente imagen:
 
-**Ojo, no sale igual!**
 
 ![Transformaciones brillo contraste](images/transformaciones/bct.jpg) 
 
 
 
-<!--- TODO: PONER IMAGEN SALIDA EJEMPLO --->
+TODO: PONER IMAGEN SALIDA EJEMPLO
 
 
-<!---
-Cambiados rangos [0,3] por [0,2] y [0,100] por [-50,50]
---->
 
 El programa debe guardar en un fichero llamado `bct.jpg` (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de _alpha_ en el rango [0,2] y de _beta_ en el rango [-50,50].
 
-Para leer un _float_ o un _int_ en C++ desde los argumentos del programa, puedes usar las funciones _atof_ o _atoi_ respectivamente:
-
-```cpp
-float real = atof(argv[x]);
-int entero = atoi(argv[x]);
-```
-
-
-
+--->
 
 ---
 
@@ -103,41 +92,38 @@ En OpenCV la mayoría de transformaciones geométricas se implementan creando un
 
 Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa las transformaciones afines mediante matrices aumentadas. Como hemos visto en teoría, la última fila de la matriz aumentada en una transformación afín es siempre (0,0,1) por lo que no hay que indicarla (por este motivo se indica una matriz de 2x3 en lugar de 3x3).
 
-Veamos cómo se implementan algunas transformaciones afines con esta función.
+La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
 
-* **Traslación**
+En general, podemos usar `warpAffine` para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente translación:
 
 ![Matriz de traslación](images/transformaciones/translation.png)
 
-<!---
-WM: removed bs after filas
---->
+Con este código:
 
-<!---
-M=\begin{bmatrix}
-1 & 0 & t_x \\
-0 & 1 & t_y \\
-0 & 0 & 1 \\
-\end{bmatrix}
---->
+```python
+import cv2 as cv
+import numpy as np
 
-```cpp
-Mat translate(Mat &src, int offsetx, int offsety) 
-{
-    // Creamos la matriz de traslacion (offsetx se refiere a las columnas, offsety a las filas)
-    Mat M = (Mat_<float>(2,3) << 1, 0, offsetx,
-                                 0, 1, offsety);
-    Mat dst;
-    warpAffine(src, dst, M, src.size());
-    return dst;
-}
+img = cv.imread('lena.jpg', cv.IMREAD_GRAYSCALE)
 
-Mat dst = translate(image, 0, -10);
+# Valores de translación
+tx = 100
+ty = 50
+
+# Definimos la matriz
+M = np.float32([[1, 0, tx],
+                [0, 1, ty]]) 
+
+# El parámetro flags puede omitirse, por defecto es INTER_LINEAR          
+rows,cols = img.shape
+dst = cv.warpAffine(img, M, (cols, rows), flags=cv.INTER_CUBIC)
+
+cv.imshow('translacion', dst)
+cv.waitKey(0)
 ```
 
-La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
 
-En general, podemos usar `warpAffine` para implementar cualquier transformación afín, pero existen funciones específicas para ayudar a gestionar algunas transformaciones como veremos a continuación.
+Alternativamente a usar las matrices de transformación afín con `warpAffine` existen funciones específicas para ayudar a gestionar las transformaciones de rotación, reflexión y escalado como veremos a continuación.
 
 * **Rotación**
 
@@ -153,83 +139,70 @@ sin\theta & \cos\theta & 0 \\
 Idea ejercicio próximo curso. Implementar transformación geométrica proyectiva mediante multiplicación de matrices. Una vez calculada la transformación tendrán que copiar todos los puntos <x,y> a su nueva posición en la imagen destino teniendo en cuenta los bordes. OJO: INTERPOLACION PUEDE SER JODIDA
 ---->
 
-La rotación sobre un ángulo se define del siguiente modo:
+La rotación sobre un ángulo se define con la siguiente matriz de transformación:
 
 ![Matriz de rotación](images/transformaciones/rotation.png)
 
-Sin embargo, OpenCV permite rotar indicando un centro de rotación ajustable para poder usar  cualquier punto de referencia como el eje. Para esto se usa la función `getRotationMatrix2D`, que recibe como primer parámetro el eje de rotación:
+Sin embargo, OpenCV también permite rotar indicando un centro de rotación ajustable para poder usar cualquier punto de referencia como eje. Para esto se usa la función `getRotationMatrix2D`, que recibe como primer parámetro el eje de rotación:
 
-```cpp
-Mat rotate(Mat& src, double angle) {
-    Point2f center(src.cols*0.5, src.rows*0.5);
-    // Creamos la matriz de rotacion
-    Mat M = getRotationMatrix2D(center, angle, 1.0); // El ultimo parametro (1.0) es la escala
+```python
+rows, cols = img.shape
 
-    Mat dst;
-    warpAffine(src, dst, M, src.size(), INTER_CUBIC); // El ultimo parametro es el metodo de interpolacion (opcional)
-    return dst;
-}
-
-Mat rotated = rotate(image, 90); // Rotar 90 grados
+# Obtenemos la matriz de rotación con 90 grados usando como referencia el centro de la imagen 
+M = cv.getRotationMatrix2D((cols/2,rows/2), 90, 1) # El último parámetro (1) es la escala
+dst = cv.warpAffine(img, M, (cols,rows))
 ```
 
 * **Reflexión**
 
 Existe una función específica (`flip`) que implementa la reflexión sin necesidad de usar `warpAffine`.
 
-```cpp
-Mat dst(src.rows, src.cols, CV_8UC3);
-flip(src, dst, 1);
+```python
+flipVertical = cv.flip(img, 0)
 ```
 
 El tercer parámetro de `flip` puede ser 0 (reflexión sobre el eje x), positivo (por ejemplo, 1 es reflexión sobre el eje y), o negativo (por ejemplo, -1 es sobre los dos ejes).
 
 * **Escalado**
 
-El escalado también se implementa mediante una función específica llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
+El escalado también se implementa mediante una [función específica](https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
 
-<!---
-WM: tamaños
---->
 
-```cpp
-// Especificando un tamaño determinado:
-resize(src, dst, Size(20,30), CV_INTER_LINEAR); // El ultimo parametro es opcional
 
-// Especificando una escala, por ejemplo 75% de la imagen original:
-resize(src, dst, Size(), 0.75, 0.75, CV_INTER_LINEAR); // El ultimo parametro es opcional
+```python
+# 1- Especificando un tamaño determinado (en este ejemplo, 20x30):
+dim = (20, 30)
+dst = cv.resize(src, dim, interpolation = cv.INTER_LINEAR) # El último parámetro de interpolación es opcional
+
+# 2- Especificando una escala, por ejemplo el 75% de la imagen original:
+dst = cv.resize(src, (0,0), fx=0.75, fy=0.75, cv.INTER_LINEAR) # El último parámetro de interpolación es opcional
 ```
 
-* **Sesgado**
 
-Para realizar un sesgado no hay ninguna función específica, por lo que podemos crear la matriz de transformación y después usar `warpAffine`:
-
-```cpp
-Mat M = (Mat_<float>(2, 3) <<   1, 0, 0,
-                              0.5, 1, 0);
-
-Mat dst;
-warpAffine(src, dst, M , Size(src.cols,src.rows));
-```
-
-* **Proyectiva**
+### Transformaciones proyectivas
 
 Como hemos visto en teoría, la transformación proyectiva no es afín, por lo que no conserva el paralelismo de las líneas de la imagen original.
 
 Para hacer una transformación proyectiva debemos indicar una matriz de 3x3 y usar la función `warpPerspective`, por ejemplo:
 
-```cpp
-Mat M = (Mat_<float>(3, 3) <<   1, 0, 0,
-                              0.5, 1, 0,
-                              0.2, 0, 1);
+```python
+# Definimos la matriz
+M = np.float32([[1, 0, 0],
+                [0.5, 1, 0],
+                [0.2, 0, 1]])
 
-Mat dst;
-warpPerspective(src, dst, M, Size(src.cols,src.rows));
+# Implementamos la transformación proyectiva
+rows,cols = img.shape
+dst = cv.warpPerspective(src, M, (cols, rows))
 ```
 
-La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpPerspective(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
+La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87)).
 
-También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos (`Point2f`): El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino, y usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
+También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos: El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
+
+<!----
+https://docs.opencv.org/4.5.2/da/d6e/tutorial_py_geometric_transformations.html
+---->
 
 ```cpp
  Point2f inputQuad[4];
