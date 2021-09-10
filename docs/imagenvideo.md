@@ -132,11 +132,9 @@ plt.show()
 
 ### Ejercicio
 
-Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz un programa llamado `histograma_color.py` que reciba por parámetro el nombre de fichero de una imagen en color, y el nombre de otra imagen donde guardaremos el histograma resultante. El programa debe mostrar en una ventana el histograma de sus tres colores básicos, y además guardarlo en el fichero de salida. Ejemplo de ejecución:
+Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz una copia del programa anterior y llámalo `histograma_color.py`. Modifícalo para que en este caso el programa muestre en una ventana (y guarde en una imagen) el histograma de sus tres colores básicos, en lugar de hacerlo en escala de grises. 
 
-```bash
-python histograma_color.py lena.jpg histograma.png
-```
+Ejemplo de salida con `lena.jpg`:
 
 ![Histograma color](images/imagenvideo/histograma.png)
 
@@ -181,7 +179,15 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 * El canal **L** de HSL, fichero  `hsl_l.jpg`.
 * El canal **Y** de YCbCr, fichero  `ycrcb_y.jpg`.
 
-Para hacer pruebas puedes usar la siguiente imagen de entrada:
+Argumentos de entrada:
+
+```python
+parser = argparse.ArgumentParser(description = 'Programa para cambiar espacios de color')
+parser.add_argument('--imagen', '-i', type=str, default='Fire_breathing_2_Luc_Viatour.jpg')
+args = parser.parse_args()
+```
+
+Para hacer pruebas puedes usar la siguiente imagen:
 
 <!---
 ![Fire breathing](https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg")
@@ -190,13 +196,8 @@ Para hacer pruebas puedes usar la siguiente imagen de entrada:
 
 <a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg" alt="A full-color image shows a high-contrast and quite dramatic scene of a fire breather with a large orange-yellow flame extending from his lips. He wears dark but colorful orange-red clothing."></a><br>Imagen de <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541">Wikimedia</a>.
 
-Ejemplo de ejecución del programa:
 
-```bash
-python colorLight.py Fire_breathing_2_Luc_Viatour.jpg
-```
-
-> Pista: Puedes usar el método `split` para separar los canales de una imagen. Ejemplo:
+> Pista: Se puede usar el método `split` para separar los canales de una imagen. Ejemplo:
 
 ```python
 b,g,r = cv.split(img)
