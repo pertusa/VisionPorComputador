@@ -632,7 +632,7 @@ Estos son algunos de los formatos aceptados, aunque existen [muchos más](http:/
 ```python
 fourcc = cv.VideoWriter_fourcc('m','j','p','g') # AVI, recomendado en la asignatura
 fourcc = cv.VideoWriter_fourcc('d','i','v','3') # DivX MPEG-4 codec
-fourcc = cv.VideoWriter_fourcc(('m','p','e','g') # MPEG-1 codec
+fourcc = cv.VideoWriter_fourcc('m','p','e','g') # MPEG-1 codec
 fourcc = cv.VideoWriter_fourcc('m','p','g','4') # MPEG-4 codec
 fourcc = cv.VideoWriter_fourcc('d','i','v','x') # DivX codec
 ```
