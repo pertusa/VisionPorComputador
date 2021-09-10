@@ -45,3 +45,7 @@ pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-l
 ```
 
 La ventaja es que no tendremos que cambiar de entorno cada vez que se arranca un terminal, pero el inconveniente de que si tenéis otras asignaturas (o en general otro software) que necesite versiones distintas de alguna de estas librerías puede haber problemas de compatibilidad.
+
+## Edición de código en python
+
+Se puede usar cualquier editor para python, pero se recomienda instalar [Visual Studio Code](https://code.visualstudio.com). Este software está disponible para Linux, Mac y Windows.

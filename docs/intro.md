@@ -52,7 +52,7 @@ python3 lectura.py --imagen otraimagen.jpg
 # Equivalente a: python3 lectura.py -i otraimagen.jpg
 ```
 
-Vamos a analizar este código en detalle. En la primera línea, el programa incluye OpenCV. Esto tenemos que hacerlo siempre que queramos usar la librería. También es conveniente incluir la librería `numpy`, ya que es la que usa OpenCV para gestionar los arrays y por tanto nos permite acceder directamente a las imágenes. A veces es posible que necesitemos incluir algún fichero de cabecera adicional, como en este caso la librería `argparse` que sirve para gestionar los argumentos del programa.
+Vamos a analizar este código en detalle. En la primera línea, el programa incluye OpenCV. Esto debemos hacerlo siempre que queramos usar la librería. También es conveniente incluir la librería `numpy`, ya que es la que usa OpenCV para gestionar los arrays y por tanto nos permite acceder directamente a los valores de intensidad de las imágenes. A veces es posible que necesitemos incluir algún fichero de cabecera adicional, como en este caso la librería `argparse` que sirve para gestionar los argumentos del programa.
 
 La librería `argparse` se encarga de comprobar que el usuario ha introducido los parámetros especificados. Si falta algún parámetro se usan unos valores por defecto. Para que un parámetro sea opcional es imprescindible que comience por `--`.
 
@@ -111,7 +111,7 @@ Esto es porque la opción por defecto es `IMREAD_COLOR`, y por tanto se cargará
 https://docs.opencv.org/4.5.1/d5/d98/tutorial_mat_operations.html
 --->
 
-En python, OpenCV usa arrays `numpy` para almacenar las imágenes. Para usar esta librería en nuestro código, tenemos que importarla al principio de nuestro código:
+En python, OpenCV usa arrays `numpy` para almacenar las imágenes. Para usar esta librería en nuestro código, tenemos que importarla al principio:
 
 ```python
 import numpy as np
@@ -124,9 +124,9 @@ img = np.full((100,100,3), (0,0,255), dtype=np.uint8)
 print(img)
 ```
 
-En este ejemplo hemos creado una matriz de 100x100x3 (una imagen de 100 filas por 100 columnas con 3 canales), inicializada con el valor rojo (0,0,255), y de tipo `uint8` (8 bits). Este tipo de dato es el estándar para crear imágenes con una profundidad de 8 bits en python (en el caso de C++ es `uchar` en lugar de `uint8`). Con 8 bits se pueden representar valores que van desde 0 a 255.
+En este ejemplo hemos creado una matriz de 100x100x3 (podría corresponder con una imagen de 100 filas por 100 columnas con 3 canales), inicializada con el valor rojo (0,0,255), y de tipo `uint8` (8 bits). Este tipo de dato es el estándar para crear imágenes con una profundidad de 8 bits en python (en el caso de C++ es `uchar` en lugar de `uint8`). Con 8 bits se pueden representar valores que van desde 0 a 255.
 
-> Si visualizas esta imagen, verás que es roja. Esto es porque el valor rojo se representa en el último canal debido a que OpenCV carga las imágenes en modo **BGR** en lugar del estándar RGB. Es decir, el canal 0 es el azul, el canal 1 el verde, y el canal 2 el rojo. 
+> Si visualizas esta imagen con `imshow` verás que es roja. Esto es porque el valor rojo se representa en el último canal debido a que OpenCV carga las imágenes en modo **BGR** en lugar del estándar RGB. Es decir, el canal 0 es el azul, el canal 1 el verde, y el canal 2 el rojo. 
 
 Además del tipo `uint8`, que es el más común para imágenes, un array de numpy puede ser de [cualquiera de estos tipos](https://numpy.org/devdocs/user/basics.types.html).
 
@@ -139,13 +139,13 @@ img[::]=(255,0,0) # Para cambiar todos los valores por (255,0,0)
 ```
 
 Para más información sobre la sintaxis de acceso a arrays de `numpy` puedes consultar [esta ayuda](https://cs231n.github.io/python-numpy-tutorial/#arrays
-)
+).
 
  <!---   https://numpy.org/doc/stable/reference/arrays.indexing.html).
 -->
 
 
-En caso de que quisiéramos inicializar todos los valores de la matriz a 0, 1 o cualquier otro valor también podríamos indicarlo:
+En caso de que quisiéramos inicializar todos los valores de la matriz a 0, a 1 o a cualquier otro valor también podríamos indicarlo:
 
 ```python
 img = np.zeros((100,100,3), dtype=np.uint8) # Inicialización con ceros
@@ -156,14 +156,14 @@ img = np.array([[[255, 0, 0], [255, 0, 0]],
                 [[255 ,0 ,0], [255, 0, 0]]], dtype=np.uint8) # Inicialización de una matriz de tamaño 3x3 con todos los píxeles de color azul
 ```
 
-Para copiar una imagen en otra debemos llevar cuidado con usar el símbolo igual. Ejemplo:
+En python, para copiar una variable en otra debemos llevar cuidado con usar el símbolo igual. Por ejemplo:
 
 ```python
 x = img
 y = np.copy(img)
 ```
 
-Si tras este código modificamos `img` cambiará también el valor de `x` pero no el de `y`. Esto es porque el operador asignación (`=`) no hace una copia de la matriz, sino que crea un puntero que apunta a la variable. Para hacer una copia del objeto hay que usar el método `copy`.
+Si después de ejecutar este código modificamos `img` cambiará también el valor de `x` pero no el de `y`. Esto es porque el operador asignación (`=`) no hace una copia de la matriz, sino que crea un puntero que apunta a la variable. Para hacer una copia es necesario el método `copy`.
 
 Para acceder a valores individuales de una matriz podemos hacer uso de las siguientes opciones:
 
@@ -203,7 +203,7 @@ for x in data:
   print(x)
 ```
 
-En caso de una imagen en la cual queremos iterar elemento a elemento:
+En el caso de una imagen para la que queramos iterar elemento a elemento:
 
 ```python
 for x in img:
@@ -220,7 +220,7 @@ for i in range(rows):
       print(img[i,j])
 ```
 
-Es posible crear una matriz que almacene una región de interés (una zona rectangular) de otra imagen:
+También es posible crear una matriz que almacene una región de interés (una zona rectangular) de otra imagen:
 
 ```python
 r = img[y1:y2, x1:x2]
@@ -228,7 +228,7 @@ r = img[y1:y2, x1:x2]
 
 Donde `(x1,y1)` son las coordenadas de la esquina superior izquierda del rectángulo que queremos recortar, y `(x2,y2)` son las coordenadas de la esquina inferior derecha.
 
-Puedes probar este programa de ejemplo para ver cómo se extrae una subimagen, esta vez usando la función `selectROI` que nos permite seleccionar una región de interés mediante el interfaz:
+Puedes probar este programa de ejemplo para ver cómo se extrae una subimagen, esta vez usando la función `selectROI` que nos permite seleccionar una región de interés mediante el interfaz de OpenCV:
 
 ```python
 import cv2 as cv
@@ -243,7 +243,7 @@ cv.imshow('Crop', imgCrop)
 cv.waitKey(0)
 ```
 
-A veces es necesario cambiar el tipo de dato de un array o matriz. Podemos hacer este cambio de tipo de forma muy sencilla usando los tipos `numpy`:
+A veces es necesario cambiar el tipo de dato de un array o matriz. Podemos hacer este cambio de forma sencilla usando los tipos `numpy`:
 
 ```python
 dst = np.float32(src) # Conversión a float
@@ -257,7 +257,7 @@ dst = src.astype(int) # Para pasar un array a int
 dst = src.astype(np.uint8) # Para pasar un array a uint8
 ---->
 
-Hay veces en las que la conversión de tipos no puede hacerse directamente, por ejemplo cuando convertimos una matriz `float32` en `uint8`, ya que podemos salirnos de rango (en el primer caso representamos la variable con 32 bits, en el segundo con 8). Para evitar esto se suele aplicar normalización. Por ejemplo, si tenemos una matriz `m` de tipo `float32`:
+Hay veces en las que la conversión de tipos no puede hacerse directamente, por ejemplo cuando convertimos una matriz `float32` en `uint8`, ya que podemos salirnos de rango (en el primer caso representamos la variable con 32 bits, en el segundo con 8). Para evitar esto se suele aplicar normalización. Por ejemplo, si tenemos una matriz `m` de tipo `float32` podemos hacer la conversión de la siguiente forma:
 
 ```python
 # Normalizamos los valores entre 0 y 255
@@ -367,19 +367,19 @@ También podemos usar iteradores (`MatIterator`) para movernos por todos los pí
 
 ## Guardar imágenes
 
-Para guardar una imagen en disco se usa la función `imwrite`. Ejemplo:
+Para guardar una imagen en disco se usa la función `imwrite` de OpenCV. Ejemplo:
 
 ```cpp
 cv.imwrite('output.jpg', img)
 ```
 
-Esta función determina el formato del fichero de salida a partir de la extensión proporcionada en el nombre del fichero (en este caso, JPG). Existe un tercer parámetro opcional en el que podemos indicar un array con opciones de escritura. Por ejemplo:
+Esta función determina el formato del fichero de salida a partir de la extensión proporcionada en su nombre (en este caso, JPG). Existe un tercer parámetro opcional en el que podemos indicar un array con opciones de escritura. Por ejemplo:
 
 ```python
 cv.imwrite('compress.png', img,  [cv.IMWRITE_PNG_COMPRESSION, 9]) # Compresión PNG de nivel 9
 ```
 
-Podemos escribir directamente con `imwrite`, pero hay casos en los que esta operación puede fallar (por ejemplo, cuando intentamos acceder a un directorio sin permisos). Si esto ocurre, el método devolverá `false`. Si queremos saber si se ha guardado correctamente la imagen, tenemos que comprobarlo (es recomendable hacerlo siempre):
+Como hemos visto podemos guardar imágenes con `imwrite`, pero hay casos en los que esta operación puede fallar (por ejemplo, cuando intentamos acceder a un directorio sin permisos). Si esto ocurre, el método devolverá `false`. Si queremos saber si se ha guardado correctamente la imagen, tenemos que comprobarlo (es recomendable hacerlo siempre):
 
 ```python
 writeStatus = cv.imwrite('img.jpg', img)
@@ -447,11 +447,11 @@ Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _tr
 
 Para capturar la posición del ratón podemos usar el método `setMouseCallback`, que recibe tres parámetros:
 
-* El nombre de la ventana en la que se captura el ratón
-* El nombre de la función que se invocará cuando se produzca cualquier evento del ratón (pasar por encima, clickar con el botón, etc.)
+* El nombre de la ventana en la que se captura el ratón.
+* El nombre de la función que se invocará cuando se produzca cualquier evento del ratón (pasar por encima, clickar con el botón, etc).
 * Un puntero (opcional) a cualquier objeto que queramos pasarle a nuestra función.
 
-La función `callback` que hemos creado recibe cuatro parámetros: El código del evento, los valores x e y, unas opciones (_flags_) y el puntero al elemento pasado a la función.
+La función `callback` que hemos creado recibe cuatro parámetros: El código del evento, los valores `x` e `y`, unas opciones (_flags_) y el puntero al elemento pasado a la función.
 
 ```python
 import cv2 as cv
@@ -631,10 +631,10 @@ Estos son algunos de los formatos aceptados, aunque existen [muchos más](http:/
 
 ```python
 fourcc = cv.VideoWriter_fourcc('m','j','p','g') # AVI, recomendado en la asignatura
-fourcc = cv.VideoWriter_fourcc('d','i', 'v', '3') # DivX MPEG-4 codec
-fourcc = cv.VideoWriter_fourcc(('m','p','e','g')  # MPEG-1 codec
-fourcc = cv.VideoWriter_fourcc('m','p', 'g', '4') # MPEG-4 codec
-fourcc = cv.VideoWriter_fourcc('d','i', 'v', 'x') # DivX codec
+fourcc = cv.VideoWriter_fourcc('d','i','v','3') # DivX MPEG-4 codec
+fourcc = cv.VideoWriter_fourcc(('m','p','e','g') # MPEG-1 codec
+fourcc = cv.VideoWriter_fourcc('m','p','g','4') # MPEG-4 codec
+fourcc = cv.VideoWriter_fourcc('d','i','v','x') # DivX codec
 ```
 
 Para escribir un _frame_ de vídeo podemos usar el método `write`:
