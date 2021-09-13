@@ -26,7 +26,7 @@ Una vez tiene permisos podemos instalar conda:
 Y una vez instalado, ejecutar desde el terminal (sólo la primera vez):
 
 ```zsh
- conda create -n vision
+ conda create -n vision python=3
 ```
 
 Esto crea un **entorno de python**. Cada vez que se inicie un nuevo terminal es necesario activar este entorno:
