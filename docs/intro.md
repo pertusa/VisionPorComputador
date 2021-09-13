@@ -622,8 +622,10 @@ while(cap.isOpened()):
 Para **guardar** un fichero de vídeo hay que llamar a la función `VideoWriter` especificando el formato, _fps_ (_frames_ por segundo) y las dimensiones. Por ejemplo:
 
 ```python
-out = cv.VideoWriter('output.avi',fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x480
+out = cv.VideoWriter('output.avi', fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x480
 ```
+
+> Si intentas guardar directamente el vídeo resultante del programa anterior con _VideoWriter_ no funcinará porque los bordes están en escala de grises y todos los formatos admitidos de vídeo necesitan frames en color.
 
 Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
 
@@ -642,6 +644,7 @@ Para escribir un _frame_ de vídeo podemos usar el método `write`:
 ```python
 out.write(frame)
 ```
+
 
 <!---
  Ejercicio 2. Problema: Guardar videos en grayscale es complicado (ultimo parametro del constructor de Videowriter debe ser false y problemas de escritura)
