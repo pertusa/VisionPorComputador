@@ -16,7 +16,7 @@ import argparse
 
 # Gestión de parámetros
 parser = argparse.ArgumentParser(description = 'Programa para cargar y mostrar una imagen')
-parser.add_argument('-imagen', '-i', type=str, default='lena.jpg')
+parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 args = parser.parse_args()
 
 # Cargamos la imagen indicada por el usuario (por defecto, en color)
@@ -627,7 +627,7 @@ out = cv.VideoWriter('output.avi',fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x4
 
 Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
 
-Estos son algunos de los formatos aceptados, aunque existen [muchos más](http://fourcc.org/codecs.php):
+Estos son algunos de los formatos aceptados, aunque existen [muchos más](https://www.fourcc.org/codecs.php):
 
 ```python
 fourcc = cv.VideoWriter_fourcc('m','j','p','g') # AVI, recomendado en la asignatura

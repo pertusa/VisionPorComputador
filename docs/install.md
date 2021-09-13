@@ -12,7 +12,7 @@ Este tipo de instalación hace que las librerías de python necesarias para la a
 
 Para esto, debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html).
 
-> Importante: Descargad la versión  para vuestro sistema operativo que pone python 3.9. 
+> Importante: Descargad la versión (para vuestro sistema operativo) que pone python 3.9. 
 
 Si usáis Linux, desde un terminal hay que dar permisos de ejecución, por ejemplo:
 
