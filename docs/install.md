@@ -10,15 +10,17 @@ Hay dos opciones para instalar el software necesario para hacer las prácticas d
 
 Este tipo de instalación hace que las librerías de python necesarias para la asignatura no interfieran con otras versiones de librerías que ya tengáis instaladas en el sistema.
 
-Para esto, debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html). Para ello, debéis descargar la versión correspondiente a vuestro sistema operativo. Si usáis Linux, desde un terminal hay que dar permisos de ejecución, por ejemplo:
+Para esto, debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html). *Importante:* Descargad la versión que pone python 3.9 para vuestro sistema operativo. 
+
+Si usáis Linux, desde un terminal hay que dar permisos de ejecución, por ejemplo:
 
 ```zsh
-chmod +x ./Miniconda3-latest-Linux-x86_64.sh
+chmod +x ./Miniconda3-py39_4.10.3-Linux-x86_64.sh
 ```
 
 Una vez tiene permisos podemos instalar conda:
 ```zsh
-./Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-py39_4.10.3-Linux-x86_64.sh
 ```
 
 Y una vez instalado, ejecutar desde el terminal (sólo la primera vez):
