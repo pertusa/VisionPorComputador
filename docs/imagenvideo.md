@@ -184,7 +184,6 @@ Argumentos de entrada:
 ```python
 parser = argparse.ArgumentParser(description = 'Programa para cambiar espacios de color')
 parser.add_argument('--imagen', '-i', type=str, default='Fire_breathing_2_Luc_Viatour.jpg')
-args = parser.parse_args()
 ```
 
 Para hacer pruebas puedes usar la siguiente imagen:

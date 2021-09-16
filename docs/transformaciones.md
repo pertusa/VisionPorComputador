@@ -204,42 +204,38 @@ También tenemos otra opción muy práctica para implementar una transformación
 https://docs.opencv.org/4.5.2/da/d6e/tutorial_py_geometric_transformations.html
 ---->
 
-```cpp
- Point2f inputQuad[4];
- Point2f outputQuad[4];
+```python
+# Los dos parámetros que recibe getPerspectiveTransform deben ser arrays de puntos, y cada punto es un array de dos elementos float. 
+M = cv.getPerspectiveTransform(input_pts, output_pts)
 
- // Asignamos valores a esos puntos
- // ...
-
- // Obtenemos la matriz de transformación de perspectiva
- Mat lambda = getPerspectiveTransform(inputQuad, outputQuad);
-
- // Aplicamos la transformacion
- warpPerspective(src, dst, lambda, dst.size());
+# Aplicamos la transformacion usando interpolación lineal. Los valores widthDst y heightDst indican el tamaño de la imagen destino.
+dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv2.INTER_LINEAR)
 ```
-
 ---
 
 ### Ejercicio
 
-Implementa un programa llamado `perspectiva.cpp` para corregir la perspectiva de una imagen `damas.jpg` dados estos 4 puntos de sus esquinas:
+Implementa un programa llamado `perspectiva.py` para corregir la perspectiva de una imagen `damas.jpg` dados estos 4 puntos de sus esquinas:
 
-<!---
-WM: Añadidos puntos después de cada comentario
---->
-
-```cpp
-278, 27  // Esquina superior izquierda.
-910, 44  // Esquina superior derecha.
-27, 546  // Esquina inferior izquierda.
-921, 638 // Esquina inferior derecha.
+```python
+278, 27  # Esquina superior izquierda.
+910, 44  # Esquina superior derecha.
+27, 546  # Esquina inferior izquierda.
+921, 638 # Esquina inferior derecha.
 ```
 
-Esta es la imagen de entrada:
+Los argumentos del programa deben ser los siguientes:
+```python
+parser = argparse.ArgumentParser(description = 'Programa para corregir perspectiva de tablero de damas')
+parser.add_argument('--imagen', '-i', type=str, default='damas.jpg')
+parser.add_argument('--salida', '-o', type=str, default='damas_corrected.jpg')
+```
+
+Imagen de entrada:
 
 ![damas](images/transformaciones/damas.jpg)
 
-El programa debe guardar la imagen resultante en un fichero llamado `damas_corrected.jpg` de **tamaño 640x640 píxeles**:
+El programa debe guardar la imagen resultante en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro:
 
 ![damas](images/transformaciones/damas_corrected.jpg)
 
@@ -259,29 +255,35 @@ Las convoluciones se implementan con la función `filter2D`.
 
 Esta función recibe los siguientes parámetros:
 
-* `src`: Imagen de entrada
 * `dst`: Imagen resultante
 * `ddepth`: Resolución radiométrica (_depth_) de la matriz `dst`. Un valor negativo indica que la resolución será la misma que tiene la imagen de entrada.
 * `kernel`: El _kernel_ a convolucionar con la imagen.
 * `anchor` (opcional): La posición de anclaje del kernel (como puede verse en la figura) relativa a su origen. El punto (-1,-1) indica el centro del kernel por defecto.
 * `delta` (opcional): Un valor para añadir a cada píxel durante la convolución. Por defecto, 0.
-* `borderType` (opcional): El método a seguir en los bordes de la imagen para interpolación, ya que en estos puntos el filtro se sale de la imagen. Puede ser `BORDER_REPLICATE`, `BORDER_REFLECT`, `BORDER_REFLECT_101`, `BORDER_WRAP`,  `BORDER_CONSTANT`, o `BORDER_DEFAULT` (el valor por defecto).
+* `borderType` (opcional): El método a seguir en los bordes de la imagen para interpolación, ya que en estos puntos el filtro se sale de la imagen. Puede ser `cv.BORDER_REPLICATE`, `cv.BORDER_REFLECT`, `cv.BORDER_REFLECT_101`, `cv.BORDER_WRAP`,  `cv.BORDER_CONSTANT`, o `cv.BORDER_DEFAULT` (el valor por defecto).
 
 Ejemplos de llamadas a la función:
 
-```cpp
-filter2D(src, dst, -1, kernel); // Esta forma es la más habitual
-filter2D(src, dst, -1 , kernel, Point(-1,-1)); // Ancla desplazada
+```python
+# Esta forma es la más habitual
+dst = cv.filter2D(src, -1, kernel) 
+# Indicando qué hacer en los bordes
+dst = cv.filter2D(src, -1, kernel, borderType=cv.BORDER_CONSTANT)  
 ```
+
+<!----
+dst = cv.filter2D(src, -1 , kernel, Point(-1,-1)) # Indicando ancla desplazada
+---->
 
 Evidentemente hay que crear antes un _kernel_ para convolucionarlo con la imagen. Por ejemplo, podría ser el siguiente:
 
-```cpp
-Mat kernel = (Mat_<int>(5, 5)  << -1, -1, -1, -1, -1,
-                                  -1, -1, -1, -1, -1,
-                                  -1, -1, 24, -1, -1,
-                                  -1, -1, -1, -1, -1,
-                                  -1, -1, -1, -1, -1);
+
+```python
+kernel = numpy.array([[-1, -1, -1, -1, -1],
+                      [-1, -1, -1, -1, -1],
+                      [-1, -1, 24, -1, -1],
+                      [-1, -1, -1, -1, -1],
+                      [-1, -1, -1, -1, -1]])
 ```
 
 > Pregunta: ¿Qué tipo de filtro acabamos de crear?
@@ -297,8 +299,8 @@ Haz un programa que reciba como parámetro una imagen, la lea en escala de grise
 
 El filtro de mediana se implementa de forma muy sencilla en OpenCV:
 
-```cpp
-medianBlur(src, dst, 5);
+```python
+dst = cv.medianBlur(src, 5)
 ```
 
 El último parámetro indica el tamaño del _kernel_, que siempre será cuadrado (en este ejemplo, 5x5 píxeles).
@@ -311,34 +313,34 @@ OpenCV proporciona una serie de funciones predefinidas para realizar transformac
 
 La sintaxis de las operaciones morfológicas básicas es sencilla:
 
-```cpp
-erode(src, dst, element);
-dilate(src, dst, element);
+```python
+dst = cv.erode(src, element)
+dst = cv.dilate(src, element)
 ```
 
-Ambas operaciones necesitan un elemento estructurante. Al igual que en el caso de `filter2D` se pueden añadir opcionalmente los parámetros `anchor`, `delta` y `borderType`.
+Ambas operaciones necesitan un elemento estructurante, `element` en el ejemplo anterior. Al igual que en el caso de `filter2D` se pueden añadir opcionalmente los parámetros `anchor`, `delta` y `borderType`.
 
 Para crear el elemento estructurante se usa la función `getStructuringElement`:
 
-```cpp
-int erosion_type = MORPH_ELLIPSE; // Forma del filtro
-int erosion_size = 6;             // Tamaño del filtro (6x6)
+```python
+# Forma del filtro
+erosion_type = cv.MORPH_ELLIPSE 
 
-Mat element = getStructuringElement(erosion_type,
-                                    Size(erosion_size, erosion_size));
+# El último parámetro es el tamaño del filtro, en este caso 5x5
+element = cv.getStructuringElement(erosion_type,(5,5)) 
 ```
 
 El elemento estructurante puede tener forma de caja (`MORPH_RECT`), de cruz (`MORPH_CROSS`) o de elipse (`MORPH_ELLIPSE`).
 
 ### Apertura, cierre y Top-Hat
 
-El resto de funciones de transformación morfológica se implementan mediante la función `morphologyEx`:
+El resto de funciones de transformación morfológica se implementan mediante la función `morphologyEx`, por ejemplo:
 
 ```cpp
-morphologyEx(src, dst, operation, element);
+dst = cv.morphologyEx(src, cv.MORPH_OPEN, element)
 ```
 
-Esta función se invoca con los mismos parámetros que `erode` o `dilate` mas un parámetro adicional que indica el tipo de operación:
+Esta función se invoca con los mismos parámetros que `erode` o `dilate` mas el parámetro que indica el tipo de operación:
 
 * Apertura: `MORPH_OPEN`
 * Cierre: `MORPH_CLOSE`
@@ -346,13 +348,21 @@ Esta función se invoca con los mismos parámetros que `erode` o `dilate` mas un
 * White Top Hat: `MORPH_TOPHAT`
 * Black Top Hat: `MORPH_BLACKHAT`
 
-En [este enlace](http://docs.opencv.org/2.4/doc/tutorials/imgproc/opening_closing_hats/opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
+En [este enlace](https://docs.opencv.org/4.5.2/d3/dbe/tutorial_opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
 
 ---
 
 ### Ejercicio
 
-El objetivo de este ejercicio (`detectarFichas.cpp`) es generar una máscara binaria que contenga sólo las fichas del juego de damas.
+El objetivo de este ejercicio (`detectarFichas.py`) es generar una máscara binaria que contenga sólo las fichas de la imagen del tablero de damas usado en el ejercicio anterior. La sintaxis sería la siguiente:
+
+```python
+parser = argparse.ArgumentParser(description = 'Programa para obtener las damas')
+parser.add_argument('--imagen', '-i', type=str, default='damas_corrected.jpg')
+parser.add_argument('--salidaRojas', '-r', type=str, default='rojas.jpg')
+parser.add_argument('--salidaBlancas', '-b', type=str, default='blancas.jpg')
+```
+
 
 #### Fichas rojas
 
