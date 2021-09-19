@@ -54,7 +54,7 @@ python3 lectura.py --imagen otraimagen.jpg
 
 Vamos a analizar este código en detalle. En la primera línea, el programa incluye OpenCV. Esto debemos hacerlo siempre que queramos usar la librería. También es conveniente incluir la librería `numpy`, ya que es la que usa OpenCV para gestionar los arrays y por tanto nos permite acceder directamente a los valores de intensidad de las imágenes. A veces es posible que necesitemos incluir algún fichero de cabecera adicional, como en este caso la librería `argparse` que sirve para gestionar los argumentos del programa.
 
-La librería `argparse` se encarga de comprobar que el usuario ha introducido los parámetros especificados. Si falta algún parámetro se usan unos valores por defecto. Para que un parámetro sea opcional es imprescindible que comience por `--`.
+La librería `argparse` se encarga de comprobar que el usuario ha introducido los parámetros especificados. Si falta algún parámetro se usan unos valores por defecto. Cuando un parámetro es opcional suele indicar que comience por `--`, aunque por defecto todos los parámetros son opcionales a no ser que se añada la opción `required=True`. A los parámetros sin valor por defecto se les asigna `None`, y esto es lo que recibe el programa si el usuario no establece su valor.
 
 A continuación leemos una imagen con `imread` usando el nombre de fichero que se le pasa por parámetro y la guardamos en una matriz llamada `img`. Cada vez que intentemos cargar una imagen es importante comprobar que se ha podido leer  correctamente.
 
@@ -153,7 +153,7 @@ img = np.ones((100,100,3), dtype=np.uint8) # Inicialización con unos
 
 img = np.array([[[255, 0, 0], [255, 0, 0]],
                 [[255, 0, 0], [255, 0, 0]],
-                [[255 ,0 ,0], [255, 0, 0]]], dtype=np.uint8) # Inicialización de una matriz de tamaño 3x3 con todos los píxeles de color azul
+                [[255 ,0 ,0], [255, 0, 0]]], dtype=np.uint8) # Inicialización de una matriz de tamaño 3x2x3 con todos los píxeles de color azul
 ```
 
 En python, para copiar una variable en otra debemos llevar cuidado con usar el símbolo igual. Por ejemplo:
@@ -627,7 +627,9 @@ out = cv.VideoWriter('output.avi', fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x
 
 > Si intentas guardar directamente el vídeo resultante del programa anterior con _VideoWriter_ no funcinará porque los bordes están en escala de grises y todos los formatos admitidos de vídeo necesitan frames en color.
 
-Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html).
+<!---
+Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html). -> DESACTUALIZADO
+--->
 
 Estos son algunos de los formatos aceptados, aunque existen [muchos más](https://www.fourcc.org/codecs.php):
 
