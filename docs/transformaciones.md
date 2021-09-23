@@ -13,7 +13,7 @@ dst = src * 4
 
 Tal como puedes ver, en las operaciones aritméticas se pueden usar indistintamente tanto números como arrays o matrices. 
 
-Además de las operaciones aritméticas básicas (suma, resta, multiplicación y división), también podemos usar _AND_, _OR_, _XOR_ y _NOT_ mediante las siguientes funciones:
+Además de las operaciones aritméticas básicas (suma, resta, multiplicación y división), también podemos usar _AND_, _OR_, _XOR_ y _NOT_ mediante las siguientes funciones de `numpy`:
 
 ```python
 dst = np.bitwise_and(src1, src2)
@@ -30,7 +30,7 @@ Ecualizar histogramas en escala de grises es muy sencillo con la función `equal
 equ = cv.equalizeHist(img)
 ```
 
-También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado, y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
+También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
 
 ```python
 # Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima
@@ -39,7 +39,7 @@ dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY)
 
 El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `cv.THRESH_BINARY` (umbralización binaria).
 
-Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal que con aquellos píxeles que están en un determinado rango coloreados en blanco, y los que quedan fuera del mismo en negro. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
+Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal con aquellos píxeles que están en un determinado rango coloreados en blanco, y los que quedan fuera del mismo en negro. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
 
 ```python
 # Dejamos en blanco los píxeles que están entre (0,10,20) y (40,40,51)
@@ -49,7 +49,6 @@ dst = cv.inRange(src, (0, 10, 20), (40, 40, 51))
 En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.
 
 
----
 
 <!---- CREO QUE MEJOR QUITAR ESTE EJERCICIO ---->
 
@@ -84,9 +83,9 @@ El programa debe guardar en un fichero llamado `bct.jpg` (siempre con este mismo
 
 ## Transformaciones globales
 
-Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](http://docs.opencv.org/trunk/d8/d01/tutorial_discrete_fourier_transform.html).
+Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](https://docs.opencv.org/3.4/d8/d01/tutorial_discrete_fourier_transform.html).
 
-## Transformaciones geométricas
+## Transformaciones afines
 
 En OpenCV la mayoría de transformaciones geométricas se implementan creando una matriz de transformación y aplicándola a la imagen original con `warpAffine`.
 
@@ -94,11 +93,11 @@ Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa
 
 La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
 
-En general, podemos usar `warpAffine` para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente translación:
+En general, podemos usar `warpAffine` para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente traslación...
 
 ![Matriz de traslación](images/transformaciones/translation.png)
 
-Con este código:
+...con este código:
 
 ```python
 import cv2 as cv
@@ -115,17 +114,17 @@ M = np.float32([[1, 0, tx],
                 [0, 1, ty]]) 
 
 # El parámetro flags puede omitirse, por defecto es INTER_LINEAR          
-rows,cols = img.shape
+rows, cols = img.shape
 dst = cv.warpAffine(img, M, (cols, rows), flags=cv.INTER_CUBIC)
 
-cv.imshow('translacion', dst)
+cv.imshow('traslacion', dst)
 cv.waitKey(0)
 ```
 
 
-Alternativamente a usar las matrices de transformación afín con `warpAffine` existen funciones específicas para ayudar a gestionar las transformaciones de rotación, reflexión y escalado como veremos a continuación.
+Alternativamente a usar las matrices de transformación afín con `warpAffine` existen funciones específicas para ayudar a gestionar las transformaciones de rotación, reflexión y escalado como vamos a ver a continuación:
 
-* **Rotación**
+### Rotación
 
 <!---
 M=\begin{bmatrix}
@@ -153,7 +152,7 @@ M = cv.getRotationMatrix2D((cols/2,rows/2), 90, 1) # El último parámetro (1) 
 dst = cv.warpAffine(img, M, (cols,rows))
 ```
 
-* **Reflexión**
+### Reflexión
 
 Existe una función específica (`flip`) que implementa la reflexión sin necesidad de usar `warpAffine`.
 
@@ -163,7 +162,7 @@ flipVertical = cv.flip(img, 0)
 
 El tercer parámetro de `flip` puede ser 0 (reflexión sobre el eje x), positivo (por ejemplo, 1 es reflexión sobre el eje y), o negativo (por ejemplo, -1 es sobre los dos ejes).
 
-* **Escalado**
+### Escalado
 
 El escalado también se implementa mediante una [función específica](https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
 
@@ -179,11 +178,11 @@ dst = cv.resize(src, (0,0), fx=0.75, fy=0.75, cv.INTER_LINEAR) # El último par�
 ```
 
 
-### Transformaciones proyectivas
+## Transformaciones proyectivas
 
 Como hemos visto en teoría, la transformación proyectiva no es afín, por lo que no conserva el paralelismo de las líneas de la imagen original.
 
-Para hacer una transformación proyectiva debemos indicar una matriz de 3x3 y usar la función `warpPerspective`, por ejemplo:
+Para hacer una transformación proyectiva debemos indicar una matriz de 3x3 y usar la función `warpPerspective`. Por ejemplo:
 
 ```python
 # Definimos la matriz
@@ -192,11 +191,11 @@ M = np.float32([[1, 0, 0],
                 [0.2, 0, 1]])
 
 # Implementamos la transformación proyectiva
-rows,cols = img.shape
+rows, cols = img.shape
 dst = cv.warpPerspective(src, M, (cols, rows))
 ```
 
-La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87)).
+La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
 
 También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos: El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
 
@@ -209,7 +208,7 @@ https://docs.opencv.org/4.5.2/da/d6e/tutorial_py_geometric_transformations.html
 M = cv.getPerspectiveTransform(input_pts, output_pts)
 
 # Aplicamos la transformacion usando interpolación lineal. Los valores widthDst y heightDst indican el tamaño de la imagen destino.
-dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv2.INTER_LINEAR)
+dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv.INTER_LINEAR)
 ```
 ---
 
@@ -235,13 +234,15 @@ Imagen de entrada:
 
 ![damas](images/transformaciones/damas.jpg)
 
-El programa debe guardar la imagen resultante en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro:
+El programa debe guardar el resultado en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro. La salida correcta sería la siguiente:
 
 ![damas](images/transformaciones/damas_corrected.jpg)
 
 <!---
 Si ves que se queda corto, que marquen los puntos con el interfaz de OpenCV
 -->
+
+---
 
 ## Transformaciones en entorno de vecindad
 
@@ -255,20 +256,20 @@ Las convoluciones se implementan con la función `filter2D`.
 
 Esta función recibe los siguientes parámetros:
 
-* `dst`: Imagen resultante
-* `ddepth`: Resolución radiométrica (_depth_) de la matriz `dst`. Un valor negativo indica que la resolución será la misma que tiene la imagen de entrada.
+* `src`: Imagen de entrada
+* `ddepth`: Resolución radiométrica (_depth_) de la matriz `dst`. Un valor negativo indica que la resolución es la misma que tiene la imagen de entrada.
 * `kernel`: El _kernel_ a convolucionar con la imagen.
-* `anchor` (opcional): La posición de anclaje del kernel (como puede verse en la figura) relativa a su origen. El punto (-1,-1) indica el centro del kernel por defecto.
+* `anchor` (opcional): La posición de anclaje del kernel (como puede verse en la figura) relativa a su origen. El punto (-1,-1) indica el centro del kernel (es el valor por defecto).
 * `delta` (opcional): Un valor para añadir a cada píxel durante la convolución. Por defecto, 0.
-* `borderType` (opcional): El método a seguir en los bordes de la imagen para interpolación, ya que en estos puntos el filtro se sale de la imagen. Puede ser `cv.BORDER_REPLICATE`, `cv.BORDER_REFLECT`, `cv.BORDER_REFLECT_101`, `cv.BORDER_WRAP`,  `cv.BORDER_CONSTANT`, o `cv.BORDER_DEFAULT` (el valor por defecto).
+* `borderType` (opcional): El método a seguir en los bordes de la imagen para interpolación, ya que en estos puntos el filtro se sale de la imagen. Puede ser `cv.BORDER_REPLICATE`, `cv.BORDER_REFLECT`, `cv.BORDER_REFLECT_101`, `cv.BORDER_WRAP`,  `cv.BORDER_CONSTANT`, o `cv.BORDER_DEFAULT` (que es el valor por defecto).
 
-Ejemplos de llamadas a la función:
+Ejemplos de llamadas a esta función:
 
 ```python
 # Esta forma es la más habitual
 dst = cv.filter2D(src, -1, kernel) 
 # Indicando qué hacer en los bordes
-dst = cv.filter2D(src, -1, kernel, borderType=cv.BORDER_CONSTANT)  
+dst = cv.filter2D(src, -1, kernel, borderType=cv.BORDER_CONSTANT)
 ```
 
 <!----
@@ -307,18 +308,18 @@ El último parámetro indica el tamaño del _kernel_, que siempre será cuadrado
 
 ## Transformaciones morfológicas
 
-OpenCV proporciona una serie de funciones predefinidas para realizar transformaciones morfológicas:
+OpenCV proporciona una serie de funciones predefinidas para realizar transformaciones morfológicas.
 
 ### Erosión y dilatación
 
-La sintaxis de las operaciones morfológicas básicas es sencilla:
+La sintaxis de estas operaciones morfológicas básicas es sencilla:
 
 ```python
 dst = cv.erode(src, element)
 dst = cv.dilate(src, element)
 ```
 
-Ambas operaciones necesitan un elemento estructurante, `element` en el ejemplo anterior. Al igual que en el caso de `filter2D` se pueden añadir opcionalmente los parámetros `anchor`, `delta` y `borderType`.
+Ambas funciones necesitan un elemento estructurante, llamado `element` en el código anterior. Al igual que en el caso de `filter2D` se pueden añadir opcionalmente los parámetros `anchor`, `delta` y `borderType`.
 
 Para crear el elemento estructurante se usa la función `getStructuringElement`:
 
@@ -327,20 +328,20 @@ Para crear el elemento estructurante se usa la función `getStructuringElement`:
 erosion_type = cv.MORPH_ELLIPSE 
 
 # El último parámetro es el tamaño del filtro, en este caso 5x5
-element = cv.getStructuringElement(erosion_type,(5,5)) 
+element = cv.getStructuringElement(erosion_type, (5,5)) 
 ```
 
 El elemento estructurante puede tener forma de caja (`MORPH_RECT`), de cruz (`MORPH_CROSS`) o de elipse (`MORPH_ELLIPSE`).
 
 ### Apertura, cierre y Top-Hat
 
-El resto de funciones de transformación morfológica se implementan mediante la función `morphologyEx`, por ejemplo:
+El resto de funciones de transformación morfológica se implementan mediante la función `morphologyEx`. Por ejemplo:
 
 ```cpp
 dst = cv.morphologyEx(src, cv.MORPH_OPEN, element)
 ```
 
-Esta función se invoca con los mismos parámetros que `erode` o `dilate` mas el parámetro que indica el tipo de operación:
+Esta función se invoca con los mismos parámetros que `erode` o `dilate` añadiendo el parámetro que indica el tipo de operación:
 
 * Apertura: `MORPH_OPEN`
 * Cierre: `MORPH_CLOSE`
@@ -354,7 +355,7 @@ En [este enlace](https://docs.opencv.org/4.5.2/d3/dbe/tutorial_opening_closing_h
 
 ### Ejercicio
 
-El objetivo de este ejercicio (`detectarFichas.py`) es generar una máscara binaria que contenga sólo las fichas de la imagen del tablero de damas usado en el ejercicio anterior. La sintaxis sería la siguiente:
+El objetivo de este ejercicio (`detectarFichas.py`) es generar una máscara binaria que contenga sólo las fichas de la imagen del tablero de damas obtenido en el ejercicio anterior. La sintaxis sería la siguiente:
 
 ```python
 parser = argparse.ArgumentParser(description = 'Programa para obtener las damas')
@@ -366,18 +367,18 @@ parser.add_argument('--salidaBlancas', '-b', type=str, default='blancas.jpg')
 
 #### Fichas rojas
 
-Veamos un ejemplo de detección de las fichas rojas:
+Veamos la imagen resultante de detectar las fichas rojas:
 
 ![Fichas rojas](images/transformaciones/rojas.jpg)
 
-El programa a implementar debe cargar directamente la imagen resultante del ejercicio anterior (`damas_corrected.jpg`) y a continuación seguir los siguientes pasos:
+El programa a implementar debe cargar directamente la imagen obtenida en el ejercicio anterior (`damas_corrected.jpg`) y a continuación seguir los siguientes pasos:
 
 * Realizar una umbralización quedándonos sólo con los píxeles que tengan un color dentro de un rango BGR entre (0,0,50) y (40,30,255). Podemos visualizar el resultado con `imshow`. Deberíamos tener los píxeles de las fichas rojas resaltados, aunque la detección es todavía imperfecta y existen huecos.
 * Crear un elemento estructurante circular de tamaño 10x10 píxeles y aplicar un operador de cierre para perfilar mejor los contornos de las fichas y eliminar estos huecos.
-* Guardar la imagen resultante en el fichero `rojas.jpg`. Debería dar el mismo resultado que se muestra en la imagen anterior.
+* Guardar la imagen resultante en el fichero pasado por parámetro (por defecto, `rojas.jpg`). Debería dar el mismo resultado que se muestra en la imagen anterior.
 
 #### Fichas blancas
 
-* Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado al confundirse el color de las fichas con el de las casillas blancas.
+* Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado al confundirse el color de las fichas con el de las casillas blancas. 
 
 ---
