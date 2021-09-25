@@ -210,6 +210,7 @@ M = cv.getPerspectiveTransform(input_pts, output_pts)
 # Aplicamos la transformacion usando interpolación lineal. Los valores widthDst y heightDst indican el tamaño de la imagen destino.
 dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv.INTER_LINEAR)
 ```
+
 ---
 
 ### Ejercicio
