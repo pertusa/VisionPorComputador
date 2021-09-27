@@ -34,7 +34,7 @@ También podemos umbralizar una imagen en escala de grises mediante la función 
 
 ```python
 # Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima
-dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY) 
+th, dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY) 
 ```
 
 El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `cv.THRESH_BINARY` (umbralización binaria).
