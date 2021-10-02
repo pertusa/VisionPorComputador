@@ -9,19 +9,19 @@ En este tema veremos cómo segmentar imágenes, detectando los píxeles pertenec
 Pedir que implementen el "Algoritmo sencillo"?
 -->
 
-Como puede verse en [este enlace](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), OpenCV proporciona muchos métodos para realizar umbralización básica mediante la función `threshold`.
-
-La umbralización de **Otsu** también se puede implementar mediante esta misma función, indicando como parámetro el flag `cv.THRES_OTSU`:
+Como puede verse en [este enlace](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), OpenCV proporciona varios métodos para realizar umbralización básica mediante la función `threshold`. Esta función también implementa la umbralización de **Otsu** indicando como parámetro `cv.THRES_OTSU`:
 
 ```python
 dst, th = cv.threshold(img, 0, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
 ```
 
-La umbralización **adaptativa** se implementa usando la función [adaptiveThreshold](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html#adaptive-thresholding).
+La umbralización **adaptativa** se implementa usando la función [adaptiveThreshold](https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-2-adaptive-thresholding/).
 
-El método de **Chow-Kaneko** no está en OpenCV, aunque en realidad se puede implementar de forma sencilla.
+El método de **Chow-Kaneko** no está en OpenCV aunque no sería complicado de implementar.
 
-Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bordes para poder estimar posteriormente los **contornos** de los objetos (y de esta forma segmentarlos). En OpenCV existe una función para realizar esta tarea llamada `findContours` que sólo puede usarse para extraer contornos a partir de los bordes detectados con otro algoritmo (es decir, trabaja con una imagen binaria como entrada). En [este enlace](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) puedes ver un ejemplo de un programa que usa `findContours` y también la función `drawContours` para dibujar el resultado usando colores aleatorios.
+## Contornos
+
+Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bordes para poder estimar posteriormente los **contornos** de los objetos (y de esta forma segmentarlos). En OpenCV existe una función para realizar esta tarea llamada `findContours` que sólo puede usarse para extraer contornos a partir de los bordes detectados con otro algoritmo (es decir, trabaja con una imagen binaria como entrada). En [este enlace](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) puedes ver un ejemplo de un programa que usa `findContours` y posteriormente la función `drawContours` para dibujar el resultado usando colores aleatorios.
 
 ![Contornos](images/segmentacion/contours_input.jpg) ![Contornos](images/segmentacion/contours_output.jpg)
 
@@ -31,16 +31,16 @@ A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/2.4
 contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 ```
 
-Esta función devuelve una lista de contornos detectados en la imagen `image` junto con su jerarquía. La [jerarquía](https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html) hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unas figuras dentro de otras (en ese caso, las primeras serán "hijas" de las segundas, que son las figuras "padre"). 
+Esta función devuelve una lista de contornos detectados en la imagen junto con su jerarquía. La [jerarquía](https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html) hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unos contornos dentro de otros (en ese caso, los primeros serán "hijos" de los segundos, que son llos contornos "padre"). 
 
-El segundo parámetro de la función es el tipo de algoritmo usado para devolver los contornos. El más simple es `cv.RETR_LIST`, que devuelve simplemente un listado e ignora la jerarquía. Alternativamente se puede usar, por ejemplo, `cv.RETR_TREE`, que contiene la jerarquía completa. 
+El segundo parámetro de esta función es el tipo de algoritmo usado para devolver los contornos. El método más sencillo es `cv.RETR_LIST`, que devuelve simplemente un listado e ignora la jerarquía. Alternativamente se puede usar, por ejemplo, `cv.RETR_TREE`, que contiene la jerarquía completa. 
 
-El tercer parámetro es el método de aproximación. `cv.CHAIN_APPROX_NONE` devuelve todos los puntos del contorno, pero como esto es bastante ineficiente para algunos algoritmos como veremos en el siguiente tema, a veces se usan [técnicas de reducción de puntos](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) para simplificar los contornos, por ejemplo con el flag `cv.CHAIN_APPROX_SIMPLE`.
+El tercer parámetro es el método de aproximación. En el caso de usar `cv.CHAIN_APPROX_NONE` se devuelven todos los puntos del contorno, pero como esto es bastante ineficiente para algunos algoritmos (como veremos en el siguiente tema), a veces se usan [técnicas de reducción de puntos](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) para simplificar los contornos, por ejemplo usando la opción `cv.CHAIN_APPROX_SIMPLE`.
 
 
 ## Crecimiento y división de regiones
 
-OpenCV no tiene ningún método de **crecimiento de regiones**, aunque existen algunos [ejemplos de código](https://github.com/Panchamy/RegionGrowing) que lo implementan siguiendo la metodología que hemos visto en clase. Tampoco existen métodos de **división y unión**, pero en [este enlace](http://vgg.fiit.stuba.sk/2016-06/split-and-merge/) puedes consultar un ejemplo sencillo.
+OpenCV no tiene ningún método de **crecimiento de regiones**, aunque existen algunos [ejemplos de código](https://github.com/Panchamy/RegionGrowing) que lo implementan siguiendo la metodología que hemos visto en teoría. Tampoco existen métodos de **división y unión**, pero en [este enlace](http://vgg.fiit.stuba.sk/2016-06/split-and-merge/) puedes consultar un ejemplo sencillo.
 
 <!---
 http://www.lengrand.fr/2011/11/simple-region-growing-implementation-in-python
@@ -48,14 +48,15 @@ http://www.lengrand.fr/2011/11/simple-region-growing-implementation-in-python
 
 ## Watershed
 
-En OpenCV tenemos el algoritmo `Watershed`. Puedes ver ejemplos de uso de un programa [interactivo](https://github.com/opencv/opencv/blob/master/samples/python/watershed.py) y también [no interactivo](https://docs.opencv.org/trunk/d2/dbd/tutorial_distance_transform.html), es decir, deduciendo de forma automática los marcadores iniciales.
+En OpenCV está implementado el algoritmo `Watershed`. Puedes ver ejemplos de uso de un programa [interactivo](https://github.com/opencv/opencv/blob/master/samples/python/watershed.py) y también [no interactivo](https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_watershed/py_watershed.html), es decir, deduciendo de forma automática los marcadores iniciales.
+
 <!---
 https://github.com/callaunchpad/OpenCV-Samples/blob/master/watershed.py
 --->
 
 En el ejemplo no interactivo se segmenta la siguiente imagen:
 
-![entrada watershed](images/segmentacion/watershed_input.jpg) ![salida watershed](images/segmentacion/watershed_output.jpg)
+![entrada watershed](images/segmentacion/water_coins.jpg) ![salida watershed](images/segmentacion/water_result.jpg)
 
 En este [otro enlace](https://github.com/callaunchpad/OpenCV-Samples/blob/master/watershed.py) puedes encontrar un ejemplo de Watershed que usa la webcam en tiempo real.
 
@@ -65,9 +66,11 @@ En este [otro enlace](https://github.com/callaunchpad/OpenCV-Samples/blob/master
 https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_meanshift/py_meanshift.html
 ---->
 
-El algoritmo **Mean-shift** está implementado tanto en la librería `sklearn`, para [uso general de clustering de datos](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MeanShift.html), como en OpenCV. 
+El algoritmo **Mean-shift** está implementado en la librería `sklearn` para [uso general de clustering de datos](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MeanShift.html), aunque también puede encontrarse en la librería de OpenCV. 
 
-En OpenCV tenemos dos opciones: El [método](https://docs.opencv.org/master/d7/d00/tutorial_meanshift.html) `meanshift`, que suele usarse para tracking como veremos en el tema de vídeo, o `pyrMeanShiftFiltering`, que se usa directamente para segmentar imágenes en color:
+> La librería [sklearn](https://scikit-learn.org/stable/) (en realidad `scikit`) es la más usada en python para algoritmos de aprendizaje automático tradicional, y la utilizan muchos programas que también usan OpenCV.
+
+En este último caso (usando OpenCV) tenemos dos opciones: El [método `meanshift`](https://docs.opencv.org/master/d7/d00/tutorial_meanshift.html), que suele usarse para _tracking_ (como veremos en el tema de vídeo), o `pyrMeanShiftFiltering`, que se usa directamente para segmentar imágenes en color:
 
 ```python
 dst = cv.pyrMeanShiftFiltering(img, 25, 60)
@@ -128,7 +131,6 @@ El algoritmo **k-means** se implementa en OpenCV mediante la función `kmeans`. 
 
 Este algoritmo también puede encontrarse para [uso general](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) en la librería `sklearn`. 
 
-> La librería [sklearn](https://scikit-learn.org/stable/) (en realidad `scikit`) es la más usada en python para algoritmos de aprendizaje automático tradicional, y la utilizan muchos programas que también usan OpenCV.
 
 ## Métodos basados en grafos
 
@@ -138,15 +140,15 @@ El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ej
 
 ## Métodos de saliency
 
-OpenCV implementa algunos algoritmos de `saliency`, entre los que se encuentra `Spectral Residual`. Este algoritmo es sencillo y también se puede implementar [a mano](https://learning.oreilly.com/library/view/opencv-4-with/9781789801811/93d4b0f1-f938-4c81-8ee6-5b14f622e98c.xhtml), pero a continuación puedes ver un ejemplo de código que usa la implementación de OpenCV basado en [este código](https://www.cronj.com/blog/finding-region-of-interest-roi-saliency/):
+OpenCV implementa algunos algoritmos de `saliency`, entre los que se encuentra `Spectral Residual`. Este algoritmo es sencillo y también se puede implementar a mano, pero a continuación puedes ver un ejemplo que usa la implementación de OpenCV basado en el código de [este enlace](https://www.cronj.com/blog/finding-region-of-interest-roi-saliency/):
 
 
 <!----
 https://www.cronj.com/blog/finding-region-of-interest-roi-saliency/
 ---->
-
+<!---
 > TODO: EXPLICAR FINEGRAINED QUE APARECE EN ESE EJEMPLO? FUNCIONA MUCHO MEJOR QUE SR!
-
+--->
 
 ```python
 import cv2 as cv

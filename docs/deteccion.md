@@ -364,7 +364,7 @@ dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 ```
 
 <!---
-> **TODO Teoría**: Explicación buena de HARRIS: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
+> **TODO Teoría**: Explicación buena de HARRIS: https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
 --->
 
 ---
