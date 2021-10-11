@@ -237,16 +237,18 @@ Imágenes: https://data.nal.usda.gov/system/files/Pear_1.zip
 Etiquetas: https://data.nal.usda.gov/system/files/PearLabels_2.zip
 -->
 
-Tenemos un robot como [este](https://rua.ua.es/dspace/bitstream/10045/103541/5/2020_Cuevas-Velasquez_etal_ComputElectronAgricult_preprint.pdf) para podar rosales: 
+Como podemos ver en la siguiente imagen, tenemos un robot [TrimBot2020](http://trimbot2020.webhosting.rug.nl) y queremos usarlo para podar rosales: 
 
 ![Robot](images/segmentacion/robotRoses.png)
 
-El primer paso para que el robot haga su trabajo es detectar las ramas con las cámaras que equipa, y vamos a intentar resolver esta tarea. 
+El primer paso para que el robot haga su trabajo es detectar las ramas principales con las cámaras que equipa, y en este ejercicio vamos a intentar resolver esta tarea. 
 
-Para ello nos proporcionan imágenes sintéticas ya etiquetadas con la posición de las ramas. Por tanto, se trata de un problema de segmentación binaria: dada una imagen como la siguiente, el objetivo es identificar los píxeles que pertenecen a las ramas (segunda imagen). 
+Para ello disponemos de una serie de imágenes sintéticas ya etiquetadas con la posición de las ramas. Por tanto, se trata de un problema de segmentación binaria: dada una imagen como la siguiente, el objetivo es identificar los píxeles que pertenecen a las ramas principales (segunda imagen). 
 
-![Ejemplo de imagen de entrada](images/segmentacion/2.png)
-![Ejemplo de segmentación sin errores](images/segmentacion/2seg.png)
+![Ejemplo de imagen de entrada](images/segmentacion/4.png)
+![Ejemplo de segmentación sin errores](images/segmentacion/4gt.png)
+
+Si te fijas verás que las ramas muy finas no aparecen marcadas en la imagen segmentada, ya que no son de interés para la poda. Ten en cuenta que aunque tu programa las detecte no hay problema, no cambiará mucho el resultado porque en realidad son pocos píxeles.
 
 Llamaremos a nuestro programa `roses.py`, y debe recibir por parámetro la imagen de entrada y el fichero donde se almacenará el resultado de la segmentación:
 
@@ -260,13 +262,13 @@ args = parser.parse_args()
 * `entrada` es la imagen de entrada.
 * `salida` es el nombre del fichero en el que vamos a guardar el resultado de la segmentación, que será una imagen en escala de grises (en blanco los píxeles que pertenecen a las ramas y en negro los que no).
 
-Se proporciona el script de evaluación y una serie de imágenes de entrada junto con sus correspondientes anotaciones para comprobar los resultados.
+Se proporciona el _script_ de evaluación y una serie de imágenes de entrada junto con sus correspondientes anotaciones para comprobar los resultados.
 
-Para comenzar, descarga todos los materiales de este ejercicio que se encuentran en el fichero [roses.zip](images/segmentacion/roses.zip). TODO
+Para comenzar, descarga todos los materiales de este ejercicio que se encuentran en el fichero [roses.zip](images/segmentacion/roses.zip).
 
 Cuando descomprimas este archivo, podrás ver en el directorio `roses` las siguientes carpetas:
 
-* `input`: imágenes de entrada que debe segmentar tu algoritmo. Estas imágenes son un subconjunto de la base de datos [Roses](TODO). 
+* `input`: imágenes de entrada que debe segmentar tu algoritmo. Estas imágenes son un subconjunto sintético de la base de datos [ROSeS](https://rua.ua.es/dspace/bitstream/10045/103541/5/2020_Cuevas-Velasquez_etal_ComputElectronAgricult_preprint.pdf).
 * `output`: directorio inicialmente vacío donde se guardarán los resultados de segmentación de tu método.
 * `gt`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
 
