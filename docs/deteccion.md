@@ -74,7 +74,6 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-
 parser = argparse.ArgumentParser(description = 'Programa para calcular el filtro de Prewitt')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default='prewitt.jpg')
@@ -243,7 +242,7 @@ print(imagen.shape, imagen.dtype)
 
 ## Detección de líneas
 
-La llamada más sencilla para ejecutar **Hough** como detector de líneas es:
+La forma más sencilla para ejecutar la transformada de **Hough** para detectar líneas es la siguiente:
 
 ```python
 lines = cv.HoughLinesP(src, lines, rho, theta, threshold)
@@ -254,7 +253,7 @@ lines = cv.HoughLinesP(src, lines, rho, theta, threshold)
 * `theta`: Resolución del ángulo del acumulador (en píxeles).
 * `threshold`: Umbral del acumulador. Sólo se devuelven aquellas líneas que tienen más votos que este umbral.
 
-El resultado se guarda en `lines`, que es un vector de líneas. A su vez, cada línea es otro vector de 4 elementos (x1, y1, x2, y2), donde (x1,y1) y (x2, y2) son los puntos extremos de la línea.
+El resultado se guarda en `lines`, que es un vector de líneas. A su vez, cada línea es otro vector de 4 elementos `(x1, y1, x2, y2)`, donde `(x1,y1)` y `(x2, y2)` son los puntos extremos de la línea.
 
 Además de estos parámetros, hay otros dos opcionales: `minLineLength`, que indica la mínima longitud de una línea para descartar los segmentos más cortos que esta longitud, y `maxLineGap`, que es el máximo salto permitido entre puntos de la misma línea para enlazarlos.
 
@@ -263,7 +262,7 @@ Como hemos visto, la función `Hough` debe usarse siempre tras un detector de bo
 
 ```python
 edges = cv.Canny(src, 50, 200, None, 3)
-lines = cv.HoughLinesP(edges, 1, np.pi / 180, 50, None, 50, 10)
+lines = cv.HoughLinesP(edges, 1, np.pi/180, 50, None, 50, 10)
 ```
 
 Veamos un programa completo que usa `Hough` y muestra las líneas detectadas sobre la imagen:
@@ -329,7 +328,7 @@ La función `approxPolyDP` aproxima una curva o un polígono mediante otra curva
 
 ```python
 closed = True
-epsilon = 0.1 * cv.arcLength(contour, closed)
+epsilon = 0.1*cv.arcLength(contour, closed)
 approx = cv.approxPolyDP(contour, epsilon, closed)
 ```
 
@@ -347,12 +346,12 @@ kernel_size = 3
 dst = cv.Laplacian(src, ddepth, ksize=kernel_size)
 ```
 
-## Detección de esquinas: Harris
+## Detección de esquinas
 
-Podemos detectar esquinas en OpenCV mediante la función `cornerHarris`. Necesita como entrada una imagen en escala de grises de tipo `float` y recibe como parámetros: el número de píxeles vecinos a tener en cuenta, el tamaño del filtro (apertura) para calcular los gradientes con Sobel, y el umbral de detección _k_, que es el único parámetro libre del algoritmo Harris:
+En OpenCV podemos detectar esquinas usando **Harris** mediante la función `cornerHarris`. Necesita como entrada una imagen en escala de grises y además los siguientes parámetros: el número de píxeles vecinos a tener en cuenta, el tamaño del filtro (apertura) para calcular los gradientes con Sobel, y el umbral de detección _k_, que es el único parámetro libre del algoritmo Harris:
 
 ```cpp
-cornerHarris(src_gray, dst, blockSize, apertureSize, k);
+cornerHarris(src_gray, dst, blockSize, apertureSize, k)
 ```
 
 ```python
@@ -371,7 +370,7 @@ dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 
 ### Ejercicio
 
-Escribe el siguiente código, llámalo `harris.py` y completa las instrucciones **TODO** como se indica:
+Escribe el siguiente código, llámalo `harris.py` y completa las instrucciones marcadas con **TODO**:
 
 ```python
 import cv2 as cv

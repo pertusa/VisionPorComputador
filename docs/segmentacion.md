@@ -222,60 +222,63 @@ Se puede con este código (findContours) marcar el contorno y buscar el centroid
 ## Ejercicio
 
 <!----
-Elegido primero: https://conservancy.umn.edu/handle/11299/206575 (no me gusta, hay muchos errores de etiquetado!)
+JAVI!: https://rua.ua.es/dspace/bitstream/10045/103541/5/2020_Cuevas-Velasquez_etal_ComputElectronAgricult_preprint.pdf
+  Descarga datos: https://drive.google.com/file/d/1MVHF3OZPQo53m8v3cE0u_Zyb8OdeNmpj/view?usp=sharing
+
+Alternativas
+Manzanas: https://conservancy.umn.edu/handle/11299/206575 (no me gusta, hay muchos errores de etiquetado!)
 Flores (Mejor el dataset de peras): https://data.nal.usda.gov/dataset/data-multi-species-fruit-flower-detection-using-refined-semantic-segmentation-network
 Limones: https://github.com/softwaremill/lemon-dataset
 Grietas: https://www.irit.fr/~Sylvie.Chambon/Crack_Detection_Database.html
 More: https://homepages.inf.ed.ac.uk/rbf/CVonline/Imagedbase.htm
---->
 
 PERAS:
 Imágenes: https://data.nal.usda.gov/system/files/Pear_1.zip
 Etiquetas: https://data.nal.usda.gov/system/files/PearLabels_2.zip
+-->
 
+Tenemos un robot como [este](https://rua.ua.es/dspace/bitstream/10045/103541/5/2020_Cuevas-Velasquez_etal_ComputElectronAgricult_preprint.pdf) para podar rosales: 
 
-Nos encargan diseñar un robot para recoger manzanas de los árboles, y el primer paso es detectarlas con las cámaras que equipa. El sistema de manipulación y recogida lo dejaremos para otro momento.
+![Robot](images/segmentacion/robotRoses.png)
 
-> 
+El primer paso para que el robot haga su trabajo es detectar las ramas con las cámaras que equipa, y vamos a intentar resolver esta tarea. 
 
-Dada una fotografía, el objetivo es identificar los píxeles donde hay manzanas, por lo que se trata de un problema de segmentación binaria. Llamaremos a este ejercicio `manzanopower.py`, y el programa debe recibir dos parámetros:
+Para ello nos proporcionan imágenes sintéticas ya etiquetadas con la posición de las ramas. Por tanto, se trata de un problema de segmentación binaria: dada una imagen como la siguiente, el objetivo es identificar los píxeles que pertenecen a las ramas (segunda imagen). 
 
-```bash
-python manzanopower.py <entrada> <salida>
+![Ejemplo de imagen de entrada](images/segmentacion/2.png)
+![Ejemplo de segmentación sin errores](images/segmentacion/2seg.png)
+
+Llamaremos a nuestro programa `roses.py`, y debe recibir por parámetro la imagen de entrada y el fichero donde se almacenará el resultado de la segmentación:
+
+```python
+parser = argparse.ArgumentParser(description = 'Programa para segmentar tallos de rosales')
+parser.add_argument('--entrada', '-i', type=str)
+parser.add_argument('--salida', '-o', type=str)
+args = parser.parse_args()
 ```
 
-* `entrada` es la imagen de entrada, una foto del árbol.
-* `salida` es el nombre del fichero en el que vamos a guardar el resultado de la segmentación, que será una imagen binaria.
+* `entrada` es la imagen de entrada.
+* `salida` es el nombre del fichero en el que vamos a guardar el resultado de la segmentación, que será una imagen en escala de grises (en blanco los píxeles que pertenecen a las ramas y en negro los que no).
 
-![Ejemplo de imagen de entrada](images/segmentacion/21_training.tif)
-![Ejemplo de segmentación sin errores](images/segmentacion/21_manual1.tif)
+Se proporciona el script de evaluación y una serie de imágenes de entrada junto con sus correspondientes anotaciones para comprobar los resultados.
 
-Se proporcionan una serie de imágenes de entrada junto con sus imágenes correctamente segmentadas para comprobar los resultados de la segmentación, y el script de evaluación.
+Para comenzar, descarga todos los materiales de este ejercicio que se encuentran en el fichero [roses.zip](images/segmentacion/roses.zip). TODO
 
+Cuando descomprimas este archivo, podrás ver en el directorio `roses` las siguientes carpetas:
 
+* `input`: imágenes de entrada que debe segmentar tu algoritmo. Estas imágenes son un subconjunto de la base de datos [Roses](TODO). 
+* `output`: directorio inicialmente vacío donde se guardarán los resultados de segmentación de tu método.
+* `gt`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
 
+En el directorio principal también hay un programa `iou.py` que se usará para evaluar los resultados. Este programa calcula la intersección sobre la unión de dos imágenes (en otras palabras, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). Si la segmentación fuera perfecta devolvería el valor 1.
 
-
-
-
-
-
-
-Para empezar descarga todos los materiales de este ejercicio, que se encuentran en el fichero [ejercicioRetinas.zip](images/segmentacion/ejercicioRetinas.zip). En la carpeta `retinas` tenemos las imágenes a procesar. Estas imágenes son un subconjunto sacado de la base de datos [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/). Cuando descomprimas este archivo, podrás ver en el directorio `retinas` las siguientes carpetas:
-
-* `images`: imágenes de entrada que debe segmentar tu algoritmo.
-* `output`: directorio inicialmente vacío  donde se almacenarán los resultados de segmentación de tu método.
-* `labeled`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
-
-En el directorio principal también hay un programa `iou.cpp` que se usará para evaluar los resultados. Este programa calcula la intersección sobre la unión de dos imágenes (en otras palabras, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). 
-
-Debes implementar el programa `retinaSegment.cpp` y guardarlo en el directorio `ejercicioRetinas`. Después puedes compilarlo y evaluar sus resultados ejecutando desde el terminal:
+Debes implementar el programa `roses.py` y guardarlo dentro del directorio `roses`. Después puedes evaluar los resultados ejecutando desde el terminal:
 
 ```bash
 ./evaluate.sh
 ```
 
-El script `evaluate.sh` compila `retinaSegment.cpp` y el programa de evaluación (`iou.cpp`), y devuelve el porcentaje de acierto de vuestro método con las imágenes de test. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
+El script `evaluate.sh` devuelve el porcentaje de acierto del método con todas las imágenes de test. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
 
 Para resolver este problema puedes usar cualquier técnica que hayamos visto en la asignatura.
 
