@@ -237,20 +237,20 @@ Imágenes: https://data.nal.usda.gov/system/files/Pear_1.zip
 Etiquetas: https://data.nal.usda.gov/system/files/PearLabels_2.zip
 -->
 
-Como podemos ver en la siguiente imagen, tenemos un robot [TrimBot2020](http://trimbot2020.webhosting.rug.nl) y queremos usarlo para podar rosales: 
+Como podemos ver en la siguiente imagen, tenemos un robot [TrimBot](http://trimbot2020.webhosting.rug.nl) y queremos usarlo para podar rosales: 
 
 ![Robot](images/segmentacion/robotRoses.png)
 
-El primer paso para que el robot haga su trabajo es detectar las ramas principales con las cámaras que equipa, y en este ejercicio vamos a intentar resolver esta tarea. 
+El primer paso para que el robot haga su trabajo es detectar las ramas principales usando las cámaras que equipa. En este ejercicio vamos a intentar resolver esta tarea. 
 
-Para ello disponemos de una serie de imágenes sintéticas ya etiquetadas con la posición de las ramas. Por tanto, se trata de un problema de segmentación binaria: dada una imagen como la siguiente, el objetivo es identificar los píxeles que pertenecen a las ramas principales (segunda imagen). 
+Para ello disponemos de una serie de imágenes sintéticas ya etiquetadas con la posición de las ramas principales. Por tanto, se trata de un problema de segmentación binaria: dada una imagen como la siguiente, el objetivo es identificar los píxeles que pertenecen a estas ramas (segunda imagen). 
 
 ![Ejemplo de imagen de entrada](images/segmentacion/4.png)
 ![Ejemplo de segmentación sin errores](images/segmentacion/4gt.png)
 
-Si te fijas verás que las ramas muy finas no aparecen marcadas en la imagen segmentada, ya que no son de interés para la poda. Ten en cuenta que aunque tu programa las detecte no hay problema, no cambiará mucho el resultado porque en realidad son pocos píxeles.
+Si te fijas verás que las ramas muy finas no aparecen marcadas en la imagen segmentada ya que no son de interés para la poda. Sin embargo, ten en cuenta que aunque tu programa las detecte no hay problema y no cambiará mucho el resultado porque en realidad son pocos píxeles.
 
-Llamaremos a nuestro programa `roses.py`, y debe recibir por parámetro la imagen de entrada y el fichero donde se almacenará el resultado de la segmentación:
+Llamaremos a nuestro programa `roses.py`. Debe recibir por parámetro la imagen de entrada y el fichero donde se almacenará el resultado de la segmentación:
 
 ```python
 parser = argparse.ArgumentParser(description = 'Programa para segmentar tallos de rosales')
@@ -280,7 +280,7 @@ Debes implementar el programa `roses.py` y guardarlo dentro del directorio `rose
 ./evaluate.sh
 ```
 
-El script `evaluate.sh` devuelve el porcentaje de acierto del método con todas las imágenes de test. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
+El script `evaluate.sh` devuelve el porcentaje de acierto del método con todas las imágenes. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
 
 Para resolver este problema puedes usar cualquier técnica que hayamos visto en la asignatura.
 
