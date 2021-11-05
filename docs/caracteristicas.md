@@ -207,7 +207,7 @@ donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
 
 ![Eq2](images/caracteristicas/contoursMatch2.png)
 
-En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral 1.e-5. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de 1.e-5 en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función `math.log10`.
+En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral `1.e-5`. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de `1.e-5` en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función `math.log10`.
 
 Este es el cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `cv.CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.
 
@@ -273,7 +273,7 @@ Imagen 6 :
 ....
 ```
 
-Revisa los resultados probando con distintas imágenes, cuando menor sea la distancia más se parecerán. Evidentemente, algunos descriptores obtendrán mejores resultados que otros para comparar formas similares. 
+Revisa los resultados probando con distintas imágenes, cuanto menor sea la distancia más deben parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. 
 
 -----
 
@@ -321,7 +321,7 @@ La ayuda de OpenCV es bastante incompleta para este descriptor y es mejor usar d
 * `blockSize`: Tamaño del bloque
 * `blockStride`: Desplazamiento del bloque
 * `cellSize`: Tamaño de la celda
-* `nbins`: Número de bins usados para calcular el histograma de gradientes.
+* `nbins`: Número de bins usados para calcular el histograma de gradientes
 
 También podemos crear un descriptor HOG con los valores que vienen por defecto:
 
@@ -347,7 +347,7 @@ descriptors = hog.compute(img, winStride, padding, locations)
 
 La función `compute` guarda en `locations` los puntos donde se han encontrado las  personas en la imagen, y en `descriptors` los valores del descriptor para cada punto. Para calcular esto se usa un sistema de detección de peatones, que veremos en el tema 7.
 
-Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo normal), se puede usar directamente este código:
+Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo  más normal), se puede usar directamente este código:
 
 
 ```python
@@ -359,9 +359,9 @@ hog.setSVMDetector(cv.HOGDescriptor_getDefaultPeopleDetector())
 hog.detectMultiScale(img)
 ```
 
-Para obtener más ayuda sobre las opciones de detectMultiScale puedes consultar [este enlace](https://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/). Puedes ver un ejemplo completo de detección de peatones en vídeos usando HOG en [este enlace](https://thedatafrog.com/en/articles/human-detection-video/).
+Para obtener más ayuda sobre las opciones de detectMultiScale puedes consultar [este enlace](https://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/). Puedes ver un ejemplo completo de detección de peatones en vídeos usando HOG [aquí](https://thedatafrog.com/en/articles/human-detection-video/).
 
-En OpenCV desafortunadamente no hay ninguna forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html) que produce el siguiente resultado:
+En OpenCV desafortunadamente no hay ninguna forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html) que produce este resultado:
 
 ![astronaut](images/caracteristicas/astronaut.png)
 
