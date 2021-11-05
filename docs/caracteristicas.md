@@ -108,7 +108,6 @@ def extractDescriptors(image):
 
 
 def calcularDistancias(queryDescriptors, imgDescriptors):
-
     # Calcular y devolver la distancia entre queryDescriptors e imgDescriptors para las siguientes características:
 
     # TODO: Shape Context
@@ -166,7 +165,7 @@ def main(args):
     queryDescriptors = extractDescriptors(query)
 
     # Para las otras imágenes, calculamos sus descriptores y los comparamos con los de la query
-    for i in range(0,20): # PONEMOS SOLO 10 EN LUGAR DE 20?
+    for i in range(0,20):
         imageIndex = i+1
         # Ignoramos esta imagen si es la misma que la de referencia
         if (imageIndex != indexQuery):
@@ -422,7 +421,7 @@ Si remplazamos `MSER_create` por `SIFT_create` para usar una detector [SIFT](htt
 
 ### Descriptor
 
-Veamos otro ejemplo, esta vez usando ORB como detector y también como descriptor. En este código, además comparamos los descriptores binarios usando una distancia Hamming. Las correspondencias que devuelve _match_ en la variable _matches_ son las parejas de puntos más similares entre la primera y la segunda imagen.
+Veamos otro ejemplo, esta vez usando ORB como detector y también como descriptor. En este código, además comparamos los descriptores binarios usando una distancia Hamming. Las correspondencias que devuelve `match` en la variable `matches` son las parejas de puntos más similares entre la primera y la segunda imagen.
 
 ```python
 import cv2 as cv
@@ -463,21 +462,21 @@ cv.imshow('ORB Matches', imageMatches)
 cv.waitKey(0)
 ```
 
-Con estas dos imágenes:
+Usando como entrada estas dos imágenes:
 
 ![Pedestrian 1](images/caracteristicas/OSE1cor_1.png)
 
 ![Pedestrian 2](images/caracteristicas/OSE1cor_2.png)
 
-El resultado de la ejecución es el siguiente:
+El resultado de la ejecución sería el siguiente:
 
 ![ORB matches](images/caracteristicas/orb_matches.png)
 
-En este caso hemos usado el método `detectAndCompute`, pero también pueden usarse por separado `detect` y `compute`.
+En este caso hemos utilizado el método `detectAndCompute`, pero también pueden usarse por separado `detect` y `compute`.
 
 Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor. En general, tenemos muchas combinaciones en OpenCV para usar detectores y descriptores, como puede consultarse en el siguiente [listado](https://docs.opencv.org/master/d5/d51/group__features2d__main.html).
 
-SIFT está patentado pero sus derechos de acaban de expirar en 2020 y por tanto ahora puede usarse sin problema en OpenCV. Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
+SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
 
 En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/master/02%20OpenCV%20Feature%20Detection%20and%20Description.md) puedes consultar muchos ejemplos de código que usan detectores y descriptores de OpenCV.
 
@@ -488,7 +487,7 @@ En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/ma
 
 Como hemos visto en teoría, también podemos usar una red neuronal convolucional (CNN) para extraer una representación vectorial de una imagen.
 
-Vamos a usar una red neuronal estándar de la librería Caffe (una de las muchas librerías de redes) en OpenCV para extraer descriptores neuronales:
+Vamos a usar una red neuronal estándar de la librería `Caffe` (una de las librerías que existen dedicadas a las redes neuronales profundas) en OpenCV para extraer descriptores neuronales:
 
 ```python
 import cv2 as cv
@@ -533,6 +532,6 @@ print(nc.tolist())
 
 Para poder usar este código necesitaremos descargar los [pesos de la red neuronal](http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel) y la [definición de su arquitectura](https://raw.githubusercontent.com/opencv/opencv_extra/master/testdata/dnn/bvlc_googlenet.prototxt).
 
-Si ejecutamos este códigpo se cargará una red de tipo [GoogleNet](https://ai.google/research/pubs/pub43022) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se proporciona a la red neuronal y nos quedamos con los valores de la penúltima capa, que en este caso se llama _pool5/7x7_s1_.
+Si ejecutamos este código se cargará una red de tipo [GoogleNet](https://ai.google/research/pubs/pub43022) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se proporciona a la red neuronal. Escogemos como descriptor los valores de la penúltima capa que en este caso se llama `pool5/7x7_s1`.
 
-Con este código ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otro sistema de aprendizaje automático como  kNN o SVM.
+Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otro sistema de aprendizaje automático como kNN o SVM.

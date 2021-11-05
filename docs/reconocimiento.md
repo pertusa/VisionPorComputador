@@ -488,7 +488,7 @@ En este caso se trata de extraer los descriptores HOG de las imágenes del conju
 
 El resultado tras comprobar el conjunto de test debe ser este:
 
-```bash
+```python
 Accuracy= 0.37
 ```
 
