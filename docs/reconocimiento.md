@@ -123,7 +123,7 @@ https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py
 
 -->
 
-<!--->> TODO: **No haremos ningún ejercicio con BoW porque sólo se puede usar con descriptores patentados, pero esta información puede ser útil para tu proyecto.**
+<!--- **No haremos ningún ejercicio con BoW porque sólo se puede usar con descriptores patentados, pero esta información puede ser útil para tu proyecto.**
 --->
 
 Usando el siguiente código podemos entrenar un diccionario BoW a partir los descriptores SIFT extraídos de todas las imágenes de un conjunto de entrenamiento:
@@ -147,7 +147,7 @@ De esta forma hemos entrenado un diccionario de `k=100` palabras. A continuació
 
 ```python
 # Inicializamos el extractor, que estará basado en SIFT y que asignará clusters por fuerza bruta
-BOWExtractor = cv.BOWImgDescriptorExtractor(sift, cv2.BFMatcher(cv2.NORM_L2))
+BOWExtractor = cv.BOWImgDescriptorExtractor(sift, cv.BFMatcher(cv.NORM_L2))
 
 # Asignamos al extractor declarado el vocabulario que habíamos entrenado
 BOWExtractor.setVocabulary(vocabulary)
@@ -175,7 +175,7 @@ mean = np.empty((0))
 mean, eigenvectors, eigenvalues = cv.PCACompute2(data_pts, mean)
 ```
 
-Como ves, PCA es un algoritmo de aprendizaje no supervisado, es decir, para calcularlo no se necesitan las muestras etiquetadas. 
+Como ves, PCA es un algoritmo de aprendizaje no supervisado, es decir, no necesita que las muestras estén  etiquetadas. 
 
 Aunque puede usarse OpenCV para calcular PCA, es más recomendable emplear `scikit-learn` como puede verse en [este ejemplo](https://www.askpython.com/python/examples/principal-component-analysis-for-image-data), en el que el código destacable para PCA es el siguiente:
 
@@ -188,23 +188,48 @@ converted_data = pca.fit_transform(digits.data)
 
 > `sklearn` es la forma de indicar en python la librería `scikit-learn`.
 
-Tampoco entraremos en detalles sobre estas técnicas de reducción de dimensionalidad, ya que las veréis en una asignatura del grado, pero podéis usarlas en vuestro proyecto para extraer descriptores más compactos.
+Tampoco entraremos en detalles sobre estas técnicas de reducción de dimensionalidad, ya que las veréis en otra asignatura del grado, pero podéis usarlas en vuestro proyecto para extraer descriptores más compactos.
 
 ## Detección de caras
 
-<!---
-https://github.com/opencv/opencv/blob/master/samples/cpp/facedetect.cpp
+A continuación puedes ver un ejemplo para detectar caras y ojos basado en [este código](https://medium.com/dataseries/face-recognition-with-opencv-haar-cascade-a289b6ff042a).
 
-https://github.com/opencv/opencv/blob/master/samples/cpp/dbt_face_detection.cpp
--->
+```python
+import numpy as np
+import cv2 as cv
 
-<!---
-Ojo, faceRecognizer está en contrib!: https://docs.opencv.org/2.4/modules/contrib/doc/facerec/facerec_tutorial.html
--->
+# Cargamos los modelos
+face_cascade = cv.CascadeClassifier("haarcascade_frontalface_default.xml")
+eye_cascade = cv.CascadeClassifier("haarcascade_eye.xml")
 
-En [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html) puedes ver un ejemplo de un programa en OpenCV para detectar caras completas y ojos en una imagen. 
+# Leemos la imagen
+img = cv.imread("lena.jpg")
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-Prueba este código descargando los [modelos entrenados](https://github.com/opencv/opencv/tree/master/data/haarcascades) mediante descriptores Haar. 
+# Ejecutamos el detector de caras
+faces = face_cascade.detectMultiScale(gray)
+
+for (x,y,w,h) in faces:
+    # Dibujamos las caras
+    img = cv.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+
+    # Ejecutamos el detector de ojos en la zona de la cara
+    roi_gray = gray[y:y+h, x:x+w]
+    eyes = eye_cascade.detectMultiScale(roi_gray)
+
+    # Dibujamos los ojos
+    roi_color = img[y:y+h, x:x+w]
+    for (ex,ey,ew,eh) in eyes:
+        cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+
+cv.imshow('Caras',img)
+cv.waitKey(0)
+```
+
+Prueba este programa descargando los [modelos entrenados](https://github.com/opencv/opencv/tree/master/data/haarcascades) con descriptores Haar. El resultado con la imagen `lena.jpg` debería ser el siguiente:
+
+![Resultado caras y ojos](images/reconocimiento/lenaFaces.jpg)
+
 
 > También puedes usar descriptores LBP descargando sus correspondientes modelos desde [este otro enlace](https://github.com/opencv/opencv/tree/master/data/lbpcascades).
 
@@ -214,16 +239,16 @@ Alternativamente a OpenCV, también puedes usar la librería `scikit-image` para
 
 En OpenCV puedes usar cualquier tipo de imágenes para entrenar tu propio modelo siguiendo los pasos que se indican en [este enlace](https://docs.opencv.org/master/dc/d88/tutorial_traincascade.html), aunque no es fácil. Para esto deberás instalar la versión de C++ de OpenCV y compilar varios programas: `opencv_createsamples`, `opencv_annotation`, `opencv_traincascade` y `opencv_visualisation`.
 
-Sin embargo, con la librería `scikit-image` se simplifica bastante el entrenamiento, como puede verse en [este ejemplo](https://scikit-image.org/docs/dev/auto_examples/applications/plot_haar_extraction_selection_classification.html).
+Sin embargo, también puedes usar la librería `scikit-image`, con la cual se simplifica bastante el entrenamiento como puede verse en [este ejemplo](https://scikit-image.org/docs/dev/auto_examples/applications/plot_haar_extraction_selection_classification.html).
 
-## Reconocimiento de caras
+## Reconocimiento de caras
 
-Para reconocer caras (es decir, saber a qué persona pertenecen) lo más fácil es usar una librería en python llamada [face_recognition](https://github.com/ageitgey/face_recognition) y seguir [este tutorial](https://www.analyticsvidhya.com/blog/2018/12/introduction-face-detection-video-deep-learning-python/).
+Para reconocer caras (es decir, identificar a qué persona pertenecen) lo más fácil es usar una librería en python llamada [face_recognition](https://github.com/ageitgey/face_recognition) y seguir [este tutorial](https://www.analyticsvidhya.com/blog/2018/12/introduction-face-detection-video-deep-learning-python/).
 
 
 ## Clasificación
 
-Como hemos visto en teoría y al principio de este capítulo, una forma fácil de clasificar una imagen es mediante búsqueda de imágenes similares que estén etiquetadas, devolviendo la clase de la imagen más similar de nuestra base de datos.
+Como hemos visto en teoría y al principio de este capítulo una forma fácil de clasificar una imagen es buscando imágenes similares que estén etiquetadas y devolviendo la clase de la imagen más similar.
 
 --------
 
@@ -231,7 +256,7 @@ Como hemos visto en teoría y al principio de este capítulo, una forma fácil d
 
 Vamos a hacer un ejercicio en el que extraeremos un descriptor ORB de una imagen y lo compararemos con los de otras imágenes ya etiquetadas para obtener su clase.
 
-Para esto tenemos que [descargar](http://www.dlsi.ua.es/~pertusa/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](http://www.mirbot.com) es un proyecto desarrollado en la UA para hacer un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios tiene y más fotos se añaden, mejor funciona el sistema.
+Para esto tenemos que [descargar](http://www.dlsi.ua.es/~pertusa/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](http://www.mirbot.com) es un proyecto desarrollado en la UA y se trata de un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios tiene y más fotos se añaden mejor funciona.
 
 Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por los usuarios, en concreto algunas pertenecientes a estas 10 clases: _book, cat, cellphone, chair, dog, glass, laptop, pen, remote, tv_. Descomprime el fichero descargado y echa un vistazo para ver los casos que intentamos reconocer.
 
@@ -295,7 +320,7 @@ def testORB(descTrain, labelsTrain, descTest, labelsTest):
             if dtrain is not None and dtest is not None:
                   
                 # TODO:  Solo consideramos que dos puntos son similares si su distancia es menor o igual a 90.
-                # La imagen mas similar sera la que tiene mas keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel".
+                # La imagen mas similar sera la que tiene mas keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel" (ahora pone 'cat' pero deberías modificarlo)
                 bestLabel = 'cat'
   
         if bestLabel == ltest:
@@ -332,7 +357,6 @@ def main(args):
 
     return 0
     
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores ORB')
     parser.add_argument('--test', action = 'store_true')     # Si se indica test este flag será true, si no se indica entonces se asume train
@@ -340,7 +364,7 @@ if __name__ == '__main__':
     main(args)
 ```
 
-Para ejecutar el programa, debes indicarlo sin opciones (para entrenamiento) o con la opción "test" para validación. Ejemplo de uso para entrenamiento:
+Para ejecutar el programa, debes hacerlo sin opciones (para entrenamiento) o con la opción `test` para validación. Ejemplo de uso para entrenamiento:
 
 ```bash
 python orbBF.py
@@ -351,7 +375,7 @@ Para test:
 python orbBF.py --test
 ```
 
-Una vez completes el código, la primera fase es ejecutar el entrenamineto para extraer el fichero de características ORB de todas las imágenes que hay en el fichero `train.txt`. Después se puede ejecutar en modo `test` para reconocer todas las imágenes del conjunto de test y compararlas con sus etiquetas reales.
+Una vez completes el código, la primera fase es ejecutar extraer el fichero de características ORB de todas las imágenes que hay en el fichero `train.txt`. Después se puede ejecutar en modo `test` para reconocer todas las imágenes del conjunto de test y compararlas con las etiquetas del conjunto `train`.
 
 El resultado final tras la fase de test debería ser el siguiente:
 
@@ -482,7 +506,7 @@ if __name__ == '__main__':
     main(args)
 ```
 
-En este caso se trata de extraer los descriptores HOG de las imágenes del conjunto `train` para entrenar un clasificador supervisado de tipo _Support Vector Machine_ (SVM). Una vez entrenado el modelo, se guardará en el fichero `modelSVM.xml`. De esta forma, en la la fase de reconocimiento (`test`) se cargará el modelo para predecir la clase de una imagen desconocida. En este programa probaremos a reconocer todas las del conjunto test, al igual que en el anterior.
+En este caso se trata de extraer los descriptores HOG de las imágenes del conjunto `train` para entrenar un clasificador supervisado de tipo _Support Vector Machine_ (SVM). Una vez entrenado el modelo, se guardará en el fichero `modelSVM.xml`. De esta forma, en la la fase de reconocimiento (`test`) se cargará el modelo para predecir la clase de una imagen desconocida, en lugar de comparar la imagen con todas las del conjunto de entrenamiento.
 
 El resultado tras comprobar el conjunto de test debe ser este:
 
@@ -499,4 +523,8 @@ https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python
 
 ----
 
-OpenCV también incorpora muchos [ejemplos de clasificación](https://github.com/opencv/opencv/tree/master/samples/dnn) usando redes neuronales para problemas como reconocimiento de caras, texto, etc.
+## Reconocimiento con redes neuronales
+
+En el ejercicio anterior, en lugar de HOG podríamos haber usado características neuronales extraidas de una de las últimas capas de una red convolucional de la forma que vimos [aquí](https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptores-neuronales). Si tienes curiosidad puedes probarlo, verás como el porcentaje de acierto mejora significativamente. 
+
+Adicionalmente OpenCV también incorpora muchos [ejemplos de clasificación](https://github.com/opencv/opencv/tree/master/samples/dnn) usando redes neuronales para tareas como reconocimiento de caras, texto, etc. Es recomendable echar un vistazo a estos ejemplos porque probablemente te ayuden para el proyecto. 
