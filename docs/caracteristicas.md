@@ -474,7 +474,7 @@ El resultado de la ejecución sería el siguiente:
 
 En este caso hemos utilizado el método `detectAndCompute`, pero también pueden usarse por separado `detect` y `compute`.
 
-Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor, pero el comparador no puede ser `NORM_HAMMING`  sino por ejemplo `NORM_L1`. 
+Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor, pero el comparador no puede ser `NORM_HAMMING`  sino por ejemplo `NORM_L2` (distancia Euclídea). 
 
 En caso de que haya muchos puntos coincidentes (por ejemplo si no limitamos a 100 _keypoints_ por imagen) normalmente queremos quedarnos sólo con los mejores. Para esto podemos ordenar las coincidencias de menor a mayor distancia de la siguiente forma: 
 

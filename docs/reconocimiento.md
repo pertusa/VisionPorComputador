@@ -19,15 +19,17 @@ Como hemos visto en teoría, para encontrar imágenes similares podemos extraer 
 
 ### Descriptores binarios
 
-En [este capítulo](https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptor) del tema anterior ya hemos visto un ejemplo de código para comparar imágenes (`matching`) usando ORB y la distancia de Hamming. Revísalo antes de continuar con este tema. La técnica que habíamos usado en ese ejemplo (también llamada _fuerza bruta_) funciona bien con ORB porque es un descriptor binario y la comparación es muy eficiente al ser simplemente una operación XOR.
+En [el tema anterior](https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptor) vimos un ejemplo de código para comparar imágenes (`matching`) usando ORB y la distancia de Hamming. Revísalo antes de continuar con este tema. 
+
+La técnica que habíamos usado en ese ejemplo (también llamada _fuerza bruta_) funciona bien con ORB porque es un descriptor binario y la comparación es muy eficiente al ser simplemente una operación XOR.
 
 > Los descriptores binarios se idearon para hacer `matching` y funcionan mucho peor cuando se usan en problemas de reconocimiento (clasificación), aunque a veces se emplean también para esta tarea por eficiencia.
 
 ### Descriptores locales basados en puntos de interés
 
-Tal como hemos visto en teoría, comparar descriptores como SIFT o SURF no es rápido, sobre todo si tenemos muchas imágenes en nuestra base de datos.
+Sin embargo, tal como hemos visto en teoría, comparar descriptores como SIFT o SURF no es rápido, sobre todo si tenemos muchas imágenes en nuestra base de datos.
 
-Para comparar dos imágenes que tienen descriptores basados en puntos de interés (y, por tanto, un número variable de elementos por imagen) se pueden usar vecinos más cercanos aproximados (en inglés, _Approximate Nearest Neighbors_). Esta técnica consiste en construir una representación interna para evitar hacer las comparaciones de todos con todos, mirando sólo aquellos que pueden ser más similares. En OpenCV tenemos una función que hace esta tarea: `FLANN`.
+Para comparar dos imágenes que tienen descriptores basados en puntos de interés (y, por tanto, un número variable de elementos por imagen) se puede usar una técnica de vecinos más cercanos aproximados (en inglés, _Approximate Nearest Neighbors_). Ésta consiste en construir una representación interna para evitar hacer las comparaciones de todos los puntos con todos, mirando sólo aquellos que pueden ser más similares. En OpenCV tenemos una función que hace esta tarea: `FLANN`.
 
 Podemos ver un ejemplo completo de código a continuación: 
 
@@ -104,11 +106,11 @@ Como puedes ver en el código, se suelen eliminar los pares de puntos cuya dista
 
 ## Reducción de dimensionalidad
 
-Para hacer que el `matching` sea más eficiente (aunque normalmente a costa de empeorar un poco los resultados) podemos reducir el tamaño de los descriptores usando alguna de las siguientes técnicas vistas en teoría.
+Para hacer que el `matching` sea más eficiente (aunque normalmente a costa de empeorar un poco los resultados) podemos reducir el tamaño de los descriptores usando alguna de las siguientes técnicas que hemos visto en teoría:
 
 ### Bag of Words (BoW)
 
-Como hemos visto en teoría, usar BoW es mucho más eficiente que el descriptor completo cuando se trata de descriptores como SIFT, HOG o SURF (no binarios).
+Usar BoW es mucho más eficiente que emplear descriptores completos cuando se trata de características como SIFT, HOG o SURF (no binarias).
 
 <!---
 https://github.com/briansrls/SIFTBOW/blob/master/SIFTBOW.py
