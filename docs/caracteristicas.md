@@ -474,7 +474,17 @@ El resultado de la ejecución sería el siguiente:
 
 En este caso hemos utilizado el método `detectAndCompute`, pero también pueden usarse por separado `detect` y `compute`.
 
-Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor. En general, tenemos muchas combinaciones en OpenCV para usar detectores y descriptores, como puede consultarse en el siguiente [listado](https://docs.opencv.org/master/d5/d51/group__features2d__main.html).
+Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor, pero el comparador no puede ser `NORM_HAMMING`  sino por ejemplo `NORM_L1`. 
+
+En caso de que haya muchos puntos coincidentes (por ejemplo si no limitamos a 100 _keypoints_ por imagen) normalmente queremos quedarnos sólo con los mejores. Para esto podemos ordenar las coincidencias de menor a mayor distancia de la siguiente forma: 
+
+```python
+matches = sorted(matches, key = lambda x:x.distance)
+# Nos quedamos con los 50 puntos que más se parecen
+imageMatches = cv.drawMatches(image1, keypoints1, image2, keypoints2, matches[:50], image2, flags=2)
+```
+
+En general, tenemos muchas combinaciones en OpenCV para usar detectores y descriptores, como puede consultarse en el siguiente [listado](https://docs.opencv.org/master/d5/d51/group__features2d__main.html).
 
 SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
 

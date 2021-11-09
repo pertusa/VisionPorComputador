@@ -6,30 +6,26 @@ HOGSVM: Rapidísimo y Acc 0.37
 
 # T7- Reconocimiento de imagen
 
-> TODO: MIRAR ESTO!: https://learnopencv.com/opencv-dnn-with-gpu-support/
-> TODO: Y TAMBIEN ESTO OTRO: https://docs.opencv.org/master/dc/d70/pytorch_cls_tutorial_dnn_conversion.html
-> Y OJO CON TODOS ESTOS EJEMPLOS DE REDES: https://github.com/opencv/opencv/tree/master/samples/dnn
+<!---
+> OpenCV con CUDA para módulo dnn: https://learnopencv.com/opencv-dnn-with-gpu-support/
+> Modelos Pytorch en OpenCV: https://docs.opencv.org/master/dc/d70/pytorch_cls_tutorial_dnn_conversion.html
+-->
 
-
-En este tema aprenderemos a buscar imágenes similares y a reconocer la clase de una imagen.
+En este tema aprenderemos a buscar imágenes similares y a reconocer la _clase_ de una imagen.
 
 ## Búsqueda por similitud
 
-Como hemos visto en teoría, se pueden comparar descriptores para encontrar imágenes similares.
+Como hemos visto en teoría, para encontrar imágenes similares podemos extraer y comparar descriptores usando distintas métricas de distancia.
 
 ### Descriptores binarios
 
-En el apartado `Descriptor` del tema anterior ya hemos visto un ejemplo para hacer `matching` usando ORB y la distancia de Hamming. Revísalo antes de continuar con este tema. La técnica que habíamos usado en ese ejemplo ("fuerza bruta") funciona bien con ORB porque es un descriptor binario y la comparación es muy eficiente al ser simplemente una operación XOR.
+En [este capítulo](https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptor) del tema anterior ya hemos visto un ejemplo de código para comparar imágenes (`matching`) usando ORB y la distancia de Hamming. Revísalo antes de continuar con este tema. La técnica que habíamos usado en ese ejemplo (también llamada _fuerza bruta_) funciona bien con ORB porque es un descriptor binario y la comparación es muy eficiente al ser simplemente una operación XOR.
 
-> Los descriptores binarios se idearon para hacer `matching` y funcionan mucho peor cuando se usan en problemas de reconocimiento (clasificación), aunque a veces se emplean de esta forma por eficiencia.
-
-<!---
-HOG???
---->
+> Los descriptores binarios se idearon para hacer `matching` y funcionan mucho peor cuando se usan en problemas de reconocimiento (clasificación), aunque a veces se emplean también para esta tarea por eficiencia.
 
 ### Descriptores locales basados en puntos de interés
 
-Como hemos visto en teoría, comparar descriptores como SIFT o SURF no es rápido, sobre todo si tenemos muchas imágenes en nuestra base de datos.
+Tal como hemos visto en teoría, comparar descriptores como SIFT o SURF no es rápido, sobre todo si tenemos muchas imágenes en nuestra base de datos.
 
 Para comparar dos imágenes que tienen descriptores basados en puntos de interés (y, por tanto, un número variable de elementos por imagen) se pueden usar vecinos más cercanos aproximados (en inglés, _Approximate Nearest Neighbors_). Esta técnica consiste en construir una representación interna para evitar hacer las comparaciones de todos con todos, mirando sólo aquellos que pueden ser más similares. En OpenCV tenemos una función que hace esta tarea: `FLANN`.
 
@@ -492,10 +488,13 @@ El resultado tras comprobar el conjunto de test debe ser este:
 Accuracy= 0.37
 ```
 
-
 Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al  ejercicio anterior.
 
 <!---
 ## TrainSVM
 https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python-tutorial/
 --->
+
+----
+
+OpenCV también incorpora muchos [ejemplos de clasificación](https://github.com/opencv/opencv/tree/master/samples/dnn) usando redes neuronales para problemas como reconocimiento de caras, texto, etc.
