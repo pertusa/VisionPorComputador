@@ -199,11 +199,11 @@ import numpy as np
 import cv2 as cv
 
 # Cargamos los modelos
-face_cascade = cv.CascadeClassifier("haarcascade_frontalface_default.xml")
-eye_cascade = cv.CascadeClassifier("haarcascade_eye.xml")
+face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
+eye_cascade = cv.CascadeClassifier('haarcascade_eye.xml')
 
 # Leemos la imagen
-img = cv.imread("lena.jpg")
+img = cv.imread('lena.jpg')
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 # Ejecutamos el detector de caras
