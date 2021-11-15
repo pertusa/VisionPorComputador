@@ -91,7 +91,7 @@ def extractDescriptors(image):
     # TODO: Calculamos la elongacion
     imgDescriptors['elongacion'] = None
 
-    # TODO: Calculamos la tectangularidad
+    # TODO: Calculamos la rectangularidad (usando el rectángulo rotado MRE que envuelve el contorno con un área mínima)
     imgDescriptors['rectangularidad'] = None
 
     # TODO: calculamos el área del cierre convexo (pista: funcion convexHull)
