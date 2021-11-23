@@ -427,7 +427,7 @@ def extractHOGFeatures(filename):
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
-            # TODO: Extraemos el descriptor HOG
+            # Extraemos el descriptor HOG
             # TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos escalar a 128x128
             # TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).
             # TODO: Añadimos el descriptor obtenido de la imagen al vector descriptors, y la etiqueta al vector labels
