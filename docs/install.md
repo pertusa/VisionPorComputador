@@ -12,17 +12,17 @@ Este tipo de instalación hace que las librerías de python necesarias para la a
 
 Para esto, debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html).
 
-> Importante: Descargad la versión (para vuestro sistema operativo) que pone python 3.9. 
+> Importante: Descargad la versión para vuestro sistema operativo que pone **python 3.9**. 
 
 Si usáis Linux, desde un terminal hay que dar permisos de ejecución, por ejemplo:
 
 ```zsh
-chmod +x ./Miniconda3-py39_4.10.3-Linux-x86_64.sh
+chmod +x ./Miniconda3-py39_4.12.0-Linux-x86_64.sh
 ```
 
-Una vez tiene permisos podemos instalar conda:
+Una vez tenemos los permisos podemos instalar conda:
 ```zsh
-./Miniconda3-py39_4.10.3-Linux-x86_64.sh
+./Miniconda3-py39_4.12.0-Linux-x86_64.sh
 ```
 
 Y una vez instalado, ejecutar desde el terminal (sólo la primera vez):
@@ -31,13 +31,13 @@ Y una vez instalado, ejecutar desde el terminal (sólo la primera vez):
  conda create -n vision python=3
 ```
 
-Esto crea un **entorno de python**. Cada vez que se inicie un nuevo terminal es necesario activar este entorno:
+Esto crea un **entorno de python3**. Cada vez que se inicie un nuevo terminal para esta asignatura es necesario activar este entorno:
 
 ```zsh
 conda activate vision
 ```
 
-Una vez dentro del entorno se pueden instalar librerías de python (esto sólo hay que hacerlo una vez, ya que quedan instaladas para dicho entorno) o incluso paquetes de linux con `apt-get`, y estos se instalarán solo para el entorno:
+Una vez dentro del entorno se pueden instalar librerías de python (esto sólo hay que hacerlo una vez, ya que quedan instaladas para dicho entorno) o incluso paquetes de linux con `apt-get`. Estos se instalarán solo para el entorno:
 
 ```zsh
 pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
