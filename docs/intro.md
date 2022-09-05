@@ -631,7 +631,7 @@ out = cv.VideoWriter('output.avi', fourcc, 20.0, (640,480)) #  AVI, 20fps, 640x
 Para más información puedes consultar [este enlace](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html). -> DESACTUALIZADO
 --->
 
-Estos son algunos de los formatos aceptados, aunque existen [muchos más](https://www.fourcc.org/codecs.php):
+Estos son algunos de los formatos aceptados, aunque existen [muchos más](https://softron.zendesk.com/hc/en-us/articles/207695697-List-of-FourCC-codes-for-video-codecs):
 
 ```python
 fourcc = cv.VideoWriter_fourcc('m','j','p','g') # AVI, recomendado en la asignatura
