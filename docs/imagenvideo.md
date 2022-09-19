@@ -34,8 +34,12 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 
 Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (que debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben indicarse de la siguiente forma:
 
+<!--
+WM: imagen. (punto al final)
+-->
+
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen')
+parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 ```
 
@@ -95,22 +99,31 @@ Veamos un ejemplo de código que calcula el histograma de una imagen en escala d
 https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
 ---->
 
+<!--
+WM: imagen. (punto)
+cv.IMREAD_GRAYSCALE)~ (added bs)
+cargar la imagen~" (added bs)
+entre 0 y 255. (added .)
+fichero -> archivo
+Mostramos la gráfica en pantalla -> Mostramos el histograma en pantalla
+-->
+
 ```python
 import cv2 as cv
 import argparse
 from matplotlib import pyplot as plt
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen')
+parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
 args = parser.parse_args()
 
 # Cargamos la imagen indicada por el usuario
-img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
+img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE) 
 
 # Comprobamos que la imagen se ha podido leer
 if img is None:
-    print("Error al cargar la imagen", args.imagen)
+    print("Error al cargar la imagen ", args.imagen)
     quit()
 
 # Calculamos el histograma
@@ -118,12 +131,12 @@ hist = cv.calcHist([img],[0],None,[256],[0,256])
 
 # Lo mostramos, para esto usamos la librería matplotlib
 plt.plot(hist, 'b') # El segundo parámetro es el color de la línea ('b', 'g', o 'r')
-plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores entre 0 y 255
+plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores entre 0 y 255.
 
-# Guardamos el resultado en un fichero
+# Guardamos el resultado en un archivo
 plt.savefig(args.histograma)
 
- # Mostramos la gráfica en pantalla
+ # Mostramos el histograma en pantalla
 plt.show()
 ```
 
@@ -132,7 +145,7 @@ plt.show()
 
 ### Ejercicio
 
-Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz una copia del programa anterior y llámalo `histograma_color.py`. Modifícalo para que en este caso el programa muestre en una ventana (y guarde en una imagen) el histograma de sus tres colores básicos, en lugar de hacerlo en escala de grises. 
+Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz una copia del programa anterior y llámalo `histogramaColor.py`. Modifícalo para que en este caso el programa muestre en una ventana (y guarde en una imagen) el histograma de sus tres colores básicos, en lugar de hacerlo en escala de grises. 
 
 Ejemplo de salida con `lena.jpg`:
 
@@ -181,8 +194,12 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 
 Argumentos de entrada:
 
+<!--
+WM: espacios de color. (dot)
+-->
+
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para cambiar espacios de color')
+parser = argparse.ArgumentParser(description = 'Programa para cambiar espacios de color.')
 parser.add_argument('--imagen', '-i', type=str, default='Fire_breathing_2_Luc_Viatour.jpg')
 ```
 
@@ -218,6 +235,6 @@ img = cv.imread('pluto.jpg', cv.IMREAD_GRAYSCALE)
 imgray = cv.applyColorMap(img, cv.COLORMAP_JET)
 ```
 
-Escribe un programa completo que contenga este código de ejemplo (no hay que entregarlo) para visualizar el resultado de pseudocolorear la siguiente imagen de Plutón obtenida por la sonda _New Horizons_:
+Escribe un programa completo (no hay que entregarlo) que contenga este código de ejemplo para visualizar el resultado de pseudocolorear la siguiente imagen de Plutón obtenida por la sonda _New Horizons_:
 
 ![Pluto](images/imagenvideo/pluto.jpg)
