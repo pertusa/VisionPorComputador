@@ -598,7 +598,7 @@ while(True):
 
         # Mostrar el resultado
         cv.imshow('frame',edges)
-   else:
+    else:
         break
 
     # Parar cuando el usuario pulse 'q'
