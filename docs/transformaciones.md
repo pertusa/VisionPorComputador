@@ -48,36 +48,50 @@ dst = cv.inRange(src, (0, 10, 20), (40, 40, 51))
 
 En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.
 
+### Ejercicio
+
+Haz un programa llamado `ecualizar.py` que realice una ecualización de histograma como el que hace la función `equalizeHist` de OpenCV, pero de forma manual. El algoritmo para ecualizar un histograma puede consultarse en las transparencias de teoría.
+
+Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con `TODO`. 
 
 
-<!---- CREO QUE MEJOR QUITAR ESTE EJERCICIO ---->
+```python
+import cv2 as cv
+import numpy as np
+import argparse
+from collections import Counter # Necesario para el acumulador
 
-<!----- IMPORTANTE: MIRAR ESTO: https://stackoverflow.com/questions/39308030/how-do-i-increase-the-contrast-of-an-image-in-python-opencv --->
+# Gestión de parámetros
+parser = argparse.ArgumentParser(description = 'Programa para ecualizar histogramas sin usar calcHist')
+parser.add_argument('--imagen', '-i', type=str, default='prueba.jpg')
+parser.add_argument('--salida', '-r', type=str, default='pruebaEq.jpg')
+args = parser.parse_args()
 
-<!----
+# Abrimos la imagen
+img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-### Ejercicio
+#img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para ver si el resultado es correcto usando los datos de ejemplo de teoría
 
-Haz un programa llamado `bct.py` que reciba 4 parámetros: El nombre de la imagen (que leeremos en escala de grises), el fichero de imagen de salida, un valor para el contraste (lo llamaremos _alpha_) y un valor para el brillo (_beta_). Debes comprobar que el programa recibe los parámetros indicados. Ejemplo de uso:
+# Comprobamos que la imagen se ha podido leer
+if img is None:
+    print("No se ha podido abrir la imagen", args.imagen)
+    quit()
+  
+# 1- Calculamos el histograma. Para esto, en lugar de usar calcHist creamos un vector x con los 
+#    valores únicos de los píxeles, y otro vector h con la cantidad de elementos para cada valor.
+x, h  = np.unique(img, return_counts=True)
 
-```bash
-./bct lena.jpg lenaBct.jpg 0.5 2
+# 2- Calculamos la CDF (la guardamos en c).
+c = np.cumsum(x)
+
+# 3- TODO: Ya tenemos x, h y c. Ahora debemos calcular x', que guardamos en la variable xp.
+xp = None
+
+# 4- TODO: Establecemos el nuevo valor de cada píxel (es decir, cambiamos en la imagen todos los valores x por los valores xp)
+
+# 5- TODO: Guardamos la imagen resultante en el fichero indicado en args.salida
+
 ```
-
-Con este ejemplo, el resultado debería ser como la siguiente imagen:
-
-
-![Transformaciones brillo contraste](images/transformaciones/bct.jpg) 
-
-
-
-TODO: PONER IMAGEN SALIDA EJEMPLO
-
-
-
-El programa debe guardar en un fichero llamado `bct.jpg` (siempre con este mismo nombre) el resultado de ajustar la imagen de entrada con el brillo y contraste indicados. Para hacer pruebas puedes usar valores de _alpha_ en el rango [0,2] y de _beta_ en el rango [-50,50].
-
---->
 
 ---
 
@@ -213,38 +227,6 @@ dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv.INTER_LINEAR)
 
 ---
 
-### Ejercicio
-
-Implementa un programa llamado `perspectiva.py` para corregir la perspectiva de una imagen `damas.jpg` dados estos 4 puntos de sus esquinas:
-
-```python
-278, 27  # Esquina superior izquierda.
-910, 44  # Esquina superior derecha.
-27, 546  # Esquina inferior izquierda.
-921, 638 # Esquina inferior derecha.
-```
-
-Los argumentos del programa deben ser los siguientes:
-```python
-parser = argparse.ArgumentParser(description = 'Programa para corregir perspectiva de tablero de damas')
-parser.add_argument('--imagen', '-i', type=str, default='damas.jpg')
-parser.add_argument('--salida', '-o', type=str, default='damas_corrected.jpg')
-```
-
-Imagen de entrada:
-
-![damas](images/transformaciones/damas.jpg)
-
-El programa debe guardar el resultado en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro. La salida correcta sería la siguiente:
-
-![damas](images/transformaciones/damas_corrected.jpg)
-
-<!---
-Si ves que se queda corto, que marquen los puntos con el interfaz de OpenCV
--->
-
----
-
 ## Transformaciones en entorno de vecindad
 
 En esta sección veremos cómo implementar transformaciones en entorno de vecindad usando OpenCV, en particular convoluciones y filtros de mediana.
@@ -356,23 +338,48 @@ En [este enlace](https://docs.opencv.org/4.5.2/d3/dbe/tutorial_opening_closing_h
 
 ### Ejercicio
 
-El objetivo de este ejercicio (`detectarFichas.py`) es generar una máscara binaria que contenga sólo las fichas de la imagen del tablero de damas obtenido en el ejercicio anterior. La sintaxis sería la siguiente:
+Implementa un programa llamado `detectarFichas.py` que cargue la siguiente imagen `damas.jpg`, corrija la perspectiva del tablero y detecte las fichas blancas y rojas.
+
+![damas](images/transformaciones/damas.jpg)
+
+Los parámetros del programa deben ser los siguientes:
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para obtener las damas')
-parser.add_argument('--imagen', '-i', type=str, default='damas_corrected.jpg')
+parser = argparse.ArgumentParser(description = 'Programa para obtener la posición de las damas')
+parser.add_argument('--imagen', '-i', type=str, default='damas.jpg')
+parser.add_argument('--salidaPerspectiva', '-p', type=str, default='corrected.jpg')
 parser.add_argument('--salidaRojas', '-r', type=str, default='rojas.jpg')
 parser.add_argument('--salidaBlancas', '-b', type=str, default='blancas.jpg')
 ```
 
+Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos de las esquinas del tablero en la imagen original:
+
+```python
+278, 27  # Esquina superior izquierda.
+910, 44  # Esquina superior derecha.
+27, 546  # Esquina inferior izquierda.
+921, 638 # Esquina inferior derecha.
+```
+
+El programa debe aplicar una transformación proyectiva y guardar el resultado en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro (por defecto, `corrected.jpg`). La imagen resultado debería ser como la siguiente:
+
+![damas](images/transformaciones/damas_corrected.jpg)
+
+
+
+<!---
+Si ves que se queda corto, que marquen los puntos con el interfaz de OpenCV
+-->
+
+A continuación se detallan los pasos para obtener las fichas rojas y blancas a partir de esta imagen.
 
 #### Fichas rojas
 
-Veamos la imagen resultante de detectar las fichas rojas:
+A continuación se muestra el resultado de detectar las fichas rojas:
 
 ![Fichas rojas](images/transformaciones/rojas.jpg)
 
-El programa a implementar debe cargar directamente la imagen obtenida en el ejercicio anterior (`damas_corrected.jpg`) y a continuación seguir los siguientes pasos:
+Para realizar esta detección el programa debe seguir los siguientes pasos:
 
 * Realizar una umbralización quedándonos sólo con los píxeles que tengan un color dentro de un rango BGR entre (0,0,50) y (40,30,255). Podemos visualizar el resultado con `imshow`. Deberíamos tener los píxeles de las fichas rojas resaltados, aunque la detección es todavía imperfecta y existen huecos.
 * Crear un elemento estructurante circular de tamaño 10x10 píxeles y aplicar un operador de cierre para perfilar mejor los contornos de las fichas y eliminar estos huecos.
@@ -380,6 +387,6 @@ El programa a implementar debe cargar directamente la imagen obtenida en el ejer
 
 #### Fichas blancas
 
-* Ahora intenta resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado al confundirse el color de las fichas con el de las casillas blancas. 
+* Ahora debes intentar resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero `blancas.jpg`. Para esto puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado que la detección de las fichas rojas al confundirse el color de las damas con el de las casillas blancas. 
 
 ---
