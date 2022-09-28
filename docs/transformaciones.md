@@ -50,7 +50,7 @@ En OpenCV existen técnicas alternativas de binarización como el umbralizado ad
 
 ### Ejercicio
 
-Haz un programa llamado `ecualizar.py` que realice una ecualización de histograma como el que hace la función `equalizeHist` de OpenCV, pero de forma manual. El algoritmo para ecualizar un histograma puede consultarse en las transparencias de teoría.
+Haz un programa llamado `ecualizar.py` que realice una ecualización de histograma, como el que hace la función `equalizeHist` de OpenCV, pero de forma manual. El algoritmo para ecualizar un histograma puede consultarse en las transparencias de teoría.
 
 Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con `TODO`. 
 
@@ -63,8 +63,8 @@ from collections import Counter # Necesario para el acumulador
 
 # Gestión de parámetros
 parser = argparse.ArgumentParser(description = 'Programa para ecualizar histogramas sin usar calcHist')
-parser.add_argument('--imagen', '-i', type=str, default='prueba.jpg')
-parser.add_argument('--salida', '-r', type=str, default='pruebaEq.jpg')
+parser.add_argument('--imagen', '-i', type=str, default='flor.jpg')
+parser.add_argument('--salida', '-r', type=str, default='florEq.jpg')
 args = parser.parse_args()
 
 # Abrimos la imagen
@@ -92,6 +92,14 @@ xp = None
 # 5- TODO: Guardamos la imagen resultante en el fichero indicado en args.salida
 
 ```
+
+Usando como entrada la siguiente imagen:
+
+![Imagen de entrada](images/transformaciones/flor.jpg)
+
+La salida debería ser:
+
+![Imagen ecualizada](images/transformaciones/florEq.jpg)
 
 ---
 
