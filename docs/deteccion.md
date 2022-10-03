@@ -69,12 +69,19 @@ Podemos usar distintos kernels para implementar gradientes mediante convolución
 **OPCION: QUE HAGAN EL PROGRAMA COMPLETO!!!? TIENEN INFO DE CONVERSION DE TIPOS EN EL TEMA ANTERIOR***
 --->
 
+<!--
+WM: Prewitt.
+imagen~'
+*255
+salida.
+-->
+
 ```python
 import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular el filtro de Prewitt')
+parser = argparse.ArgumentParser(description = 'Programa para calcular el filtro de Prewitt.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default='prewitt.jpg')
 args = parser.parse_args()
@@ -84,7 +91,7 @@ img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
 # Comprobamos que la imagen se ha podido leer
 if img is None:
-    print('Error al cargar la imagen')
+    print('Error al cargar la imagen ')
     quit()
 
 # TODO: Calculamos gradiente horizontal mediante convolución
@@ -97,11 +104,11 @@ if img is None:
 
 # Normalizamos. Este paso es necesario para convertir de float a uint sin tener valores fuera de rango
 magn = magn-magn.min()
-magn = magn/magn.max() * 255
+magn = magn/magn.max()*255
 
 # TODO: Convertimos de float a uint para poder visualizar el resultado y lo guardamos en dst
 
-# TODO: Guardamos dst en el fichero pasado como parámetro de salida
+# TODO: Guardamos dst en el fichero pasado como parámetro de salida.
 
 # Mostramos el resultado
 cv.imshow('Prewitt', dst)
@@ -153,14 +160,22 @@ Para más información sobre Canny en OpenCV puedes consultar [este enlace](http
 ---
 ### Ejercicio
 
-Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que tendrás que descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
+Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que debes descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
+
+<!---
+WM: imagen.
++ con umbral (antes sólo umbral)
+150~
+"cartoonizado"~
+result~
+--->
 
 ```python
 import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description = 'Programa para cartoonizar una imagen')
+parser = argparse.ArgumentParser(description = 'Programa para cartoonizar una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default='cartoonized.jpg')
 args = parser.parse_args()
@@ -179,7 +194,7 @@ if img is None:
 # TODO
 
 #print(median.dtype)
-# Detectamos los bordes con Canny, umbral inferior 50 y superior 150
+# Detectamos los bordes con Canny, con umbral inferior 50 y superior 150
 # TODO
 
 # Dilatamos los bordes. Para esto aplicamos dilate con un filtro cuadrado de 2x2
@@ -197,10 +212,10 @@ cv.imshow('Bordes', bordesf)
 
 ########## COLOR ############
 
-# Sobre la imagen original (img), aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150
+# Sobre la imagen original (img), aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150 
 # TODO: Guardar en imgBF
 
-# Truncamos los colores. En este caso usamos un valor de 40, cuanto más alto más "cartoonizado"
+# Truncamos los colores. En este caso usamos un valor de 40, cuanto más alto más "cartoonizado" 
 div = 40
 quantized = (imgBF // div) * div
 
@@ -219,7 +234,7 @@ imgCanny3c = cv.merge((bordesf, bordesf, bordesf))
 # TODO
 
 # Convertimos el resultado anterior en una imagen de 8 bits
-# TODO: Guardar en result
+# TODO: Guardar en result 
 
 # Mostramos la imagen final y la guardamos
 cv.imshow('Result', result)
@@ -348,15 +363,18 @@ dst = cv.Laplacian(src, ddepth, ksize=kernel_size)
 
 ## Detección de esquinas
 
-En OpenCV podemos detectar esquinas usando **Harris** mediante la función `cornerHarris`. Necesita como entrada una imagen en escala de grises y además los siguientes parámetros: el número de píxeles vecinos a tener en cuenta, el tamaño del filtro (apertura) para calcular los gradientes con Sobel, y el umbral de detección _k_, que es el único parámetro libre del algoritmo Harris:
+En OpenCV podemos detectar esquinas usando **Harris** mediante la función `cornerHarris`. Necesita como entrada una imagen en escala de grises y además los siguientes parámetros: el número de píxeles vecinos a tener en cuenta, el tamaño del filtro (_apertureSize_) para calcular los gradientes con Sobel, y el umbral de detección _k_, que es el único parámetro libre del algoritmo Harris:
 
-```cpp
+<!--
+
+```python
 cornerHarris(src_gray, dst, blockSize, apertureSize, k)
 ```
+-->
 
 ```python
 blockSize = 2 # Tamaño del vecindario considerado para la detección de esquinas
-kSize = 3 # Tamaño del kernel para el filtro de Sobel
+apertureSize = 3 # Tamaño del kernel para el filtro de Sobel
 k = 0.04 # Umbral de Harris
 
 dst = cv.cornerHarris(src, blockSize, apertureSize, k)
@@ -364,6 +382,12 @@ dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 
 <!---
 > **TODO Teoría**: Explicación buena de HARRIS: https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
+--->
+
+<!--
+WM: Harris.
+Parametros -> Parámetros
+un valor mayor +"o igual" a 10000
 --->
 
 ---
@@ -377,8 +401,8 @@ import cv2 as cv
 import argparse
 import numpy as np
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular esquinas con Harris')
-parser.add_argument('--imagen', '-i', type=str, default='damas_corrected.jpg')
+parser = argparse.ArgumentParser(description = 'Programa para calcular esquinas con Harris.')
+parser.add_argument('--imagen', '-i', type=str, default='corrected.jpg')
 parser.add_argument('--salida', '-s', type=str, default='damasHarris.jpg')
 args = parser.parse_args()
 
@@ -393,11 +417,11 @@ if img is None:
 # Pasamos la imagen a escala de grises, y después a float32
 # TODO (guardar en img_gray)
 
-# Detectar las esquinas con Harris. Parametros: blockSize=2, apertureSize=3, k=0.04.
+# Detectar las esquinas con Harris. Parámetros: blockSize=2, apertureSize=3, k=0.04.
 # TODO (guardar en dst)
 
 # Sobre la imagen original, poner en color azul los píxeles detectados como borde.
-# Son aquellos que en los que dst(i,j) tiene un valor mayor de 10000.
+# Son aquellos que en los que dst(i,j) tiene un valor mayor o igual a 10000.
 # TODO (guardar en src).
 
 # Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa como segundo argumento al programa

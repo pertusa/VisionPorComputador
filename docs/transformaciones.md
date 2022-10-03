@@ -82,7 +82,7 @@ if img is None:
 x, h  = np.unique(img, return_counts=True)
 
 # 2- Calculamos la CDF (la guardamos en c).
-c = np.cumsum(x)
+c = np.cumsum(h)
 
 # 3- TODO: Ya tenemos x, h y c. Ahora debemos calcular x', que guardamos en la variable xp.
 xp = None
