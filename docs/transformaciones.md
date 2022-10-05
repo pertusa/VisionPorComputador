@@ -214,7 +214,7 @@ M = np.float32([[1, 0, 0],
 
 # Implementamos la transformación proyectiva
 rows, cols = img.shape
-dst = cv.warpPerspective(src, M, (cols, rows))
+dst = cv.warpPerspective(img, M, (cols, rows))
 ```
 
 La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
