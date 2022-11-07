@@ -25,7 +25,7 @@ mu20, mu11, mu02, mu30, mu21, mu12, mu03
 nu20, nu11, nu02, nu30, nu21, nu12, nu03
 ```
 
-Como ves, no todos los momentos se calculan. Por ejemplo, como el momento mu00 es igual a m00, [OpenCV no lo extrae](https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html).
+Como ves, no todos los momentos se calculan. Por ejemplo, como el momento `mu00` es igual a `m00`, [OpenCV no lo extrae](https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html).
 
 Si quieres conocer más detalles sobre la función `moments` puedes consultar [este](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=moments#moments) enlace.
 
@@ -39,9 +39,9 @@ hu = cv.HuMoments(momentos)  # El array hu contiene los 7 momentos de Hu
 
 La función [matchShapes](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#double%20matchShapes(InputArray%20contour1,%20InputArray%20contour2,%20int%20method,%20double%20parameter)) de OpenCV usa internamente estos momentos de Hu para comparar contornos, como veremos más adelante.
 
-### Cadenas Freeman
+### Cadenas de Freeman
 
-En las primeras versiones de OpenCV se usaba la función `approxChains` para extraer códigos de cadena, pero a partir de la versión 3 OpenCV ha eliminado esta funcionalidad por falta de demanda.
+En las primeras versiones de OpenCV se usaba la función `approxChains` para extraer códigos de cadena, pero a partir de la versión 3 OpenCV ha eliminado esta funcionalidad porque prácticamente no se utilizaban.
 
 ### Descriptor Shape Context (SC)
 
@@ -61,7 +61,21 @@ distance = mySC.computeDistance(contour1, contour2)
 
 En este ejercicio extraeremos una serie de descriptores de contorno a partir de imágenes binarizadas. El objetivo es encontrar las imágenes más similares a una imagen de referencia (a la que llamaremos `query`).
 
-Se pide completar el siguiente código implementando los comentarios marcados con `TODO`. Crea el programa con el nombre `contourDescriptors.py`. Si miras el `main`, se recibe el número de una imagen (hay 20 en la carpeta) y ésta se usa como `query`. Se extraen los descriptores de la imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.
+Se pide completar el siguiente código implementando los comentarios marcados con `TODO`. Guarda este programa con el nombre `contourDescriptors.py`. 
+
+En el `main` se recibe el número de una imagen (hay 20 en la carpeta) para usarla como `query`. Si no indicamos ningún parámetro, por defecto la `query` será la imagen número 5. Después se extraen los descriptores de esta imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.
+
+<!--
+WM: 
+imgDescriptors={} (antes con espacios)
+descriptor SC. (antes sin punto)
+cv.imread(queryName,cv.IMREAD_GRAYSCALE) (quitado espacio en param)
+caracteristicas.
+compactación (con acento)
+Área -> Area (quitado acento)
+----------- (añadido un guión adicional)
+-->
+
 
 ```python
 import cv2 as cv
@@ -71,7 +85,7 @@ import math
 
 def extractDescriptors(image):
     # Creamos un diccionario donde guardaremos los valores calculados
-    imgDescriptors = {}
+    imgDescriptors={}
 
     # Calculamos todos los contornos de la imagen  
     contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
@@ -79,13 +93,13 @@ def extractDescriptors(image):
     # Extraemos el mayor contorno de la imagen, del que obtendremos todos los descriptores:
     contour = max(contours, key=cv.contourArea)
 
-    # TODO: Guardamos el mayor contorno para el descriptor SC
+    # TODO: Guardamos el mayor contorno para el descriptor SC.
     imgDescriptors['contour'] = None
 
     # TODO: Calculamos el perimetro
     imgDescriptors['perimetro'] = None
 
-    # TODO: Calculamos la compactacion
+    # TODO: Calculamos la compactación
     imgDescriptors['compactacion'] = None
 
     # TODO: Calculamos la elongacion
@@ -125,7 +139,7 @@ def calcularDistancias(queryDescriptors, imgDescriptors):
     # TODO: Rectangularidad
     dRect = 0
 
-    # TODO: Área del cierre convexo
+    # TODO: Area del cierre convexo
     dCierre = 0
 
     # TODO: Distancia euclídea del centroide
@@ -155,7 +169,7 @@ def main(args):
 
     # Leemos imagen query
     queryName = path + str(indexQuery) + '.png'
-    query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
+    query = cv.imread(queryName,cv.IMREAD_GRAYSCALE)
 
     # Comprobamos que la imagen se ha podido leer
     if query is None:
@@ -174,7 +188,7 @@ def main(args):
             image = cv.imread(imageName, cv.IMREAD_GRAYSCALE)
 
             # Extraemos sus características y las comparamos con las de la query
-            print('----------')
+            print('-----------')
             print('Imagen', imageIndex, ':')
             imgDescriptors = extractDescriptors(image)
             calcularDistancias(queryDescriptors, imgDescriptors)
@@ -183,7 +197,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características')
+    parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características.')
     parser.add_argument('--indexQuery', '-i', type=int, default=5)
     args = parser.parse_args()
     main(args)
@@ -209,9 +223,9 @@ donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
 
 En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral `1.e-5`. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de `1.e-5` en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función `math.log10`.
 
-Este es el cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `cv.CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tienes que implementarlo a mano.
+Este es el mismo cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `cv.CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tendrás que implementarlo a mano.
 
-La salida del programa debe ser como la siguiente (si no indicamos ningún parámetro, por defecto se usa la imagen número 5 como `query`):
+La salida del programa debe ser como la siguiente:
 
 ```bash
 ----------
@@ -273,7 +287,7 @@ Imagen 6 :
 ....
 ```
 
-Revisa los resultados probando con distintas imágenes, cuanto menor sea la distancia más deben parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. 
+Revisa los resultados probando con distintas imágenes.  Cuanto menor sea la distancia más deberían parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. 
 
 -----
 
@@ -315,13 +329,13 @@ nbins = 9
 hog = cv.HOGDescriptor(winSize, blockSize, blockStride, cellSize, nbins)
 ```
 
-La ayuda de OpenCV es bastante incompleta para este descriptor y es mejor usar desde el código `help(cv.HOGDescriptor)`. Por simplificar, los parámetros principales del constructor (aunque hay más) son estos:
+La ayuda de OpenCV es bastante incompleta para este descriptor y es mejor poner directamente en el código `help(cv.HOGDescriptor)` para obtener más información. Por simplificar, los parámetros principales del constructor (aunque hay más) son estos:
 
-* `winSize`: Tamaño de la ventana
-* `blockSize`: Tamaño del bloque
-* `blockStride`: Desplazamiento del bloque
-* `cellSize`: Tamaño de la celda
-* `nbins`: Número de bins usados para calcular el histograma de gradientes
+* `winSize`: Tamaño de la ventana.
+* `blockSize`: Tamaño del bloque.
+* `blockStride`: Desplazamiento del bloque.
+* `cellSize`: Tamaño de la celda.
+* `nbins`: Número de bins usados para calcular el histograma de gradientes.
 
 También podemos crear un descriptor HOG con los valores que vienen por defecto:
 
@@ -332,7 +346,7 @@ hog = cv.HogDescriptor()
 
 ![HOG en OpenCV](images/caracteristicas/hog.png)
 
-Es necesario saber que, a diferencia del algoritmo que hemos visto en teoría, en la implementación de OpenCV hay una ventana que va moviéndose por toda la imagen para calcular los descriptores HOG. Como hemos podido ver, el tamaño de la ventana por defecto es de 64x128 píxeles, lo cual significa que los objetos a detectar deben tener al menos ese tamaño. Si trabajamos con resoluciones menores, debemos cambiarlo.
+Es necesario tener en cuenta que, a diferencia del algoritmo que hemos visto en teoría, en la implementación de OpenCV hay una ventana que va moviéndose por toda la imagen para calcular los descriptores HOG. Como hemos podido ver, el tamaño de la ventana por defecto es de 64x128 píxeles, lo cual significa que los objetos a detectar deben tener al menos ese tamaño. Si trabajáramos con resoluciones menores, deberíamos cambiarlo.
 
 La longitud por defecto del vector HOG (que podemos ver usando el método `hog.getDescriptorSize()`) es de 3.780 elementos por cada descriptor. 
 
@@ -345,9 +359,9 @@ padding = (0,0)
 descriptors = hog.compute(img, winStride, padding, locations)
 ```
 
-La función `compute` guarda en `locations` los puntos donde se han encontrado las  personas en la imagen, y en `descriptors` los valores del descriptor para cada punto. Para calcular esto se usa un sistema de detección de peatones, que veremos en el tema 7.
+La función `compute` guarda en  el vector `locations` los puntos donde se han encontrado las  personas en la imagen, y en `descriptors` los valores del descriptor para cada punto. Para calcular esto se usa un sistema de detección de peatones, que veremos en el tema 7.
 
-Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo  más normal), se puede usar directamente este código:
+Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo  más habitual), se puede usar directamente este código:
 
 
 ```python
@@ -361,7 +375,7 @@ hog.detectMultiScale(img)
 
 Para obtener más ayuda sobre las opciones de detectMultiScale puedes consultar [este enlace](https://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/). Puedes ver un ejemplo completo de detección de peatones en vídeos usando HOG [aquí](https://thedatafrog.com/en/articles/human-detection-video/).
 
-En OpenCV desafortunadamente no hay ninguna forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html) que produce este resultado:
+Desafortunadamente en OpenCV no hay una forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html) que produce este resultado:
 
 ![astronaut](images/caracteristicas/astronaut.png)
 
@@ -421,7 +435,7 @@ Si remplazamos `MSER_create` por `SIFT_create` para usar una detector [SIFT](htt
 
 ### Descriptor
 
-Veamos otro ejemplo, esta vez usando ORB como detector y también como descriptor. En este código, además comparamos los descriptores binarios usando una distancia Hamming. Las correspondencias que devuelve `match` en la variable `matches` son las parejas de puntos más similares entre la primera y la segunda imagen.
+Veamos otro ejemplo, esta vez usando ORB como detector y también como descriptor. En este código, además comparamos los descriptores binarios usando una distancia Hamming. Las correspondencias que devuelve el método `match` en la variable `matches` son las parejas de puntos más similares entre la primera y la segunda imagen.
 
 ```python
 import cv2 as cv
@@ -486,7 +500,10 @@ imageMatches = cv.drawMatches(image1, keypoints1, image2, keypoints2, matches[:5
 
 En general, tenemos muchas combinaciones en OpenCV para usar detectores y descriptores, como puede consultarse en el siguiente [listado](https://docs.opencv.org/master/d5/d51/group__features2d__main.html).
 
-SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
+SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. 
+<!---Puedes ver otro ejemplo completo usando SIFT en [este enlace](https://www.analyticsvidhya.com/blog/2019/10/detailed-guide-powerful-sift-technique-image-matching-python/). 
+--->
+Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
 
 En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/master/02%20OpenCV%20Feature%20Detection%20and%20Description.md) puedes consultar muchos ejemplos de código que usan detectores y descriptores de OpenCV.
 
@@ -542,6 +559,6 @@ print(nc.tolist())
 
 Para poder usar este código necesitaremos descargar los [pesos de la red neuronal](http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel) y la [definición de su arquitectura](https://raw.githubusercontent.com/opencv/opencv_extra/master/testdata/dnn/bvlc_googlenet.prototxt).
 
-Si ejecutamos este código se cargará una red de tipo [GoogleNet](https://ai.google/research/pubs/pub43022) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se proporciona a la red neuronal. Escogemos como descriptor los valores de la penúltima capa que en este caso se llama `pool5/7x7_s1`.
+Si ejecutamos este código se cargará una red de tipo [GoogleNet](https://ai.google/research/pubs/pub43022) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se pasa como entrada a la red neuronal. Escogemos como descriptor los valores de la penúltima capa que en este caso se llama `pool5/7x7_s1`.
 
-Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otro sistema de aprendizaje automático como kNN o SVM.
+Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otra técnica de aprendizaje automático como kNN o SVM.
