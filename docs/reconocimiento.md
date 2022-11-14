@@ -262,6 +262,17 @@ Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por l
 
 Ahora se trata de completar los puntos marcados con `TODO` en el siguiente código para realizar la clasificación. Guárdalo con el nombre `orbBF.py` e intenta entender bien todas las instrucciones antes de empezar a modificarlo.
 
+<!--
+PreviousWM: etiquetas. (quitado punto)
+leídas (ahora leidas)
+WM: Cargamos (antes Leemos)
+WM: descriptores ORB. (añadido punto al final)
+WM: descriptors,labels (sin espacio entre ellos)
+PreviousWM: flag
+PreviousWM (ya calculados en la fase anterior)
+WM: ya calculados en la fase anterior
+--->
+
 
 ```python
 import cv2 as cv
@@ -269,8 +280,8 @@ import argparse
 import numpy as np
 import pickle
 
-# Función que lee un fichero de texto con nombres de fichero de imágenes y sus etiquetas.
-# Devuelve los descriptores calculados y las etiquetas leídas
+# Función que lee un fichero de texto con nombres de fichero de imágenes y sus etiquetas
+# Devuelve los descriptores calculados y las etiquetas leidas
 def readData(filename):
 
     descriptors = []
@@ -287,7 +298,7 @@ def readData(filename):
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Leemos la imagen y obtenemos su label
+            # Cargamos la imagen y obtenemos su label
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
@@ -298,7 +309,7 @@ def readData(filename):
             descriptors.append(desc)
             labels.append(label)
     
-    return descriptors, labels
+    return descriptors,labels
 
 
 # Función que recibe descriptores y etiquetas de train y test.
@@ -337,7 +348,7 @@ def main(args):
         # Calculamos los descriptores de test
         descTest, labelsTest = readData('test.txt')
         
-        # Cargamos los descriptores de train (ya calculados en la fase anterior)
+        # Cargamos los descriptores de train ya calculados en la fase anterior
         with open('trainData.dat','rb') as storedDescriptors:
             data = pickle.load(storedDescriptors)
   
@@ -358,8 +369,8 @@ def main(args):
     return 0
     
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores ORB')
-    parser.add_argument('--test', action = 'store_true')     # Si se indica test este flag será true, si no se indica entonces se asume train
+    parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores ORB.')
+    parser.add_argument('--test', action = 'store_true')     # Si se indica test será true, si no se indica entonces se asume train
     args = parser.parse_args()
     main(args)
 ```
@@ -394,6 +405,17 @@ En la asignatura no hemos visto cómo funcionan internamente los algoritmos de a
 Partimos de este otro código, que como verás tiene partes comunes con el anterior. Guárdalo con el nombre `HOGSVM.py` y complétalo con los comentarios marcados con `TODO`:
 
 
+<!--
+
+Previous WM: flag
+WM: "Si se indica "test" args.test será true"
+Previous WM: obtenemos su label 
+WM: obtenemos su etiqueta
+WM: máximas
+Previous WM: Calculamos el accuracy 
+WM: Calculamos el resultado
+-->
+
 <!---
 Too easy...
 --->
@@ -423,7 +445,7 @@ def extractHOGFeatures(filename):
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Leemos la imagen y obtenemos su label
+            # Leemos la imagen y obtenemos su etiqueta
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
@@ -444,7 +466,7 @@ def trainSVM(descriptors, labels):
 
     # TODO: Debemos indicar que el clasificador es de tipo C_SVC
     # TODO: Su kernel debe ser LINEAR
-    # TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones maximas y EPS=1e-5.
+    # TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones máximas y EPS=1e-5.
     # Ayuda para los puntos anteriores: https://docs.opencv.org/3.4/d1/d73/tutorial_introduction_to_svm.html
 
     # Convertimos las etiquetas a valores numéricos (necesario para entrenar SVM con la librería de OpenCV)
@@ -469,7 +491,7 @@ def testHOGSVM(descriptors, labels):
     npDescriptors = np.array(descriptors, dtype='float32')
     results = svm.predict(npDescriptors)
     
-    # Calculamos el accuracy
+    # Calculamos el resultado
     ok = 0.0
     i = 0
     for pred in results[1]:
@@ -501,7 +523,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores HOG y SVM')
-    parser.add_argument('--test', action = 'store_true')     # Si se indica test este flag será true, si no se indica entonces se asume train
+    parser.add_argument('--test', action = 'store_true')     # Si se indica "test" args.test será true, si no se indica entonces se asume train
     args = parser.parse_args()
     main(args)
 ```
