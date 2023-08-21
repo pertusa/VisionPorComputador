@@ -10,7 +10,7 @@ TUTORIAL DE PYTHON: https://colab.research.google.com/github/cs231n/cs231n.githu
 
 Vamos a comprobar que la instalación se ha hecho de forma correcta ejecutando el siguiente programa de ejemplo.
 
-```py
+```pyyhon
 import cv2 as cv
 import argparse
 
