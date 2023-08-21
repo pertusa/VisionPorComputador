@@ -2,7 +2,7 @@
 
 [OpenCV](http://opencv.org) es la librería más usada para procesamiento de imágenes, y puede instalarse en Windows, Linux, MacOS, iOS y Android. También puede [integrarse con ROS](http://wiki.ros.org/vision_opencv), lo que hace que OpenCV sea muy utilizado en el ámbito de la robótica. Está disponible para C++, Python y Java.
 
-En la asignatura de Visión por Computador usaremos **OpenCV 4.5 en Python3**. Para hacer las prácticas en los laboratorios trabajaremos en Linux (recomendado), aunque también puedes hacer los ejercicios en MacOS o en Windows.
+En la asignatura de Visión por Computador usaremos **OpenCV 4.8 en Python3**. Para hacer las prácticas en los laboratorios trabajaremos en **Linux (recomendado)**, aunque también puedes hacer los ejercicios en MacOS o en Windows.
 
 Hay dos opciones para instalar el software necesario para la asignatura, tanto en Linux como en MacOS o Windows: miniconda (recomendado) o instalación directa.
 
@@ -12,17 +12,17 @@ Este tipo de instalación hace que las librerías de python necesarias para la a
 
 Para esta opción debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html).
 
-> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo que ponga **python 3.9**. 
+> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo que ponga **python 3.11**. 
 
 Si usáis Linux, desde un terminal hay que dar permisos de ejecución al fichero descargado. Por ejemplo:
 
 ```zsh
-chmod +x ./Miniconda3-py39_4.12.0-Linux-x86_64.sh
+chmod +x ./Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
 ```
 
 Una vez tenemos los permisos podemos instalar conda:
 ```zsh
-./Miniconda3-py39_4.12.0-Linux-x86_64.sh
+./Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
 ```
 
 Y una vez instalado, debemos ejecutar (sólo una vez) desde el terminal:
@@ -61,4 +61,4 @@ La ventaja es que no tendremos que cambiar de entorno cada vez que abrimos un nu
 
 ## Edición de código en python
 
-Se puede usar cualquier editor para python, pero recomendamos instalar [Visual Studio Code](https://code.visualstudio.com). Este software está disponible para Linux, Mac y Windows.
+Se puede usar cualquier editor para python, pero se recomienda instalar [Visual Studio Code](https://code.visualstudio.com). Este software está disponible para Linux, Mac y Windows.
