@@ -25,7 +25,7 @@ Una vez tenemos los permisos podemos instalar conda:
 ./Miniconda3-latest-Linux-x86_64.sh
 ```
 
-Una vez instalado, debemos reiniciar el terminal. 
+Tras instalar conda debemos reiniciar el terminal. Si todo va bien, debe verse la palabra `(base)` al principio de la línea de comandos.
 
 A continuación hay que ejecutar (sólo una vez) desde el terminal:
 
