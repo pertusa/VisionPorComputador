@@ -17,21 +17,23 @@ Para esta opción debéis instalar miniconda usando [este enlace](https://docs.c
 Si usáis Linux, desde un terminal hay que dar permisos de ejecución al fichero descargado. Por ejemplo:
 
 ```zsh
-chmod +x ./Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
+chmod +x ./Miniconda3-latest-Linux-x86_64.sh
 ```
 
 Una vez tenemos los permisos podemos instalar conda:
 ```zsh
-./Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
 ```
 
-Y una vez instalado, debemos ejecutar (sólo una vez) desde el terminal:
+Una vez instalado, debemos reiniciar el terminal. 
+
+A continuación hay que ejecutar (sólo una vez) desde el terminal:
 
 ```zsh
  conda create -n vision python=3
 ```
 
-Esto crea un **entorno de python3**. Cada vez que se inicie un nuevo terminal para hacer código de Visión por Computador tendrás que activar el entorno:
+Esto crea un **entorno de python3**. Cada vez que se inicie un nuevo terminal para hacer código de Visión por Computador tendrás que activar el entorno con esta instrucción:
 
 ```zsh
 conda activate vision

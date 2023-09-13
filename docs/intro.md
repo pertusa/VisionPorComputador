@@ -35,13 +35,17 @@ cv.imshow('Ventana', img)
 cv.waitKey(0)
 ```
 
-Primero guardamos este fichero con el nombre `lectura.py`. Para probar el código, descargamos esta imagen de ejemplo y ejecutamos el programa de la siguiente forma:
+Primero guardamos este fichero con el nombre `lectura.py`. Para probar el código, descargamos esta imagen de ejemplo:
 
 ![lena](images/intro/lena.jpg)
+
+Y a continuación ejecutamos el programa de la siguiente forma:
 
 ```bash
 python3 lectura.py
 ```
+
+> En el caso de Windows, en lugar de poner `python3` hay que escribir sólo `python`.
 
 Como puede verse, se crea una ventana con la imagen, por defecto `lena.jpg`. Esta ventana se cerrará cuando pulsemos una tecla.
 
@@ -257,7 +261,7 @@ dst = src.astype(int) # Para pasar un array a int
 dst = src.astype(np.uint8) # Para pasar un array a uint8
 ---->
 
-Hay veces en las que la conversión de tipos no puede hacerse directamente, por ejemplo cuando convertimos una matriz `float32` en `uint8`, ya que podemos salirnos de rango (en el primer caso representamos la variable con 32 bits, en el segundo con 8). Para evitar esto se suele aplicar normalización. Por ejemplo, si tenemos una matriz `m` de tipo `float32` podemos hacer la conversión de la siguiente forma:
+Hay veces en las que la conversión de tipos no puede hacerse directamente, por ejemplo cuando convertimos una matriz `float32`  en `uint8`, ya que podemos salirnos de rango (en el primer caso representamos la variable con 32 bits, en el segundo con 8). Para evitar esto se suele aplicar normalización. Por ejemplo, si tenemos una matriz `m` de tipo `float32` podemos hacer la conversión de la siguiente forma:
 
 ```python
 # Normalizamos los valores entre 0 y 255
@@ -443,7 +447,7 @@ Como hemos visto al principio, podemos crear una ventana para mostrar una imagen
 * `cv.WINDOW_AUTOSIZE`: El tamaño de la ventana se ajusta al tamaño de la imagen y el usuario no puede redimensionarla. Es la opción por defecto.
 * `cv.WINDOW_OPENGL`: Se crea la ventana con soporte para OpenGL (no es necesario en esta asignatura).
 
-Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](https://docs.opencv.org/4.5.1/d7/dfc/group__highgui.html) podemos ver los métodos y constantes relacionados con la gestión del entorno visual estándar.
+Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](https://docs.opencv.org/4.8.0/d7/dfc/group__highgui.html) podemos ver los métodos y constantes relacionados con la gestión del entorno visual estándar.
 
 Para capturar la posición del ratón podemos usar el método `setMouseCallback`, que recibe tres parámetros:
 
@@ -532,8 +536,8 @@ def onChange(val):
 
 # Procesamos argumentos
 parser = argparse.ArgumentParser(description='Código de ejemplo para usar un trackbar')
-parser.add_argument('--imagen1', help='Ruta de la primera imagen',  default=cv.samples.findFile('LinuxLogo.jpg'))
-parser.add_argument('--imagen2', help='Ruta de la segunda imagen', default=cv.samples.findFile('WindowsLogo.jpg'))
+parser.add_argument('--imagen1', help='Ruta de la primera imagen', default='LinuxLogo.jpg')
+parser.add_argument('--imagen2', help='Ruta de la segunda imagen', default='WindowsLogo.jpg')
 args = parser.parse_args()
 
 # Cargamos las imagenes y comprobamos que han podido abrirse
@@ -560,16 +564,10 @@ onChange(0)
 cv.waitKey()
 ```
 
-<!---
-f ** f
--->
-
-<!---
 Necesitarás estas dos imágenes para probar el código:
 
 ![WindowsLogo](images/intro/WindowsLogo.jpg)
 ![LinuxLogo](images/intro/LinuxLogo.jpg)
---->
 
 <!--
 Además de los eventos de ratón y los _sliders_, podemos añadir botones con la función `createButton` (sólo si hemos compilado OpenCV con la librería QT), y también existen opciones para dibujar sobre la ventana.
