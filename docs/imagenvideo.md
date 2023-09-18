@@ -35,11 +35,11 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (que debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben indicarse de la siguiente forma:
 
 <!--
-WM: imagen. (punto al final)
+WM: imagen dada. (palabra "dada")
 -->
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen.')
+parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen dada.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 ```
 
@@ -100,12 +100,12 @@ https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
 ---->
 
 <!--
-WM: imagen. (punto)
-cv.IMREAD_GRAYSCALE)~ (added bs)
-cargar la imagen~" (added bs)
-entre 0 y 255. (added .)
-fichero -> archivo
-Mostramos la gráfica en pantalla -> Mostramos el histograma en pantalla
+WM: imagen dada. (añadido "dada")
+args.imagen,cv.IMREAD_GRAYSCALE (quitar espacio entre argumentos)
+leer la imagen~" (cambiar "cargar" por "leer")
+entre 0 y 255 -> en el rango [0,255].
+Guardamos el resultado en un archivo -> Guardadmos el resultado
+Mostramos el histograma en pantalla -> Mostramos el resultado por pantalla
 -->
 
 ```python
@@ -113,17 +113,17 @@ import cv2 as cv
 import argparse
 from matplotlib import pyplot as plt
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen.')
+parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen dada.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
 args = parser.parse_args()
 
 # Cargamos la imagen indicada por el usuario
-img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE) 
+img = cv.imread(args.imagen,cv.IMREAD_GRAYSCALE) 
 
 # Comprobamos que la imagen se ha podido leer
 if img is None:
-    print("Error al cargar la imagen ", args.imagen)
+    print("Error al leer la imagen ", args.imagen)
     quit()
 
 # Calculamos el histograma
@@ -131,12 +131,12 @@ hist = cv.calcHist([img],[0],None,[256],[0,256])
 
 # Lo mostramos, para esto usamos la librería matplotlib
 plt.plot(hist, 'b') # El segundo parámetro es el color de la línea ('b', 'g', o 'r')
-plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores entre 0 y 255.
+plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores en el rango [0,255].
 
 # Guardamos el resultado en un archivo
 plt.savefig(args.histograma)
 
- # Mostramos el histograma en pantalla
+ # Mostramos el resultado por pantalla
 plt.show()
 ```
 
@@ -195,11 +195,12 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 Argumentos de entrada:
 
 <!--
-WM: espacios de color. (dot)
+WM: entre espacios de color. (añadido "entre")
+Espacio al final de la línea
 -->
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para cambiar espacios de color.')
+parser = argparse.ArgumentParser(description = 'Programa para cambiar entre espacios de color.') 
 parser.add_argument('--imagen', '-i', type=str, default='Fire_breathing_2_Luc_Viatour.jpg')
 ```
 
