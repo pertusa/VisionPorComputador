@@ -8,7 +8,7 @@ TUTORIAL DE PYTHON: https://colab.research.google.com/github/cs231n/cs231n.githu
 
 ## Carga y visualización de imágenes
 
-Vamos a comprobar que la instalación se ha hecho de forma adecuada ejecutando el siguiente programa de ejemplo.
+Vamos a comprobar que la instalación se ha hecho de forma correcta ejecutando el siguiente programa de ejemplo.
 
 ```python
 import cv2 as cv
