@@ -54,6 +54,11 @@ Haz un programa llamado `ecualizar.py` que realice una ecualización de histogra
 
 Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con `TODO`. 
 
+<!--
+WM: sin usar calcHist. (añadido ".")
+description='Programa (quitar espacios en los argumentos)
+-->
+
 
 ```python
 import cv2 as cv
@@ -62,7 +67,7 @@ import argparse
 from collections import Counter # Necesario para el acumulador
 
 # Gestión de parámetros
-parser = argparse.ArgumentParser(description = 'Programa para ecualizar histogramas sin usar calcHist')
+parser = argparse.ArgumentParser(description='Programa para ecualizar histogramas sin usar calcHist.')
 parser.add_argument('--imagen', '-i', type=str, default='flor.jpg')
 parser.add_argument('--salida', '-r', type=str, default='florEq.jpg')
 args = parser.parse_args()
@@ -219,7 +224,7 @@ dst = cv.warpPerspective(img, M, (cols, rows))
 
 La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
 
-También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos: El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
+También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos (siendo cada punto un vector de dos dimensiones que representa las coordenadas del mismo en el plano XY): El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
 
 <!----
 https://docs.opencv.org/4.5.2/da/d6e/tutorial_py_geometric_transformations.html
@@ -231,6 +236,11 @@ M = cv.getPerspectiveTransform(input_pts, output_pts)
 
 # Aplicamos la transformacion usando interpolación lineal. Los valores widthDst y heightDst indican el tamaño de la imagen destino.
 dst = cv.warpPerspective(src, M, (widthDst, heightDst), flags=cv.INTER_LINEAR)
+```
+
+Siendo un ejemplo de vector `input_pts` el que sigue:
+```python
+input_pts = np.float32([[120, 13], [610, 24], [2, 491], [622, 500]])
 ```
 
 ---
@@ -352,8 +362,16 @@ Implementa un programa llamado `detectarFichas.py` que cargue la siguiente image
 
 Los parámetros del programa deben ser los siguientes:
 
+<!--
+WM: de las damas. (añadido ".")
+description='Programa (quitar espacios en los argumentos)
+-->
+
+
+
+
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para obtener la posición de las damas')
+parser = argparse.ArgumentParser(description='Programa para obtener la posición de las damas.')
 parser.add_argument('--imagen', '-i', type=str, default='damas.jpg')
 parser.add_argument('--salidaPerspectiva', '-p', type=str, default='corrected.jpg')
 parser.add_argument('--salidaRojas', '-r', type=str, default='rojas.jpg')
