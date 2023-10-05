@@ -21,7 +21,7 @@ sobely = cv.Sobel(img, cv.CV_64F, 0, 1, ksize=3)
 <!----ANTIGUO: Ejemplo de [uso](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel_derivatives/sobel_derivatives.html):
 --->
 
-Ejemplo de uso:
+### Ejemplo de uso:
 
 <!--- adaptado desde [este enlace](https://docs.opencv.org/3.4/d2/d2c/tutorial_sobel_derivatives.html): --->
 
@@ -70,10 +70,10 @@ Podemos usar distintos kernels para implementar gradientes mediante convolución
 --->
 
 <!--
-WM: Prewitt.
-imagen~'
-*255
-salida.
+WM: obtener
+description='Programa
+# Comprobamos que la imagen se ha podido leer -> # Comprobamos que la imagen se ha podido cargar
+# Normalizamos. Este paso es necesario para convertir de float a uint sin tener valores fuera de rango -> # Normalizamos para poder convertir de float a uint sin tener valores fuera de rango
 -->
 
 ```python
@@ -81,7 +81,7 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular el filtro de Prewitt.')
+parser = argparse.ArgumentParser(description='Programa para obtener el filtro de Prewitt.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default='prewitt.jpg')
 args = parser.parse_args()
@@ -89,7 +89,7 @@ args = parser.parse_args()
 # Cargamos la imagen
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-# Comprobamos que la imagen se ha podido leer
+# Comprobamos que la imagen se ha podido cargar
 if img is None:
     print('Error al cargar la imagen ')
     quit()
@@ -102,7 +102,7 @@ if img is None:
 
 # TODO: Calculamos la magnitud y la guardamos en la variable magn
 
-# Normalizamos. Este paso es necesario para convertir de float a uint sin tener valores fuera de rango
+# Normalizamos para poder convertir de float a uint sin tener valores fuera de rango
 magn = magn-magn.min()
 magn = magn/magn.max()*255
 
@@ -163,11 +163,11 @@ Para más información sobre Canny en OpenCV puedes consultar [este enlace](http
 Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que debes descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
 
 <!---
-WM: imagen.
-+ con umbral (antes sólo umbral)
-150~
-"cartoonizado"~
-result~
+WM: un fichero.
+description='Programa
+# Detectamos los bordes con Canny, -> # Usamos Canny para detectar los bordes
+cuadrado de 2x2 -> cuadrado de tamaño 2x2
+imagen de 8 bits -> imagen de 8 bits (uint8)
 --->
 
 ```python
@@ -175,7 +175,7 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description = 'Programa para cartoonizar una imagen.')
+parser = argparse.ArgumentParser(description='Programa para cartoonizar un fichero.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default='cartoonized.jpg')
 args = parser.parse_args()
@@ -193,11 +193,10 @@ if img is None:
 # Aplicamos un filtro de mediana de tamaño 7x7 para suavizar la imagen
 # TODO
 
-#print(median.dtype)
-# Detectamos los bordes con Canny, con umbral inferior 50 y superior 150
+# Usamos Canny para detectar los bordes con umbral inferior 50 y superior 150
 # TODO
 
-# Dilatamos los bordes. Para esto aplicamos dilate con un filtro cuadrado de 2x2
+# Dilatamos los bordes. Para esto aplicamos dilate con un filtro cuadrado de tamaño 2x2
 # TODO (guardar en imgCanny)
 
 # Escalamos los valores resultantes en el rango [0...1] y los invertimos. 
@@ -233,7 +232,7 @@ imgCanny3c = cv.merge((bordesf, bordesf, bordesf))
 # Multiplicamos las matrices de color y bordes para obtener la imagen final
 # TODO
 
-# Convertimos el resultado anterior en una imagen de 8 bits
+# Convertimos el resultado anterior en una imagen de 8 bits (uint8)
 # TODO: Guardar en result 
 
 # Mostramos la imagen final y la guardamos
@@ -385,9 +384,9 @@ dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 --->
 
 <!--
-WM: Harris.
-Parametros -> Parámetros
-un valor mayor +"o igual" a 10000
+WM: description='Programa 
+Parámetros: blockSize=2, apertureSize=3, k=0.04. -> Parámetros: blockSize=2, apertureSize=3 y k=0.04.
+mayor o igual -> superior o igual
 --->
 
 ---
@@ -401,7 +400,7 @@ import cv2 as cv
 import argparse
 import numpy as np
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular esquinas con Harris.')
+parser = argparse.ArgumentParser(description='Programa para calcular esquinas con Harris.')
 parser.add_argument('--imagen', '-i', type=str, default='corrected.jpg')
 parser.add_argument('--salida', '-s', type=str, default='damasHarris.jpg')
 args = parser.parse_args()
@@ -421,7 +420,7 @@ if img is None:
 # TODO (guardar en dst)
 
 # Sobre la imagen original, poner en color azul los píxeles detectados como borde.
-# Son aquellos que en los que dst(i,j) tiene un valor mayor o igual a 10000.
+# Son aquellos que en los que dst(i,j) tiene un valor superior o igual a 10000.
 # TODO (guardar en src).
 
 # Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa como segundo argumento al programa
