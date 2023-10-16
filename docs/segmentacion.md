@@ -31,7 +31,7 @@ A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/2.4
 contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 ```
 
-Esta función devuelve una lista de contornos detectados en la imagen junto con su jerarquía. La [jerarquía](https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html) hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unos contornos dentro de otros (en ese caso, los primeros serán "hijos" de los segundos, que son llos contornos "padre"). 
+Esta función devuelve una lista de contornos detectados en la imagen junto con su jerarquía. La [jerarquía](https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html) hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unos contornos dentro de otros (en ese caso, los primeros serán "hijos" de los segundos, que son los contornos "padre"). 
 
 El segundo parámetro de esta función es el tipo de algoritmo usado para devolver los contornos. El método más sencillo es `cv.RETR_LIST`, que devuelve simplemente un listado e ignora la jerarquía. Alternativamente se puede usar, por ejemplo, `cv.RETR_TREE`, que contiene la jerarquía completa. 
 
@@ -272,12 +272,17 @@ Cuando descomprimas este archivo, podrás ver en el directorio `roses` las sigui
 * `output`: directorio inicialmente vacío donde se guardarán los resultados de segmentación de tu método.
 * `gt`: imágenes correctamente etiquetadas para evaluar los resultados del programa.
 
-En el directorio principal también hay un programa `iou.py` que se usará para evaluar los resultados. Este programa calcula la intersección sobre la unión de dos imágenes (en otras palabras, devuelve cuánto se parece una imagen obtenida y una segmentada correctamente). Si la segmentación fuera perfecta devolvería el valor 1.
+En el directorio principal también hay un programa `evaluate.py` que se usará para evaluar los resultados. Este programa implementa una figura de mérito denominada intersección sobre la unión de dos imágenes (del inglés Intersection over Union, normalmente abreviado como IoU). En otras palabras, esta métrica devuelve cuánto se parece una imagen obtenida y una segmentada, siendo su rango posible [0,1] con el valor 1 representando una segmentación perfecta.
 
 Debes implementar el programa `roses.py` y guardarlo dentro del directorio `roses`. Después puedes evaluar los resultados ejecutando desde el terminal:
 
-```bash
-./evaluate.sh
+```python
+python evaluate -m batch [-i input]
+```
+
+
+```python
+python evaluate -m single -i directorio_entrada/imagen.png
 ```
 
 El script `evaluate.sh` devuelve el porcentaje de acierto del método con todas las imágenes. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
