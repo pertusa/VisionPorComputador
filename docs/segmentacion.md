@@ -274,20 +274,26 @@ Cuando descomprimas este archivo, podrás ver en el directorio `roses` las sigui
 
 En el directorio principal también hay un programa `evaluate.py` que se usará para evaluar los resultados. Este programa implementa una figura de mérito denominada intersección sobre la unión de dos imágenes (del inglés Intersection over Union, normalmente abreviado como IoU). En otras palabras, esta métrica devuelve cuánto se parece una imagen obtenida y una segmentada, siendo su rango posible [0,1] con el valor 1 representando una segmentación perfecta.
 
-Debes implementar el programa `roses.py` y guardarlo dentro del directorio `roses`. Después puedes evaluar los resultados ejecutando desde el terminal:
+El script `evaluate.py` tiene dos modos de funcionamiento, según el argumento `-m` que se le facilite:
 
-```python
-python evaluate -m batch [-i input]
-```
-
+* Modo imagen individual: Modo que utilizaremos si queremos calcular la figura de mérito sobre una única imagen, la cual se especifica en el argumento `-i`. Su sintaxis es:
 
 ```python
 python evaluate -m single -i directorio_entrada/imagen.png
 ```
 
-El script `evaluate.sh` devuelve el porcentaje de acierto del método con todas las imágenes. La nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
 
-Para resolver este problema puedes usar cualquier técnica que hayamos visto en la asignatura.
+* Modo batch: Modo que utilizaremos para evaluar una colección de imágenes contenidas en una carpeta (por defecto, la carpeta `input`, aunque se puede cambiar utilizando el argumento `-i`). Su sintaxis es:
+
+```python
+python evaluate -m batch [-i input]
+```
+
+Nótese que este script requiere internamente el programa `roses.py` que debéis desarrollar en esta práctica (`evaluate.py` no únicamente calcula la figura de mérito sino que también llama a `roses.py` para que se realice la segmentación). Por ello deberéis de implementar este programa para que el script de evaluación funcione.
+
+Por último, cabe destacar que, para resolver este problema, puedes usar cualquier técnica que hayamos visto en la asignatura. Finalmente, la nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
+
+
 
 <!---
 Para los algoritmos de umbralización:
