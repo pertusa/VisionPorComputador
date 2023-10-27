@@ -67,13 +67,11 @@ En el `main` se recibe el número de una imagen (hay 20 en la carpeta) para usar
 
 <!--
 WM: 
-imgDescriptors={} (antes con espacios)
-descriptor SC. (antes sin punto)
-cv.imread(queryName,cv.IMREAD_GRAYSCALE) (quitado espacio en param)
-caracteristicas.
-compactación (con acento)
-Área -> Area (quitado acento)
------------ (añadido un guión adicional)
+extractDescriptors -> extraerDescriptores
+calcularDistancias -> computarDistancias
+imgDescriptors -> imDescriptors
+queryDescriptors -> qDescriptors
+indexQuery -> idxQuery
 -->
 
 
@@ -83,9 +81,9 @@ import argparse
 import numpy as np
 import math
 
-def extractDescriptors(image):
+def extraerDescriptores(image):
     # Creamos un diccionario donde guardaremos los valores calculados
-    imgDescriptors={}
+    imDescriptors={}
 
     # Calculamos todos los contornos de la imagen  
     contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
@@ -94,35 +92,35 @@ def extractDescriptors(image):
     contour = max(contours, key=cv.contourArea)
 
     # TODO: Guardamos el mayor contorno para el descriptor SC.
-    imgDescriptors['contour'] = None
+    imDescriptors['contour'] = None
 
     # TODO: Calculamos el perimetro
-    imgDescriptors['perimetro'] = None
+    imDescriptors['perimetro'] = None
 
     # TODO: Calculamos la compactación
-    imgDescriptors['compactacion'] = None
+    imDescriptors['compactacion'] = None
 
     # TODO: Calculamos la elongacion
-    imgDescriptors['elongacion'] = None
+    imDescriptors['elongacion'] = None
 
     # TODO: Calculamos la rectangularidad (usando el rectángulo rotado MRE que envuelve el contorno con un área mínima)
-    imgDescriptors['rectangularidad'] = None
+    imDescriptors['rectangularidad'] = None
 
     # TODO: calculamos el área del cierre convexo (pista: funcion convexHull)
-    imgDescriptors['areaCierreConvexo'] = None
+    imDescriptors['areaCierreConvexo'] = None
 
     # TODO: Calculamos el centroide (X,Y) y orientacion usando los momentos
-    imgDescriptors['centroide'] = None
-    imgDescriptors['orientacion'] = None
+    imDescriptors['centroide'] = None
+    imDescriptors['orientacion'] = None
 
     # TODO: Calculamos los Momentos de Hu
-    imgDescriptors['Hu'] = None
+    imDescriptors['Hu'] = None
 
-    return imgDescriptors
+    return imDescriptors
 
 
-def calcularDistancias(queryDescriptors, imgDescriptors):
-    # Calcular y devolver la distancia entre queryDescriptors e imgDescriptors para las siguientes características:
+def computarDistancias(qDescriptors, imDescriptors):
+    # Calcular y devolver la distancia entre qDescriptors e imDescriptors para las siguientes características:
 
     # TODO: Shape Context
     dSC = 0
@@ -165,10 +163,10 @@ def calcularDistancias(queryDescriptors, imgDescriptors):
 def main(args):
     # Procesamos parámetros de entrada
     path = 'shape_sample/'
-    indexQuery = args.indexQuery
+    idxQuery = args.indexQuery
 
     # Leemos imagen query
-    queryName = path + str(indexQuery) + '.png'
+    queryName = path + str(idxQuery) + '.png'
     query = cv.imread(queryName,cv.IMREAD_GRAYSCALE)
 
     # Comprobamos que la imagen se ha podido leer
@@ -176,13 +174,13 @@ def main(args):
         print('Error al cargar la imagen')
         quit()
     
-    queryDescriptors = extractDescriptors(query)
+    qDescriptors = extraerDescriptores(query)
 
     # Para las otras imágenes, calculamos sus descriptores y los comparamos con los de la query
     for i in range(0,20):
         imageIndex = i+1
         # Ignoramos esta imagen si es la misma que la de referencia
-        if (imageIndex != indexQuery):
+        if (imageIndex != idxQuery):
             # Leemos la imagen
             imageName = path + str(imageIndex) + '.png'
             image = cv.imread(imageName, cv.IMREAD_GRAYSCALE)
@@ -190,8 +188,8 @@ def main(args):
             # Extraemos sus características y las comparamos con las de la query
             print('-----------')
             print('Imagen', imageIndex, ':')
-            imgDescriptors = extractDescriptors(image)
-            calcularDistancias(queryDescriptors, imgDescriptors)
+            imDescriptors = extraerDescriptores(image)
+            computarDistancias(qDescriptors, imDescriptors)
 
     return 0
 
