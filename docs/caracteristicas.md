@@ -217,7 +217,9 @@ Para calcular las distancias de los descriptores Hu debes usar las siguientes ec
 
 donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
 
-![Eq2](images/caracteristicas/contoursMatch2.png)
+![Eq2a](images/caracteristicas/contoursMatch2A.png)
+
+![Eq2b](images/caracteristicas/contoursMatch2B.png)
 
 En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral `1.e-5`. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de `1.e-5` en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función `math.log10`.
 
