@@ -67,7 +67,7 @@ matches = matcher.knnMatch(descriptors1, descriptors2, k=2)
 
 # Nos quedamos sólo los matches "buenos" y los guardamos en good
 # En el artículo original de SIFT, si dos puntos tienen una distancia menor de 0.7 se consideran un match
-good = []
+good = list()
 for m, n in matches:
     if m.distance < 0.7 * n.distance:
         good.append(m)
@@ -143,7 +143,9 @@ for file in imagesPath:
 vocabulary = BOW.cluster()
 ```
 
-De esta forma hemos entrenado un diccionario de `k=100` palabras. A continuación podemos extraer un descriptor, y convertirlo en un histograma de palabras (este será nuestro nuevo descriptor). 
+Fíjate que deberás incluir la ruta a una o más imágenes en la variable `imagesPath` para poder ejecutar el código. Puedes, por ejemplo, incluir las del ejercicio anterior (_box.png_ y _box_in_scene.png_).
+
+Una vez ejecutado el código, habremos entrenado un diccionario de `k=100` palabras. A continuación podemos extraer un descriptor, y convertirlo en un histograma de palabras (este será nuestro nuevo descriptor). 
 
 ```python
 # Inicializamos el extractor, que estará basado en SIFT y que asignará clusters por fuerza bruta
@@ -154,6 +156,10 @@ BOWExtractor.setVocabulary(vocabulary)
 
 # Ahora ya podemos extraer el histograma BOW de una imagen
 BOWdescriptor = BOWExtractor.compute(image, sift.detect(image))
+
+# Mostramos el histograma:
+plt.hist(BOWdescriptor[0], 100)
+plt.show()
 ```
 
 Puedes ver ejemplos de código completos de entrenamiento y reconocimiento con BOW en [este enlace](https://github.com/briansrls/SIFTBOW/blob/master/SIFTBOW.py) y [este otro](https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py).
@@ -271,6 +277,19 @@ WM: descriptors,labels (sin espacio entre ellos)
 PreviousWM: flag
 PreviousWM (ya calculados en la fase anterior)
 WM: ya calculados en la fase anterior
+
+
+2023-24
+WM: "Matching..." -> "Matching"
+WM: "Función que lee" -> "Función para leer"
+WM: "calcula el accuracy" -> "calcula la tasa de acierto"
+WM: "en la variable "desc"" -> "en "desc""
+WM: "Separamos el nombre de la imagen de su etiqueta" -> "Separamos nombre de imagen y etiqueta"
+WM: "Hacemos la comparación entre los descriptores de train y de test" -> "Comparamos los descriptores de train y test"
+descriptors = [] -> descriptors = list()
+labels = [] -> labels = list()
+ok = ok + 1 -> ok += 1
+
 --->
 
 
@@ -294,7 +313,7 @@ def readData(filename):
         # TODO: Creamos el detector ORB con 100 puntos como máximo
         
         for line in f.readlines():
-            # Separamos el nombre de la imagen de su etiqueta
+            # Separamos nombre de imagen y etiqueta
             fields = line.split()
             print(fields[0], fields[1])
 
@@ -302,7 +321,7 @@ def readData(filename):
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
-            # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en la variable "desc"
+            # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en "desc"
             desc = None
             
             # Añadimos a data los descriptores y la etiqueta
@@ -313,10 +332,10 @@ def readData(filename):
 
 
 # Función que recibe descriptores y etiquetas de train y test.
-# Hace un matching asignando a cada muestra de test la etiqueta de la muestra de train más cercana y calcula el accuracy
+# Hace un matching asignando a cada muestra de test la etiqueta de la muestra de train más cercana y calcula la tasa de acierto
 def testORB(descTrain, labelsTrain, descTest, labelsTest):
 
-    print('Matching...')
+    print('Matching')
     
     matcher = cv.BFMatcher(cv.NORM_HAMMING)
     
@@ -352,7 +371,7 @@ def main(args):
         with open('trainData.dat','rb') as storedDescriptors:
             data = pickle.load(storedDescriptors)
   
-        # Hacemos la comparación entre los descriptores de train y de test
+        # Comparamos los descriptores de train y test
         descTrain = data[0]
         labelsTrain = data[1]
         testORB(descTrain, labelsTrain, descTest, labelsTest)
@@ -408,12 +427,16 @@ Partimos de este otro código, que como verás tiene partes comunes con el anter
 <!--
 
 Previous WM: flag
-WM: "Si se indica "test" args.test será true"
-Previous WM: obtenemos su label 
-WM: obtenemos su etiqueta
-WM: máximas
-Previous WM: Calculamos el accuracy 
-WM: Calculamos el resultado
+WM: "Programa para reconocer objetos" -> "Reconocimiento de objetos"
+WM: "Entrenando SVM" -> "Entrenando SVM..."
+WM: "Extrayendo descriptores HOG" -> "Extrayendo descriptores HOG..."
+labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv'] (antes como tupla)
+descriptors = [] -> descriptors = list()
+labels = [] -> labels = list()
+labelsIndex = [] -> labelsIndex = list()
+ok = ok + 1 -> ok += 1
+i = i + 1 -> i += 1
+import pickle -> Desaparece
 -->
 
 <!---
@@ -423,9 +446,8 @@ Too easy...
 import cv2 as cv
 import argparse
 import numpy as np
-import pickle
 
-labelNames = ('book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv')
+labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv']
 
 # Función que lee un fichero de texto y calcula sus descriptores HOG
 # Devuelve los descriptores y las etiquetas leídas
@@ -522,7 +544,7 @@ def main(args):
     
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores HOG y SVM')
+    parser = argparse.ArgumentParser(description = 'Reconocimineto de objetos usando descriptores HOG y SVM')
     parser.add_argument('--test', action = 'store_true')     # Si se indica "test" args.test será true, si no se indica entonces se asume train
     args = parser.parse_args()
     main(args)
