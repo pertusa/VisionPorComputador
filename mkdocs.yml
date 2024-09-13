@@ -4,12 +4,12 @@ use_directory_urls: false
 nav:
 - Instalación de OpenCV : 'install.md'
 - T1- Introducción : 'intro.md'
-- T2- Imagen digital y vídeo : 'imagenvideo.md'
-- T3- Transformaciones : 'transformaciones.md'
-- T4- Detección : 'deteccion.md'
-- T5- Segmentación : 'segmentacion.md'
-- T6- Características : 'caracteristicas.md'
-- T7- Reconocimiento : 'reconocimiento.md'
+# - T2- Imagen digital y vídeo : 'imagenvideo.md'
+# - T3- Transformaciones : 'transformaciones.md'
+# - T4- Detección : 'deteccion.md'
+# - T5- Segmentación : 'segmentacion.md'
+# - T6- Características : 'caracteristicas.md'
+# - T7- Reconocimiento : 'reconocimiento.md'
 
 theme:
     language: es

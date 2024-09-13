@@ -12,7 +12,7 @@ Este tipo de instalación hace que las librerías de python necesarias para la a
 
 Para esta opción debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html).
 
-> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo que ponga **python 3.11**. 
+> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo que ponga **python 3.12**. 
 
 Si usáis Linux, desde un terminal hay que dar permisos de ejecución al fichero descargado. Por ejemplo:
 
