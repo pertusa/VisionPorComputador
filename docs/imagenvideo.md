@@ -35,11 +35,14 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (que debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben indicarse de la siguiente forma:
 
 <!--
-WM: imagen dada. (palabra "dada")
+WM: imagen dada. (palabra "dada") ### 2023-24
+WM: para obtener. (palabra "obtener"; antes era "calcular") ### 2024-25
+WM: tanto el brillo como el contrates. (antes era "el brillo y el contraste") ### 2024-25
 -->
 
+
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para calcular el brillo y contraste de una imagen dada.')
+parser = argparse.ArgumentParser(description = 'Programa para obtener tanto el brillo como el contraste de una imagen dada.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 ```
 
@@ -100,12 +103,21 @@ https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
 ---->
 
 <!--
+# 2023/24 # 
 WM: imagen dada. (añadido "dada")
 args.imagen,cv.IMREAD_GRAYSCALE (quitar espacio entre argumentos)
 leer la imagen~" (cambiar "cargar" por "leer")
 entre 0 y 255 -> en el rango [0,255].
 Guardamos el resultado en un archivo -> Guardadmos el resultado
 Mostramos el histograma en pantalla -> Mostramos el resultado por pantalla
+
+# 2024/25 # 
+WM: para obtener (antes, "para calcular")
+WM: Leemos la imagen (antes, "Cargamos la imagen")
+WM: Comprobamos la carga de la imagen (antes, "Comprobamos que la imagen se ha podido leer")
+WM: Obtenemos el histograma (antes, "Calculamos el histograma")
+WM: Lo mostramos usando la librería matplotlib (antes, "Lo mostramos, para esto usamos la librería matplotlib")
+WM: Volcamos el resultado (antes, "Guardamos el resultado")
 -->
 
 ```python
@@ -113,27 +125,27 @@ import cv2 as cv
 import argparse
 from matplotlib import pyplot as plt
 
-parser = argparse.ArgumentParser(description = 'Programa para calcular el histograma de una imagen dada.')
+parser = argparse.ArgumentParser(description = 'Programa para obtener el histograma de una imagen dada.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
 args = parser.parse_args()
 
-# Cargamos la imagen indicada por el usuario
+# Leemos la imagen indicada por el usuario
 img = cv.imread(args.imagen,cv.IMREAD_GRAYSCALE) 
 
-# Comprobamos que la imagen se ha podido leer
+# Comprobamos la carga de la imagen
 if img is None:
     print("Error al leer la imagen ", args.imagen)
     quit()
 
-# Calculamos el histograma
+# Obtenemos el histograma
 hist = cv.calcHist([img],[0],None,[256],[0,256])
 
-# Lo mostramos, para esto usamos la librería matplotlib
+# Lo mostramos usando la librería matplotlib
 plt.plot(hist, 'b') # El segundo parámetro es el color de la línea ('b', 'g', o 'r')
 plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores en el rango [0,255].
 
-# Guardamos el resultado en un archivo
+# Volcamos el resultado en un archivo
 plt.savefig(args.histograma)
 
  # Mostramos el resultado por pantalla
@@ -195,13 +207,19 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 Argumentos de entrada:
 
 <!--
+# 2023/24
 WM: entre espacios de color. (añadido "entre")
 Espacio al final de la línea
+
+# 2024/25
+WM: de una imagen dada. (antes no estaba esta cadena de texto)
+WM: description='Programa (antes, "description = 'Programa")
+WM: default = 'Fire (antes, "default='Fire")
 -->
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para cambiar entre espacios de color.') 
-parser.add_argument('--imagen', '-i', type=str, default='Fire_breathing_2_Luc_Viatour.jpg')
+parser = argparse.ArgumentParser(description='Programa para cambiar entre espacios de color de una imagen dada.') 
+parser.add_argument('--imagen', '-i', type=str, default = 'Fire_breathing_2_Luc_Viatour.jpg')
 ```
 
 Para hacer pruebas puedes usar la siguiente imagen:
