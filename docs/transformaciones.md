@@ -55,8 +55,15 @@ Haz un programa llamado `ecualizar.py` que realice una ecualización de histogra
 Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con `TODO`. 
 
 <!--
+# 2023/24
 WM: sin usar calcHist. (añadido ".")
 description='Programa (quitar espacios en los argumentos)
+
+# 2024/25
+WM: default = 'flor.jpg' (antes, "default='flor.jpg'")
+WM: default = 'florEq.jpg' (antes, "default='florEq.jpg'")
+WM: Cargamos la imagen (antes, "Abrimos la imagen")
+WM: se ha podido cargar (antes, "se ha podido leer")
 -->
 
 
@@ -67,17 +74,17 @@ import argparse
 from collections import Counter # Necesario para el acumulador
 
 # Gestión de parámetros
-parser = argparse.ArgumentParser(description='Programa para ecualizar histogramas sin usar calcHist.')
-parser.add_argument('--imagen', '-i', type=str, default='flor.jpg')
-parser.add_argument('--salida', '-r', type=str, default='florEq.jpg')
+parser = argparse.ArgumentParser(description='Programa para ecualizar histogramas (sin usar calcHist).')
+parser.add_argument('--imagen', '-i', type=str, default = 'flor.jpg')
+parser.add_argument('--salida', '-r', type=str, default = 'florEq.jpg')
 args = parser.parse_args()
 
-# Abrimos la imagen
+# Cargamos la imagen
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
 #img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para ver si el resultado es correcto usando los datos de ejemplo de teoría
 
-# Comprobamos que la imagen se ha podido leer
+# Comprobamos que la imagen se ha podido cargar
 if img is None:
     print("No se ha podido abrir la imagen", args.imagen)
     quit()
@@ -363,19 +370,27 @@ Implementa un programa llamado `detectarFichas.py` que cargue la siguiente image
 Los parámetros del programa deben ser los siguientes:
 
 <!--
+# 2023/24
 WM: de las damas. (añadido ".")
 description='Programa (quitar espacios en los argumentos)
+
+# 2024/25
+WM: de las fichas. (antes, "de las damas.")
+WM: default = 'damas.jpg' (antes, "default='damas.jpg'")
+WM: default='corrected.jpg' (antes, "default = 'corrected.jpg'")
+WM: default='rojas.jpg' (antes, "default = 'rojas.jpg'")
+WM: default='blancas.jpg' (antes, "default = 'blancas.jpg'")
 -->
 
 
 
 
 ```python
-parser = argparse.ArgumentParser(description='Programa para obtener la posición de las damas.')
-parser.add_argument('--imagen', '-i', type=str, default='damas.jpg')
-parser.add_argument('--salidaPerspectiva', '-p', type=str, default='corrected.jpg')
-parser.add_argument('--salidaRojas', '-r', type=str, default='rojas.jpg')
-parser.add_argument('--salidaBlancas', '-b', type=str, default='blancas.jpg')
+parser = argparse.ArgumentParser(description='Programa para obtener la posición de las fichas.')
+parser.add_argument('--imagen', '-i', type=str, default = 'damas.jpg')
+parser.add_argument('--salidaPerspectiva', '-p', type=str, default = 'corrected.jpg')
+parser.add_argument('--salidaRojas', '-r', type=str, default = 'rojas.jpg')
+parser.add_argument('--salidaBlancas', '-b', type=str, default = 'blancas.jpg')
 ```
 
 Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos de las esquinas del tablero en la imagen original:
