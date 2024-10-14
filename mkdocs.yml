@@ -6,7 +6,7 @@ nav:
 - T1- Introducción : 'intro.md'
 - T2- Imagen digital y vídeo : 'imagenvideo.md'
 - T3- Transformaciones : 'transformaciones.md'
-# - T4- Detección : 'deteccion.md'
+- T4- Detección : 'deteccion.md'
 # - T5- Segmentación : 'segmentacion.md'
 # - T6- Características : 'caracteristicas.md'
 # - T7- Reconocimiento : 'reconocimiento.md'
