@@ -377,9 +377,6 @@ description='Programa (quitar espacios en los argumentos)
 # 2024/25
 WM: de las fichas. (antes, "de las damas.")
 WM: default = 'damas.jpg' (antes, "default='damas.jpg'")
-WM: default='corrected.jpg' (antes, "default = 'corrected.jpg'")
-WM: default='rojas.jpg' (antes, "default = 'rojas.jpg'")
-WM: default='blancas.jpg' (antes, "default = 'blancas.jpg'")
 -->
 
 
