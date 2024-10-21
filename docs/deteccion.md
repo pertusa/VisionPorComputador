@@ -70,10 +70,22 @@ Podemos usar distintos kernels para implementar gradientes mediante convolución
 --->
 
 <!--
+# 2023/24
 WM: obtener
 description='Programa
 # Comprobamos que la imagen se ha podido leer -> # Comprobamos que la imagen se ha podido cargar
 # Normalizamos. Este paso es necesario para convertir de float a uint sin tener valores fuera de rango -> # Normalizamos para poder convertir de float a uint sin tener valores fuera de rango
+
+# 2024/25
+WM: default = 'lena.jpg' (antes, "default='lena.jpg'")
+WM: default = 'prewitt.jpg' (antes, "default='prewitt.jpg'")
+WM: # Comprobamos que la imagen se ha importado correctamente (antes, "# Comprobamos que la imagen se ha podido cargar")
+WM: # TODO: Obtenemos gradiente horizontal mediante convolución (antes, "# TODO: Calculamos gradiente horizontal mediante convolución")
+WM: # TODO: Obtenemos gradiente vertical mediante convolución (antes, "# TODO: Calculamos gradiente vertical mediante convolución")
+WM: # TODO: Obtenemos la magnitud y la guardamos en magn (antes, "# TODO: Calculamos la magnitud y la guardamos en la variable magn")
+WM: Normalizamos para posteriormente poder (antes, "Normalizamos para poder)
+WM: # TODO: Convertimos de float a uint para visualizar (antes, "# TODO: Convertimos de float a uint para poder visualizar")
+WM: como parámetro de salida (antes, "como parámetro de salida.")
 -->
 
 ```python
@@ -82,33 +94,33 @@ import numpy as np
 import argparse
 
 parser = argparse.ArgumentParser(description='Programa para obtener el filtro de Prewitt.')
-parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
-parser.add_argument('--salida', '-s', type=str, default='prewitt.jpg')
+parser.add_argument('--imagen', '-i', type=str, default = 'lena.jpg')
+parser.add_argument('--salida', '-s', type=str, default = 'prewitt.jpg')
 args = parser.parse_args()
 
 # Cargamos la imagen
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-# Comprobamos que la imagen se ha podido cargar
+# Comprobamos que la imagen se ha importado correctamente
 if img is None:
     print('Error al cargar la imagen ')
     quit()
 
-# TODO: Calculamos gradiente horizontal mediante convolución
+# TODO: Obtenemos gradiente horizontal mediante convolución
 
-# TODO: Calculamos gradiente vertical mediante convolución
+# TODO: Obtenemos gradiente vertical mediante convolución
 
 # TODO: Pasamos a float ambos gradientes
 
-# TODO: Calculamos la magnitud y la guardamos en la variable magn
+# TODO: Obtenemos la magnitud y la guardamos en magn
 
-# Normalizamos para poder convertir de float a uint sin tener valores fuera de rango
+# Normalizamos para posteriormente poder convertir de float a uint sin tener valores fuera de rango
 magn = magn-magn.min()
 magn = magn/magn.max()*255
 
-# TODO: Convertimos de float a uint para poder visualizar el resultado y lo guardamos en dst
+# TODO: Convertimos de float a uint para visualizar el resultado y lo guardamos en dst
 
-# TODO: Guardamos dst en el fichero pasado como parámetro de salida.
+# TODO: Guardamos dst en el fichero pasado como parámetro de salida
 
 # Mostramos el resultado
 cv.imshow('Prewitt', dst)
@@ -163,11 +175,20 @@ Para más información sobre Canny en OpenCV puedes consultar [este enlace](http
 Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que debes descargar, completando las instrucciones indicadas con **TODO**. Se trata de un ejercicio para _cartoonizar_ una imagen. Llama al siguiente programa `cartoonize.py`.
 
 <!---
+# 2023/24
 WM: un fichero.
 description='Programa
 # Detectamos los bordes con Canny, -> # Usamos Canny para detectar los bordes
 cuadrado de 2x2 -> cuadrado de tamaño 2x2
 imagen de 8 bits -> imagen de 8 bits (uint8)
+
+# 2024/25
+WM: default = 'lena.jpg' (antes, "default='lena.jpg'")
+WM: default = 'cartoonized.jpg' (antes, "default='cartoonized.jpg'")
+WM: cartoonizar una imagen de entrada (antes, "cartoonizar un fichero")
+WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
+WM: con umbral en el rango [50, 150] (antes, "con umbral inferior 50 y superior 150")
+WM: Dilatamos los bordes con el comando dilate (antes, "Dilatamos los bordes. Para esto aplicamos dilate")
 --->
 
 ```python
@@ -175,28 +196,28 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description='Programa para cartoonizar un fichero.')
-parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
-parser.add_argument('--salida', '-s', type=str, default='cartoonized.jpg')
+parser = argparse.ArgumentParser(description='Programa para cartoonizar una imagen de entrada.')
+parser.add_argument('--imagen', '-i', type=str, default = 'lena.jpg')
+parser.add_argument('--salida', '-s', type=str, default = 'cartoonized.jpg')
 args = parser.parse_args()
 
 # Cargamos la imagen
 img = cv.imread(args.imagen)
 
-# Comprobamos que la imagen se ha podido leer
+# Comprobamos que la imagen se ha podido importar
 if img is None:
     print('Error al cargar la imagen')
     quit()
 
 ########## BORDES ############
 
-# Aplicamos un filtro de mediana de tamaño 7x7 para suavizar la imagen
+# Aplicamos un filtro de mediana (cv.medianBlur) de tamaño 7x7 para suavizar la imagen
 # TODO
 
-# Usamos Canny para detectar los bordes con umbral inferior 50 y superior 150
+# Usamos Canny para detectar los bordes con umbral en el rango [50, 150]
 # TODO
 
-# Dilatamos los bordes. Para esto aplicamos dilate con un filtro cuadrado de tamaño 2x2
+# Dilatamos los bordes con el comando dilate con un filtro cuadrado de tamaño 2x2
 # TODO (guardar en imgCanny)
 
 # Escalamos los valores resultantes en el rango [0...1] y los invertimos. 
@@ -384,9 +405,17 @@ dst = cv.cornerHarris(src, blockSize, apertureSize, k)
 --->
 
 <!--
+# 2023/24
 WM: description='Programa 
 Parámetros: blockSize=2, apertureSize=3, k=0.04. -> Parámetros: blockSize=2, apertureSize=3 y k=0.04.
 mayor o igual -> superior o igual
+
+# 2024/25
+WM: default = 'corrected.jpg' (antes, "default='corrected.jpg'")
+WM: default = 'damasHarris.jpg' (antes, "default='damasHarris.jpg'")
+WM: # Importamos la imagen (antes, "# Cargamos la imagen")
+WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
+WM: tiene un valor no inferior (antes, "tiene un valor superior o igual")
 --->
 
 ---
@@ -401,14 +430,14 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser(description='Programa para calcular esquinas con Harris.')
-parser.add_argument('--imagen', '-i', type=str, default='corrected.jpg')
-parser.add_argument('--salida', '-s', type=str, default='damasHarris.jpg')
+parser.add_argument('--imagen', '-i', type=str, default = 'corrected.jpg')
+parser.add_argument('--salida', '-s', type=str, default = 'damasHarris.jpg')
 args = parser.parse_args()
 
-# Cargamos la imagen
+#Importamos la imagen
 img = cv.imread(args.imagen)
 
-# Comprobamos que la imagen se ha podido leer
+# Comprobamos que la imagen se ha podido importar
 if img is None:
     print('Error al cargar la imagen')
     quit()
@@ -420,7 +449,7 @@ if img is None:
 # TODO (guardar en dst)
 
 # Sobre la imagen original, poner en color azul los píxeles detectados como borde.
-# Son aquellos que en los que dst(i,j) tiene un valor superior o igual a 10000.
+# Son aquellos que en los que dst(i,j) tiene un valor no inferior a 10000.
 # TODO (guardar en src).
 
 # Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa como segundo argumento al programa
