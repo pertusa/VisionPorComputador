@@ -279,14 +279,14 @@ El script `evaluate.py` tiene dos modos de funcionamiento, según el argumento `
 * Modo imagen individual: Modo que utilizaremos si queremos calcular la figura de mérito sobre una única imagen, la cual se especifica en el argumento `-i`. Su sintaxis es:
 
 ```python
-python evaluate -m single -i directorio_entrada/imagen.png
+python evaluate.py -m single -i input/imagen.png
 ```
 
 
 * Modo batch: Modo que utilizaremos para evaluar una colección de imágenes contenidas en una carpeta (por defecto, la carpeta `input`, aunque se puede cambiar utilizando el argumento `-i`). Su sintaxis es:
 
 ```python
-python evaluate -m batch [-i input]
+python evaluate.py -m batch [-i input]
 ```
 
 Nótese que este script requiere internamente el programa `roses.py` que debéis desarrollar en esta práctica (`evaluate.py` no únicamente calcula la figura de mérito sino que también llama a `roses.py` para que se realice la segmentación). Por ello deberéis de implementar este programa para que el script de evaluación funcione.
