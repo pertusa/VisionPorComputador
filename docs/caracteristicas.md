@@ -63,33 +63,47 @@ En este ejercicio extraeremos una serie de descriptores de contorno a partir de 
 
 Se pide completar el siguiente código implementando los comentarios marcados con `TODO`. Guarda este programa con el nombre `contourDescriptors.py`. 
 
-En el `main` se recibe el número de una imagen (hay 20 en la carpeta) para usarla como `query`. Si no indicamos ningún parámetro, por defecto la `query` será la imagen número 5. Después se extraen los descriptores de esta imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.
+En el `main` se recibe el número de una imagen (hay 20 en la carpeta) para usarla como `query`. Si no indicamos ningún parámetro, por defecto la `query` será la imagen número 3. Después se extraen los descriptores de esta imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.
 
 <!--
+# 2023/24
 WM: 
 extractDescriptors -> extraerDescriptores
 calcularDistancias -> computarDistancias
 imgDescriptors -> imDescriptors
 queryDescriptors -> qDescriptors
 indexQuery -> idxQuery
+
+# 2024/25
+WM: import os
+WM: diccionario en el que guardaremos (antes, "diccionario donde guardaremos")
+WM: imDescriptors = dict() (antes, "imDescriptors={}")
+WM: allcontours, hierarchy (antes, "contours, hierarchy")
+WM: max(allcontours, (antes, "max(contours,")
+WM: rectangularidad. Para ello usamos (antes, "rectangularidad (usando")
+WM: Leemos imagen consulta (antes, "Leemos imagen query")
+WM: comparamos con los de la query (antes, "comparamos con los de la consulta")
+WM: idxImg (antes, "imageIndex")
+Imagen por defecto -> #3 (antes era la #5)
 -->
 
 
 ```python
+import os
 import cv2 as cv
 import argparse
 import numpy as np
 import math
 
 def extraerDescriptores(image):
-    # Creamos un diccionario donde guardaremos los valores calculados
-    imDescriptors={}
+    # Creamos un diccionario en el que guardaremos los valores calculados
+    imDescriptors = dict()
 
     # Calculamos todos los contornos de la imagen  
-    contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+    allcontours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
     # Extraemos el mayor contorno de la imagen, del que obtendremos todos los descriptores:
-    contour = max(contours, key=cv.contourArea)
+    contour = max(allcontours, key=cv.contourArea)
 
     # TODO: Guardamos el mayor contorno para el descriptor SC.
     imDescriptors['contour'] = None
@@ -103,7 +117,7 @@ def extraerDescriptores(image):
     # TODO: Calculamos la elongacion
     imDescriptors['elongacion'] = None
 
-    # TODO: Calculamos la rectangularidad (usando el rectángulo rotado MRE que envuelve el contorno con un área mínima)
+    # TODO: Calculamos la rectangularidad. Para ello usamos el rectángulo rotado MRE que envuelve el contorno con un área mínima
     imDescriptors['rectangularidad'] = None
 
     # TODO: calculamos el área del cierre convexo (pista: funcion convexHull)
@@ -162,11 +176,11 @@ def computarDistancias(qDescriptors, imDescriptors):
 
 def main(args):
     # Procesamos parámetros de entrada
-    path = 'shape_sample/'
+    path = 'shape_sample'
     idxQuery = args.indexQuery
 
-    # Leemos imagen query
-    queryName = path + str(idxQuery) + '.png'
+    # Leemos imagen consulta
+    queryName = os.path.join(path, str(idxQuery) + '.png')
     query = cv.imread(queryName,cv.IMREAD_GRAYSCALE)
 
     # Comprobamos que la imagen se ha podido leer
@@ -176,18 +190,18 @@ def main(args):
     
     qDescriptors = extraerDescriptores(query)
 
-    # Para las otras imágenes, calculamos sus descriptores y los comparamos con los de la query
+    # Para las otras imágenes, calculamos sus descriptores y los comparamos con los de la consulta
     for i in range(0,20):
-        imageIndex = i+1
+        idxImg = i+1
         # Ignoramos esta imagen si es la misma que la de referencia
-        if (imageIndex != idxQuery):
+        if (idxImg != idxQuery):
             # Leemos la imagen
-            imageName = path + str(imageIndex) + '.png'
+            imageName = os.path.join(path, str(idxImg) + '.png')
             image = cv.imread(imageName, cv.IMREAD_GRAYSCALE)
 
             # Extraemos sus características y las comparamos con las de la query
             print('-----------')
-            print('Imagen', imageIndex, ':')
+            print('Imagen', idxImg, ':')
             imDescriptors = extraerDescriptores(image)
             computarDistancias(qDescriptors, imDescriptors)
 
@@ -196,7 +210,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características.')
-    parser.add_argument('--indexQuery', '-i', type=int, default=5)
+    parser.add_argument('--indexQuery', '-i', type=int, default=3)
     args = parser.parse_args()
     main(args)
 ```
@@ -228,31 +242,42 @@ Este es el mismo cálculo que hace internamente el método `matchShapes` de Open
 La salida del programa debe ser como la siguiente:
 
 ```bash
-----------
+-----------
 Imagen 1 :
- dSC = 2.239
- dPer = 182.510
- dComp = 0.008
- dElong = 0.292
- dRect = 0.307
- dCierre = 8402.000
- dCent = 15.544
- dOr = 0.089
- dHu = 1.454
-----------
+ dSC = 0.617
+ dPer = 1738.650
+ dComp = 0.014
+ dElong = 0.111
+ dRect = 0.322
+ dCierre = 119251.000
+ dCent = 269.763
+ dOr = 0.135
+ dHu = 1.659
+-----------
 Imagen 2 :
- dSC = 16.326
- dPer = 46.101
- dComp = 0.020
- dElong = 0.164
- dRect = 0.301
- dCierre = 4529.000
- dCent = 40.890
- dOr = 0.301
- dHu = 1.367
-----------
-Imagen 3 :
- dSC = 1211.006
+ dSC = 4.456
+ dPer = 1602.241
+ dComp = 0.001
+ dElong = 0.016
+ dRect = 0.317
+ dCierre = 106320.000
+ dCent = 251.654
+ dOr = 0.525
+ dHu = 1.581
+-----------
+Imagen 4 :
+ dSC = 76.421
+ dPer = 24.444
+ dComp = 0.004
+ dElong = 0.283
+ dRect = 0.054
+ dCierre = 3276.500
+ dCent = 78.218
+ dOr = 0.125
+ dHu = 1.417
+-----------
+Imagen 5 :
+ dSC = 4.841
  dPer = 1556.140
  dComp = 0.021
  dElong = 0.180
@@ -261,29 +286,7 @@ Imagen 3 :
  dCent = 259.311
  dOr = 0.224
  dHu = 0.229
-----------
-Imagen 4 :
- dSC = 4449.109
- dPer = 1531.697
- dComp = 0.018
- dElong = 0.463
- dRect = 0.069
- dCierre = 107572.500
- dCent = 334.972
- dOr = 0.349
- dHu = 1.658
-----------
-Imagen 6 :
- dSC = 0.125
- dPer = 114.953
- dComp = 0.001
- dElong = 0.088
- dRect = 0.004
- dCierre = 5869.500
- dCent = 38.045
- dOr = 0.113
- dHu = 0.185
-----------
+-----------
 ....
 ```
 
