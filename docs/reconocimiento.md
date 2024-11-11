@@ -269,6 +269,7 @@ Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por l
 Ahora se trata de completar los puntos marcados con `TODO` en el siguiente código para realizar la clasificación. Guárdalo con el nombre `orbBF.py` e intenta entender bien todas las instrucciones antes de empezar a modificarlo.
 
 <!--
+# 2023/24
 PreviousWM: etiquetas. (quitado punto)
 leídas (ahora leidas)
 WM: Cargamos (antes Leemos)
@@ -278,18 +279,20 @@ PreviousWM: flag
 PreviousWM (ya calculados en la fase anterior)
 WM: ya calculados en la fase anterior
 
-
-2023-24
 WM: "Matching..." -> "Matching"
-WM: "Función que lee" -> "Función para leer"
 WM: "calcula el accuracy" -> "calcula la tasa de acierto"
 WM: "en la variable "desc"" -> "en "desc""
 WM: "Separamos el nombre de la imagen de su etiqueta" -> "Separamos nombre de imagen y etiqueta"
 WM: "Hacemos la comparación entre los descriptores de train y de test" -> "Comparamos los descriptores de train y test"
-descriptors = [] -> descriptors = list()
-labels = [] -> labels = list()
-ok = ok + 1 -> ok += 1
 
+# 2024/25
+WM: descriptors = list() (antes, "descriptors = []")
+WM: labels = list() (antes, "labels = []")
+WM: ok += 1 (antes, "ok = ok + 1")
+WM: Función para leer (antes, "Función que lee")
+WM: Añadimos los descriptores y la etiqueta (antes, "Añadimos a data los descriptores y la etiqueta")
+WM: Separamos nombre de imagen y etiqueta/label (antes, "Separamos nombre de imagen y etiqueta")
+WM: y obtenemos su etiqueta/label (antes, "y obtenemos su label)
 --->
 
 
@@ -299,12 +302,12 @@ import argparse
 import numpy as np
 import pickle
 
-# Función que lee un fichero de texto con nombres de fichero de imágenes y sus etiquetas
+# Función para leer un fichero de texto con nombres de fichero de imágenes y sus etiquetas
 # Devuelve los descriptores calculados y las etiquetas leidas
 def readData(filename):
 
-    descriptors = []
-    labels = []
+    descriptors = list()
+    labels = list()
 
     with open(filename,'r') as f:
 
@@ -313,18 +316,18 @@ def readData(filename):
         # TODO: Creamos el detector ORB con 100 puntos como máximo
         
         for line in f.readlines():
-            # Separamos nombre de imagen y etiqueta
+            # Separamos nombre de imagen y etiqueta/label
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Cargamos la imagen y obtenemos su label
+            # Cargamos la imagen y obtenemos su etiqueta/label
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
             # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en "desc"
             desc = None
             
-            # Añadimos a data los descriptores y la etiqueta
+            # Añadimos los descriptores y la etiqueta
             descriptors.append(desc)
             labels.append(label)
     
@@ -354,7 +357,7 @@ def testORB(descTrain, labelsTrain, descTest, labelsTest):
                 bestLabel = 'cat'
   
         if bestLabel == ltest:
-            ok = ok + 1
+            ok += 1
     
     print('Accuracy=', ok/len(labelsTest))
 
@@ -427,21 +430,24 @@ Partimos de este otro código, que como verás tiene partes comunes con el anter
 <!--
 
 Previous WM: flag
+# 2023/2024
 WM: "Programa para reconocer objetos" -> "Reconocimiento de objetos"
 WM: "Entrenando SVM" -> "Entrenando SVM..."
 WM: "Extrayendo descriptores HOG" -> "Extrayendo descriptores HOG..."
 labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv'] (antes como tupla)
-descriptors = [] -> descriptors = list()
-labels = [] -> labels = list()
-labelsIndex = [] -> labelsIndex = list()
-ok = ok + 1 -> ok += 1
-i = i + 1 -> i += 1
 import pickle -> Desaparece
+
+# 2024/2025
+WM: Separamos nombre y etiqueta (antes, "Separamos el nombre de la imagen de su etiqueta")
+WM: descriptors = list() (antes, "descriptors = []")
+WM: labels = list() (antes, "labels = []")
+WM: labelsIndex = list() (antes, "labelsIndex = []")
+WM: ok += 1 (antes, "ok = ok + 1")
+WM: i += 1 (antes, "i = i + 1")
+WM: Entrenamos el model SVM (antes, "Entrenamos el SVM")
+WM: Guardamos el modelo entrenado (antes, "Guardamos el modelo")
 -->
 
-<!---
-Too easy...
---->
 ```python
 import cv2 as cv
 import argparse
@@ -457,13 +463,13 @@ def extractHOGFeatures(filename):
     
     hog = cv.HOGDescriptor()
     
-    descriptors = []
-    labels = []
+    descriptors = list()
+    labels = list()
 
     with open(filename, 'r') as f:
         for line in f.readlines():
     
-            # Separamos el nombre de la imagen de su etiqueta
+            # Separamos nombre y etiqueta
             fields = line.split()
             print(fields[0], fields[1])
 
@@ -492,14 +498,14 @@ def trainSVM(descriptors, labels):
     # Ayuda para los puntos anteriores: https://docs.opencv.org/3.4/d1/d73/tutorial_introduction_to_svm.html
 
     # Convertimos las etiquetas a valores numéricos (necesario para entrenar SVM con la librería de OpenCV)
-    labelsIndex = []
+    labelsIndex = list()
     for l in labels:
         labelsIndex.append(labelNames.index(l))
         
-    # Entrenamos el SVM
+    # Entrenamos el modelo SVM
     svm.train(np.array(descriptors, dtype='float32'), cv.ml.ROW_SAMPLE, np.array(labelsIndex, dtype='int'))
 
-    # Guardamos el modelo
+    # Guardamos el modelo entrenado
     svm.save('modelSVM.xml')
 
 
@@ -518,8 +524,8 @@ def testHOGSVM(descriptors, labels):
     i = 0
     for pred in results[1]:
         if pred[0] == labelNames.index(labels[i]):
-            ok = ok + 1
-        i = i + 1
+            ok += 1
+        i += 1
 
     print('Accuracy=', ok/len(labels)) 
 
