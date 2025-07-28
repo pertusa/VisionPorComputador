@@ -1,6 +1,12 @@
 site_name: Visión por Computador
 use_directory_urls: false
 
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.tooltips
+
 nav:
 - Instalación de OpenCV : 'install.md'
 - T1- Introducción : 'intro.md'
@@ -39,13 +45,23 @@ extra:
 #    - pdf-export
 
 markdown_extensions:
-    - admonition
-    - codehilite:
-        linenums: true
-    - footnotes
-    - meta
-    - sane_lists
-    - toc:
-       permalink: true
-       toc_depth: 3
-    - pymdownx.superfences
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - mdx_math
+  - codehilite:
+      linenums: false
+  - footnotes
+  - meta
+  - sane_lists
+  - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
