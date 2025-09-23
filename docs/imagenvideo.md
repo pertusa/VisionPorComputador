@@ -38,11 +38,14 @@ Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el no
 WM: imagen dada. (palabra "dada") ### 2023-24
 WM: para obtener. (palabra "obtener"; antes era "calcular") ### 2024-25
 WM: tanto el brillo como el contrates. (antes era "el brillo y el contraste") ### 2024-25
+
+# 25/26
+WM: Eliminado "dada." al final de description
 -->
 
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para obtener tanto el brillo como el contraste de una imagen dada.')
+parser = argparse.ArgumentParser(description = 'Programa para obtener tanto el brillo como el contraste de una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 ```
 
@@ -118,6 +121,10 @@ WM: Comprobamos la carga de la imagen (antes, "Comprobamos que la imagen se ha p
 WM: Obtenemos el histograma (antes, "Calculamos el histograma")
 WM: Lo mostramos usando la librería matplotlib (antes, "Lo mostramos, para esto usamos la librería matplotlib")
 WM: Volcamos el resultado (antes, "Guardamos el resultado")
+
+# 2025/26
+WM: Eliminado "dada." al final de parser.
+WM: "Comprobamos la carga de la imagen" -> "Comprobamos la lectura de la imagen"
 -->
 
 ```python
@@ -125,7 +132,7 @@ import cv2 as cv
 import argparse
 from matplotlib import pyplot as plt
 
-parser = argparse.ArgumentParser(description = 'Programa para obtener el histograma de una imagen dada.')
+parser = argparse.ArgumentParser(description = 'Programa para obtener el histograma de una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
 args = parser.parse_args()
@@ -133,7 +140,7 @@ args = parser.parse_args()
 # Leemos la imagen indicada por el usuario
 img = cv.imread(args.imagen,cv.IMREAD_GRAYSCALE) 
 
-# Comprobamos la carga de la imagen
+# Comprobamos la lectura de la imagen
 if img is None:
     print("Error al leer la imagen ", args.imagen)
     quit()
@@ -157,7 +164,7 @@ plt.show()
 
 ### Ejercicio
 
-Cuando la imagen es de tres canales lo más normal es mostrar un histograma para cada uno de ellos. Haz una copia del programa anterior y llámalo `histogramaColor.py`. Modifícalo para que en este caso el programa muestre en una ventana (y guarde en una imagen) el histograma de sus tres colores básicos, en lugar de hacerlo en escala de grises. 
+Cuando la imagen es de tres canales, lo más normal es mostrar un histograma para cada uno de ellos. Haz una copia del programa anterior y llámalo `histogramaColor.py`. Modifícalo para que en este caso el programa muestre en una ventana (y guarde en una imagen) el histograma de sus tres colores básicos, en lugar de hacerlo en escala de grises. 
 
 Ejemplo de salida con `lena.jpg`:
 
@@ -189,7 +196,7 @@ converted = cv.cvtColor(img, cv.COLOR_BGR2Luv) # Convertir a LUV
 converted = cv.cvtColor(img, cv.COLOR_BGR2XYZ) # Convertir a CIEXYZ
 ```
 
-Puedes consultar [en este enlace](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) todas las fórmulas que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299\*R + 0.587\*G+ 0.114\*B.
+Puedes consultar [en este enlace](http://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) todas las ecuaciones que usa OpenCV para conversión entre espacios. Por ejemplo, para convertir un valor RGB en escala de grises se usa la siguiente fórmula: 0.299\*R + 0.587\*G+ 0.114\*B.
 
 Ten en cuenta que OpenCV a veces no usa el mismo orden de canales que el estándar del espacio de color. Por ejemplo, RGB se codifica en OpenCV como BGR, y HSL se codifica como HLS, por lo que el último canal que almacena en este caso es S en lugar de L.
 
@@ -202,7 +209,7 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 * El canal **L** de CIELab, fichero `cielab_l.jpg`.
 * El canal **V** de HSV, fichero  `hsv_v.jpg`.
 * El canal **L** de HSL, fichero  `hsl_l.jpg`.
-* El canal **Y** de YCbCr, fichero  `ycrcb_y.jpg`.
+* El canal **Y** de YCrCb, fichero  `ycrcb_y.jpg`.
 
 Argumentos de entrada:
 
@@ -215,10 +222,13 @@ Espacio al final de la línea
 WM: de una imagen dada. (antes no estaba esta cadena de texto)
 WM: description='Programa (antes, "description = 'Programa")
 WM: default = 'Fire (antes, "default='Fire")
+
+# 25/26
+WM: eliminado "dada."
 -->
 
 ```python
-parser = argparse.ArgumentParser(description='Programa para cambiar entre espacios de color de una imagen dada.') 
+parser = argparse.ArgumentParser(description='Programa para cambiar entre espacios de color de una imagen.') 
 parser.add_argument('--imagen', '-i', type=str, default = 'Fire_breathing_2_Luc_Viatour.jpg')
 ```
 
@@ -247,7 +257,7 @@ r = img[:,:,2] # Canal rojo
 
 ## Pseudocolor
 
-Mediante la función `applyColorMap` también podemos pseudocolorear imágenes en escala de grises usando los [mapas de color predefinidos](http://docs.opencv.org/2.4.8/modules/contrib/doc/facerec/colormaps.html) en OpenCV. Por ejemplo:
+Mediante la función `applyColorMap` también podemos pseudocolorear imágenes en escala de grises usando los [mapas de color predefinidos](https://docs.opencv.org/4.12.0/d3/d50/group__imgproc__colormap.html) en OpenCV. Por ejemplo:
 
 ```python
 img = cv.imread('pluto.jpg', cv.IMREAD_GRAYSCALE)
