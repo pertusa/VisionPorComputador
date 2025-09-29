@@ -64,6 +64,11 @@ WM: default = 'flor.jpg' (antes, "default='flor.jpg'")
 WM: default = 'florEq.jpg' (antes, "default='florEq.jpg'")
 WM: Cargamos la imagen (antes, "Abrimos la imagen")
 WM: se ha podido cargar (antes, "se ha podido leer")
+
+# 2025/26
+WM "Programa para ecualizar histogramas" -> "Programa para ecualizar un histograma" 
+WM: "para ver si" -> "para comprobar si"
+WM: se ha podido leer (antes: "se ha podido cargar")
 -->
 
 
@@ -74,7 +79,7 @@ import argparse
 from collections import Counter # Necesario para el acumulador
 
 # Gestión de parámetros
-parser = argparse.ArgumentParser(description='Programa para ecualizar histogramas (sin usar calcHist).')
+parser = argparse.ArgumentParser(description='Programa para ecualizar un histograma (sin usar calcHist).')
 parser.add_argument('--imagen', '-i', type=str, default = 'flor.jpg')
 parser.add_argument('--salida', '-r', type=str, default = 'florEq.jpg')
 args = parser.parse_args()
@@ -82,9 +87,9 @@ args = parser.parse_args()
 # Cargamos la imagen
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-#img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para ver si el resultado es correcto usando los datos de ejemplo de teoría
+#img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para comprobar si el resultado es correcto usando los datos de ejemplo de teoría
 
-# Comprobamos que la imagen se ha podido cargar
+# Comprobamos que la imagen se ha podido leer
 if img is None:
     print("No se ha podido abrir la imagen", args.imagen)
     quit()
@@ -117,7 +122,7 @@ La salida debería ser:
 
 ## Transformaciones globales
 
-Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](https://docs.opencv.org/3.4/d8/d01/tutorial_discrete_fourier_transform.html).
+Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](https://docs.opencv.org/4.12.0/d8/d01/tutorial_discrete_fourier_transform.html).
 
 ## Transformaciones afines
 
@@ -125,7 +130,7 @@ En OpenCV la mayoría de transformaciones geométricas se implementan creando un
 
 Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa las transformaciones afines mediante matrices aumentadas. Como hemos visto en teoría, la última fila de la matriz aumentada en una transformación afín es siempre (0,0,1) por lo que no hay que indicarla (por este motivo se indica una matriz de 2x3 en lugar de 3x3).
 
-La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#void%20warpAffine(InputArray%20src,%20OutputArray%20dst,%20InputArray%20M,%20Size%20dsize,%20int%20flags,%20int%20borderMode,%20const%20Scalar&%20borderValue)).
+La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983).
 
 En general, podemos usar `warpAffine` para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente traslación...
 
@@ -198,8 +203,7 @@ El tercer parámetro de `flip` puede ser 0 (reflexión sobre el eje x), positivo
 
 ### Escalado
 
-El escalado también se implementa mediante una [función específica](https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
-
+El escalado también se implementa mediante una [función específica](https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
 
 
 ```python
@@ -229,7 +233,7 @@ rows, cols = img.shape
 dst = cv.warpPerspective(img, M, (cols, rows))
 ```
 
-La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.5.2/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
+La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
 
 También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos (siendo cada punto un vector de dos dimensiones que representa las coordenadas del mismo en el plano XY): El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
 
@@ -357,7 +361,7 @@ Esta función se invoca con los mismos parámetros que `erode` o `dilate` añadi
 * White Top Hat: `MORPH_TOPHAT`
 * Black Top Hat: `MORPH_BLACKHAT`
 
-En [este enlace](https://docs.opencv.org/4.5.2/d3/dbe/tutorial_opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
+En [este enlace](https://docs.opencv.org/4.12.0/d3/dbe/tutorial_opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
 
 ---
 
@@ -377,13 +381,15 @@ description='Programa (quitar espacios en los argumentos)
 # 2024/25
 WM: de las fichas. (antes, "de las damas.")
 WM: default = 'damas.jpg' (antes, "default='damas.jpg'")
+
+# 2025/26
+WM: de las fichas. -> de las damas (sin punto)
+WM: Quitado puntos tras comentarios "Esquina superior xxx."
 -->
 
 
-
-
 ```python
-parser = argparse.ArgumentParser(description='Programa para obtener la posición de las fichas.')
+parser = argparse.ArgumentParser(description='Programa para obtener la posición de las damas')
 parser.add_argument('--imagen', '-i', type=str, default = 'damas.jpg')
 parser.add_argument('--salidaPerspectiva', '-p', type=str, default = 'corrected.jpg')
 parser.add_argument('--salidaRojas', '-r', type=str, default = 'rojas.jpg')
@@ -393,16 +399,15 @@ parser.add_argument('--salidaBlancas', '-b', type=str, default = 'blancas.jpg')
 Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos de las esquinas del tablero en la imagen original:
 
 ```python
-278, 27  # Esquina superior izquierda.
-910, 44  # Esquina superior derecha.
-27, 546  # Esquina inferior izquierda.
-921, 638 # Esquina inferior derecha.
+278, 27  # Esquina superior izquierda
+910, 44  # Esquina superior derecha
+27, 546  # Esquina inferior izquierda
+921, 638 # Esquina inferior derecha
 ```
 
 El programa debe aplicar una transformación proyectiva y guardar el resultado en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro (por defecto, `corrected.jpg`). La imagen resultado debería ser como la siguiente:
 
 ![damas](images/transformaciones/damas_corrected.jpg)
-
 
 
 <!---
