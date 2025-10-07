@@ -57,7 +57,7 @@ Para convolucionar una imagen con un filtro hay que usar el método `filter2D`. 
 filtered = cv.filter2D(img, -1, kernel)
 ```
 
-Donde kernel es la matriz que convolucionaremos con la imagen `img`. Hemos visto la sintaxis completa de este método en el tema de [transformaciones](https://pertusa.github.io/VisionPorComputador/transformaciones.html#transformaciones-en-entorno-de-vecindad), aunque puedes consultar un ejemplo completo de uso en este otro [enlace](https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html).
+Donde kernel es la matriz que convolucionaremos con la imagen `img`. Hemos visto la sintaxis completa de este método en el tema de [transformaciones](https://pertusa.github.io/VisionPorComputador/transformaciones.html#transformaciones-en-entorno-de-vecindad), aunque puedes consultar un ejemplo de uso en este otro [enlace](https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html).
 
 Se puede usar OpenCV para extraer los gradientes en ambas direcciones de una imagen en escala de grises usando convoluciones mediante las fórmulas vistas en teoría, y esto es lo que haremos en el siguiente ejercicio.
 
@@ -86,6 +86,14 @@ WM: # TODO: Obtenemos la magnitud y la guardamos en magn (antes, "# TODO: Calc
 WM: Normalizamos para posteriormente poder (antes, "Normalizamos para poder)
 WM: # TODO: Convertimos de float a uint para visualizar (antes, "# TODO: Convertimos de float a uint para poder visualizar")
 WM: como parámetro de salida (antes, "como parámetro de salida.")
+
+# 2025/26: 
+WM: Obtenemos gradiente -> Obtenemos el gradiente
+WM: "la imagen e ha importado" -> "la imagen se ha cargado"
+WM: fichero pasado -> fichero recibido
+WM: Programa para obtener -> Programa para calcular
+
+
 -->
 
 ```python
@@ -93,7 +101,7 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description='Programa para obtener el filtro de Prewitt.')
+parser = argparse.ArgumentParser(description='Programa para calcular el filtro de Prewitt.')
 parser.add_argument('--imagen', '-i', type=str, default = 'lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default = 'prewitt.jpg')
 args = parser.parse_args()
@@ -101,14 +109,14 @@ args = parser.parse_args()
 # Cargamos la imagen
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
-# Comprobamos que la imagen se ha importado correctamente
+# Comprobamos que la imagen se ha cargado correctamente
 if img is None:
     print('Error al cargar la imagen ')
     quit()
 
-# TODO: Obtenemos gradiente horizontal mediante convolución
+# TODO: Obtenemos el gradiente horizontal mediante convolución
 
-# TODO: Obtenemos gradiente vertical mediante convolución
+# TODO: Obtenemos el gradiente vertical mediante convolución
 
 # TODO: Pasamos a float ambos gradientes
 
@@ -120,18 +128,18 @@ magn = magn/magn.max()*255
 
 # TODO: Convertimos de float a uint para visualizar el resultado y lo guardamos en dst
 
-# TODO: Guardamos dst en el fichero pasado como parámetro de salida
+# TODO: Guardamos dst en el fichero recibido como parámetro de salida
 
 # Mostramos el resultado
 cv.imshow('Prewitt', dst)
 cv.waitKey(0)
 ```
 
-El programa lee en escala de grises la imagen de entrada y debe calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada como parámetro. En el caso de _lena.jpg_ debería obtenerse la siguiente imagen:
+El programa debe leer la imagen de entrada en escala de grises, calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada como parámetro. En el caso de _lena.jpg_ debería obtenerse la siguiente imagen:
 
 ![Lena prewitt](images/deteccion/lena_prewitt.jpg)
 
-Verás que el resultado de ejecutar ambos programas es distinto y que en este caso particular los bordes se detectan mejor con Sobel que con Prewitt.
+Verás que el resultado de ejecutar ambos programas es distinto y que en este ejemplo particular los bordes se detectan mejor con Sobel que con Prewitt.
 
 ---
 
@@ -139,7 +147,7 @@ Verás que el resultado de ejecutar ambos programas es distinto y que en este ca
 
 Como hemos visto en teoría, los filtros **Gausianos** sirven para suavizar la imagen y eliminar ruido. Se suelen usar como paso previo a los sistemas de detección de bordes para evitar que el ruido les afecte.
 
-En OpenCV tenemos una implementación del filtro Gaussiano en la función `GaussianBlur`, que requiere que indiquemos el tamaño del filtro y su desviación típica:
+En OpenCV podemos implementar un filtro Gaussiano mediante la función `GaussianBlur`, que requiere que indiquemos el tamaño del filtro y su desviación típica:
 
 <!---
 https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html
@@ -158,7 +166,9 @@ También podemos aplicar un filtro **bilateral** del siguiente modo:
 dst = cv.bilateralFilter(src, 15, 80, 80) #  Aplica un filtro bilateral con un diámetro de 15 pixeles vecinos y una intensidad mínima 80.
 ```
 
-Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero se usan para las imágenes en color). Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la [referencia](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed) de la función.
+Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero se usan para las imágenes en color). 
+
+Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la [referencia](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed) de la función.
 
 Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 
@@ -189,6 +199,13 @@ WM: cartoonizar una imagen de entrada (antes, "cartoonizar un fichero")
 WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
 WM: con umbral en el rango [50, 150] (antes, "con umbral inferior 50 y superior 150")
 WM: Dilatamos los bordes con el comando dilate (antes, "Dilatamos los bordes. Para esto aplicamos dilate")
+
+# 2025/26
+WM: "cartoonizar una imagen de entrada" -> "cartoonizar una imagen"
+WM: "se ha podido importar" -> "se ha podido cargar"
+WM: "los bordes con umbral" -> "los bordes con un umbral"
+WM: "con el comando dilate" -> "usando la función dilate"
+WM: "diametro" -> "diámetro"
 --->
 
 ```python
@@ -196,7 +213,7 @@ import cv2 as cv
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description='Programa para cartoonizar una imagen de entrada.')
+parser = argparse.ArgumentParser(description='Programa para cartoonizar una imagen.')
 parser.add_argument('--imagen', '-i', type=str, default = 'lena.jpg')
 parser.add_argument('--salida', '-s', type=str, default = 'cartoonized.jpg')
 args = parser.parse_args()
@@ -204,7 +221,7 @@ args = parser.parse_args()
 # Cargamos la imagen
 img = cv.imread(args.imagen)
 
-# Comprobamos que la imagen se ha podido importar
+# Comprobamos que la imagen se ha podido cargar
 if img is None:
     print('Error al cargar la imagen')
     quit()
@@ -214,10 +231,10 @@ if img is None:
 # Aplicamos un filtro de mediana (cv.medianBlur) de tamaño 7x7 para suavizar la imagen
 # TODO
 
-# Usamos Canny para detectar los bordes con umbral en el rango [50, 150]
+# Usamos Canny para detectar los bordes con un umbral en el rango [50, 150]
 # TODO
 
-# Dilatamos los bordes con el comando dilate con un filtro cuadrado de tamaño 2x2
+# Dilatamos los bordes usando la función dilate con un filtro cuadrado de tamaño 2x2
 # TODO (guardar en imgCanny)
 
 # Escalamos los valores resultantes en el rango [0...1] y los invertimos. 
@@ -232,7 +249,7 @@ cv.imshow('Bordes', bordesf)
 
 ########## COLOR ############
 
-# Sobre la imagen original (img), aplicamos un filtro bilateral de diametro 9 con umbrales 150 y 150 
+# Sobre la imagen original (img), aplicamos un filtro bilateral de diámetro 9 con umbrales 150 y 150 
 # TODO: Guardar en imgBF
 
 # Truncamos los colores. En este caso usamos un valor de 40, cuanto más alto más "cartoonizado" 
@@ -352,7 +369,7 @@ circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT, 1, 20,
                             param1=50, param2=30, minRadius=0, maxRadius=0)
 ```
 
-Puedes consultar la [documentación de HoughCircles](https://docs.opencv.org/3.4/da/d53/tutorial_py_houghcircles.html) para obtener más información sobre estos parámetros.
+Puedes consultar la [documentación de HoughCircles](https://docs.opencv.org/4.12.0/da/d53/tutorial_py_houghcircles.html) para obtener más información sobre estos parámetros.
 
 <!---
 Hacer un programa llamado `hough.cpp` que escriba las líneas detectadas de la imagen  `damas_corrected.jpg` obtenida en el tema anterior?
@@ -416,20 +433,27 @@ WM: default = 'damasHarris.jpg' (antes, "default='damasHarris.jpg'")
 WM: # Importamos la imagen (antes, "# Cargamos la imagen")
 WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
 WM: tiene un valor no inferior (antes, "tiene un valor superior o igual")
+
+# 2025/26
+WM: "esquinas con Harris" -> "esquinas usando Harris"
+WM: "se ha podido importar" -> "se ha podido cargar"
+WM: "los píxeles detectados como borde." -> "los píxeles detectados como bordes."
+WM: "como segundo argumento al programa" ->  "al programa como segundo argumento"
+
 --->
 
 ---
 
 ### Ejercicio
 
-Escribe el siguiente código, llámalo `harris.py` y completa las instrucciones marcadas con **TODO**:
+Copia el siguiente código, llámalo `harris.py` y completa las instrucciones marcadas con **TODO**:
 
 ```python
 import cv2 as cv
 import argparse
 import numpy as np
 
-parser = argparse.ArgumentParser(description='Programa para calcular esquinas con Harris.')
+parser = argparse.ArgumentParser(description='Programa para calcular esquinas usando Harris.')
 parser.add_argument('--imagen', '-i', type=str, default = 'corrected.jpg')
 parser.add_argument('--salida', '-s', type=str, default = 'damasHarris.jpg')
 args = parser.parse_args()
@@ -437,7 +461,7 @@ args = parser.parse_args()
 #Importamos la imagen
 img = cv.imread(args.imagen)
 
-# Comprobamos que la imagen se ha podido importar
+# Comprobamos que la imagen se ha podido cargar
 if img is None:
     print('Error al cargar la imagen')
     quit()
@@ -448,11 +472,11 @@ if img is None:
 # Detectar las esquinas con Harris. Parámetros: blockSize=2, apertureSize=3, k=0.04.
 # TODO (guardar en dst)
 
-# Sobre la imagen original, poner en color azul los píxeles detectados como borde.
+# Sobre la imagen original, poner en color azul los píxeles detectados como bordes.
 # Son aquellos que en los que dst(i,j) tiene un valor no inferior a 10000.
 # TODO (guardar en src).
 
-# Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa como segundo argumento al programa
+# Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa al programa como segundo argumento
 # TODO
 ```
 
