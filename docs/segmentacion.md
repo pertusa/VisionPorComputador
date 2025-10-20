@@ -25,7 +25,7 @@ Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bord
 
 ![Contornos](images/segmentacion/contours_input.jpg) ![Contornos](images/segmentacion/contours_output.jpg)
 
-A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=moments#findcontours) de `findContours`:
+A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/4.10.0/d3/dc0/group__imgproc__shape.html#gae4156f04053c44f886e387cff0ef6e08) de `findContours`:
 
 ```python
 contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
@@ -35,7 +35,7 @@ Esta función devuelve una lista de contornos detectados en la imagen junto con 
 
 El segundo parámetro de esta función es el tipo de algoritmo usado para devolver los contornos. El método más sencillo es `cv.RETR_LIST`, que devuelve simplemente un listado e ignora la jerarquía. Alternativamente se puede usar, por ejemplo, `cv.RETR_TREE`, que contiene la jerarquía completa. 
 
-El tercer parámetro es el método de aproximación. En el caso de usar `cv.CHAIN_APPROX_NONE` se devuelven todos los puntos del contorno, pero como esto es bastante ineficiente para algunos algoritmos (como veremos en el siguiente tema), a veces se usan [técnicas de reducción de puntos](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) para simplificar los contornos, por ejemplo usando la opción `cv.CHAIN_APPROX_SIMPLE`.
+El tercer parámetro es el método de aproximación. En el caso de usar `cv.CHAIN_APPROX_NONE` se devuelven todos los puntos del contorno, pero como esto es bastante ineficiente para algunos algoritmos (como veremos en el siguiente tema), a veces se usan [técnicas de reducción de puntos](https://learnopencv.com/contour-detection-using-opencv-python-c/) para simplificar los contornos, por ejemplo usando la opción `cv.CHAIN_APPROX_SIMPLE`.
 
 
 ## Crecimiento y división de regiones
@@ -134,13 +134,13 @@ Este algoritmo también puede encontrarse para [uso general](https://scikit-lear
 
 ## Métodos basados en grafos
 
-El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ejemplo de esta función usada de forma interactiva en [este enlace](https://docs.opencv.org/3.4/d8/d83/tutorial_py_grabcut.html).
+El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ejemplo de esta función usada de forma interactiva en [este enlace](https://docs.opencv.org/4.12.0/d8/d83/tutorial_py_grabcut.html).
 
 ![grabcut](images/segmentacion/grabcut.jpg)
 
 ## Métodos de saliency
 
-OpenCV implementa algunos algoritmos de `saliency`, entre los que se encuentra `Spectral Residual`. Este algoritmo es sencillo y también se puede implementar a mano, pero a continuación puedes ver un ejemplo que usa la implementación de OpenCV basado en el código de [este enlace](https://www.cronj.com/blog/finding-region-of-interest-roi-saliency/):
+OpenCV implementa algunos algoritmos de `saliency`, entre los que se encuentra `Spectral Residual`. Este algoritmo es sencillo y también se puede implementar a mano, pero a continuación puedes ver un ejemplo que usa la implementación de OpenCV basado en el código de [este enlace](https://pyimagesearch.com/2018/07/16/opencv-saliency-detection/):
 
 
 <!----
@@ -237,7 +237,7 @@ Imágenes: https://data.nal.usda.gov/system/files/Pear_1.zip
 Etiquetas: https://data.nal.usda.gov/system/files/PearLabels_2.zip
 -->
 
-Como podemos ver en la siguiente imagen, tenemos un robot [TrimBot](http://trimbot2020.webhosting.rug.nl) y queremos usarlo para podar rosales: 
+Como podemos ver en la siguiente imagen, tenemos un robot [TrimBot](https://www.youtube.com/watch?v=AgiEgeQ02Ws) y queremos usarlo para podar rosales: 
 
 ![Robot](images/segmentacion/robotRoses.png)
 
@@ -262,7 +262,7 @@ args = parser.parse_args()
 * `entrada` es la imagen de entrada.
 * `salida` es el nombre del fichero en el que vamos a guardar el resultado de la segmentación, que será una imagen en escala de grises (en blanco los píxeles que pertenecen a las ramas y en negro los que no).
 
-Se proporciona el _script_ de evaluación y una serie de imágenes de entrada junto con sus correspondientes anotaciones para comprobar los resultados.
+Se proporciona el programa de evaluación y una serie de imágenes de entrada junto con sus correspondientes anotaciones para comprobar los resultados.
 
 Para comenzar, descarga todos los materiales de este ejercicio que se encuentran en el fichero [roses.zip](images/segmentacion/roses.zip).
 
@@ -289,7 +289,7 @@ python evaluate.py -m single -i input/imagen.png
 python evaluate.py -m batch [-i input]
 ```
 
-Nótese que este script requiere internamente el programa `roses.py` que debéis desarrollar en esta práctica (`evaluate.py` no únicamente calcula la figura de mérito sino que también llama a `roses.py` para que se realice la segmentación). Por ello deberéis de implementar este programa para que el script de evaluación funcione.
+Nótese que este programa requiere internamente el programa `roses.py` que hay que desarrollar en esta práctica (`evaluate.py` no únicamente calcula la métrica sino que también llama a `roses.py` para que se realice la segmentación). Por ello deberéis de implementar este programa para que el script de evaluación funcione.
 
 Por último, cabe destacar que, para resolver este problema, puedes usar cualquier técnica que hayamos visto en la asignatura. Finalmente, la nota de este ejercicio será más alta cuanto mayor sea el valor de la Media IoU.
 
