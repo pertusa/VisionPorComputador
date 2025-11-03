@@ -85,6 +85,13 @@ WM: Leemos imagen consulta (antes, "Leemos imagen query")
 WM: comparamos con los de la query (antes, "comparamos con los de la consulta")
 WM: idxImg (antes, "imageIndex")
 Imagen por defecto -> #3 (antes era la #5)
+
+
+# 2025/2026
+WM: en el que guardaremos -> en el que guardar
+WM: "comparar características" -> comparar características de contorno
+WM: print('-----------') -> print('---------')
+WM: query = cv.imread(queryName,cv.IMREAD_GRAYSCALE) ->     query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
 -->
 
 
@@ -96,7 +103,7 @@ import numpy as np
 import math
 
 def extraerDescriptores(image):
-    # Creamos un diccionario en el que guardaremos los valores calculados
+    # Creamos un diccionario en el que guardar los valores calculados
     imDescriptors = dict()
 
     # Calculamos todos los contornos de la imagen  
@@ -181,7 +188,7 @@ def main(args):
 
     # Leemos imagen consulta
     queryName = os.path.join(path, str(idxQuery) + '.png')
-    query = cv.imread(queryName,cv.IMREAD_GRAYSCALE)
+    query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
 
     # Comprobamos que la imagen se ha podido leer
     if query is None:
@@ -200,7 +207,7 @@ def main(args):
             image = cv.imread(imageName, cv.IMREAD_GRAYSCALE)
 
             # Extraemos sus características y las comparamos con las de la query
-            print('-----------')
+            print('---------')
             print('Imagen', idxImg, ':')
             imDescriptors = extraerDescriptores(image)
             computarDistancias(qDescriptors, imDescriptors)
@@ -209,7 +216,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características.')
+    parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características de contorno.')
     parser.add_argument('--indexQuery', '-i', type=int, default=3)
     args = parser.parse_args()
     main(args)
@@ -242,7 +249,7 @@ Este es el mismo cálculo que hace internamente el método `matchShapes` de Open
 La salida del programa debe ser como la siguiente:
 
 ```bash
------------
+---------
 Imagen 1 :
  dSC = 0.617
  dPer = 1738.650
@@ -253,7 +260,7 @@ Imagen 1 :
  dCent = 269.763
  dOr = 0.135
  dHu = 1.659
------------
+---------
 Imagen 2 :
  dSC = 4.456
  dPer = 1602.241
@@ -264,7 +271,7 @@ Imagen 2 :
  dCent = 251.654
  dOr = 0.525
  dHu = 1.581
------------
+---------
 Imagen 4 :
  dSC = 76.421
  dPer = 24.444
@@ -275,7 +282,7 @@ Imagen 4 :
  dCent = 78.218
  dOr = 0.125
  dHu = 1.417
------------
+---------
 Imagen 5 :
  dSC = 4.841
  dPer = 1556.140
@@ -286,11 +293,13 @@ Imagen 5 :
  dCent = 259.311
  dOr = 0.224
  dHu = 0.229
------------
+---------
 ....
 ```
 
-Revisa los resultados probando con distintas imágenes.  Cuanto menor sea la distancia más deberían parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. 
+Revisa los resultados probando con distintas imágenes. Los resultados de dSC es posible que sean ligeramente distintos ya que los puntos iniciales se obtienen de forma aleatoria.
+
+ Cuanto menor sea la distancia más deberían parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. 
 
 -----
 
