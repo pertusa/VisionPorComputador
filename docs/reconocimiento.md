@@ -262,7 +262,7 @@ Como hemos visto en teoría y al principio de este capítulo una forma fácil de
 
 Vamos a hacer un ejercicio en el que extraeremos un descriptor ORB de una imagen y lo compararemos con los de otras imágenes ya etiquetadas para obtener su clase.
 
-Para esto tenemos que [descargar](http://www.dlsi.ua.es/~pertusa/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](http://www.mirbot.com) es un proyecto desarrollado en la UA y se trata de un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios tiene y más fotos se añaden mejor funciona.
+Para esto tenemos que [descargar](http://www.dlsi.ua.es/~pertusa/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](https://www.sciencedirect.com/science/article/pii/S0925231218302704) es un proyecto desarrollado en la UA y consiste en un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios y más fotos se añadían mejor funcionaba, aunque actualmente su desarrollo está descontinuado.
 
 Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por los usuarios, en concreto algunas pertenecientes a estas 10 clases: _book, cat, cellphone, chair, dog, glass, laptop, pen, remote, tv_. Descomprime el fichero descargado y echa un vistazo para ver los casos que intentamos reconocer.
 
@@ -293,6 +293,13 @@ WM: Función para leer (antes, "Función que lee")
 WM: Añadimos los descriptores y la etiqueta (antes, "Añadimos a data los descriptores y la etiqueta")
 WM: Separamos nombre de imagen y etiqueta/label (antes, "Separamos nombre de imagen y etiqueta")
 WM: y obtenemos su etiqueta/label (antes, "y obtenemos su label)
+
+# 2025/26
+WM: de fichero de imágenes -> de fichero de las imágenes
+WM: etiqueta/label -> etiqueta
+WM:  guardamos los descriptores en "desc" -> guardamos los descriptores en la variable desc
+WM: open('trainData.dat', 'wb')  -> open('trainData.dat','wb')  (quitado espacio tras coma)
+WM: la que tiene mas keypoints -> la que tiene más keypoints
 --->
 
 
@@ -302,7 +309,7 @@ import argparse
 import numpy as np
 import pickle
 
-# Función para leer un fichero de texto con nombres de fichero de imágenes y sus etiquetas
+# Función para leer un fichero de texto con nombres de fichero de las imágenes y sus etiquetas
 # Devuelve los descriptores calculados y las etiquetas leidas
 def readData(filename):
 
@@ -316,15 +323,15 @@ def readData(filename):
         # TODO: Creamos el detector ORB con 100 puntos como máximo
         
         for line in f.readlines():
-            # Separamos nombre de imagen y etiqueta/label
+            # Separamos nombre de imagen y etiqueta
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Cargamos la imagen y obtenemos su etiqueta/label
+            # Cargamos la imagen y obtenemos su etiqueta
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
-            # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en "desc"
+            # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en la variable desc
             desc = None
             
             # Añadimos los descriptores y la etiqueta
@@ -353,7 +360,7 @@ def testORB(descTrain, labelsTrain, descTest, labelsTest):
             if dtrain is not None and dtest is not None:
                   
                 # TODO:  Solo consideramos que dos puntos son similares si su distancia es menor o igual a 90.
-                # La imagen mas similar sera la que tiene mas keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel" (ahora pone 'cat' pero deberías modificarlo)
+                # La imagen mas similar sera la que tiene más keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel" (ahora pone 'cat' pero deberías modificarlo)
                 bestLabel = 'cat'
   
         if bestLabel == ltest:
@@ -385,7 +392,7 @@ def main(args):
 
         # Guardamos los descriptores de train en un fichero para poder usarlos en la fase de test
         dataTrain=(descTrain, labelsTrain)
-        with open('trainData.dat', 'wb') as storedDescriptors:
+        with open('trainData.dat','wb') as storedDescriptors:
             pickle.dump(dataTrain, storedDescriptors)
 
     return 0
@@ -446,6 +453,12 @@ WM: ok += 1 (antes, "ok = ok + 1")
 WM: i += 1 (antes, "i = i + 1")
 WM: Entrenamos el model SVM (antes, "Entrenamos el SVM")
 WM: Guardamos el modelo entrenado (antes, "Guardamos el modelo")
+
+# 2025/26
+WM: las debemos escalar  -> las debemos reescalar
+WM: for l in labels: -> for label in labels:
+WM: testHOGSVM(descriptors, labels) -> testHOGSVM(descriptors,labels)
+WM: Updated link https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html
 -->
 
 ```python
@@ -478,7 +491,7 @@ def extractHOGFeatures(filename):
             label = fields[1]
 
             # Extraemos el descriptor HOG
-            # TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos escalar a 128x128
+            # TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos reescalar a 128x128
             # TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).
             # TODO: Añadimos el descriptor obtenido de la imagen al vector descriptors, y la etiqueta al vector labels
 
@@ -495,12 +508,12 @@ def trainSVM(descriptors, labels):
     # TODO: Debemos indicar que el clasificador es de tipo C_SVC
     # TODO: Su kernel debe ser LINEAR
     # TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones máximas y EPS=1e-5.
-    # Ayuda para los puntos anteriores: https://docs.opencv.org/3.4/d1/d73/tutorial_introduction_to_svm.html
+    # Ayuda para los puntos anteriores: https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html
 
     # Convertimos las etiquetas a valores numéricos (necesario para entrenar SVM con la librería de OpenCV)
     labelsIndex = list()
-    for l in labels:
-        labelsIndex.append(labelNames.index(l))
+    for label in labels:
+        labelsIndex.append(labelNames.index(label))
         
     # Entrenamos el modelo SVM
     svm.train(np.array(descriptors, dtype='float32'), cv.ml.ROW_SAMPLE, np.array(labelsIndex, dtype='int'))
@@ -537,7 +550,7 @@ def main(args):
         descriptors, labels = extractHOGFeatures('test.txt')
 
         # Hacemos la comparación entre los descriptores de train y de test
-        testHOGSVM(descriptors, labels)
+        testHOGSVM(descriptors,labels)
 
     else:
         # Calculamos los descriptores
@@ -564,7 +577,7 @@ El resultado tras comprobar el conjunto de test debe ser este:
 Accuracy= 0.37
 ```
 
-Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al  ejercicio anterior.
+Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al ejercicio anterior.
 
 <!---
 ## TrainSVM
