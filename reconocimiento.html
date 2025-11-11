@@ -1,0 +1,1360 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="caracteristicas.html">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>T7- Reconocimiento - Visión por Computador</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Teal" data-md-color-accent="Teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#t7-reconocimiento-de-imagen" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="." title="Visión por Computador" class="md-header__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Visión por Computador
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              T7- Reconocimiento
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Visión por Computador" class="md-nav__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Visión por Computador
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación de OpenCV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1- Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="imagenvideo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T2- Imagen digital y vídeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="transformaciones.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T3- Transformaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deteccion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T4- Detección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="segmentacion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T5- Segmentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="caracteristicas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T6- Características
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T7- Reconocimiento
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="reconocimiento.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T7- Reconocimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#busqueda-por-similitud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Búsqueda por similitud
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Búsqueda por similitud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-binarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores binarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-locales-basados-en-puntos-de-interes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores locales basados en puntos de interés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduccion-de-dimensionalidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reducción de dimensionalidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reducción de dimensionalidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bag-of-words-bow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bag of Words (BoW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-caras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de caras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconocimiento-de-caras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconocimiento de caras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clasificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clasificación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clasificación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconocimiento-con-redes-neuronales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconocimiento con redes neuronales
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#busqueda-por-similitud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Búsqueda por similitud
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Búsqueda por similitud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-binarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores binarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptores-locales-basados-en-puntos-de-interes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores locales basados en puntos de interés
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduccion-de-dimensionalidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reducción de dimensionalidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reducción de dimensionalidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bag-of-words-bow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bag of Words (BoW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-caras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de caras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconocimiento-de-caras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconocimiento de caras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clasificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clasificación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clasificación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconocimiento-con-redes-neuronales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconocimiento con redes neuronales
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-----
+ORBBF: Accuracy= 0.24
+SIFTBOW: Accuracy= 0.23 con d=50, 0.2 con d=100,  (se puede probar con otros diccionarios, pero con tamaños d=200 y d=1000 no mejora y tarda la vida)
+HOGSVM: Rapidísimo y Acc 0.37
+---->
+
+<h1 id="t7-reconocimiento-de-imagen">T7- Reconocimiento de imagen<a class="headerlink" href="#t7-reconocimiento-de-imagen" title="Permanent link">&para;</a></h1>
+<!---
+> OpenCV con CUDA para módulo dnn: https://learnopencv.com/opencv-dnn-with-gpu-support/
+> Modelos Pytorch en OpenCV: https://docs.opencv.org/master/dc/d70/pytorch_cls_tutorial_dnn_conversion.html
+-->
+
+<p>En este tema aprenderemos a buscar imágenes similares y a reconocer la <em>clase</em> de una imagen.</p>
+<h2 id="busqueda-por-similitud">Búsqueda por similitud<a class="headerlink" href="#busqueda-por-similitud" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto en teoría, para encontrar imágenes similares podemos extraer y comparar descriptores usando distintas métricas de distancia.</p>
+<h3 id="descriptores-binarios">Descriptores binarios<a class="headerlink" href="#descriptores-binarios" title="Permanent link">&para;</a></h3>
+<p>En <a href="https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptor">el tema anterior</a> vimos un ejemplo de código para comparar imágenes (<code>matching</code>) usando ORB y la distancia de Hamming. Revísalo antes de continuar con este tema. </p>
+<p>La técnica que habíamos usado en ese ejemplo (también llamada <em>fuerza bruta</em>) funciona bien con ORB porque es un descriptor binario y la comparación es muy eficiente al ser simplemente una operación XOR.</p>
+<blockquote>
+<p>Los descriptores binarios se idearon para hacer <code>matching</code> y funcionan mucho peor cuando se usan en problemas de reconocimiento (clasificación), aunque a veces se emplean también para esta tarea por eficiencia.</p>
+</blockquote>
+<h3 id="descriptores-locales-basados-en-puntos-de-interes">Descriptores locales basados en puntos de interés<a class="headerlink" href="#descriptores-locales-basados-en-puntos-de-interes" title="Permanent link">&para;</a></h3>
+<p>Sin embargo, tal como hemos visto en teoría, comparar descriptores como SIFT o SURF no es rápido, sobre todo si tenemos muchas imágenes en nuestra base de datos.</p>
+<p>Para comparar dos imágenes que tienen descriptores basados en puntos de interés (y, por tanto, un número variable de elementos por imagen) se puede usar una técnica de vecinos más cercanos aproximados (en inglés, <em>Approximate Nearest Neighbors</em>). Ésta consiste en construir una representación interna para evitar hacer las comparaciones de todos los puntos con todos, mirando sólo aquellos que pueden ser más similares. En OpenCV tenemos una función que hace esta tarea: <code>FLANN</code>.</p>
+<p>Podemos ver un ejemplo completo de código a continuación: </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para detectar keypoints con SIFT y compararlos con FLANN&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--queryImage&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;box.png&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--trainImage&#39;</span><span class="p">,</span> <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;box_in_scene.png&#39;</span><span class="p">)</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos las imágenes en escala de grises</span>
+<span class="n">image1</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">queryImage</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">image2</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">trainImage</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que se han podido leer</span>
+<span class="k">if</span> <span class="n">image1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">image2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Creamos el descriptor SIFT con sus valores por defecto</span>
+<span class="n">sift</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">SIFT_create</span><span class="p">()</span>
+
+<span class="c1"># Usamos SIFT para detectar los keypoints y calcular sus descriptores</span>
+<span class="n">keypoints1</span><span class="p">,</span> <span class="n">descriptors1</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">keypoints2</span><span class="p">,</span> <span class="n">descriptors2</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">image2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Hacemos el matching con FLANN utilizando 2 vecinos</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">FlannBasedMatcher</span><span class="p">()</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">knnMatch</span><span class="p">(</span><span class="n">descriptors1</span><span class="p">,</span> <span class="n">descriptors2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Nos quedamos sólo los matches &quot;buenos&quot; y los guardamos en good</span>
+<span class="c1"># En el artículo original de SIFT, si dos puntos tienen una distancia menor de 0.7 se consideran un match</span>
+<span class="n">good</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">n</span><span class="o">.</span><span class="n">distance</span><span class="p">:</span>
+        <span class="n">good</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="c1"># Dibujamos el resultado</span>
+<span class="n">draw_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">matchColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">singlePointColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">imageMatches</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">drawMatches</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">keypoints1</span><span class="p">,</span> <span class="n">image2</span><span class="p">,</span> <span class="n">keypoints2</span><span class="p">,</span> <span class="n">good</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">draw_params</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imageMatches</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>Usando como entrada estas dos imágenes:</p>
+<p><img alt="query" src="images/reconocimiento/box.png" />
+<img alt="train" src="images/reconocimiento/box_in_scene.png" /></p>
+<p>Se obtiene el siguiente resultado:</p>
+<p><img alt="SIFT Matching" src="images/reconocimiento/SIFTMatching.png" /></p>
+<p>Como puedes ver, el libro de la imagen <em>query</em> se detecta bastante bien en la imagen <em>train</em>. </p>
+<p>El código que realiza la comparación de los descriptores correspondientes a cada punto de interés es el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="n">matcher</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">FlannBasedMatcher</span><span class="p">()</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">knnMatch</span><span class="p">(</span><span class="n">descriptors1</span><span class="p">,</span> <span class="n">descriptors2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p>En este caso, <code>descriptors_1</code> contiene todos los descriptores de la primera imagen y <code>descriptors_2</code> los de la segunda. <code>FlannBasedMatches</code> construye un sistema de búsqueda de vecinos más cercanos aproximados usando estos descriptores de entrada, y luego usa estos vecinos para encontrar las mejores correspondencias entre los descriptores de ambas imágenes. </p>
+<p>Como puedes ver en el código, se suelen eliminar los pares de puntos cuya distancia es mayor de un cierto umbral.</p>
+<h2 id="reduccion-de-dimensionalidad">Reducción de dimensionalidad<a class="headerlink" href="#reduccion-de-dimensionalidad" title="Permanent link">&para;</a></h2>
+<p>Para hacer que el <code>matching</code> sea más eficiente (aunque normalmente a costa de empeorar un poco los resultados) podemos reducir el tamaño de los descriptores usando alguna de las siguientes técnicas que hemos visto en teoría:</p>
+<h3 id="bag-of-words-bow">Bag of Words (BoW)<a class="headerlink" href="#bag-of-words-bow" title="Permanent link">&para;</a></h3>
+<p>Usar BoW es mucho más eficiente que emplear descriptores completos cuando se trata de características como SIFT, HOG o SURF (no binarias).</p>
+<!---
+https://github.com/briansrls/SIFTBOW/blob/master/SIFTBOW.py
+
+https://resources.oreilly.com/examples/9781785283840/blob/7d51d357875a18be16e015c527b81f07973128c8/Learning_OpenCV_3_Computer_Vision_with_Python_Second_Edition_Code/Chapter%207_Code/detect_hog_svm.py
+
+https://github.com/techfort/pycv/blob/master/chapter7/bow.py
+
+https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py
+
+-->
+
+<!--- **No haremos ningún ejercicio con BoW porque sólo se puede usar con descriptores patentados, pero esta información puede ser útil para tu proyecto.**
+--->
+
+<p>Usando el siguiente código podemos entrenar un diccionario BoW a partir los descriptores SIFT extraídos de todas las imágenes de un conjunto de entrenamiento:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Creamos una instancia BOW, en este caso el vocabulario tendrá 100 palabras</span>
+<span class="n">BOW</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">BOWKMeansTrainer</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sift</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">SIFT_create</span><span class="p">()</span>
+
+<span class="c1"># Recorremos todas las imágenes extrayendo descriptores SIFT y añadiéndolos para poder entrenar nuestro BOW.</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">imagesPath</span><span class="p">:</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+    <span class="n">keypoints</span><span class="p">,</span> <span class="n">descriptors</span><span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">BOW</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">descriptors</span><span class="p">)</span>
+
+<span class="c1"># Entrenamos para obtener el vocabulario</span>
+<span class="n">vocabulary</span> <span class="o">=</span> <span class="n">BOW</span><span class="o">.</span><span class="n">cluster</span><span class="p">()</span>
+</code></pre></div>
+<p>Fíjate que deberás incluir la ruta a una o más imágenes en la variable <code>imagesPath</code> para poder ejecutar el código. Puedes, por ejemplo, incluir las del ejercicio anterior (<em>box.png</em> y <em>box_in_scene.png</em>).</p>
+<p>Una vez ejecutado el código, habremos entrenado un diccionario de <code>k=100</code> palabras. A continuación podemos extraer un descriptor, y convertirlo en un histograma de palabras (este será nuestro nuevo descriptor). </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Inicializamos el extractor, que estará basado en SIFT y que asignará clusters por fuerza bruta</span>
+<span class="n">BOWExtractor</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">BOWImgDescriptorExtractor</span><span class="p">(</span><span class="n">sift</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">NORM_L2</span><span class="p">))</span>
+
+<span class="c1"># Asignamos al extractor declarado el vocabulario que habíamos entrenado</span>
+<span class="n">BOWExtractor</span><span class="o">.</span><span class="n">setVocabulary</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">)</span>
+
+<span class="c1"># Ahora ya podemos extraer el histograma BOW de una imagen</span>
+<span class="n">BOWdescriptor</span> <span class="o">=</span> <span class="n">BOWExtractor</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">sift</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+
+<span class="c1"># Mostramos el histograma:</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">BOWdescriptor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>Puedes ver ejemplos de código completos de entrenamiento y reconocimiento con BOW en <a href="https://github.com/briansrls/SIFTBOW/blob/master/SIFTBOW.py">este enlace</a> y <a href="https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py">este otro</a>.</p>
+<h3 id="pca">PCA<a class="headerlink" href="#pca" title="Permanent link">&para;</a></h3>
+<!--- ALTERNATIVAS: https://www.askpython.com/python/examples/principal-component-analysis-for-image-data 
+
+https://github.com/xanmolx/FaceDetectorUsingPCA/blob/master/PCA_Face_Recognition_IIT2016040.ipynb
+
+--->
+
+<p>Podemos ver un ejemplo completo de reducción de dimensionalidad mediante PCA en <a href="http://man.hubwiz.com/docset/OpenCV.docset/Contents/Resources/Documents/d1/dee/tutorial_introduction_to_pca.html">este enlace</a>. La parte interesante está en la función <code>getOrientation</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Perform PCA analysis</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">mean</span><span class="p">,</span> <span class="n">eigenvectors</span><span class="p">,</span> <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">PCACompute2</span><span class="p">(</span><span class="n">data_pts</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+</code></pre></div>
+<p>Como ves, PCA es un algoritmo de aprendizaje no supervisado, es decir, no necesita que las muestras estén  etiquetadas. </p>
+<p>Aunque puede usarse OpenCV para calcular PCA, es más recomendable emplear <code>scikit-learn</code> como puede verse en <a href="https://www.askpython.com/python/examples/principal-component-analysis-for-image-data">este ejemplo</a>, en el que el código destacable para PCA es el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 2 componentes principales.</span>
+<span class="n">converted_data</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p><code>sklearn</code> es la forma de indicar en python la librería <code>scikit-learn</code>.</p>
+</blockquote>
+<p>Tampoco entraremos en detalles sobre estas técnicas de reducción de dimensionalidad, ya que las veréis en otra asignatura del grado, pero podéis usarlas en vuestro proyecto para extraer descriptores más compactos.</p>
+<h2 id="deteccion-de-caras">Detección de caras<a class="headerlink" href="#deteccion-de-caras" title="Permanent link">&para;</a></h2>
+<p>A continuación puedes ver un ejemplo para detectar caras y ojos basado en <a href="https://medium.com/dataseries/face-recognition-with-opencv-haar-cascade-a289b6ff042a">este código</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+
+<span class="c1"># Cargamos los modelos</span>
+<span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
+<span class="n">eye_cascade</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;haarcascade_eye.xml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Leemos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;lena.jpg&#39;</span><span class="p">)</span>
+<span class="n">gray</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># Ejecutamos el detector de caras</span>
+<span class="n">faces</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">gray</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+    <span class="c1"># Dibujamos las caras</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Ejecutamos el detector de ojos en la zona de la cara</span>
+    <span class="n">roi_gray</span> <span class="o">=</span> <span class="n">gray</span><span class="p">[</span><span class="n">y</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+    <span class="n">eyes</span> <span class="o">=</span> <span class="n">eye_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">roi_gray</span><span class="p">)</span>
+
+    <span class="c1"># Dibujamos los ojos</span>
+    <span class="n">roi_color</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">y</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">ex</span><span class="p">,</span><span class="n">ey</span><span class="p">,</span><span class="n">ew</span><span class="p">,</span><span class="n">eh</span><span class="p">)</span> <span class="ow">in</span> <span class="n">eyes</span><span class="p">:</span>
+        <span class="n">cv</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">roi_color</span><span class="p">,(</span><span class="n">ex</span><span class="p">,</span><span class="n">ey</span><span class="p">),(</span><span class="n">ex</span><span class="o">+</span><span class="n">ew</span><span class="p">,</span><span class="n">ey</span><span class="o">+</span><span class="n">eh</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Caras&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>Prueba este programa descargando los <a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">modelos entrenados</a> con descriptores Haar. El resultado con la imagen <code>lena.jpg</code> debería ser el siguiente:</p>
+<p><img alt="Resultado caras y ojos" src="images/reconocimiento/lenaFaces.jpg" /></p>
+<blockquote>
+<p>También puedes usar descriptores LBP descargando sus correspondientes modelos desde <a href="https://github.com/opencv/opencv/tree/master/data/lbpcascades">este otro enlace</a>.</p>
+</blockquote>
+<p>Como puedes ver en los modelos Haar disponibles en el enlace anterior, es posible usar el mismo código para detectar matrículas, peatones, gatos, etc. simplemente cambiando el modelo.</p>
+<p>Alternativamente a OpenCV, también puedes usar la librería <code>scikit-image</code> para <a href="https://scikit-image.org/docs/dev/auto_examples/applications/plot_face_detection.html">detectar caras</a>.</p>
+<p>En OpenCV puedes usar cualquier tipo de imágenes para entrenar tu propio modelo siguiendo los pasos que se indican en <a href="https://docs.opencv.org/master/dc/d88/tutorial_traincascade.html">este enlace</a>, aunque no es fácil. Para esto deberás instalar la versión de C++ de OpenCV y compilar varios programas: <code>opencv_createsamples</code>, <code>opencv_annotation</code>, <code>opencv_traincascade</code> y <code>opencv_visualisation</code>.</p>
+<p>Sin embargo, también puedes usar la librería <code>scikit-image</code>, con la cual se simplifica bastante el entrenamiento como puede verse en <a href="https://scikit-image.org/docs/dev/auto_examples/applications/plot_haar_extraction_selection_classification.html">este ejemplo</a>.</p>
+<h2 id="reconocimiento-de-caras">Reconocimiento de caras<a class="headerlink" href="#reconocimiento-de-caras" title="Permanent link">&para;</a></h2>
+<p>Para reconocer caras (es decir, identificar a qué persona pertenecen) lo más fácil es usar una librería en python llamada <a href="https://github.com/ageitgey/face_recognition">face_recognition</a> y seguir <a href="https://www.analyticsvidhya.com/blog/2018/12/introduction-face-detection-video-deep-learning-python/">este tutorial</a>.</p>
+<h2 id="clasificacion">Clasificación<a class="headerlink" href="#clasificacion" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto en teoría y al principio de este capítulo una forma fácil de clasificar una imagen es buscando imágenes similares que estén etiquetadas y devolviendo la clase de la imagen más similar.</p>
+<hr />
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<p>Vamos a hacer un ejercicio en el que extraeremos un descriptor ORB de una imagen y lo compararemos con los de otras imágenes ya etiquetadas para obtener su clase.</p>
+<p>Para esto tenemos que <a href="images/reconocimiento/mirbot-exercises.zip">descargar</a> un subconjunto de imágenes etiquetadas de la base de datos MirBot. <a href="https://www.sciencedirect.com/science/article/pii/S0925231218302704">MirBot</a> es un proyecto desarrollado en la UA y consiste en un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios y más fotos se añadían mejor funcionaba, aunque actualmente su desarrollo está descontinuado.</p>
+<p>Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por los usuarios, en concreto algunas pertenecientes a estas 10 clases: <em>book, cat, cellphone, chair, dog, glass, laptop, pen, remote, tv</em>. Descomprime el fichero descargado y echa un vistazo para ver los casos que intentamos reconocer.</p>
+<p>Ahora se trata de completar los puntos marcados con <code>TODO</code> en el siguiente código para realizar la clasificación. Guárdalo con el nombre <code>orbBF.py</code> e intenta entender bien todas las instrucciones antes de empezar a modificarlo.</p>
+<!--
+# 2023/24
+PreviousWM: etiquetas. (quitado punto)
+leídas (ahora leidas)
+WM: Cargamos (antes Leemos)
+WM: descriptores ORB. (añadido punto al final)
+WM: descriptors,labels (sin espacio entre ellos)
+PreviousWM: flag
+PreviousWM (ya calculados en la fase anterior)
+WM: ya calculados en la fase anterior
+
+WM: "Matching..." -> "Matching"
+WM: "calcula el accuracy" -> "calcula la tasa de acierto"
+WM: "en la variable "desc"" -> "en "desc""
+WM: "Separamos el nombre de la imagen de su etiqueta" -> "Separamos nombre de imagen y etiqueta"
+WM: "Hacemos la comparación entre los descriptores de train y de test" -> "Comparamos los descriptores de train y test"
+
+# 2024/25
+WM: descriptors = list() (antes, "descriptors = []")
+WM: labels = list() (antes, "labels = []")
+WM: ok += 1 (antes, "ok = ok + 1")
+WM: Función para leer (antes, "Función que lee")
+WM: Añadimos los descriptores y la etiqueta (antes, "Añadimos a data los descriptores y la etiqueta")
+WM: Separamos nombre de imagen y etiqueta/label (antes, "Separamos nombre de imagen y etiqueta")
+WM: y obtenemos su etiqueta/label (antes, "y obtenemos su label)
+
+# 2025/26
+WM: de fichero de imágenes -> de fichero de las imágenes
+WM: etiqueta/label -> etiqueta
+WM:  guardamos los descriptores en "desc" -> guardamos los descriptores en la variable desc
+WM: open('trainData.dat', 'wb')  -> open('trainData.dat','wb')  (quitado espacio tras coma)
+WM: la que tiene mas keypoints -> la que tiene más keypoints
+--->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+
+<span class="c1"># Función para leer un fichero de texto con nombres de fichero de las imágenes y sus etiquetas</span>
+<span class="c1"># Devuelve los descriptores calculados y las etiquetas leidas</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">readData</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="n">descriptors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cargando&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Creamos el detector ORB con 100 puntos como máximo</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="c1"># Separamos nombre de imagen y etiqueta</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># Cargamos la imagen y obtenemos su etiqueta</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en la variable desc</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># Añadimos los descriptores y la etiqueta</span>
+            <span class="n">descriptors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">descriptors</span><span class="p">,</span><span class="n">labels</span>
+
+
+<span class="c1"># Función que recibe descriptores y etiquetas de train y test.</span>
+<span class="c1"># Hace un matching asignando a cada muestra de test la etiqueta de la muestra de train más cercana y calcula la tasa de acierto</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">testORB</span><span class="p">(</span><span class="n">descTrain</span><span class="p">,</span> <span class="n">labelsTrain</span><span class="p">,</span> <span class="n">descTest</span><span class="p">,</span> <span class="n">labelsTest</span><span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Matching&#39;</span><span class="p">)</span>
+
+    <span class="n">matcher</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">NORM_HAMMING</span><span class="p">)</span>
+
+    <span class="n">ok</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">dtest</span><span class="p">,</span> <span class="n">ltest</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">descTest</span><span class="p">,</span><span class="n">labelsTest</span><span class="p">):</span>
+        <span class="c1"># En bestLabel guardamos la etiqueta de la imagen más similar que aparece en el conjunto de train (tienes que calcularlo debajo)</span>
+        <span class="n">bestLabel</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">ltrain</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">descTrain</span><span class="p">,</span> <span class="n">labelsTrain</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">dtrain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dtest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+                <span class="c1"># TODO:  Solo consideramos que dos puntos son similares si su distancia es menor o igual a 90.</span>
+                <span class="c1"># La imagen mas similar sera la que tiene más keypoints coincidentes. Hay que extraer su etiqueta y guardarla en &quot;bestLabel&quot; (ahora pone &#39;cat&#39; pero deberías modificarlo)</span>
+                <span class="n">bestLabel</span> <span class="o">=</span> <span class="s1">&#39;cat&#39;</span>
+
+        <span class="k">if</span> <span class="n">bestLabel</span> <span class="o">==</span> <span class="n">ltest</span><span class="p">:</span>
+            <span class="n">ok</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy=&#39;</span><span class="p">,</span> <span class="n">ok</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">labelsTest</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+
+<span class="c1"># Programa principal</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">:</span>
+        <span class="c1"># Calculamos los descriptores de test</span>
+        <span class="n">descTest</span><span class="p">,</span> <span class="n">labelsTest</span> <span class="o">=</span> <span class="n">readData</span><span class="p">(</span><span class="s1">&#39;test.txt&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Cargamos los descriptores de train ya calculados en la fase anterior</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;trainData.dat&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">storedDescriptors</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">storedDescriptors</span><span class="p">)</span>
+
+        <span class="c1"># Comparamos los descriptores de train y test</span>
+        <span class="n">descTrain</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">labelsTrain</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">testORB</span><span class="p">(</span><span class="n">descTrain</span><span class="p">,</span> <span class="n">labelsTrain</span><span class="p">,</span> <span class="n">descTest</span><span class="p">,</span> <span class="n">labelsTest</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Calculamos los descriptores de train</span>
+        <span class="n">descTrain</span><span class="p">,</span> <span class="n">labelsTrain</span> <span class="o">=</span> <span class="n">readData</span><span class="p">(</span><span class="s1">&#39;train.txt&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Guardamos los descriptores de train en un fichero para poder usarlos en la fase de test</span>
+        <span class="n">dataTrain</span><span class="o">=</span><span class="p">(</span><span class="n">descTrain</span><span class="p">,</span> <span class="n">labelsTrain</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;trainData.dat&#39;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">storedDescriptors</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dataTrain</span><span class="p">,</span> <span class="n">storedDescriptors</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para reconocer objetos usando descriptores ORB.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--test&#39;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">)</span>     <span class="c1"># Si se indica test será true, si no se indica entonces se asume train</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div>
+<p>Para ejecutar el programa, debes hacerlo sin opciones (para entrenamiento) o con la opción <code>test</code> para validación. Ejemplo de uso para entrenamiento:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>orbBF.py
+</code></pre></div>
+<p>Para test:
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>orbBF.py<span class="w"> </span>--test
+</code></pre></div></p>
+<p>Una vez completes el código, la primera fase es ejecutar extraer el fichero de características ORB de todas las imágenes que hay en el fichero <code>train.txt</code>. Después se puede ejecutar en modo <code>test</code> para reconocer todas las imágenes del conjunto de test y compararlas con las etiquetas del conjunto <code>train</code>.</p>
+<p>El resultado final tras la fase de test debería ser el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Accuracy</span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.24
+</code></pre></div>
+<hr />
+<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
+<p>Con el ejercicio anterior hemos hecho una primera aproximación para reconocer objetos pero, como hemos visto en teoría, es mucho más eficiente entrenar un clasificador específico para nuestros datos. De esta forma no es necesario consultar todas las imágenes de entrenamiento para buscar la imagen más cercana como se hace con vecinos más cercanos.</p>
+<p>En la asignatura no hemos visto cómo funcionan internamente los algoritmos de aprendizaje supervisado, pero usaremos uno en modo "caja negra" para mejorar el porcentaje de acierto que hemos obtenido en el ejercicio anterior.</p>
+<p>Partimos de este otro código, que como verás tiene partes comunes con el anterior. Guárdalo con el nombre <code>HOGSVM.py</code> y complétalo con los comentarios marcados con <code>TODO</code>:</p>
+<!--
+
+Previous WM: flag
+# 2023/2024
+WM: "Programa para reconocer objetos" -> "Reconocimiento de objetos"
+WM: "Entrenando SVM" -> "Entrenando SVM..."
+WM: "Extrayendo descriptores HOG" -> "Extrayendo descriptores HOG..."
+labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv'] (antes como tupla)
+import pickle -> Desaparece
+
+# 2024/2025
+WM: Separamos nombre y etiqueta (antes, "Separamos el nombre de la imagen de su etiqueta")
+WM: descriptors = list() (antes, "descriptors = []")
+WM: labels = list() (antes, "labels = []")
+WM: labelsIndex = list() (antes, "labelsIndex = []")
+WM: ok += 1 (antes, "ok = ok + 1")
+WM: i += 1 (antes, "i = i + 1")
+WM: Entrenamos el model SVM (antes, "Entrenamos el SVM")
+WM: Guardamos el modelo entrenado (antes, "Guardamos el modelo")
+
+# 2025/26
+WM: las debemos escalar  -> las debemos reescalar
+WM: for l in labels: -> for label in labels:
+WM: testHOGSVM(descriptors, labels) -> testHOGSVM(descriptors,labels)
+WM: Updated link https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html
+-->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">labelNames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;book&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;chair&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;glass&#39;</span><span class="p">,</span> <span class="s1">&#39;laptop&#39;</span><span class="p">,</span> <span class="s1">&#39;pen&#39;</span><span class="p">,</span> <span class="s1">&#39;remote&#39;</span><span class="p">,</span> <span class="s1">&#39;cellphone&#39;</span><span class="p">,</span> <span class="s1">&#39;tv&#39;</span><span class="p">]</span>
+
+<span class="c1"># Función que lee un fichero de texto y calcula sus descriptores HOG</span>
+<span class="c1"># Devuelve los descriptores y las etiquetas leídas</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extractHOGFeatures</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extrayendo descriptores HOG&#39;</span><span class="p">)</span>
+
+    <span class="n">hog</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HOGDescriptor</span><span class="p">()</span>
+
+    <span class="n">descriptors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+
+            <span class="c1"># Separamos nombre y etiqueta</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># Leemos la imagen y obtenemos su etiqueta</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># Extraemos el descriptor HOG</span>
+            <span class="c1"># TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos reescalar a 128x128</span>
+            <span class="c1"># TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).</span>
+            <span class="c1"># TODO: Añadimos el descriptor obtenido de la imagen al vector descriptors, y la etiqueta al vector labels</span>
+
+    <span class="k">return</span> <span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span>
+
+
+<span class="c1"># https://answers.opencv.org/question/183596/how-exactly-does-bovw-work-for-python-3-open-cv3/</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">trainSVM</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entrenando SVM&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Configuramos el clasificador SVM (lo guardamos en la variable svm)</span>
+    <span class="n">svm</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">ml</span><span class="o">.</span><span class="n">SVM_create</span><span class="p">()</span>
+
+    <span class="c1"># TODO: Debemos indicar que el clasificador es de tipo C_SVC</span>
+    <span class="c1"># TODO: Su kernel debe ser LINEAR</span>
+    <span class="c1"># TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones máximas y EPS=1e-5.</span>
+    <span class="c1"># Ayuda para los puntos anteriores: https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html</span>
+
+    <span class="c1"># Convertimos las etiquetas a valores numéricos (necesario para entrenar SVM con la librería de OpenCV)</span>
+    <span class="n">labelsIndex</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="n">labelsIndex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labelNames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+
+    <span class="c1"># Entrenamos el modelo SVM</span>
+    <span class="n">svm</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">),</span> <span class="n">cv</span><span class="o">.</span><span class="n">ml</span><span class="o">.</span><span class="n">ROW_SAMPLE</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labelsIndex</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Guardamos el modelo entrenado</span>
+    <span class="n">svm</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;modelSVM.xml&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Función para evaluar los resultados</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">testHOGSVM</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+
+    <span class="c1"># Cargamos el modelo</span>
+    <span class="n">svm</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">ml</span><span class="o">.</span><span class="n">SVM_load</span><span class="p">(</span><span class="s1">&#39;modelSVM.xml&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Clasificamos</span>
+    <span class="n">npDescriptors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">npDescriptors</span><span class="p">)</span>
+
+    <span class="c1"># Calculamos el resultado</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">labelNames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+            <span class="n">ok</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy=&#39;</span><span class="p">,</span> <span class="n">ok</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span> 
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">:</span>
+        <span class="c1"># Calculamos los descriptores</span>
+        <span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">extractHOGFeatures</span><span class="p">(</span><span class="s1">&#39;test.txt&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Hacemos la comparación entre los descriptores de train y de test</span>
+        <span class="n">testHOGSVM</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Calculamos los descriptores</span>
+        <span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">extractHOGFeatures</span><span class="p">(</span><span class="s1">&#39;train.txt&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Entrenamos y guardamos el modelo</span>
+        <span class="n">trainSVM</span><span class="p">(</span><span class="n">descriptors</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Reconocimineto de objetos usando descriptores HOG y SVM&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--test&#39;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">)</span>     <span class="c1"># Si se indica &quot;test&quot; args.test será true, si no se indica entonces se asume train</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div>
+<p>En este caso se trata de extraer los descriptores HOG de las imágenes del conjunto <code>train</code> para entrenar un clasificador supervisado de tipo <em>Support Vector Machine</em> (SVM). Una vez entrenado el modelo, se guardará en el fichero <code>modelSVM.xml</code>. De esta forma, en la la fase de reconocimiento (<code>test</code>) se cargará el modelo para predecir la clase de una imagen desconocida, en lugar de comparar la imagen con todas las del conjunto de entrenamiento.</p>
+<p>El resultado tras comprobar el conjunto de test debe ser este:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Accuracy</span><span class="o">=</span> <span class="mf">0.37</span>
+</code></pre></div>
+<p>Como ves, esta técnica, además de ser mucho más rápida, mejora claramente el resultado respecto al ejercicio anterior.</p>
+<!---
+## TrainSVM
+https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python-tutorial/
+--->
+
+<hr />
+<h2 id="reconocimiento-con-redes-neuronales">Reconocimiento con redes neuronales<a class="headerlink" href="#reconocimiento-con-redes-neuronales" title="Permanent link">&para;</a></h2>
+<p>En el ejercicio anterior, en lugar de HOG podríamos haber usado características neuronales extraidas de una de las últimas capas de una red convolucional de la forma que vimos <a href="https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptores-neuronales">aquí</a>. Si tienes curiosidad puedes probarlo, verás como el porcentaje de acierto mejora significativamente. </p>
+<p>Adicionalmente OpenCV también incorpora muchos <a href="https://github.com/opencv/opencv/tree/master/samples/dnn">ejemplos de clasificación</a> usando redes neuronales para tareas como reconocimiento de caras, texto, etc. Es recomendable echar un vistazo a estos ejemplos porque probablemente te ayuden para el proyecto. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

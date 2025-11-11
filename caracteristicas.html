@@ -1,0 +1,1313 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="segmentacion.html">
+      
+      
+        <link rel="next" href="reconocimiento.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>T6- Características - Visión por Computador</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Teal" data-md-color-accent="Teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#t6-caracteristicas-de-imagen" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="." title="Visión por Computador" class="md-header__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Visión por Computador
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              T6- Características
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Visión por Computador" class="md-nav__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Visión por Computador
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación de OpenCV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1- Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="imagenvideo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T2- Imagen digital y vídeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="transformaciones.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T3- Transformaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deteccion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T4- Detección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="segmentacion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T5- Segmentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T6- Características
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="caracteristicas.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T6- Características
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-de-contorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores de contorno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descriptores de contorno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#momentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentos-de-hu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentos de Hu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cadenas-de-freeman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cadenas de Freeman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor-shape-context-sc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor Shape Context (SC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HOG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caracteristicas-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Características locales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Características locales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-neuronales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores neuronales
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reconocimiento.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T7- Reconocimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-de-contorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores de contorno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descriptores de contorno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#momentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentos-de-hu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Momentos de Hu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cadenas-de-freeman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cadenas de Freeman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor-shape-context-sc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor Shape Context (SC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HOG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caracteristicas-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Características locales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Características locales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descriptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptores-neuronales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptores neuronales
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="t6-caracteristicas-de-imagen">T6- Características de imagen<a class="headerlink" href="#t6-caracteristicas-de-imagen" title="Permanent link">&para;</a></h1>
+<p>En este tema aprenderemos a detectar y extraer características útiles que describen una imagen.</p>
+<h2 id="descriptores-de-contorno">Descriptores de contorno<a class="headerlink" href="#descriptores-de-contorno" title="Permanent link">&para;</a></h2>
+<p>Comenzaremos viendo las características que se usan para describir contornos. Estas características asumen que la imagen se ha binarizado previamente y tenemos el contorno de los objetos que queremos reconocer.</p>
+<h3 id="momentos">Momentos<a class="headerlink" href="#momentos" title="Permanent link">&para;</a></h3>
+<p>Una vez hemos extraido los contornos de una imagen, por ejemplo mediante la función <code>findContours</code> cuya sintaxis vimos en el tema anterior, podemos calcular el momento de un contorno usando la función <code>moments</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">momentos</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">moments</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+</code></pre></div>
+<p>Esta función calcula todos los momentos del contorno. Para acceder a un momento determinado podemos indicar, por ejemplo: <code>momentos['m00']</code>. Estos son todos los momentos que devuelve la función:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Momentos espaciales</span>
+<span class="n">m00</span><span class="p">,</span> <span class="n">m10</span><span class="p">,</span> <span class="n">m01</span><span class="p">,</span> <span class="n">m20</span><span class="p">,</span> <span class="n">m11</span><span class="p">,</span> <span class="n">m02</span><span class="p">,</span> <span class="n">m30</span><span class="p">,</span> <span class="n">m21</span><span class="p">,</span> <span class="n">m12</span><span class="p">,</span> <span class="n">m03</span>
+<span class="c1"># Momentos centrales</span>
+<span class="n">mu20</span><span class="p">,</span> <span class="n">mu11</span><span class="p">,</span> <span class="n">mu02</span><span class="p">,</span> <span class="n">mu30</span><span class="p">,</span> <span class="n">mu21</span><span class="p">,</span> <span class="n">mu12</span><span class="p">,</span> <span class="n">mu03</span>
+<span class="c1"># Momentos centrales normalizados</span>
+<span class="n">nu20</span><span class="p">,</span> <span class="n">nu11</span><span class="p">,</span> <span class="n">nu02</span><span class="p">,</span> <span class="n">nu30</span><span class="p">,</span> <span class="n">nu21</span><span class="p">,</span> <span class="n">nu12</span><span class="p">,</span> <span class="n">nu03</span>
+</code></pre></div>
+<p>Como ves, no todos los momentos se calculan. Por ejemplo, como el momento <code>mu00</code> es igual a <code>m00</code>, <a href="https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html">OpenCV no lo extrae</a>.</p>
+<p>Si quieres conocer más detalles sobre la función <code>moments</code> puedes consultar <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=moments#moments">este</a> enlace.</p>
+<h3 id="momentos-de-hu">Momentos de Hu<a class="headerlink" href="#momentos-de-hu" title="Permanent link">&para;</a></h3>
+<p>Los 7 momentos de Hu se calculan con la función <code>HuMoments</code> a partir de los momentos centrales normalizados extraídos previamente con <code>moments</code>. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">hu</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HuMoments</span><span class="p">(</span><span class="n">momentos</span><span class="p">)</span>  <span class="c1"># El array hu contiene los 7 momentos de Hu</span>
+</code></pre></div>
+<p>La función <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#double%20matchShapes(InputArray%20contour1,%20InputArray%20contour2,%20int%20method,%20double%20parameter)">matchShapes</a> de OpenCV usa internamente estos momentos de Hu para comparar contornos, como veremos más adelante.</p>
+<h3 id="cadenas-de-freeman">Cadenas de Freeman<a class="headerlink" href="#cadenas-de-freeman" title="Permanent link">&para;</a></h3>
+<p>En las primeras versiones de OpenCV se usaba la función <code>approxChains</code> para extraer códigos de cadena, pero a partir de la versión 3 OpenCV ha eliminado esta funcionalidad porque prácticamente no se utilizaban.</p>
+<h3 id="descriptor-shape-context-sc">Descriptor Shape Context (SC)<a class="headerlink" href="#descriptor-shape-context-sc" title="Permanent link">&para;</a></h3>
+<p>Para extraer y comparar contornos con <code>Shape Context</code> podemos usar el siguiente código:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Creamos una instancia de este descriptor</span>
+<span class="n">mySC</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">createShapeContextDistanceExtractor</span><span class="p">()</span>
+
+<span class="c1"># Lo aplicamos a dos contornos para obtener su distancia.</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">mySC</span><span class="o">.</span><span class="n">computeDistance</span><span class="p">(</span><span class="n">contour1</span><span class="p">,</span> <span class="n">contour2</span><span class="p">)</span> 
+</code></pre></div>
+<hr />
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<p>En este ejercicio extraeremos una serie de descriptores de contorno a partir de imágenes binarizadas. El objetivo es encontrar las imágenes más similares a una imagen de referencia (a la que llamaremos <code>query</code>).</p>
+<p>Se pide completar el siguiente código implementando los comentarios marcados con <code>TODO</code>. Guarda este programa con el nombre <code>contourDescriptors.py</code>. </p>
+<p>En el <code>main</code> se recibe el número de una imagen (hay 20 en la carpeta) para usarla como <code>query</code>. Si no indicamos ningún parámetro, por defecto la <code>query</code> será la imagen número 3. Después se extraen los descriptores de esta imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.</p>
+<!--
+# 2023/24
+WM: 
+extractDescriptors -> extraerDescriptores
+calcularDistancias -> computarDistancias
+imgDescriptors -> imDescriptors
+queryDescriptors -> qDescriptors
+indexQuery -> idxQuery
+
+# 2024/25
+WM: import os
+WM: diccionario en el que guardaremos (antes, "diccionario donde guardaremos")
+WM: imDescriptors = dict() (antes, "imDescriptors={}")
+WM: allcontours, hierarchy (antes, "contours, hierarchy")
+WM: max(allcontours, (antes, "max(contours,")
+WM: rectangularidad. Para ello usamos (antes, "rectangularidad (usando")
+WM: Leemos imagen consulta (antes, "Leemos imagen query")
+WM: comparamos con los de la query (antes, "comparamos con los de la consulta")
+WM: idxImg (antes, "imageIndex")
+Imagen por defecto -> #3 (antes era la #5)
+
+
+# 2025/2026
+WM: en el que guardaremos -> en el que guardar
+WM: "comparar características" -> comparar características de contorno
+WM: print('-----------') -> print('---------')
+WM: query = cv.imread(queryName,cv.IMREAD_GRAYSCALE) ->     query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
+-->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extraerDescriptores</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="c1"># Creamos un diccionario en el que guardar los valores calculados</span>
+    <span class="n">imDescriptors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="c1"># Calculamos todos los contornos de la imagen  </span>
+    <span class="n">allcontours</span><span class="p">,</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">RETR_LIST</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
+
+    <span class="c1"># Extraemos el mayor contorno de la imagen, del que obtendremos todos los descriptores:</span>
+    <span class="n">contour</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">allcontours</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">contourArea</span><span class="p">)</span>
+
+    <span class="c1"># TODO: Guardamos el mayor contorno para el descriptor SC.</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;contour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos el perimetro</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;perimetro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos la compactación</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;compactacion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos la elongacion</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;elongacion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos la rectangularidad. Para ello usamos el rectángulo rotado MRE que envuelve el contorno con un área mínima</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;rectangularidad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: calculamos el área del cierre convexo (pista: funcion convexHull)</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;areaCierreConvexo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos el centroide (X,Y) y orientacion usando los momentos</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;centroide&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;orientacion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: Calculamos los Momentos de Hu</span>
+    <span class="n">imDescriptors</span><span class="p">[</span><span class="s1">&#39;Hu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">imDescriptors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">computarDistancias</span><span class="p">(</span><span class="n">qDescriptors</span><span class="p">,</span> <span class="n">imDescriptors</span><span class="p">):</span>
+    <span class="c1"># Calcular y devolver la distancia entre qDescriptors e imDescriptors para las siguientes características:</span>
+
+    <span class="c1"># TODO: Shape Context</span>
+    <span class="n">dSC</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Perímetro</span>
+    <span class="n">dPer</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Compactación</span>
+    <span class="n">dComp</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Elongación</span>
+    <span class="n">dElong</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Rectangularidad</span>
+    <span class="n">dRect</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Area del cierre convexo</span>
+    <span class="n">dCierre</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Distancia euclídea del centroide</span>
+    <span class="n">dCent</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Orientacion</span>
+    <span class="n">dOr</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Momentos de Hu (ver fórmula que se describe debajo)</span>
+    <span class="n">dHu</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dSC = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dSC</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dPer = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dPer</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dComp = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dComp</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dElong = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dElong</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dRect = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dRect</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dCierre = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dCierre</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dCent = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dCent</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dOr = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dOr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; dHu = </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dHu</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="c1"># Procesamos parámetros de entrada</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;shape_sample&#39;</span>
+    <span class="n">idxQuery</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">indexQuery</span>
+
+    <span class="c1"># Leemos imagen consulta</span>
+    <span class="n">queryName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">idxQuery</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">queryName</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+    <span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+    <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+        <span class="n">quit</span><span class="p">()</span>
+
+    <span class="n">qDescriptors</span> <span class="o">=</span> <span class="n">extraerDescriptores</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="c1"># Para las otras imágenes, calculamos sus descriptores y los comparamos con los de la consulta</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">idxImg</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+        <span class="c1"># Ignoramos esta imagen si es la misma que la de referencia</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">idxImg</span> <span class="o">!=</span> <span class="n">idxQuery</span><span class="p">):</span>
+            <span class="c1"># Leemos la imagen</span>
+            <span class="n">imageName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">idxImg</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imageName</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+            <span class="c1"># Extraemos sus características y las comparamos con las de la query</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Imagen&#39;</span><span class="p">,</span> <span class="n">idxImg</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">imDescriptors</span> <span class="o">=</span> <span class="n">extraerDescriptores</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">computarDistancias</span><span class="p">(</span><span class="n">qDescriptors</span><span class="p">,</span> <span class="n">imDescriptors</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para calcular y comparar características de contorno.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--indexQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div>
+<p>En este ejercicio necesitarás descargarte <a href="images/caracteristicas/shape_sample.zip">estas imágenes</a>, que debes descomprimir en un directorio llamado <code>shape_sample</code>.</p>
+<p>Para extraer los descriptores puedes usar algunas de <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html">estas funciones</a> de OpenCV.</p>
+<p>En el cálculo de la arcotangente (para la orientación) debes usar <a href="https://www.w3schools.com/python/ref_math_atan2.asp">la función <em>atan2</em></a> de la librería <code>math</code>.</p>
+<p>Para calcular la distancia entre dos números reales debemos usar el valor absoluto de su diferencia. </p>
+<p>En el caso del centroide (que es un punto con sus coordenadas <em>u,v</em>), deberemos calcular la <strong>distancia Euclídea</strong> entre los dos puntos.</p>
+<p>Para calcular las distancias de los descriptores Hu debes usar las siguientes ecuaciones:</p>
+<p><img alt="Eq1" src="images/caracteristicas/contoursMatch1.png" /></p>
+<p>donde <code>A</code> y <code>B</code> son las dos imágenes a comparar, y <code>m</code> se define como:</p>
+<p><img alt="Eq2a" src="images/caracteristicas/contoursMatch2A.png" /></p>
+<p><img alt="Eq2b" src="images/caracteristicas/contoursMatch2B.png" /></p>
+<p>En este caso, <code>sign</code> es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y <code>h</code> son los momentos Hu número <code>i</code>. Sólo debe sumarse un momento <code>i</code> si sus componentes son mayores que un umbral <code>1.e-5</code>. Es decir, si el valor absoluto del descriptor Hu número <code>i</code> es mayor de <code>1.e-5</code> en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función <code>math.log10</code>.</p>
+<p>Este es el mismo cálculo que hace internamente el método <code>matchShapes</code> de OpenCV (algoritmo <code>cv.CONTOURS_MATCH_I1</code>) para comparar contornos, pero en este ejercicio tendrás que implementarlo a mano.</p>
+<p>La salida del programa debe ser como la siguiente:</p>
+<div class="highlight"><pre><span></span><code>---------
+Imagen<span class="w"> </span><span class="m">1</span><span class="w"> </span>:
+<span class="w"> </span><span class="nv">dSC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.617
+<span class="w"> </span><span class="nv">dPer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1738</span>.650
+<span class="w"> </span><span class="nv">dComp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.014
+<span class="w"> </span><span class="nv">dElong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.111
+<span class="w"> </span><span class="nv">dRect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.322
+<span class="w"> </span><span class="nv">dCierre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">119251</span>.000
+<span class="w"> </span><span class="nv">dCent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">269</span>.763
+<span class="w"> </span><span class="nv">dOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.135
+<span class="w"> </span><span class="nv">dHu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.659
+---------
+Imagen<span class="w"> </span><span class="m">2</span><span class="w"> </span>:
+<span class="w"> </span><span class="nv">dSC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>.456
+<span class="w"> </span><span class="nv">dPer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1602</span>.241
+<span class="w"> </span><span class="nv">dComp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.001
+<span class="w"> </span><span class="nv">dElong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.016
+<span class="w"> </span><span class="nv">dRect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.317
+<span class="w"> </span><span class="nv">dCierre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">106320</span>.000
+<span class="w"> </span><span class="nv">dCent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">251</span>.654
+<span class="w"> </span><span class="nv">dOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.525
+<span class="w"> </span><span class="nv">dHu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.581
+---------
+Imagen<span class="w"> </span><span class="m">4</span><span class="w"> </span>:
+<span class="w"> </span><span class="nv">dSC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">76</span>.421
+<span class="w"> </span><span class="nv">dPer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span>.444
+<span class="w"> </span><span class="nv">dComp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.004
+<span class="w"> </span><span class="nv">dElong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.283
+<span class="w"> </span><span class="nv">dRect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.054
+<span class="w"> </span><span class="nv">dCierre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3276</span>.500
+<span class="w"> </span><span class="nv">dCent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">78</span>.218
+<span class="w"> </span><span class="nv">dOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.125
+<span class="w"> </span><span class="nv">dHu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>.417
+---------
+Imagen<span class="w"> </span><span class="m">5</span><span class="w"> </span>:
+<span class="w"> </span><span class="nv">dSC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>.841
+<span class="w"> </span><span class="nv">dPer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1556</span>.140
+<span class="w"> </span><span class="nv">dComp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.021
+<span class="w"> </span><span class="nv">dElong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.180
+<span class="w"> </span><span class="nv">dRect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.015
+<span class="w"> </span><span class="nv">dCierre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">110849</span>.000
+<span class="w"> </span><span class="nv">dCent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">259</span>.311
+<span class="w"> </span><span class="nv">dOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.224
+<span class="w"> </span><span class="nv">dHu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>.229
+---------
+....
+</code></pre></div>
+<p>Revisa los resultados probando con distintas imágenes. Los resultados de dSC es posible que sean ligeramente distintos ya que los puntos iniciales se obtienen de forma aleatoria.</p>
+<p>Cuanto menor sea la distancia más deberían parecerse. Evidentemente, para comparar formas similares algunos descriptores obtendrán mejores resultados que otros. </p>
+<hr />
+<h2 id="textura">Textura<a class="headerlink" href="#textura" title="Permanent link">&para;</a></h2>
+<p>Los filtros de Gabor se implementan en OpenCV creando un kernel mediante la función <code>getGaborKernel</code>, que después puede convolucionarse con una imagen mediante <code>filter2D</code> como ocurre con cualquier otro filtro.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ksize</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">lambd</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">psi</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getGaborKernel</span><span class="p">((</span><span class="n">ksize</span><span class="p">,</span><span class="n">ksize</span><span class="p">),</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">psi</span><span class="p">)</span>
+
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="p">)</span>
+</code></pre></div>
+<p>Como puedes ver, un filtro de Gabor se puede construir con muchos parámetros, pero los principales son estos:</p>
+<ul>
+<li><code>ksize</code>: Tamaño del filtro</li>
+<li><code>sigma</code>: Desviación típica de la envolvente gaussiana</li>
+<li><code>theta</code>: Orientación de las bandas paralelas de la función Gabor</li>
+<li><code>lambd</code>: Longitud de onda de la señal sinusoidal</li>
+</ul>
+<h2 id="hog">HOG<a class="headerlink" href="#hog" title="Permanent link">&para;</a></h2>
+<p>En OpenCV podemos extraer el descriptor HOG mediante <code>HOGDescriptor</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">winSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">blockStride</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">cellSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="mi">9</span>
+
+<span class="n">hog</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HOGDescriptor</span><span class="p">(</span><span class="n">winSize</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">blockStride</span><span class="p">,</span> <span class="n">cellSize</span><span class="p">,</span> <span class="n">nbins</span><span class="p">)</span>
+</code></pre></div>
+<p>La ayuda de OpenCV es bastante incompleta para este descriptor y es mejor poner directamente en el código <code>help(cv.HOGDescriptor)</code> para obtener más información. Por simplificar, los parámetros principales del constructor (aunque hay más) son estos:</p>
+<ul>
+<li><code>winSize</code>: Tamaño de la ventana.</li>
+<li><code>blockSize</code>: Tamaño del bloque.</li>
+<li><code>blockStride</code>: Desplazamiento del bloque.</li>
+<li><code>cellSize</code>: Tamaño de la celda.</li>
+<li><code>nbins</code>: Número de bins usados para calcular el histograma de gradientes.</li>
+</ul>
+<p>También podemos crear un descriptor HOG con los valores que vienen por defecto:</p>
+<div class="highlight"><pre><span></span><code><span class="n">hog</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HogDescriptor</span><span class="p">()</span>
+<span class="c1"># Equivalente a: cv.HOGDescriptor((64,128), (16,16), (8,8), (8,8), 9)</span>
+</code></pre></div>
+<p><img alt="HOG en OpenCV" src="images/caracteristicas/hog.png" /></p>
+<p>Es necesario tener en cuenta que, a diferencia del algoritmo que hemos visto en teoría, en la implementación de OpenCV hay una ventana que va moviéndose por toda la imagen para calcular los descriptores HOG. Como hemos podido ver, el tamaño de la ventana por defecto es de 64x128 píxeles, lo cual significa que los objetos a detectar deben tener al menos ese tamaño. Si trabajáramos con resoluciones menores, deberíamos cambiarlo.</p>
+<p>La longitud por defecto del vector HOG (que podemos ver usando el método <code>hog.getDescriptorSize()</code>) es de 3.780 elementos por cada descriptor. </p>
+<p>Una vez creado el descriptor podemos aplicarlo a una imagen de esta forma:</p>
+<div class="highlight"><pre><span></span><code><span class="n">winStride</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">padding</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">descriptors</span> <span class="o">=</span> <span class="n">hog</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">winStride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">locations</span><span class="p">)</span>
+</code></pre></div>
+<p>La función <code>compute</code> guarda en  el vector <code>locations</code> los puntos donde se han encontrado las  personas en la imagen, y en <code>descriptors</code> los valores del descriptor para cada punto. Para calcular esto se usa un sistema de detección de peatones, que veremos en el tema 7.</p>
+<p>Si en lugar de extraer el descriptor queremos directamente hacer la detección de personas en una imagen (que es lo  más habitual), se puede usar directamente este código:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># La siguiente instrucción inicializa un detector de personas.</span>
+<span class="c1"># No hemos visto este detector en teoría porque está basado en aprendizaje automático (algo que veremos más adelante), pero sí que hemos visto el descriptor.</span>
+<span class="n">hog</span><span class="o">.</span><span class="n">setSVMDetector</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">HOGDescriptor_getDefaultPeopleDetector</span><span class="p">())</span>
+
+<span class="c1"># Aplicamos el detector sobre la imagen</span>
+<span class="n">hog</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</code></pre></div>
+<p>Para obtener más ayuda sobre las opciones de detectMultiScale puedes consultar <a href="https://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/">este enlace</a>. Puedes ver un ejemplo completo de detección de peatones en vídeos usando HOG <a href="https://thedatafrog.com/en/articles/human-detection-video/">aquí</a>.</p>
+<p>Desafortunadamente en OpenCV no hay una forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería <code>scikit-image</code> sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en <a href="https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html">este código de ejemplo</a> que produce este resultado:</p>
+<p><img alt="astronaut" src="images/caracteristicas/astronaut.png" /></p>
+<hr />
+<h2 id="caracteristicas-locales">Características locales<a class="headerlink" href="#caracteristicas-locales" title="Permanent link">&para;</a></h2>
+<p>Las características locales son fáciles de obtener en OpenCV, ya que esta librería implementa todo lo necesario para detectar <em>keypoints</em> y extraer sus correspondientes descriptores.</p>
+<h3 id="detector">Detector<a class="headerlink" href="#detector" title="Permanent link">&para;</a></h3>
+<p>Ejemplo de detección usando MSER:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para detectar keypoints con MSER&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;lena.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Hacemos una copia en escala de grises para calcular los keypoints</span>
+<span class="n">gray</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">gray</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># Creamos el detector</span>
+<span class="n">detector</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">MSER_create</span><span class="p">()</span>
+
+<span class="c1"># Aplicamos el detector para obtener los keypoints</span>
+<span class="n">keypoints</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Dibujamos los keypoints sobre la imagen. La última opción es para que los círculos salgan con su tamaño correspondiente.</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">keypoints</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS</span><span class="p">)</span>
+
+<span class="c1"># Visualizamos el resultado</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Keypoints&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>La salida sería la siguiente:</p>
+<p><img alt="ejemplo MSER" src="images/caracteristicas/lenaMSER.png" /></p>
+<p>Si remplazamos <code>MSER_create</code> por <code>SIFT_create</code> para usar una detector <a href="https://docs.opencv.org/master/da/df5/tutorial_py_sift_intro.html">SIFT</a> obtendremos el siguiente resultado:</p>
+<p><img alt="ejemplo MSER" src="images/caracteristicas/lenaSIFT.png" /></p>
+<h3 id="descriptor">Descriptor<a class="headerlink" href="#descriptor" title="Permanent link">&para;</a></h3>
+<p>Veamos otro ejemplo, esta vez usando ORB como detector y también como descriptor. En este código, además comparamos los descriptores binarios usando una distancia Hamming. Las correspondencias que devuelve el método <code>match</code> en la variable <code>matches</code> son las parejas de puntos más similares entre la primera y la segunda imagen.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para calcular descriptores MSER y compararlos&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--queryImage&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;OSE1cor_1.png&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--trainImage&#39;</span><span class="p">,</span> <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;OSE1cor_2.png&#39;</span><span class="p">)</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos las imágenes en escala de grises</span>
+<span class="n">image1</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">queryImage</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">image2</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">trainImage</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que se han podido leer</span>
+<span class="k">if</span> <span class="n">image1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">image2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Creamos el detector ORB con 100 puntos como máximo</span>
+<span class="n">orb</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">ORB_create</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Usamos ORB para detectar los keypoints y calcular sus descriptores</span>
+<span class="n">keypoints1</span><span class="p">,</span> <span class="n">descriptors1</span> <span class="o">=</span> <span class="n">orb</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">keypoints2</span><span class="p">,</span> <span class="n">descriptors2</span> <span class="o">=</span> <span class="n">orb</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">image2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Creamos el matcher y lo aplicamos</span>
+<span class="n">bf</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">NORM_HAMMING</span><span class="p">,</span> <span class="n">crossCheck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">descriptors1</span><span class="p">,</span> <span class="n">descriptors2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Número de matches encontrados:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="c1"># Dibujamos el resultado</span>
+<span class="n">imageMatches</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">drawMatches</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">keypoints1</span><span class="p">,</span> <span class="n">image2</span><span class="p">,</span> <span class="n">keypoints2</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;ORB Matches&#39;</span><span class="p">,</span> <span class="n">imageMatches</span><span class="p">)</span>
+
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>Usando como entrada estas dos imágenes:</p>
+<p><img alt="Pedestrian 1" src="images/caracteristicas/OSE1cor_1.png" /></p>
+<p><img alt="Pedestrian 2" src="images/caracteristicas/OSE1cor_2.png" /></p>
+<p>El resultado de la ejecución sería el siguiente:</p>
+<p><img alt="ORB matches" src="images/caracteristicas/orb_matches.png" /></p>
+<p>En este caso hemos utilizado el método <code>detectAndCompute</code>, pero también pueden usarse por separado <code>detect</code> y <code>compute</code>.</p>
+<p>Al igual que en el ejemplo anterior, podemos remplazar ORB por SIFT para obtener las correspondencias con ese descriptor, pero el comparador no puede ser <code>NORM_HAMMING</code>  sino por ejemplo <code>NORM_L2</code> (distancia Euclídea). </p>
+<p>En caso de que haya muchos puntos coincidentes (por ejemplo si no limitamos a 100 <em>keypoints</em> por imagen) normalmente queremos quedarnos sólo con los mejores. Para esto podemos ordenar las coincidencias de menor a mayor distancia de la siguiente forma: </p>
+<div class="highlight"><pre><span></span><code><span class="n">matches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+<span class="c1"># Nos quedamos con los 50 puntos que más se parecen</span>
+<span class="n">imageMatches</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">drawMatches</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">keypoints1</span><span class="p">,</span> <span class="n">image2</span><span class="p">,</span> <span class="n">keypoints2</span><span class="p">,</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">50</span><span class="p">],</span> <span class="n">image2</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p>En general, tenemos muchas combinaciones en OpenCV para usar detectores y descriptores, como puede consultarse en el siguiente <a href="https://docs.opencv.org/master/d5/d51/group__features2d__main.html">listado</a>.</p>
+<p>SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. </p>
+<!---Puedes ver otro ejemplo completo usando SIFT en [este enlace](https://www.analyticsvidhya.com/blog/2019/10/detailed-guide-powerful-sift-technique-image-matching-python/). 
+--->
+<p>Sin embargo, <a href="https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html">SURF</a> sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. </p>
+<p>En <a href="https://github.com/methylDragon/opencv-python-reference/blob/master/02%20OpenCV%20Feature%20Detection%20and%20Description.md">este enlace</a> puedes consultar muchos ejemplos de código que usan detectores y descriptores de OpenCV.</p>
+<hr />
+<h2 id="descriptores-neuronales">Descriptores neuronales<a class="headerlink" href="#descriptores-neuronales" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto en teoría, también podemos usar una red neuronal convolucional (CNN) para extraer una representación vectorial de una imagen.</p>
+<p>Vamos a usar una red neuronal estándar de la librería <code>Caffe</code> (una de las librerías que existen dedicadas a las redes neuronales profundas) en OpenCV para extraer descriptores neuronales:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para extraer descriptores neuronales&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;space_shuttle.jpg&#39;</span><span class="p">)</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos las imágenes en escala de grises</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+<span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Cargamos una red de Caffe.</span>
+<span class="n">protoFile</span> <span class="o">=</span> <span class="s1">&#39;bvlc_googlenet.prototxt&#39;</span>
+<span class="n">weightsFile</span> <span class="o">=</span> <span class="s1">&#39;bvlc_googlenet.caffemodel&#39;</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">readNetFromCaffe</span><span class="p">(</span><span class="n">protoFile</span><span class="p">,</span> <span class="n">weightsFile</span><span class="p">)</span>
+
+<span class="c1"># Preparamos la imagen para la entrada de la red, que recibe un blob de un tamaño fijo (en este caso, 224x224)</span>
+<span class="n">inWidth</span> <span class="o">=</span> <span class="mi">224</span>
+<span class="n">inHeight</span> <span class="o">=</span> <span class="mi">224</span>
+<span class="n">inputBlob</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">blobFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span> <span class="p">(</span><span class="n">inWidth</span><span class="p">,</span> <span class="n">inHeight</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">swapRB</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Pasamos la imagen a la red</span>
+<span class="n">net</span><span class="o">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">inputBlob</span><span class="p">)</span>
+
+<span class="c1"># Hacemos una pasada forward hasta la capa de la cual queremos obtener los descriptores neuronales</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="s1">&#39;pool5/7x7_s1&#39;</span><span class="p">)</span>
+
+<span class="c1"># Convertimos la salida en un array unidimensional</span>
+<span class="n">nc</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="c1"># Lo imprimimos en una lista (para ver todos sus elementos)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nc</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div>
+<p>Para poder usar este código necesitaremos descargar los <a href="http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel">pesos de la red neuronal</a> y la <a href="https://raw.githubusercontent.com/opencv/opencv_extra/master/testdata/dnn/bvlc_googlenet.prototxt">definición de su arquitectura</a>.</p>
+<p>Si ejecutamos este código se cargará una red de tipo <a href="https://ai.google/research/pubs/pub43022">GoogleNet</a> ya entrenada con millones de imágenes de <a href="http://www.image-net.org">ImageNet</a>. Dada una nueva imagen de entrada, esta se rescala y se pasa como entrada a la red neuronal. Escogemos como descriptor los valores de la penúltima capa que en este caso se llama <code>pool5/7x7_s1</code>.</p>
+<p>Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otra técnica de aprendizaje automático como kNN o SVM.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
