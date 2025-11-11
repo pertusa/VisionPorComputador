@@ -262,7 +262,7 @@ Como hemos visto en teoría y al principio de este capítulo una forma fácil de
 
 Vamos a hacer un ejercicio en el que extraeremos un descriptor ORB de una imagen y lo compararemos con los de otras imágenes ya etiquetadas para obtener su clase.
 
-Para esto tenemos que [descargar](http://www.dlsi.ua.es/~pertusa/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](https://www.sciencedirect.com/science/article/pii/S0925231218302704) es un proyecto desarrollado en la UA y consiste en un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios y más fotos se añadían mejor funcionaba, aunque actualmente su desarrollo está descontinuado.
+Para esto tenemos que [descargar](images/reconocimiento/mirbot-exercises.zip) un subconjunto de imágenes etiquetadas de la base de datos MirBot. [MirBot](https://www.sciencedirect.com/science/article/pii/S0925231218302704) es un proyecto desarrollado en la UA y consiste en un sistema de reconocimiento interactivo de imágenes para móviles. Cuanto más usuarios y más fotos se añadían mejor funcionaba, aunque actualmente su desarrollo está descontinuado.
 
 Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por los usuarios, en concreto algunas pertenecientes a estas 10 clases: _book, cat, cellphone, chair, dog, glass, laptop, pen, remote, tv_. Descomprime el fichero descargado y echa un vistazo para ver los casos que intentamos reconocer.
 
