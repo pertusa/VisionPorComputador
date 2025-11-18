@@ -325,7 +325,7 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser(description = 'Programa para obtener las líneas usando la transformada de Douglas Peucker')
-parser.add_argument('--imagen', '-i', type=str, default='damas_corrected.jpg')
+parser.add_argument('--imagen', '-i', type=str, default='corrected.jpg')
 args = parser.parse_args()
 
 # Cargamos la imagen

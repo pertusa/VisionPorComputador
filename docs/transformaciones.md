@@ -407,7 +407,7 @@ Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos 
 
 El programa debe aplicar una transformación proyectiva y guardar el resultado en otra imagen de **tamaño 640x640 píxeles** cuyo nombre se ha pasado por parámetro (por defecto, `corrected.jpg`). La imagen resultado debería ser como la siguiente:
 
-![damas](images/transformaciones/damas_corrected.jpg)
+![damas](images/transformaciones/corrected.jpg)
 
 
 <!---
