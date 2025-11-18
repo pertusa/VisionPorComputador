@@ -1,0 +1,1246 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="imagenvideo.html">
+      
+      
+        <link rel="next" href="deteccion.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>T3- Transformaciones - Visión por Computador</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Teal" data-md-color-accent="Teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tema-3-procesamiento-de-imagen-transformaciones" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="." title="Visión por Computador" class="md-header__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Visión por Computador
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              T3- Transformaciones
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Visión por Computador" class="md-nav__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Visión por Computador
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación de OpenCV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1- Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="imagenvideo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T2- Imagen digital y vídeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T3- Transformaciones
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="transformaciones.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T3- Transformaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-puntuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones puntuales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones puntuales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-globales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones globales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-afines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones afines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones afines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escalado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-proyectivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones proyectivas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-en-entorno-de-vecindad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones en entorno de vecindad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones en entorno de vecindad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtros-de-convolucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtros de convolución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtro-de-mediana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtro de mediana
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-morfologicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones morfológicas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones morfológicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erosion-y-dilatacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erosión y dilatación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apertura-cierre-y-top-hat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apertura, cierre y Top-Hat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deteccion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T4- Detección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="segmentacion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T5- Segmentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="caracteristicas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T6- Características
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reconocimiento.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T7- Reconocimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-puntuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones puntuales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones puntuales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-globales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones globales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-afines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones afines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones afines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escalado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-proyectivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones proyectivas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-en-entorno-de-vecindad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones en entorno de vecindad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones en entorno de vecindad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtros-de-convolucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtros de convolución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtro-de-mediana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtro de mediana
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-morfologicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformaciones morfológicas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones morfológicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erosion-y-dilatacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erosión y dilatación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apertura-cierre-y-top-hat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apertura, cierre y Top-Hat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tema-3-procesamiento-de-imagen-transformaciones">Tema 3- Procesamiento de imagen: Transformaciones<a class="headerlink" href="#tema-3-procesamiento-de-imagen-transformaciones" title="Permanent link">&para;</a></h1>
+<p>En este tema comenzaremos a modificar imágenes mediante transformaciones de varios tipos.</p>
+<h2 id="transformaciones-puntuales">Transformaciones puntuales<a class="headerlink" href="#transformaciones-puntuales" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto anteriormente, en OpenCV se pueden realizar operaciones directas con matrices mediante la librería <code>numpy</code>. Por ejemplo, podemos multiplicar por 4  todos los píxeles de una imagen esta forma:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">src</span> <span class="o">*</span> <span class="mi">4</span>
+</code></pre></div>
+<p>Tal como puedes ver, en las operaciones aritméticas se pueden usar indistintamente tanto números como arrays o matrices. </p>
+<p>Además de las operaciones aritméticas básicas (suma, resta, multiplicación y división), también podemos usar <em>AND</em>, <em>OR</em>, <em>XOR</em> y <em>NOT</em> mediante las siguientes funciones de <code>numpy</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">src1</span><span class="p">,</span> <span class="n">src2</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">src2</span><span class="p">,</span> <span class="n">src2</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_xor</span><span class="p">(</span><span class="n">src1</span><span class="p">,</span> <span class="n">src2</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_not</span><span class="p">(</span><span class="n">src1</span><span class="p">)</span> <span class="c1"># Alternativa: dst = np.invert(src1)</span>
+</code></pre></div>
+<p>Por ejemplo, para invertir una imagen (transformar lo blanco a negro y lo negro a blanco) podemos usar la instrucción <code>bitwise_not</code>. Este método es un alias de <code>np.invert</code>.</p>
+<p>Ecualizar histogramas en escala de grises es muy sencillo con la función <code>equalizeHist</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">equ</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</code></pre></div>
+<p>También podemos umbralizar una imagen en escala de grises mediante la función <a href="https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html"><code>threshold</code></a>, obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a <code>threshold</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima</span>
+<span class="n">th</span><span class="p">,</span> <span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span> 
+</code></pre></div>
+<p>El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse <a href="https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html">aquí</a>, aunque el valor más usado es <code>cv.THRESH_BINARY</code> (umbralización binaria).</p>
+<p>Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función <code>inrange</code>. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal con aquellos píxeles que están en un determinado rango coloreados en blanco, y los que quedan fuera del mismo en negro. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Dejamos en blanco los píxeles que están entre (0,10,20) y (40,40,51)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">51</span><span class="p">))</span> 
+</code></pre></div>
+<p>En OpenCV existen técnicas alternativas de binarización como el umbralizado adaptativo o el método de Otsu, que también veremos en el tema de segmentación porque no se pueden considerar transformaciones puntuales al tener en cuenta los valores de intensidad de los píxeles vecinos.</p>
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<p>Haz un programa llamado <code>ecualizar.py</code> que realice una ecualización de histograma, como el que hace la función <code>equalizeHist</code> de OpenCV, pero de forma manual. El algoritmo para ecualizar un histograma puede consultarse en las transparencias de teoría.</p>
+<p>Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con <code>TODO</code>. </p>
+<!--
+# 2023/24
+WM: sin usar calcHist. (añadido ".")
+description='Programa (quitar espacios en los argumentos)
+
+# 2024/25
+WM: default = 'flor.jpg' (antes, "default='flor.jpg'")
+WM: default = 'florEq.jpg' (antes, "default='florEq.jpg'")
+WM: Cargamos la imagen (antes, "Abrimos la imagen")
+WM: se ha podido cargar (antes, "se ha podido leer")
+
+# 2025/26
+WM "Programa para ecualizar histogramas" -> "Programa para ecualizar un histograma" 
+WM: "para ver si" -> "para comprobar si"
+WM: se ha podido leer (antes: "se ha podido cargar")
+-->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span> <span class="c1"># Necesario para el acumulador</span>
+
+<span class="c1"># Gestión de parámetros</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Programa para ecualizar un histograma (sin usar calcHist).&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;flor.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salida&#39;</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;florEq.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1">#img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para comprobar si el resultado es correcto usando los datos de ejemplo de teoría</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se ha podido abrir la imagen&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># 1- Calculamos el histograma. Para esto, en lugar de usar calcHist creamos un vector x con los </span>
+<span class="c1">#    valores únicos de los píxeles, y otro vector h con la cantidad de elementos para cada valor.</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">h</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 2- Calculamos la CDF (la guardamos en c).</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+<span class="c1"># 3- TODO: Ya tenemos x, h y c. Ahora debemos calcular x&#39;, que guardamos en la variable xp.</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># 4- TODO: Establecemos el nuevo valor de cada píxel (es decir, cambiamos en la imagen todos los valores x por los valores xp)</span>
+
+<span class="c1"># 5- TODO: Guardamos la imagen resultante en el fichero indicado en args.salida</span>
+</code></pre></div>
+<p>Usando como entrada la siguiente imagen:</p>
+<p><img alt="Imagen de entrada" src="images/transformaciones/flor.jpg" /></p>
+<p>La salida debería ser:</p>
+<p><img alt="Imagen ecualizada" src="images/transformaciones/florEq.jpg" /></p>
+<hr />
+<h2 id="transformaciones-globales">Transformaciones globales<a class="headerlink" href="#transformaciones-globales" title="Permanent link">&para;</a></h2>
+<p>Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función <code>dft</code> que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar <a href="https://docs.opencv.org/4.12.0/d8/d01/tutorial_discrete_fourier_transform.html">este enlace</a>.</p>
+<h2 id="transformaciones-afines">Transformaciones afines<a class="headerlink" href="#transformaciones-afines" title="Permanent link">&para;</a></h2>
+<p>En OpenCV la mayoría de transformaciones geométricas se implementan creando una matriz de transformación y aplicándola a la imagen original con <code>warpAffine</code>.</p>
+<p>Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa las transformaciones afines mediante matrices aumentadas. Como hemos visto en teoría, la última fila de la matriz aumentada en una transformación afín es siempre (0,0,1) por lo que no hay que indicarla (por este motivo se indica una matriz de 2x3 en lugar de 3x3).</p>
+<p>La función <code>warpAffine</code> tiene también parámetros para indicar el tipo de interpolación (<code>flags</code>) y el comportamiento en los bordes, tal como puede verse en su <a href="https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983">documentación</a>.</p>
+<p>En general, podemos usar <code>warpAffine</code> para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente traslación...</p>
+<p><img alt="Matriz de traslación" src="images/transformaciones/translation.png" /></p>
+<p>...con este código:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;lena.jpg&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># Valores de translación</span>
+<span class="n">tx</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">ty</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="c1"># Definimos la matriz</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tx</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ty</span><span class="p">]])</span> 
+
+<span class="c1"># El parámetro flags puede omitirse, por defecto es INTER_LINEAR          </span>
+<span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;traslacion&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>Alternativamente a usar las matrices de transformación afín con <code>warpAffine</code> existen funciones específicas para ayudar a gestionar las transformaciones de rotación, reflexión y escalado como vamos a ver a continuación:</p>
+<h3 id="rotacion">Rotación<a class="headerlink" href="#rotacion" title="Permanent link">&para;</a></h3>
+<!---
+M=\begin{bmatrix}
+cos\theta & -sin\theta & 0 \\
+sin\theta & \cos\theta & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+--->
+
+<!---
+Idea ejercicio próximo curso. Implementar transformación geométrica proyectiva mediante multiplicación de matrices. Una vez calculada la transformación tendrán que copiar todos los puntos <x,y> a su nueva posición en la imagen destino teniendo en cuenta los bordes. OJO: INTERPOLACION PUEDE SER JODIDA
+---->
+
+<p>La rotación sobre un ángulo se define con la siguiente matriz de transformación:</p>
+<p><img alt="Matriz de rotación" src="images/transformaciones/rotation.png" /></p>
+<p>Sin embargo, OpenCV también permite rotar indicando un centro de rotación ajustable para poder usar cualquier punto de referencia como eje. Para esto se usa la función <code>getRotationMatrix2D</code>, que recibe como primer parámetro el eje de rotación:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="c1"># Obtenemos la matriz de rotación con 90 grados usando como referencia el centro de la imagen </span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">((</span><span class="n">cols</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">rows</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># El último parámetro (1) es la escala</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="n">rows</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="reflexion">Reflexión<a class="headerlink" href="#reflexion" title="Permanent link">&para;</a></h3>
+<p>Existe una función específica (<code>flip</code>) que implementa la reflexión sin necesidad de usar <code>warpAffine</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">flipVertical</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>El tercer parámetro de <code>flip</code> puede ser 0 (reflexión sobre el eje x), positivo (por ejemplo, 1 es reflexión sobre el eje y), o negativo (por ejemplo, -1 es sobre los dos ejes).</p>
+<h3 id="escalado">Escalado<a class="headerlink" href="#escalado" title="Permanent link">&para;</a></h3>
+<p>El escalado también se implementa mediante una <a href="https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d">función específica</a> llamada <code>resize</code>, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1- Especificando un tamaño determinado (en este ejemplo, 20x30):</span>
+<span class="n">dim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">INTER_LINEAR</span><span class="p">)</span> <span class="c1"># El último parámetro de interpolación es opcional</span>
+
+<span class="c1"># 2- Especificando una escala, por ejemplo el 75% de la imagen original:</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">INTER_LINEAR</span><span class="p">)</span> <span class="c1"># El último parámetro de interpolación es opcional</span>
+</code></pre></div>
+<h2 id="transformaciones-proyectivas">Transformaciones proyectivas<a class="headerlink" href="#transformaciones-proyectivas" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto en teoría, la transformación proyectiva no es afín, por lo que no conserva el paralelismo de las líneas de la imagen original.</p>
+<p>Para hacer una transformación proyectiva debemos indicar una matriz de 3x3 y usar la función <code>warpPerspective</code>. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Definimos la matriz</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># Implementamos la transformación proyectiva</span>
+<span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span>
+</code></pre></div>
+<p>La lista completa de parámetros de esta función puede verse en <a href="https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87">este enlace</a>.</p>
+<p>También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos (siendo cada punto un vector de dos dimensiones que representa las coordenadas del mismo en el plano XY): El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar <code>getPerspectiveTransform</code> para calcular los valores de la matriz de transformación.</p>
+<!----
+https://docs.opencv.org/4.5.2/da/d6e/tutorial_py_geometric_transformations.html
+---->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Los dos parámetros que recibe getPerspectiveTransform deben ser arrays de puntos, y cada punto es un array de dos elementos float. </span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getPerspectiveTransform</span><span class="p">(</span><span class="n">input_pts</span><span class="p">,</span> <span class="n">output_pts</span><span class="p">)</span>
+
+<span class="c1"># Aplicamos la transformacion usando interpolación lineal. Los valores widthDst y heightDst indican el tamaño de la imagen destino.</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="p">(</span><span class="n">widthDst</span><span class="p">,</span> <span class="n">heightDst</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">INTER_LINEAR</span><span class="p">)</span>
+</code></pre></div>
+<p>Siendo un ejemplo de vector <code>input_pts</code> el que sigue:
+<div class="highlight"><pre><span></span><code><span class="n">input_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span> <span class="p">[</span><span class="mi">610</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">491</span><span class="p">],</span> <span class="p">[</span><span class="mi">622</span><span class="p">,</span> <span class="mi">500</span><span class="p">]])</span>
+</code></pre></div></p>
+<hr />
+<h2 id="transformaciones-en-entorno-de-vecindad">Transformaciones en entorno de vecindad<a class="headerlink" href="#transformaciones-en-entorno-de-vecindad" title="Permanent link">&para;</a></h2>
+<p>En esta sección veremos cómo implementar transformaciones en entorno de vecindad usando OpenCV, en particular convoluciones y filtros de mediana.</p>
+<h3 id="filtros-de-convolucion">Filtros de convolución<a class="headerlink" href="#filtros-de-convolucion" title="Permanent link">&para;</a></h3>
+<p>Las convoluciones se implementan con la función <code>filter2D</code>.</p>
+<p><img alt="OpenCV kernel" src="images/transformaciones/anchor.png" /></p>
+<p>Esta función recibe los siguientes parámetros:</p>
+<ul>
+<li><code>src</code>: Imagen de entrada</li>
+<li><code>ddepth</code>: Resolución radiométrica (<em>depth</em>) de la matriz <code>dst</code>. Un valor negativo indica que la resolución es la misma que tiene la imagen de entrada.</li>
+<li><code>kernel</code>: El <em>kernel</em> a convolucionar con la imagen.</li>
+<li><code>anchor</code> (opcional): La posición de anclaje del kernel (como puede verse en la figura) relativa a su origen. El punto (-1,-1) indica el centro del kernel (es el valor por defecto).</li>
+<li><code>delta</code> (opcional): Un valor para añadir a cada píxel durante la convolución. Por defecto, 0.</li>
+<li><code>borderType</code> (opcional): El método a seguir en los bordes de la imagen para interpolación, ya que en estos puntos el filtro se sale de la imagen. Puede ser <code>cv.BORDER_REPLICATE</code>, <code>cv.BORDER_REFLECT</code>, <code>cv.BORDER_REFLECT_101</code>, <code>cv.BORDER_WRAP</code>,  <code>cv.BORDER_CONSTANT</code>, o <code>cv.BORDER_DEFAULT</code> (que es el valor por defecto).</li>
+</ul>
+<p>Ejemplos de llamadas a esta función:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Esta forma es la más habitual</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span> 
+<span class="c1"># Indicando qué hacer en los bordes</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">borderType</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">BORDER_CONSTANT</span><span class="p">)</span>
+</code></pre></div>
+<!----
+dst = cv.filter2D(src, -1 , kernel, Point(-1,-1)) # Indicando ancla desplazada
+---->
+
+<p>Evidentemente hay que crear antes un <em>kernel</em> para convolucionarlo con la imagen. Por ejemplo, podría ser el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="n">kernel</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</code></pre></div>
+<blockquote>
+<p>Pregunta: ¿Qué tipo de filtro acabamos de crear?</p>
+</blockquote>
+<!---
+Ejemplo de ejercicio:
+Haz un programa que reciba como parámetro una imagen, la lea en escala de grises y la convolucione con un filtro gaussiano de 5x5 (https://en.wikipedia.org/wiki/Kernel_(image_processing), o con media x y desviación y (por parámetro?). Guardar en otra imagen.
+-->
+
+<h3 id="filtro-de-mediana">Filtro de mediana<a class="headerlink" href="#filtro-de-mediana" title="Permanent link">&para;</a></h3>
+<p>El filtro de mediana se implementa de forma muy sencilla en OpenCV:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">medianBlur</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<p>El último parámetro indica el tamaño del <em>kernel</em>, que siempre será cuadrado (en este ejemplo, 5x5 píxeles).</p>
+<h2 id="transformaciones-morfologicas">Transformaciones morfológicas<a class="headerlink" href="#transformaciones-morfologicas" title="Permanent link">&para;</a></h2>
+<p>OpenCV proporciona una serie de funciones predefinidas para realizar transformaciones morfológicas.</p>
+<h3 id="erosion-y-dilatacion">Erosión y dilatación<a class="headerlink" href="#erosion-y-dilatacion" title="Permanent link">&para;</a></h3>
+<p>La sintaxis de estas operaciones morfológicas básicas es sencilla:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">erode</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</code></pre></div>
+<p>Ambas funciones necesitan un elemento estructurante, llamado <code>element</code> en el código anterior. Al igual que en el caso de <code>filter2D</code> se pueden añadir opcionalmente los parámetros <code>anchor</code>, <code>delta</code> y <code>borderType</code>.</p>
+<p>Para crear el elemento estructurante se usa la función <code>getStructuringElement</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Forma del filtro</span>
+<span class="n">erosion_type</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">MORPH_ELLIPSE</span> 
+
+<span class="c1"># El último parámetro es el tamaño del filtro, en este caso 5x5</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getStructuringElement</span><span class="p">(</span><span class="n">erosion_type</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span> 
+</code></pre></div>
+<p>El elemento estructurante puede tener forma de caja (<code>MORPH_RECT</code>), de cruz (<code>MORPH_CROSS</code>) o de elipse (<code>MORPH_ELLIPSE</code>).</p>
+<h3 id="apertura-cierre-y-top-hat">Apertura, cierre y Top-Hat<a class="headerlink" href="#apertura-cierre-y-top-hat" title="Permanent link">&para;</a></h3>
+<p>El resto de funciones de transformación morfológica se implementan mediante la función <code>morphologyEx</code>. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cv</span><span class="p">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">cv</span><span class="p">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">)</span>
+</code></pre></div>
+<p>Esta función se invoca con los mismos parámetros que <code>erode</code> o <code>dilate</code> añadiendo el parámetro que indica el tipo de operación:</p>
+<ul>
+<li>Apertura: <code>MORPH_OPEN</code></li>
+<li>Cierre: <code>MORPH_CLOSE</code></li>
+<li>Gradiente: <code>MORPH_GRADIENT</code></li>
+<li>White Top Hat: <code>MORPH_TOPHAT</code></li>
+<li>Black Top Hat: <code>MORPH_BLACKHAT</code></li>
+</ul>
+<p>En <a href="https://docs.opencv.org/4.12.0/d3/dbe/tutorial_opening_closing_hats.html">este enlace</a> puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.</p>
+<hr />
+<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
+<p>Implementa un programa llamado <code>detectarFichas.py</code> que cargue la siguiente imagen <code>damas.jpg</code>, corrija la perspectiva del tablero y detecte las fichas blancas y rojas.</p>
+<p><img alt="damas" src="images/transformaciones/damas.jpg" /></p>
+<p>Los parámetros del programa deben ser los siguientes:</p>
+<!--
+# 2023/24
+WM: de las damas. (añadido ".")
+description='Programa (quitar espacios en los argumentos)
+
+# 2024/25
+WM: de las fichas. (antes, "de las damas.")
+WM: default = 'damas.jpg' (antes, "default='damas.jpg'")
+
+# 2025/26
+WM: de las fichas. -> de las damas (sin punto)
+WM: Quitado puntos tras comentarios "Esquina superior xxx."
+-->
+
+<div class="highlight"><pre><span></span><code><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Programa para obtener la posición de las damas&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;damas.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salidaPerspectiva&#39;</span><span class="p">,</span> <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;corrected.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salidaRojas&#39;</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;rojas.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salidaBlancas&#39;</span><span class="p">,</span> <span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;blancas.jpg&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos de las esquinas del tablero en la imagen original:</p>
+<div class="highlight"><pre><span></span><code><span class="mi">278</span><span class="p">,</span> <span class="mi">27</span>  <span class="c1"># Esquina superior izquierda</span>
+<span class="mi">910</span><span class="p">,</span> <span class="mi">44</span>  <span class="c1"># Esquina superior derecha</span>
+<span class="mi">27</span><span class="p">,</span> <span class="mi">546</span>  <span class="c1"># Esquina inferior izquierda</span>
+<span class="mi">921</span><span class="p">,</span> <span class="mi">638</span> <span class="c1"># Esquina inferior derecha</span>
+</code></pre></div>
+<p>El programa debe aplicar una transformación proyectiva y guardar el resultado en otra imagen de <strong>tamaño 640x640 píxeles</strong> cuyo nombre se ha pasado por parámetro (por defecto, <code>corrected.jpg</code>). La imagen resultado debería ser como la siguiente:</p>
+<p><img alt="damas" src="images/transformaciones/corrected.jpg" /></p>
+<!---
+Si ves que se queda corto, que marquen los puntos con el interfaz de OpenCV
+-->
+
+<p>A continuación se detallan los pasos para obtener las fichas rojas y blancas a partir de esta imagen.</p>
+<h4 id="fichas-rojas">Fichas rojas<a class="headerlink" href="#fichas-rojas" title="Permanent link">&para;</a></h4>
+<p>A continuación se muestra el resultado de detectar las fichas rojas:</p>
+<p><img alt="Fichas rojas" src="images/transformaciones/rojas.jpg" /></p>
+<p>Para realizar esta detección el programa debe seguir los siguientes pasos:</p>
+<ul>
+<li>Realizar una umbralización quedándonos sólo con los píxeles que tengan un color dentro de un rango BGR entre (0,0,50) y (40,30,255). Podemos visualizar el resultado con <code>imshow</code>. Deberíamos tener los píxeles de las fichas rojas resaltados, aunque la detección es todavía imperfecta y existen huecos.</li>
+<li>Crear un elemento estructurante circular de tamaño 10x10 píxeles y aplicar un operador de cierre para perfilar mejor los contornos de las fichas y eliminar estos huecos.</li>
+<li>Guardar la imagen resultante en el fichero pasado por parámetro (por defecto, <code>rojas.jpg</code>). Debería dar el mismo resultado que se muestra en la imagen anterior.</li>
+</ul>
+<h4 id="fichas-blancas">Fichas blancas<a class="headerlink" href="#fichas-blancas" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ahora debes intentar resaltar sólo las fichas blancas lo mejor que puedas, guardando el resultado en el fichero <code>blancas.jpg</code>. Para esto puedes usar filtrado de color (en cualquier espacio, como HSV) y realizar transformaciones morfológicas o de cualquier otro tipo. Probablemente no te salga demasiado bien pero es un problema mucho más complicado que la detección de las fichas rojas al confundirse el color de las damas con el de las casillas blancas. </li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1182 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="transformaciones.html">
+      
+      
+        <link rel="next" href="segmentacion.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>T4- Detección - Visión por Computador</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Teal" data-md-color-accent="Teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tema-4-procesamiento-de-imagen-filtrado-y-deteccion-de-bordes-lineas-puntos-aislados-y-esquinas" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="." title="Visión por Computador" class="md-header__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Visión por Computador
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              T4- Detección
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Visión por Computador" class="md-nav__button md-logo" aria-label="Visión por Computador" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Visión por Computador
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación de OpenCV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1- Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="imagenvideo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T2- Imagen digital y vídeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="transformaciones.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T3- Transformaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T4- Detección
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="deteccion.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T4- Detección
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-bordes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de bordes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detección de bordes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo de uso:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduccion-de-ruido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reducción de ruido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-lineas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de líneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-puntos-aislados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de puntos aislados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-esquinas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de esquinas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detección de esquinas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="segmentacion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T5- Segmentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="caracteristicas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T6- Características
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reconocimiento.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T7- Reconocimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-bordes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de bordes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detección de bordes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo de uso:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduccion-de-ruido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reducción de ruido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-lineas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de líneas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-puntos-aislados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de puntos aislados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccion-de-esquinas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detección de esquinas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detección de esquinas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tema-4-procesamiento-de-imagen-filtrado-y-deteccion-de-bordes-lineas-puntos-aislados-y-esquinas">Tema 4 - Procesamiento de imagen: Filtrado y detección de bordes, líneas, puntos aislados y esquinas<a class="headerlink" href="#tema-4-procesamiento-de-imagen-filtrado-y-deteccion-de-bordes-lineas-puntos-aislados-y-esquinas" title="Permanent link">&para;</a></h1>
+<p>En este tema aprenderemos a detectar zonas de interés en imágenes.</p>
+<h2 id="deteccion-de-bordes">Detección de bordes<a class="headerlink" href="#deteccion-de-bordes" title="Permanent link">&para;</a></h2>
+<!---
+Alternativa: Que lo implementen ellos. OJO: También se puede implementar con Sobel!!
+-->
+
+<p>OpenCV tiene una función que implementa directamente el gradiente de <strong>Sobel</strong> en ambas direcciones usando un kernel de tamaño 3x3 (este es el valor por defecto si no se indica <em>ksize</em>): </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Gradiente X</span>
+<span class="n">sobelx</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Gradiente y</span>
+<span class="n">sobely</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<!----ANTIGUO: Ejemplo de [uso](http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel_derivatives/sobel_derivatives.html):
+--->
+
+<h3 id="ejemplo-de-uso">Ejemplo de uso:<a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&para;</a></h3>
+<!--- adaptado desde [este enlace](https://docs.opencv.org/3.4/d2/d2c/tutorial_sobel_derivatives.html): --->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;lena.jpg&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">);</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Calculamos gradiente horizontal y vertical</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">dy</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Calculamos la magnitud</span>
+<span class="n">magn</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">magnitude</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+
+<span class="c1"># Convertimos de float a uint para poder mostrar el resultado</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">magn</span><span class="p">)</span>
+
+<span class="c1"># Mostramos el resultado</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Sobel&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>Para convolucionar una imagen con un filtro hay que usar el método <code>filter2D</code>. Ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">filtered</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+</code></pre></div>
+<p>Donde kernel es la matriz que convolucionaremos con la imagen <code>img</code>. Hemos visto la sintaxis completa de este método en el tema de <a href="https://pertusa.github.io/VisionPorComputador/transformaciones.html#transformaciones-en-entorno-de-vecindad">transformaciones</a>, aunque puedes consultar un ejemplo de uso en este otro <a href="https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html">enlace</a>.</p>
+<p>Se puede usar OpenCV para extraer los gradientes en ambas direcciones de una imagen en escala de grises usando convoluciones mediante las fórmulas vistas en teoría, y esto es lo que haremos en el siguiente ejercicio.</p>
+<h3 id="ejercicio">Ejercicio<a class="headerlink" href="#ejercicio" title="Permanent link">&para;</a></h3>
+<p>Podemos usar distintos kernels para implementar gradientes mediante convolución. Crea un programa llamado <code>prewitt.py</code> a partir del siguiente código, realizando las convoluciones correspondientes de los filtros Prewitt en horizontal y vertical y completando las partes indicadas con <strong>TODO</strong>:</p>
+<!---
+**OPCION: QUE HAGAN EL PROGRAMA COMPLETO!!!? TIENEN INFO DE CONVERSION DE TIPOS EN EL TEMA ANTERIOR***
+--->
+
+<!--
+# 2023/24
+WM: obtener
+description='Programa
+# Comprobamos que la imagen se ha podido leer -> # Comprobamos que la imagen se ha podido cargar
+# Normalizamos. Este paso es necesario para convertir de float a uint sin tener valores fuera de rango -> # Normalizamos para poder convertir de float a uint sin tener valores fuera de rango
+
+# 2024/25
+WM: default = 'lena.jpg' (antes, "default='lena.jpg'")
+WM: default = 'prewitt.jpg' (antes, "default='prewitt.jpg'")
+WM: # Comprobamos que la imagen se ha importado correctamente (antes, "# Comprobamos que la imagen se ha podido cargar")
+WM: # TODO: Obtenemos gradiente horizontal mediante convolución (antes, "# TODO: Calculamos gradiente horizontal mediante convolución")
+WM: # TODO: Obtenemos gradiente vertical mediante convolución (antes, "# TODO: Calculamos gradiente vertical mediante convolución")
+WM: # TODO: Obtenemos la magnitud y la guardamos en magn (antes, "# TODO: Calculamos la magnitud y la guardamos en la variable magn")
+WM: Normalizamos para posteriormente poder (antes, "Normalizamos para poder)
+WM: # TODO: Convertimos de float a uint para visualizar (antes, "# TODO: Convertimos de float a uint para poder visualizar")
+WM: como parámetro de salida (antes, "como parámetro de salida.")
+
+# 2025/26: 
+WM: Obtenemos gradiente -> Obtenemos el gradiente
+WM: "la imagen e ha importado" -> "la imagen se ha cargado"
+WM: fichero pasado -> fichero recibido
+WM: Programa para obtener -> Programa para calcular
+
+
+-->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Programa para calcular el filtro de Prewitt.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;lena.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salida&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;prewitt.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha cargado correctamente</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen &#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># TODO: Obtenemos el gradiente horizontal mediante convolución</span>
+
+<span class="c1"># TODO: Obtenemos el gradiente vertical mediante convolución</span>
+
+<span class="c1"># TODO: Pasamos a float ambos gradientes</span>
+
+<span class="c1"># TODO: Obtenemos la magnitud y la guardamos en magn</span>
+
+<span class="c1"># Normalizamos para posteriormente poder convertir de float a uint sin tener valores fuera de rango</span>
+<span class="n">magn</span> <span class="o">=</span> <span class="n">magn</span><span class="o">-</span><span class="n">magn</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">magn</span> <span class="o">=</span> <span class="n">magn</span><span class="o">/</span><span class="n">magn</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mi">255</span>
+
+<span class="c1"># TODO: Convertimos de float a uint para visualizar el resultado y lo guardamos en dst</span>
+
+<span class="c1"># TODO: Guardamos dst en el fichero recibido como parámetro de salida</span>
+
+<span class="c1"># Mostramos el resultado</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Prewitt&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>El programa debe leer la imagen de entrada en escala de grises, calcular la magnitud del gradiente, mostrarlo y guardarlo en la imagen pasada como parámetro. En el caso de <em>lena.jpg</em> debería obtenerse la siguiente imagen:</p>
+<p><img alt="Lena prewitt" src="images/deteccion/lena_prewitt.jpg" /></p>
+<p>Verás que el resultado de ejecutar ambos programas es distinto y que en este ejemplo particular los bordes se detectan mejor con Sobel que con Prewitt.</p>
+<hr />
+<h3 id="reduccion-de-ruido">Reducción de ruido<a class="headerlink" href="#reduccion-de-ruido" title="Permanent link">&para;</a></h3>
+<p>Como hemos visto en teoría, los filtros <strong>Gausianos</strong> sirven para suavizar la imagen y eliminar ruido. Se suelen usar como paso previo a los sistemas de detección de bordes para evitar que el ruido les afecte.</p>
+<p>En OpenCV podemos implementar un filtro Gaussiano mediante la función <code>GaussianBlur</code>, que requiere que indiquemos el tamaño del filtro y su desviación típica:</p>
+<!---
+https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html
+---->
+
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Realiza un filtrado gaussiano con un kernel de 3x3 píxeles y desviación típica 0</span>
+</code></pre></div>
+<p>Esta función admite <a href="https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1">más parámetros</a>, como la desviación típica en el eje Y (si se omite es la misma que en el eje X) o el tipo de interpolación en los bordes (por defecto, <code>cv.BORDER_DEFAULT</code>).</p>
+<p>También podemos aplicar un filtro <strong>bilateral</strong> del siguiente modo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">bilateralFilter</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span> <span class="c1">#  Aplica un filtro bilateral con un diámetro de 15 pixeles vecinos y una intensidad mínima 80.</span>
+</code></pre></div>
+<p>Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero se usan para las imágenes en color). </p>
+<p>Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (&lt; 10), el filtro no tendrá mucho efecto. Si es grande (&gt; 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (<em>cartoon</em>). Para más información se puede consultar la <a href="https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed">referencia</a> de la función.</p>
+<p>Por último, en OpenCV podemos usar un filtro <strong>Canny</strong> de la siguiente forma:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="c1"># Filtro canny con los umbrales minimo y maximo (hysteresis) proporcionados</span>
+</code></pre></div>
+<p>Para más información sobre Canny en OpenCV puedes consultar <a href="https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed">este enlace</a>. Tal como ocurre con las funciones anteriores, los filtros Canny también pueden tener más parámetros.</p>
+<hr />
+<h3 id="ejercicio_1">Ejercicio<a class="headerlink" href="#ejercicio_1" title="Permanent link">&para;</a></h3>
+<p>Vamos a hacer un ejercicio usando todos los filtros anteriores. En este caso partiremos del siguiente código que debes descargar, completando las instrucciones indicadas con <strong>TODO</strong>. Se trata de un ejercicio para <em>cartoonizar</em> una imagen. Llama al siguiente programa <code>cartoonize.py</code>.</p>
+<!---
+# 2023/24
+WM: un fichero.
+description='Programa
+# Detectamos los bordes con Canny, -> # Usamos Canny para detectar los bordes
+cuadrado de 2x2 -> cuadrado de tamaño 2x2
+imagen de 8 bits -> imagen de 8 bits (uint8)
+
+# 2024/25
+WM: default = 'lena.jpg' (antes, "default='lena.jpg'")
+WM: default = 'cartoonized.jpg' (antes, "default='cartoonized.jpg'")
+WM: cartoonizar una imagen de entrada (antes, "cartoonizar un fichero")
+WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
+WM: con umbral en el rango [50, 150] (antes, "con umbral inferior 50 y superior 150")
+WM: Dilatamos los bordes con el comando dilate (antes, "Dilatamos los bordes. Para esto aplicamos dilate")
+
+# 2025/26
+WM: "cartoonizar una imagen de entrada" -> "cartoonizar una imagen"
+WM: "se ha podido importar" -> "se ha podido cargar"
+WM: "los bordes con umbral" -> "los bordes con un umbral"
+WM: "con el comando dilate" -> "usando la función dilate"
+WM: "diametro" -> "diámetro"
+--->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Programa para cartoonizar una imagen.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;lena.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salida&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;cartoonized.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido cargar</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1">########## BORDES ############</span>
+
+<span class="c1"># Aplicamos un filtro de mediana (cv.medianBlur) de tamaño 7x7 para suavizar la imagen</span>
+<span class="c1"># TODO</span>
+
+<span class="c1"># Usamos Canny para detectar los bordes con un umbral en el rango [50, 150]</span>
+<span class="c1"># TODO</span>
+
+<span class="c1"># Dilatamos los bordes usando la función dilate con un filtro cuadrado de tamaño 2x2</span>
+<span class="c1"># TODO (guardar en imgCanny)</span>
+
+<span class="c1"># Escalamos los valores resultantes en el rango [0...1] y los invertimos. </span>
+<span class="c1"># Esta operación implícitamente convierte el resultado (imgCannyf) a float64</span>
+<span class="n">imgCannyf</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">imgCanny</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span>
+
+<span class="c1"># Sobre el resultado anterior aplicamos un filtro gaussiano de 5x5 pixels con desviacion tipica 0</span>
+<span class="c1"># TODO: Guardar en bordesf</span>
+
+<span class="c1"># Mostramos los bordes</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Bordes&#39;</span><span class="p">,</span> <span class="n">bordesf</span><span class="p">)</span>
+
+<span class="c1">########## COLOR ############</span>
+
+<span class="c1"># Sobre la imagen original (img), aplicamos un filtro bilateral de diámetro 9 con umbrales 150 y 150 </span>
+<span class="c1"># TODO: Guardar en imgBF</span>
+
+<span class="c1"># Truncamos los colores. En este caso usamos un valor de 40, cuanto más alto más &quot;cartoonizado&quot; </span>
+<span class="n">div</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">quantized</span> <span class="o">=</span> <span class="p">(</span><span class="n">imgBF</span> <span class="o">//</span> <span class="n">div</span><span class="p">)</span> <span class="o">*</span> <span class="n">div</span>
+
+<span class="c1"># Mostramos el resultado de color</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">quantized</span><span class="p">)</span>
+
+<span class="c1"># Lo convertimos a float64 para las siguientes operaciones</span>
+<span class="c1"># TODO: Guardar en resultf</span>
+
+<span class="c1">########## UNIÓN DE BORDES Y COLOR ############</span>
+
+<span class="c1"># Usamos merge para crear una imagen de 3 canales con los bordes</span>
+<span class="n">imgCanny3c</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">merge</span><span class="p">((</span><span class="n">bordesf</span><span class="p">,</span> <span class="n">bordesf</span><span class="p">,</span> <span class="n">bordesf</span><span class="p">))</span>
+
+<span class="c1"># Multiplicamos las matrices de color y bordes para obtener la imagen final</span>
+<span class="c1"># TODO</span>
+
+<span class="c1"># Convertimos el resultado anterior en una imagen de 8 bits (uint8)</span>
+<span class="c1"># TODO: Guardar en result </span>
+
+<span class="c1"># Mostramos la imagen final y la guardamos</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Result&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">salida</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>El programa debería obtener <strong>exactamente</strong> esta salida:</p>
+<p><img alt="cartoonized" src="images/deteccion/cartoonized.jpg" /></p>
+<blockquote>
+<p>Pista: Si en algún momento se muestran errores relacionados con los tipos de datos de las imágenes, puedes usar las siguientes <code>shape</code> y <code>dtype</code> para consultar de qué tamaño y tipo son:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">imagen</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="deteccion-de-lineas">Detección de líneas<a class="headerlink" href="#deteccion-de-lineas" title="Permanent link">&para;</a></h2>
+<p>La forma más sencilla para ejecutar la transformada de <strong>Hough</strong> para detectar líneas es la siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="n">lines</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HoughLinesP</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>src</code>: Imagen de un canal en escala de grises (aunque realmente suele ser binaria, ya que Hough se usa tras applicar Canny).</li>
+<li><code>rho</code>: Resolución de la distancia del acumulador (en píxeles).</li>
+<li><code>theta</code>: Resolución del ángulo del acumulador (en píxeles).</li>
+<li><code>threshold</code>: Umbral del acumulador. Sólo se devuelven aquellas líneas que tienen más votos que este umbral.</li>
+</ul>
+<p>El resultado se guarda en <code>lines</code>, que es un vector de líneas. A su vez, cada línea es otro vector de 4 elementos <code>(x1, y1, x2, y2)</code>, donde <code>(x1,y1)</code> y <code>(x2, y2)</code> son los puntos extremos de la línea.</p>
+<p>Además de estos parámetros, hay otros dos opcionales: <code>minLineLength</code>, que indica la mínima longitud de una línea para descartar los segmentos más cortos que esta longitud, y <code>maxLineGap</code>, que es el máximo salto permitido entre puntos de la misma línea para enlazarlos.</p>
+<p>Como hemos visto, la función <code>Hough</code> debe usarse siempre tras un detector de bordes. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">edges</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HoughLinesP</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>Veamos un programa completo que usa <code>Hough</code> y muestra las líneas detectadas sobre la imagen:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Programa para obtener las líneas usando la transformada de Douglas Peucker&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;corrected.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Cargamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido leer</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Detectamos bordes    </span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Bordes&#39;</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
+
+<span class="c1"># Ejecutamos Hough</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HoughLinesP</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Dibujamos las líneas resultantes sobre una copia de la imagen original</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">lines</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cv</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+
+<span class="n">cv</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Lineas&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+<span class="n">cv</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>La salida tras aplicar el filtro Canny:</p>
+<p><img alt="Damas Canny" src="images/deteccion/damas_canny.jpg" /></p>
+<p>Las líneas detectadas usando Hough:</p>
+<p><img alt="Damas Hough" src="images/deteccion/damas_hough.jpg" /></p>
+<p>La transformada de Hough también se puede utilizar para detección de otras formas geométricas, por ejemplo  círculos. A continuación podemos ver un ejemplo de llamada a la función <code>HoughCircles</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">circles</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HoughCircles</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">cv</span><span class="o">.</span><span class="n">HOUGH_GRADIENT</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>
+                            <span class="n">param1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">param2</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">minRadius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxRadius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>Puedes consultar la <a href="https://docs.opencv.org/4.12.0/da/d53/tutorial_py_houghcircles.html">documentación de HoughCircles</a> para obtener más información sobre estos parámetros.</p>
+<!---
+Hacer un programa llamado `hough.cpp` que escriba las líneas detectadas de la imagen  `damas_corrected.jpg` obtenida en el tema anterior?
+-->
+
+<p>La función <code>approxPolyDP</code> aproxima una curva o un polígono mediante otra curva/polígono con menos vértices, de forma que la distancia entre ambas sea menor o igual que la precisión especificada. Se implementa usando el algoritmo de <strong>Douglas-Peucker</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">closed</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">cv</span><span class="o">.</span><span class="n">arcLength</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">closed</span><span class="p">)</span>
+<span class="n">approx</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">approxPolyDP</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">closed</span><span class="p">)</span>
+</code></pre></div>
+<p>El parámetro <code>epsilon</code> es la máxima distancia del contorno al contorno aproximado, y <code>closed</code> indica si el contorno es o no cerrado.</p>
+<p>Esta función suele usarse tras extraer los contornos de una imagen mediante la función <code>findContours</code>, la cual veremos en detalle en el siguiente tema de segmentación.</p>
+<h2 id="deteccion-de-puntos-aislados">Detección de puntos aislados<a class="headerlink" href="#deteccion-de-puntos-aislados" title="Permanent link">&para;</a></h2>
+<p>Como hemos visto en teoría, la Laplaciana es la derivada del gradiente y se puede usar para detectar puntos aislados. Puede implementarse mediante una convolución con un kernel laplaciano, pero OpenCV proporciona directamente la función <a href="https://docs.opencv.org/4.5.2/d5/db5/tutorial_laplace_operator.html">Laplacian</a>, que internamente llama a Sobel para calcular los gradientes. Ejemplo de uso:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ddepth</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_16S</span>
+<span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Laplacian</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">ddepth</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="deteccion-de-esquinas">Detección de esquinas<a class="headerlink" href="#deteccion-de-esquinas" title="Permanent link">&para;</a></h2>
+<p>En OpenCV podemos detectar esquinas usando <strong>Harris</strong> mediante la función <code>cornerHarris</code>. Necesita como entrada una imagen en escala de grises y además los siguientes parámetros: el número de píxeles vecinos a tener en cuenta, el tamaño del filtro (<em>apertureSize</em>) para calcular los gradientes con Sobel, y el umbral de detección <em>k</em>, que es el único parámetro libre del algoritmo Harris:</p>
+<!--
+
+<div class="highlight"><pre><span></span><code><span class="n">cornerHarris</span><span class="p">(</span><span class="n">src_gray</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">apertureSize</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</code></pre></div>
+-->
+
+<div class="highlight"><pre><span></span><code><span class="n">blockSize</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Tamaño del vecindario considerado para la detección de esquinas</span>
+<span class="n">apertureSize</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># Tamaño del kernel para el filtro de Sobel</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mf">0.04</span> <span class="c1"># Umbral de Harris</span>
+
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">cornerHarris</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">apertureSize</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</code></pre></div>
+<!---
+> **TODO Teoría**: Explicación buena de HARRIS: https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
+--->
+
+<!--
+# 2023/24
+WM: description='Programa 
+Parámetros: blockSize=2, apertureSize=3, k=0.04. -> Parámetros: blockSize=2, apertureSize=3 y k=0.04.
+mayor o igual -> superior o igual
+
+# 2024/25
+WM: default = 'corrected.jpg' (antes, "default='corrected.jpg'")
+WM: default = 'damasHarris.jpg' (antes, "default='damasHarris.jpg'")
+WM: # Importamos la imagen (antes, "# Cargamos la imagen")
+WM: # Comprobamos que la imagen se ha podido importar (antes, "# Comprobamos que la imagen se ha podido leer")
+WM: tiene un valor no inferior (antes, "tiene un valor superior o igual")
+
+# 2025/26
+WM: "esquinas con Harris" -> "esquinas usando Harris"
+WM: "se ha podido importar" -> "se ha podido cargar"
+WM: "los píxeles detectados como borde." -> "los píxeles detectados como bordes."
+WM: "como segundo argumento al programa" ->  "al programa como segundo argumento"
+
+--->
+
+<hr />
+<h3 id="ejercicio_2">Ejercicio<a class="headerlink" href="#ejercicio_2" title="Permanent link">&para;</a></h3>
+<p>Copia el siguiente código, llámalo <code>harris.py</code> y completa las instrucciones marcadas con <strong>TODO</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Programa para calcular esquinas usando Harris.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;corrected.jpg&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--salida&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;damasHarris.jpg&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1">#Importamos la imagen</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span>
+
+<span class="c1"># Comprobamos que la imagen se ha podido cargar</span>
+<span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error al cargar la imagen&#39;</span><span class="p">)</span>
+    <span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># Pasamos la imagen a escala de grises, y después a float32</span>
+<span class="c1"># TODO (guardar en img_gray)</span>
+
+<span class="c1"># Detectar las esquinas con Harris. Parámetros: blockSize=2, apertureSize=3, k=0.04.</span>
+<span class="c1"># TODO (guardar en dst)</span>
+
+<span class="c1"># Sobre la imagen original, poner en color azul los píxeles detectados como bordes.</span>
+<span class="c1"># Son aquellos que en los que dst(i,j) tiene un valor no inferior a 10000.</span>
+<span class="c1"># TODO (guardar en src).</span>
+
+<span class="c1"># Mostrar por pantalla la imagen src y además guardarla en el fichero que se pasa al programa como segundo argumento</span>
+<span class="c1"># TODO</span>
+</code></pre></div>
+<p>La imagen resultante debe ser como esta:</p>
+<p><img alt="Harris" src="images/deteccion/damasHarris.jpg" /></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
