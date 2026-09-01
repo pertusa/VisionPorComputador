@@ -447,7 +447,7 @@ La salida sería la siguiente:
 
 ![ejemplo MSER](images/caracteristicas/lenaMSER.png)
 
-Si remplazamos `MSER_create` por `SIFT_create` para usar una detector [SIFT](https://docs.opencv.org/master/da/df5/tutorial_py_sift_intro.html) obtendremos el siguiente resultado:
+Si remplazamos `MSER_create` por `SIFT_create` para usar una detector [SIFT](https://docs.opencv.org/5.0/py_tutorials/py_features/py_sift_intro/py_sift_intro.html) obtendremos el siguiente resultado:
 
 ![ejemplo MSER](images/caracteristicas/lenaSIFT.png)
 

@@ -447,7 +447,7 @@ Como hemos visto al principio, podemos crear una ventana para mostrar una imagen
 * `cv.WINDOW_AUTOSIZE`: El tamaño de la ventana se ajusta al tamaño de la imagen y el usuario no puede redimensionarla. Es la opción por defecto.
 * `cv.WINDOW_OPENGL`: Se crea la ventana con soporte para OpenGL (no es necesario en esta asignatura).
 
-Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](https://docs.opencv.org/4.8.0/d7/dfc/group__highgui.html) podemos ver los métodos y constantes relacionados con la gestión del entorno visual estándar.
+Dentro de la ventana de OpenCV en la que mostramos la imagen podemos añadir _trackbars_, botones, capturar la posición del ratón, etc. En este [enlace](https://docs.opencv.org/5.0/main_modules/highgui.html) podemos ver los métodos y constantes relacionados con la gestión del entorno visual estándar.
 
 Para capturar la posición del ratón podemos usar el método `setMouseCallback`, que recibe tres parámetros:
 

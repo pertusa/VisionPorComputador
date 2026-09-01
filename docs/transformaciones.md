@@ -30,14 +30,14 @@ Ecualizar histogramas en escala de grises es muy sencillo con la función `equal
 equ = cv.equalizeHist(img)
 ```
 
-También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
+También podemos umbralizar una imagen en escala de grises mediante la función [`threshold`](https://docs.opencv.org/5.0/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html), obteniendo como resultado una imagen binaria (también llamada máscara) que puede resaltar información relevante para una tarea determinada. La umbralización consiste en poner a 0 los píxeles que tienen un valor inferior al umbral indicado y es la forma más básica de realizar segmentación (como veremos en detalle en el tema 5). Ejemplo de llamada a `threshold`:
 
 ```python
 # Ponemos a 0 los píxeles cuyos valores estén por debajo de 128, y a 255 los que estén por encima
 th, dst = cv.threshold(src, 128, 255, cv.THRESH_BINARY) 
 ```
 
-El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), aunque el valor más usado es `cv.THRESH_BINARY` (umbralización binaria).
+El último parámetro es el tipo de umbralización. En OpenCV tenemos 5 tipos de umbralización que pueden consultarse [aquí](https://docs.opencv.org/5.0/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html), aunque el valor más usado es `cv.THRESH_BINARY` (umbralización binaria).
 
 Este método sólo funciona con imágenes en escala de grises. Para umbralizar imágenes en color, OpenCV ofrece la función `inrange`. Dada una imagen en 3 canales, esta función devuelve otra imagen de un canal con aquellos píxeles que están en un determinado rango coloreados en blanco, y los que quedan fuera del mismo en negro. Por tanto, puede usarse para realizar una segmentación básica por color, tal como veremos en detalle en el tema 5.
 

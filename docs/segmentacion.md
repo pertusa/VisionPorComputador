@@ -9,7 +9,7 @@ En este tema veremos cómo segmentar imágenes, detectando los píxeles pertenec
 Pedir que implementen el "Algoritmo sencillo"?
 -->
 
-Como puede verse en [este enlace](https://docs.opencv.org/master/d7/d4d/tutorial_py_thresholding.html), OpenCV proporciona varios métodos para realizar umbralización básica mediante la función `threshold`. Esta función también implementa la umbralización de **Otsu** indicando como parámetro `cv.THRES_OTSU`:
+Como puede verse en [este enlace](https://docs.opencv.org/5.0/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html), OpenCV proporciona varios métodos para realizar umbralización básica mediante la función `threshold`. Esta función también implementa la umbralización de **Otsu** indicando como parámetro `cv.THRES_OTSU`:
 
 ```python
 dst, th = cv.threshold(img, 0, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
@@ -21,7 +21,7 @@ El método de **Chow-Kaneko** no está en OpenCV aunque no sería complicado de 
 
 ## Contornos
 
-Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bordes para poder estimar posteriormente los **contornos** de los objetos (y de esta forma segmentarlos). En OpenCV existe una función para realizar esta tarea llamada `findContours` que sólo puede usarse para extraer contornos a partir de los bordes detectados con otro algoritmo (es decir, trabaja con una imagen binaria como entrada). En [este enlace](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html) puedes ver un ejemplo de un programa que usa `findContours` y posteriormente la función `drawContours` para dibujar el resultado usando colores aleatorios.
+Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bordes para poder estimar posteriormente los **contornos** de los objetos (y de esta forma segmentarlos). En OpenCV existe una función para realizar esta tarea llamada `findContours` que sólo puede usarse para extraer contornos a partir de los bordes detectados con otro algoritmo (es decir, trabaja con una imagen binaria como entrada). En [este enlace](https://docs.opencv.org/5.0/py_tutorials/py_imgproc/py_contours/py_contours_begin/py_contours_begin.html) puedes ver un ejemplo de un programa que usa `findContours` y posteriormente la función `drawContours` para dibujar el resultado usando colores aleatorios.
 
 ![Contornos](images/segmentacion/contours_input.jpg) ![Contornos](images/segmentacion/contours_output.jpg)
 

@@ -370,7 +370,7 @@ circles = cv.HoughCircles(img,cv.HOUGH_GRADIENT, 1, 20,
                             param1=50, param2=30, minRadius=0, maxRadius=0)
 ```
 
-Puedes consultar la [documentación de HoughCircles](https://docs.opencv.org/4.12.0/da/d53/tutorial_py_houghcircles.html) para obtener más información sobre estos parámetros.
+Puedes consultar la [documentación de HoughCircles](https://docs.opencv.org/5.0/py_tutorials/py_imgproc/py_houghcircles/py_houghcircles.html) para obtener más información sobre estos parámetros.
 
 <!---
 Hacer un programa llamado `hough.cpp` que escriba las líneas detectadas de la imagen  `damas_corrected.jpg` obtenida en el tema anterior?
