@@ -36,8 +36,8 @@ Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el no
 
 
 ```python
-parser = argparse.ArgumentParser(description = 'Programa para obtener tanto el brillo como el contraste de una imagen.')
-parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
+parser = argparse.ArgumentParser(description='Programa para obtener el brillo y el contraste de una imagen en escala de grises.')
+parser.add_argument('-i', '--imagen', type=str, default='lena.jpg')
 ```
 
 Ejemplo de ejecución:
@@ -102,30 +102,30 @@ import cv2 as cv
 import argparse
 from matplotlib import pyplot as plt
 
-parser = argparse.ArgumentParser(description = 'Programa para obtener el histograma de una imagen.')
+parser = argparse.ArgumentParser(description='Programa para calcular el histograma de una imagen en escala de grises.')
 parser.add_argument('--imagen', '-i', type=str, default='lena.jpg')
 parser.add_argument('--histograma', '-o', type=str, default='histograma.png')
 args = parser.parse_args()
 
-# Leemos la imagen indicada por el usuario
+# Leemos la imagen que indica el usuario
 img = cv.imread(args.imagen,cv.IMREAD_GRAYSCALE) 
 
-# Comprobamos la lectura de la imagen
+# Verificamos que la imagen existe
 if img is None:
     print("Error al leer la imagen ", args.imagen)
     quit()
 
-# Obtenemos el histograma
+# Calculamos el histograma
 hist = cv.calcHist([img],[0],None,[256],[0,256])
 
-# Lo mostramos usando la librería matplotlib
+# Lo representamos con la librería matplotlib
 plt.plot(hist, 'b') # El segundo parámetro es el color de la línea ('b', 'g', o 'r')
 plt.xlim([0,256]) # Para ajustar mejor el eje x y que sólo se vean los valores en el rango [0,255].
 
-# Volcamos el resultado en un archivo
+# Almacenamos el resultado en un archivo
 plt.savefig(args.histograma)
 
- # Mostramos el resultado por pantalla
+ # Visualizamos el resultado por pantalla
 plt.show()
 ```
 
@@ -185,8 +185,8 @@ Argumentos de entrada:
 
 
 ```python
-parser = argparse.ArgumentParser(description='Programa para cambiar entre espacios de color de una imagen.') 
-parser.add_argument('--imagen', '-i', type=str, default = 'Fire_breathing_2_Luc_Viatour.jpg')
+parser = argparse.ArgumentParser(description='Programa para extraer canales de distintos espacios de color de una imagen.') 
+parser.add_argument('-i', '--imagen', type=str, default = 'Fire_breathing_2_Luc_Viatour.jpg')
 ```
 
 Para hacer pruebas puedes usar la siguiente imagen:

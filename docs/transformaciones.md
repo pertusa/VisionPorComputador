@@ -357,11 +357,11 @@ Los parámetros del programa deben ser los siguientes:
 
 
 ```python
-parser = argparse.ArgumentParser(description='Programa para obtener la posición de las damas')
-parser.add_argument('--imagen', '-i', type=str, default = 'damas.jpg')
-parser.add_argument('--salidaPerspectiva', '-p', type=str, default = 'corrected.jpg')
-parser.add_argument('--salidaRojas', '-r', type=str, default = 'rojas.jpg')
-parser.add_argument('--salidaBlancas', '-b', type=str, default = 'blancas.jpg')
+parser = argparse.ArgumentParser(description='Programa para detectar la posición de las damas')
+parser.add_argument('-i', '--imagen', type=str, default = 'damas.jpg')
+parser.add_argument('-p', '--salidaPerspectiva', type=str, default = 'corrected.jpg')
+parser.add_argument('-r', '--salidaRojas', type=str, default = 'rojas.jpg')
+parser.add_argument('-b', '--salidaBlancas', type=str, default = 'blancas.jpg')
 ```
 
 Primero vamos a corregir la perspectiva. Para esto se proporcionan los 4 puntos de las esquinas del tablero en la imagen original:
