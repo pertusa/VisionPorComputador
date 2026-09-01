@@ -37,10 +37,10 @@ conda activate vision
 Una vez dentro del entorno se pueden instalar librerías de python (esto sólo hay que hacerlo una vez, ya que quedan instaladas para dicho entorno) o también paquetes de linux con `apt-get`. Estos se instalarán solo para el entorno:
 
 ```zsh
-pip3 install "opencv-contrib-python>=5.0" numpy matplotlib pandas scikit-image scikit-learn
+pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ```
 
-> **¿Por qué `opencv-contrib-python` y no `opencv-python`?** El paquete `contrib` incluye, además de los módulos principales, los módulos adicionales que necesitaremos en varios temas de la asignatura: `saliency` (tema 5), `shape` para el descriptor Shape Context y `xfeatures2d` para Bag of Words (temas 6 y 7). En OpenCV 5 las clases de BoW se han movido a `contrib`, así que con el paquete básico esos ejemplos no funcionarían.
+> **¿Por qué `opencv-contrib-python` y no `opencv-python`?** El paquete `contrib` incluye, además de los módulos principales, los módulos adicionales que necesitaremos en varios temas de la asignatura: `saliency` (tema 5), `shape` para el descriptor Shape Context y `xfeatures2d` para Bag of Words (temas 6 y 7). 
 
 Se puede salir del entorno con el siguiente comando:
 
@@ -53,7 +53,7 @@ conda deactivate
 Desde el terminal (con python3 previamente instalado) se puede ejecutar directamente:
 
 ```zsh
-pip3 install "opencv-contrib-python>=5.0" numpy matplotlib pandas scikit-image scikit-learn
+pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
 ```
 
 La ventaja es que no tendremos que cambiar de entorno cada vez que abrimos un nuevo terminal, pero el inconveniente de que si tenéis otras asignaturas (o en general otro software) que necesite versiones distintas de alguna de estas librerías puede haber problemas de compatibilidad.
