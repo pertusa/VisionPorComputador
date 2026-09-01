@@ -2,7 +2,7 @@
 
 [OpenCV](http://opencv.org) es la librería más usada para procesamiento de imágenes, y puede instalarse en Windows, Linux, MacOS, iOS y Android. También puede [integrarse con ROS](http://wiki.ros.org/vision_opencv), lo que hace que OpenCV sea muy utilizado en el ámbito de la robótica. Está disponible para C++, Python y Java.
 
-En la asignatura de Visión por Computador usaremos **OpenCV 4.8 en Python3**. Para hacer las prácticas en los laboratorios trabajaremos en **Linux (recomendado)**, aunque también puedes hacer los ejercicios en MacOS o en Windows.
+En la asignatura de Visión por Computador usaremos **OpenCV 5 con Python 3**. Para hacer las prácticas en los laboratorios trabajaremos en **Linux (recomendado)**, aunque también puedes hacer los ejercicios en MacOS o en Windows.
 
 Hay dos opciones para instalar el software necesario para la asignatura, tanto en Linux como en MacOS o Windows: miniconda (recomendado) o instalación directa.
 
@@ -10,19 +10,14 @@ Hay dos opciones para instalar el software necesario para la asignatura, tanto e
 
 Este tipo de instalación hace que las librerías de python necesarias para la asignatura no interfieran con las versiones de otras librerías que ya tengáis instaladas en el sistema.
 
-Para esta opción debéis instalar miniconda usando [este enlace](https://docs.conda.io/en/latest/miniconda.html).
+Para esta opción debéis instalar miniconda usando [este enlace](https://www.anaconda.com/docs/getting-started/miniconda/install/linux-install).
 
-> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo que ponga **python 3.12**. 
+> **Importante**: Descargad la versión correspondiente a vuestro sistema operativo. <!---- que ponga **python 3.12**. -->
 
-Si usáis Linux, desde un terminal hay que dar permisos de ejecución al fichero descargado. Por ejemplo:
+Si usáis Linux, ya podéis ejecutar el fichero descargado. Por ejemplo:
 
 ```zsh
-chmod +x ./Miniconda3-latest-Linux-x86_64.sh
-```
-
-Una vez tenemos los permisos podemos instalar conda:
-```zsh
-./Miniconda3-latest-Linux-x86_64.sh
+bash ~/Miniconda3-latest-Linux-x86_64.sh
 ```
 
 Tras instalar conda debemos reiniciar el terminal. Si todo va bien, debe verse la palabra `(base)` al principio de la línea de comandos.
@@ -42,8 +37,10 @@ conda activate vision
 Una vez dentro del entorno se pueden instalar librerías de python (esto sólo hay que hacerlo una vez, ya que quedan instaladas para dicho entorno) o también paquetes de linux con `apt-get`. Estos se instalarán solo para el entorno:
 
 ```zsh
-pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
+pip3 install "opencv-contrib-python>=5.0" numpy matplotlib pandas scikit-image scikit-learn
 ```
+
+> **¿Por qué `opencv-contrib-python` y no `opencv-python`?** El paquete `contrib` incluye, además de los módulos principales, los módulos adicionales que necesitaremos en varios temas de la asignatura: `saliency` (tema 5), `shape` para el descriptor Shape Context y `xfeatures2d` para Bag of Words (temas 6 y 7). En OpenCV 5 las clases de BoW se han movido a `contrib`, así que con el paquete básico esos ejemplos no funcionarían.
 
 Se puede salir del entorno con el siguiente comando:
 
@@ -56,7 +53,7 @@ conda deactivate
 Desde el terminal (con python3 previamente instalado) se puede ejecutar directamente:
 
 ```zsh
-pip3 install opencv-contrib-python numpy matplotlib pandas scikit-image scikit-learn
+pip3 install "opencv-contrib-python>=5.0" numpy matplotlib pandas scikit-image scikit-learn
 ```
 
 La ventaja es que no tendremos que cambiar de entorno cada vez que abrimos un nuevo terminal, pero el inconveniente de que si tenéis otras asignaturas (o en general otro software) que necesite versiones distintas de alguna de estas librerías puede haber problemas de compatibilidad.
