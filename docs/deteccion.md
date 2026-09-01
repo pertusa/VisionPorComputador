@@ -297,7 +297,7 @@ print(imagen.shape, imagen.dtype)
 La forma más sencilla para ejecutar la transformada de **Hough** para detectar líneas es la siguiente:
 
 ```python
-lines = cv.HoughLinesP(src, lines, rho, theta, threshold)
+lines = cv.HoughLinesP(src, rho, theta, threshold)
 ```
 
 * `src`: Imagen de un canal en escala de grises (aunque realmente suele ser binaria, ya que Hough se usa tras applicar Canny).
@@ -305,7 +305,9 @@ lines = cv.HoughLinesP(src, lines, rho, theta, threshold)
 * `theta`: Resolución del ángulo del acumulador (en píxeles).
 * `threshold`: Umbral del acumulador. Sólo se devuelven aquellas líneas que tienen más votos que este umbral.
 
-El resultado se guarda en `lines`, que es un vector de líneas. A su vez, cada línea es otro vector de 4 elementos `(x1, y1, x2, y2)`, donde `(x1,y1)` y `(x2, y2)` son los puntos extremos de la línea.
+El resultado se guarda en `lines`, que es una matriz de Nx4: una fila por cada línea detectada, y cada línea son 4 elementos `(x1, y1, x2, y2)`, donde `(x1,y1)` y `(x2, y2)` son los puntos extremos de la línea.
+
+> **Nota**: en OpenCV 4 esta función devolvía una matriz de Nx1x4, con una dimensión intermedia sobrante, por lo que era habitual escribir `l = lines[i][0]` para acceder a cada línea. En OpenCV 5 esa dimensión ha desaparecido y se puede recorrer el resultado directamente.
 
 Además de estos parámetros, hay otros dos opcionales: `minLineLength`, que indica la mínima longitud de una línea para descartar los segmentos más cortos que esta longitud, y `maxLineGap`, que es el máximo salto permitido entre puntos de la misma línea para enlazarlos.
 
@@ -346,8 +348,7 @@ lines = cv.HoughLinesP(edges, 1, np.pi/180, 20, None, 10, 0)
 # Dibujamos las líneas resultantes sobre una copia de la imagen original
 dst = img.copy()
 if lines is not None:
-    for i in range(0, len(lines)):
-        l = lines[i][0]
+    for l in lines:
         cv.line(dst, (l[0], l[1]), (l[2], l[3]), (0,0,255), 2, cv.LINE_AA)
 
 cv.imshow('Lineas', dst)

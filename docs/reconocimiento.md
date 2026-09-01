@@ -128,9 +128,11 @@ https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py
 
 Usando el siguiente código podemos entrenar un diccionario BoW a partir los descriptores SIFT extraídos de todas las imágenes de un conjunto de entrenamiento:
 
+> **Importante**: en OpenCV 5 las clases de BoW se han movido al módulo `xfeatures2d`, que forma parte de los módulos _contrib_. Por eso se escriben como `cv.xfeatures2d.BOWKMeansTrainer` (en OpenCV 4 era simplemente `cv.BOWKMeansTrainer`) y es necesario tener instalado `opencv-contrib-python`, tal y como se indica en la [página de instalación](install.md).
+
 ```python
 # Creamos una instancia BOW, en este caso el vocabulario tendrá 100 palabras
-BOW = cv.BOWKMeansTrainer(100)
+BOW = cv.xfeatures2d.BOWKMeansTrainer(100)
 sift = cv.SIFT_create()
 
 # Recorremos todas las imágenes extrayendo descriptores SIFT y añadiéndolos para poder entrenar nuestro BOW.
@@ -149,7 +151,7 @@ Una vez ejecutado el código, habremos entrenado un diccionario de `k=100` palab
 
 ```python
 # Inicializamos el extractor, que estará basado en SIFT y que asignará clusters por fuerza bruta
-BOWExtractor = cv.BOWImgDescriptorExtractor(sift, cv.BFMatcher(cv.NORM_L2))
+BOWExtractor = cv.xfeatures2d.BOWImgDescriptorExtractor(sift, cv.BFMatcher(cv.NORM_L2))
 
 # Asignamos al extractor declarado el vocabulario que habíamos entrenado
 BOWExtractor.setVocabulary(vocabulary)

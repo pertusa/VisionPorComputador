@@ -244,6 +244,8 @@ donde `A` y `B` son las dos imágenes a comparar, y `m` se define como:
 
 En este caso, `sign` es el signo (-1 si es negativo, 1 si es positivo, 0 si es 0), y `h` son los momentos Hu número `i`. Sólo debe sumarse un momento `i` si sus componentes son mayores que un umbral `1.e-5`. Es decir, si el valor absoluto del descriptor Hu número `i` es mayor de `1.e-5` en ambas imágenes (con que en una sea menor, no se considera). En python este logaritmo se calcula con la función `math.log10`.
 
+> **Cuidado**: `HuMoments` devuelve una matriz de 7x1, por lo que `hu[i]` no es un número sino un array de un elemento. Para poder pasarlo a `math.log10` hay que convertirlo antes con `.item()`, por ejemplo `a = hu[i].item()`. Si no se hace, las versiones recientes de NumPy dan el error `TypeError: only 0-dimensional arrays can be converted to Python scalars`.
+
 Este es el mismo cálculo que hace internamente el método `matchShapes` de OpenCV (algoritmo `cv.CONTOURS_MATCH_I1`) para comparar contornos, pero en este ejercicio tendrás que implementarlo a mano.
 
 La salida del programa debe ser como la siguiente:
@@ -425,6 +427,11 @@ gray = cv.cvtColor(gray, cv.COLOR_BGR2GRAY)
 # Creamos el detector
 detector = cv.MSER_create()
 
+# En OpenCV 5 el detector MSER se ha reimplementado y con el valor por defecto de
+# maxVariation (0.25) encuentra muchas menos regiones que en versiones anteriores.
+# Subiéndolo a 0.5 obtenemos una cantidad de regiones similar a la de OpenCV 4.
+detector.setMaxVariation(0.5)
+
 # Aplicamos el detector para obtener los keypoints
 keypoints = detector.detect(gray, None)
 
@@ -526,7 +533,9 @@ En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/ma
 
 Como hemos visto en teoría, también podemos usar una red neuronal convolucional (CNN) para extraer una representación vectorial de una imagen.
 
-Vamos a usar una red neuronal estándar de la librería `Caffe` (una de las librerías que existen dedicadas a las redes neuronales profundas) en OpenCV para extraer descriptores neuronales:
+Vamos a usar en OpenCV una red neuronal ya entrenada, en formato [ONNX](https://onnx.ai) (el formato estándar para intercambiar modelos entre librerías de aprendizaje profundo), para extraer descriptores neuronales:
+
+> **Nota**: hasta OpenCV 4 era habitual cargar modelos de la librería `Caffe` con la función `readNetFromCaffe`. **OpenCV 5 ha eliminado los importadores de Caffe, Darknet y Torch**, y ahora sólo admite ONNX, TensorFlow, TFLite y OpenVINO. Por eso este ejemplo usa un modelo ONNX.
 
 ```python
 import cv2 as cv
@@ -546,21 +555,20 @@ if image is None:
     print('Error al cargar la imagen')
     quit()
 
-# Cargamos una red de Caffe.
-protoFile = 'bvlc_googlenet.prototxt'
-weightsFile = 'bvlc_googlenet.caffemodel'
-net = cv.dnn.readNetFromCaffe(protoFile, weightsFile)
+# Cargamos una red en formato ONNX
+net = cv.dnn.readNetFromONNX('mobilenetv2_features.onnx')
 
 # Preparamos la imagen para la entrada de la red, que recibe un blob de un tamaño fijo (en este caso, 224x224)
 inWidth = 224
 inHeight = 224
-inputBlob = cv.dnn.blobFromImage(image, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=False, crop=False)
+inputBlob = cv.dnn.blobFromImage(image, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=True, crop=False)
 
 # Pasamos la imagen a la red
 net.setInput(inputBlob)
 
-# Hacemos una pasada forward hasta la capa de la cual queremos obtener los descriptores neuronales
-out = net.forward('pool5/7x7_s1')
+# Hacemos la pasada forward. El modelo está recortado en la capa que nos interesa,
+# por lo que forward() ya devuelve directamente los descriptores neuronales.
+out = net.forward()
 
 # Convertimos la salida en un array unidimensional
 nc = out.flatten()
@@ -569,8 +577,10 @@ nc = out.flatten()
 print(nc.tolist())
 ```
 
-Para poder usar este código necesitaremos descargar los [pesos de la red neuronal](http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel) y la [definición de su arquitectura](https://raw.githubusercontent.com/opencv/opencv_extra/master/testdata/dnn/bvlc_googlenet.prototxt).
+Para poder usar este código necesitaremos descargar [el modelo de la red neuronal](images/caracteristicas/mobilenetv2_features.onnx) y dejarlo en el mismo directorio que el programa. A diferencia de Caffe, en ONNX la arquitectura y los pesos van en un único fichero.
 
-Si ejecutamos este código se cargará una red de tipo [GoogleNet](https://ai.google/research/pubs/pub43022) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se pasa como entrada a la red neuronal. Escogemos como descriptor los valores de la penúltima capa que en este caso se llama `pool5/7x7_s1`.
+Si ejecutamos este código se cargará una red de tipo [MobileNetV2](https://arxiv.org/abs/1801.04381) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se pasa como entrada a la red neuronal. Escogemos como descriptor los valores de la penúltima capa (la de _pooling_ global), obteniendo así un vector de **1280 elementos**.
+
+> **Importante**: en OpenCV 4 se podía pedir la salida de una capa intermedia indicando su nombre, por ejemplo `net.forward('pool5/7x7_s1')`. **En OpenCV 5 esto no funciona con modelos ONNX**: `forward('nombre_de_capa')` devuelve la salida final de la red en lugar de la activación de esa capa, y además no da ningún error, por lo que es fácil no darse cuenta. Por eso el modelo que usamos aquí ya viene recortado en la capa que nos interesa, de forma que basta con llamar a `forward()` sin argumentos.
 
 Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otra técnica de aprendizaje automático como kNN o SVM.
