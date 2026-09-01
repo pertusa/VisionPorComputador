@@ -34,15 +34,6 @@ Tal como puedes ver en las transparencias de teoría, el brillo y contraste de u
 
 Implementa un programa en OpenCV llamado `bc.py` que reciba por parámetro el nombre de una imagen (que debemos cargar en escala de grises) y muestre por el terminal su brillo y contraste. Los parámetros de entrada deben indicarse de la siguiente forma:
 
-<!--
-WM: imagen dada. (palabra "dada") ### 2023-24
-WM: para obtener. (palabra "obtener"; antes era "calcular") ### 2024-25
-WM: tanto el brillo como el contrates. (antes era "el brillo y el contraste") ### 2024-25
-
-# 25/26
-WM: Eliminado "dada." al final de description
--->
-
 
 ```python
 parser = argparse.ArgumentParser(description = 'Programa para obtener tanto el brillo como el contraste de una imagen.')
@@ -105,27 +96,6 @@ Veamos un ejemplo de código que calcula el histograma de una imagen en escala d
 https://docs.opencv.org/master/d1/db7/tutorial_py_histogram_begins.html
 ---->
 
-<!--
-# 2023/24 # 
-WM: imagen dada. (añadido "dada")
-args.imagen,cv.IMREAD_GRAYSCALE (quitar espacio entre argumentos)
-leer la imagen~" (cambiar "cargar" por "leer")
-entre 0 y 255 -> en el rango [0,255].
-Guardamos el resultado en un archivo -> Guardadmos el resultado
-Mostramos el histograma en pantalla -> Mostramos el resultado por pantalla
-
-# 2024/25 # 
-WM: para obtener (antes, "para calcular")
-WM: Leemos la imagen (antes, "Cargamos la imagen")
-WM: Comprobamos la carga de la imagen (antes, "Comprobamos que la imagen se ha podido leer")
-WM: Obtenemos el histograma (antes, "Calculamos el histograma")
-WM: Lo mostramos usando la librería matplotlib (antes, "Lo mostramos, para esto usamos la librería matplotlib")
-WM: Volcamos el resultado (antes, "Guardamos el resultado")
-
-# 2025/26
-WM: Eliminado "dada." al final de parser.
-WM: "Comprobamos la carga de la imagen" -> "Comprobamos la lectura de la imagen"
--->
 
 ```python
 import cv2 as cv
@@ -213,19 +183,6 @@ Haz un programa llamado `colorLight.py` que reciba por parámetro el nombre de u
 
 Argumentos de entrada:
 
-<!--
-# 2023/24
-WM: entre espacios de color. (añadido "entre")
-Espacio al final de la línea
-
-# 2024/25
-WM: de una imagen dada. (antes no estaba esta cadena de texto)
-WM: description='Programa (antes, "description = 'Programa")
-WM: default = 'Fire (antes, "default='Fire")
-
-# 25/26
-WM: eliminado "dada."
--->
 
 ```python
 parser = argparse.ArgumentParser(description='Programa para cambiar entre espacios de color de una imagen.') 

@@ -270,40 +270,6 @@ Para este caso sólo vamos a usar un subconjunto de las imágenes enviadas por l
 
 Ahora se trata de completar los puntos marcados con `TODO` en el siguiente código para realizar la clasificación. Guárdalo con el nombre `orbBF.py` e intenta entender bien todas las instrucciones antes de empezar a modificarlo.
 
-<!--
-# 2023/24
-PreviousWM: etiquetas. (quitado punto)
-leídas (ahora leidas)
-WM: Cargamos (antes Leemos)
-WM: descriptores ORB. (añadido punto al final)
-WM: descriptors,labels (sin espacio entre ellos)
-PreviousWM: flag
-PreviousWM (ya calculados en la fase anterior)
-WM: ya calculados en la fase anterior
-
-WM: "Matching..." -> "Matching"
-WM: "calcula el accuracy" -> "calcula la tasa de acierto"
-WM: "en la variable "desc"" -> "en "desc""
-WM: "Separamos el nombre de la imagen de su etiqueta" -> "Separamos nombre de imagen y etiqueta"
-WM: "Hacemos la comparación entre los descriptores de train y de test" -> "Comparamos los descriptores de train y test"
-
-# 2024/25
-WM: descriptors = list() (antes, "descriptors = []")
-WM: labels = list() (antes, "labels = []")
-WM: ok += 1 (antes, "ok = ok + 1")
-WM: Función para leer (antes, "Función que lee")
-WM: Añadimos los descriptores y la etiqueta (antes, "Añadimos a data los descriptores y la etiqueta")
-WM: Separamos nombre de imagen y etiqueta/label (antes, "Separamos nombre de imagen y etiqueta")
-WM: y obtenemos su etiqueta/label (antes, "y obtenemos su label)
-
-# 2025/26
-WM: de fichero de imágenes -> de fichero de las imágenes
-WM: etiqueta/label -> etiqueta
-WM:  guardamos los descriptores en "desc" -> guardamos los descriptores en la variable desc
-WM: open('trainData.dat', 'wb')  -> open('trainData.dat','wb')  (quitado espacio tras coma)
-WM: la que tiene mas keypoints -> la que tiene más keypoints
---->
-
 
 ```python
 import cv2 as cv
@@ -311,7 +277,7 @@ import argparse
 import numpy as np
 import pickle
 
-# Función para leer un fichero de texto con nombres de fichero de las imágenes y sus etiquetas
+# Función para leer un archivo de texto con los nombres de las imágenes y sus etiquetas
 # Devuelve los descriptores calculados y las etiquetas leidas
 def readData(filename):
 
@@ -325,18 +291,18 @@ def readData(filename):
         # TODO: Creamos el detector ORB con 100 puntos como máximo
         
         for line in f.readlines():
-            # Separamos nombre de imagen y etiqueta
+            # Separamos el nombre de la imagen y su etiqueta
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Cargamos la imagen y obtenemos su etiqueta
+            # Leemos la imagen y obtenemos su etiqueta
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
             # TODO: Extraemos los keypoints de la imagen y guardamos los descriptores en la variable desc
             desc = None
             
-            # Añadimos los descriptores y la etiqueta
+            # Almacenamos los descriptores y la etiqueta
             descriptors.append(desc)
             labels.append(label)
     
@@ -344,10 +310,10 @@ def readData(filename):
 
 
 # Función que recibe descriptores y etiquetas de train y test.
-# Hace un matching asignando a cada muestra de test la etiqueta de la muestra de train más cercana y calcula la tasa de acierto
+# Hace un matching asignando a cada muestra de test la etiqueta de la muestra de train más cercana y calcula el porcentaje de acierto
 def testORB(descTrain, labelsTrain, descTest, labelsTest):
 
-    print('Matching')
+    print('Emparejando descriptores')
     
     matcher = cv.BFMatcher(cv.NORM_HAMMING)
     
@@ -362,8 +328,8 @@ def testORB(descTrain, labelsTrain, descTest, labelsTest):
             if dtrain is not None and dtest is not None:
                   
                 # TODO:  Solo consideramos que dos puntos son similares si su distancia es menor o igual a 90.
-                # La imagen mas similar sera la que tiene más keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel" (ahora pone 'cat' pero deberías modificarlo)
-                bestLabel = 'cat'
+                # La imagen mas similar sera la que tiene más keypoints coincidentes. Hay que extraer su etiqueta y guardarla en "bestLabel" (ahora pone 'dog' pero deberías modificarlo)
+                bestLabel = 'dog'
   
         if bestLabel == ltest:
             ok += 1
@@ -379,7 +345,7 @@ def main(args):
         # Calculamos los descriptores de test
         descTest, labelsTest = readData('test.txt')
         
-        # Cargamos los descriptores de train ya calculados en la fase anterior
+        # Leemos los descriptores de train ya calculados en la fase anterior
         with open('trainData.dat','rb') as storedDescriptors:
             data = pickle.load(storedDescriptors)
   
@@ -400,7 +366,7 @@ def main(args):
     return 0
     
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para reconocer objetos usando descriptores ORB.')
+    parser = argparse.ArgumentParser(description='Programa para reconocer objetos mediante descriptores ORB.')
     parser.add_argument('--test', action = 'store_true')     # Si se indica test será true, si no se indica entonces se asume train
     args = parser.parse_args()
     main(args)
@@ -436,33 +402,6 @@ En la asignatura no hemos visto cómo funcionan internamente los algoritmos de a
 Partimos de este otro código, que como verás tiene partes comunes con el anterior. Guárdalo con el nombre `HOGSVM.py` y complétalo con los comentarios marcados con `TODO`:
 
 
-<!--
-
-Previous WM: flag
-# 2023/2024
-WM: "Programa para reconocer objetos" -> "Reconocimiento de objetos"
-WM: "Entrenando SVM" -> "Entrenando SVM..."
-WM: "Extrayendo descriptores HOG" -> "Extrayendo descriptores HOG..."
-labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv'] (antes como tupla)
-import pickle -> Desaparece
-
-# 2024/2025
-WM: Separamos nombre y etiqueta (antes, "Separamos el nombre de la imagen de su etiqueta")
-WM: descriptors = list() (antes, "descriptors = []")
-WM: labels = list() (antes, "labels = []")
-WM: labelsIndex = list() (antes, "labelsIndex = []")
-WM: ok += 1 (antes, "ok = ok + 1")
-WM: i += 1 (antes, "i = i + 1")
-WM: Entrenamos el model SVM (antes, "Entrenamos el SVM")
-WM: Guardamos el modelo entrenado (antes, "Guardamos el modelo")
-
-# 2025/26
-WM: las debemos escalar  -> las debemos reescalar
-WM: for l in labels: -> for label in labels:
-WM: testHOGSVM(descriptors, labels) -> testHOGSVM(descriptors,labels)
-WM: Updated link https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html
--->
-
 ```python
 import cv2 as cv
 import argparse
@@ -470,7 +409,7 @@ import numpy as np
 
 labelNames = ['book', 'cat', 'chair', 'dog', 'glass', 'laptop', 'pen', 'remote', 'cellphone', 'tv']
 
-# Función que lee un fichero de texto y calcula sus descriptores HOG
+# Función que lee un archivo de texto y calcula sus descriptores HOG
 # Devuelve los descriptores y las etiquetas leídas
 def extractHOGFeatures(filename):
 
@@ -484,18 +423,18 @@ def extractHOGFeatures(filename):
     with open(filename, 'r') as f:
         for line in f.readlines():
     
-            # Separamos nombre y etiqueta
+            # Separamos el nombre y la etiqueta
             fields = line.split()
             print(fields[0], fields[1])
 
-            # Leemos la imagen y obtenemos su etiqueta
+            # Cargamos la imagen y obtenemos su etiqueta
             image = cv.imread(fields[0], cv.IMREAD_GRAYSCALE)
             label = fields[1]
 
             # Extraemos el descriptor HOG
-            # TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, las debemos reescalar a 128x128
-            # TODO: Ahora debemos calcular el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding (0,0).
-            # TODO: Añadimos el descriptor obtenido de la imagen al vector descriptors, y la etiqueta al vector labels
+            # TODO: Para que todas las imagenes tengan el mismo tamaño de descriptor, debemos reescalarlas a 128x128
+            # TODO: Calculamos el descriptor HOG con un stride de 128x128 (asumimos que el objeto ocupa toda la imagen) y un padding de (0,0).
+            # TODO: Añadimos el descriptor obtenido de la imagen a la lista descriptors y la etiqueta a la lista labels
 
     return descriptors, labels
 
@@ -509,18 +448,18 @@ def trainSVM(descriptors, labels):
 
     # TODO: Debemos indicar que el clasificador es de tipo C_SVC
     # TODO: Su kernel debe ser LINEAR
-    # TODO: El criterio de finalización debe ser MAX_ITER con 100 iteraciones máximas y EPS=1e-5.
+    # TODO: El criterio de finalización debe ser MAX_ITER con un máximo de 100 iteraciones y EPS=1e-5.
     # Ayuda para los puntos anteriores: https://docs.opencv.org/4.12.0/d1/d73/tutorial_introduction_to_svm.html
 
-    # Convertimos las etiquetas a valores numéricos (necesario para entrenar SVM con la librería de OpenCV)
+    # Convertimos las etiquetas a valores numéricos (necesario para entrenar el SVM de OpenCV)
     labelsIndex = list()
     for label in labels:
         labelsIndex.append(labelNames.index(label))
         
-    # Entrenamos el modelo SVM
+    # Entrenamos el clasificador SVM
     svm.train(np.array(descriptors, dtype='float32'), cv.ml.ROW_SAMPLE, np.array(labelsIndex, dtype='int'))
 
-    # Guardamos el modelo entrenado
+    # Almacenamos el modelo entrenado
     svm.save('modelSVM.xml')
 
 
@@ -534,7 +473,7 @@ def testHOGSVM(descriptors, labels):
     npDescriptors = np.array(descriptors, dtype='float32')
     results = svm.predict(npDescriptors)
     
-    # Calculamos el resultado
+    # Obtenemos el porcentaje de acierto
     ok = 0.0
     i = 0
     for pred in results[1]:

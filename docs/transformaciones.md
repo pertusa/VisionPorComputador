@@ -54,23 +54,6 @@ Haz un programa llamado `ecualizar.py` que realice una ecualización de histogra
 
 Para resolver este ejercicio puedes partir del siguiente esqueleto de código, completando las partes que se indican con `TODO`. 
 
-<!--
-# 2023/24
-WM: sin usar calcHist. (añadido ".")
-description='Programa (quitar espacios en los argumentos)
-
-# 2024/25
-WM: default = 'flor.jpg' (antes, "default='flor.jpg'")
-WM: default = 'florEq.jpg' (antes, "default='florEq.jpg'")
-WM: Cargamos la imagen (antes, "Abrimos la imagen")
-WM: se ha podido cargar (antes, "se ha podido leer")
-
-# 2025/26
-WM "Programa para ecualizar histogramas" -> "Programa para ecualizar un histograma" 
-WM: "para ver si" -> "para comprobar si"
-WM: se ha podido leer (antes: "se ha podido cargar")
--->
-
 
 ```python
 import cv2 as cv
@@ -79,34 +62,34 @@ import argparse
 from collections import Counter # Necesario para el acumulador
 
 # Gestión de parámetros
-parser = argparse.ArgumentParser(description='Programa para ecualizar un histograma (sin usar calcHist).')
+parser = argparse.ArgumentParser(description='Programa para ecualizar el histograma de una imagen (sin usar calcHist).')
 parser.add_argument('--imagen', '-i', type=str, default = 'flor.jpg')
 parser.add_argument('--salida', '-r', type=str, default = 'florEq.jpg')
 args = parser.parse_args()
 
-# Cargamos la imagen
+# Leemos la imagen de entrada
 img = cv.imread(args.imagen, cv.IMREAD_GRAYSCALE)
 
 #img = np.array([52, 55, 61, 62, 59, 55, 63, 62, 55]) # Puedes descomentar esto para comprobar si el resultado es correcto usando los datos de ejemplo de teoría
 
-# Comprobamos que la imagen se ha podido leer
+# Verificamos que la imagen existe
 if img is None:
     print("No se ha podido abrir la imagen", args.imagen)
     quit()
   
-# 1- Calculamos el histograma. Para esto, en lugar de usar calcHist creamos un vector x con los 
+# 1- Obtenemos el histograma. Para ello, en lugar de usar calcHist creamos un vector x con los 
 #    valores únicos de los píxeles, y otro vector h con la cantidad de elementos para cada valor.
 x, h  = np.unique(img, return_counts=True)
 
-# 2- Calculamos la CDF (la guardamos en c).
+# 2- Obtenemos la CDF y la almacenamos en c.
 c = np.cumsum(h)
 
-# 3- TODO: Ya tenemos x, h y c. Ahora debemos calcular x', que guardamos en la variable xp.
+# 3- TODO: Ya disponemos de x, h y c. Ahora debemos calcular x', que almacenamos en la variable xp.
 xp = None
 
 # 4- TODO: Establecemos el nuevo valor de cada píxel (es decir, cambiamos en la imagen todos los valores x por los valores xp)
 
-# 5- TODO: Guardamos la imagen resultante en el fichero indicado en args.salida
+# 5- TODO: Almacenamos la imagen final en el archivo indicado en args.salida
 
 ```
 
@@ -307,7 +290,6 @@ Haz un programa que reciba como parámetro una imagen, la lea en escala de grise
 -->
 
 
-
 ### Filtro de mediana
 
 El filtro de mediana se implementa de forma muy sencilla en OpenCV:
@@ -372,20 +354,6 @@ Implementa un programa llamado `detectarFichas.py` que cargue la siguiente image
 ![damas](images/transformaciones/damas.jpg)
 
 Los parámetros del programa deben ser los siguientes:
-
-<!--
-# 2023/24
-WM: de las damas. (añadido ".")
-description='Programa (quitar espacios en los argumentos)
-
-# 2024/25
-WM: de las fichas. (antes, "de las damas.")
-WM: default = 'damas.jpg' (antes, "default='damas.jpg'")
-
-# 2025/26
-WM: de las fichas. -> de las damas (sin punto)
-WM: Quitado puntos tras comentarios "Esquina superior xxx."
--->
 
 
 ```python

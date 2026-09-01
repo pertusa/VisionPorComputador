@@ -65,35 +65,6 @@ Se pide completar el siguiente código implementando los comentarios marcados co
 
 En el `main` se recibe el número de una imagen (hay 20 en la carpeta) para usarla como `query`. Si no indicamos ningún parámetro, por defecto la `query` será la imagen número 3. Después se extraen los descriptores de esta imagen y a continuación se comparan con todos los descriptores obtenidos para el resto de imágenes, obteniendo una distancia (un valor de similitud) por cada descriptor implementado.
 
-<!--
-# 2023/24
-WM: 
-extractDescriptors -> extraerDescriptores
-calcularDistancias -> computarDistancias
-imgDescriptors -> imDescriptors
-queryDescriptors -> qDescriptors
-indexQuery -> idxQuery
-
-# 2024/25
-WM: import os
-WM: diccionario en el que guardaremos (antes, "diccionario donde guardaremos")
-WM: imDescriptors = dict() (antes, "imDescriptors={}")
-WM: allcontours, hierarchy (antes, "contours, hierarchy")
-WM: max(allcontours, (antes, "max(contours,")
-WM: rectangularidad. Para ello usamos (antes, "rectangularidad (usando")
-WM: Leemos imagen consulta (antes, "Leemos imagen query")
-WM: comparamos con los de la query (antes, "comparamos con los de la consulta")
-WM: idxImg (antes, "imageIndex")
-Imagen por defecto -> #3 (antes era la #5)
-
-
-# 2025/2026
-WM: en el que guardaremos -> en el que guardar
-WM: "comparar características" -> comparar características de contorno
-WM: print('-----------') -> print('---------')
-WM: query = cv.imread(queryName,cv.IMREAD_GRAYSCALE) ->     query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
--->
-
 
 ```python
 import os
@@ -103,16 +74,16 @@ import numpy as np
 import math
 
 def extraerDescriptores(image):
-    # Creamos un diccionario en el que guardar los valores calculados
+    # Creamos un diccionario donde almacenar los valores calculados
     imDescriptors = dict()
 
-    # Calculamos todos los contornos de la imagen  
-    allcontours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+    # Obtenemos todos los contornos de la imagen  
+    allContours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
-    # Extraemos el mayor contorno de la imagen, del que obtendremos todos los descriptores:
-    contour = max(allcontours, key=cv.contourArea)
+    # Extraemos el contorno de mayor área, del que obtendremos todos los descriptores:
+    contour = max(allContours, key=cv.contourArea)
 
-    # TODO: Guardamos el mayor contorno para el descriptor SC.
+    # TODO: Almacenamos el mayor contorno para el descriptor SC.
     imDescriptors['contour'] = None
 
     # TODO: Calculamos el perimetro
@@ -124,7 +95,7 @@ def extraerDescriptores(image):
     # TODO: Calculamos la elongacion
     imDescriptors['elongacion'] = None
 
-    # TODO: Calculamos la rectangularidad. Para ello usamos el rectángulo rotado MRE que envuelve el contorno con un área mínima
+    # TODO: Calculamos la rectangularidad usando el rectángulo rotado MRE de área mínima que envuelve al contorno
     imDescriptors['rectangularidad'] = None
 
     # TODO: calculamos el área del cierre convexo (pista: funcion convexHull)
@@ -186,7 +157,7 @@ def main(args):
     path = 'shape_sample'
     idxQuery = args.indexQuery
 
-    # Leemos imagen consulta
+    # Leemos la imagen de consulta
     queryName = os.path.join(path, str(idxQuery) + '.png')
     query = cv.imread(queryName, cv.IMREAD_GRAYSCALE)
 
@@ -206,7 +177,7 @@ def main(args):
             imageName = os.path.join(path, str(idxImg) + '.png')
             image = cv.imread(imageName, cv.IMREAD_GRAYSCALE)
 
-            # Extraemos sus características y las comparamos con las de la query
+            # Extraemos sus características y las comparamos con las de la consulta
             print('---------')
             print('Imagen', idxImg, ':')
             imDescriptors = extraerDescriptores(image)
@@ -216,7 +187,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Programa para calcular y comparar características de contorno.')
+    parser = argparse.ArgumentParser(description='Programa para calcular y comparar descriptores de contorno.')
     parser.add_argument('--indexQuery', '-i', type=int, default=3)
     args = parser.parse_args()
     main(args)
