@@ -57,7 +57,7 @@ Para convolucionar una imagen con un filtro hay que usar el método `filter2D`. 
 filtered = cv.filter2D(img, -1, kernel)
 ```
 
-Donde kernel es la matriz que convolucionaremos con la imagen `img`. Hemos visto la sintaxis completa de este método en el tema de [transformaciones](https://pertusa.github.io/VisionPorComputador/transformaciones.html#transformaciones-en-entorno-de-vecindad), aunque puedes consultar un ejemplo de uso en este otro [enlace](https://docs.opencv.org/master/d4/d13/tutorial_py_filtering.html).
+Donde kernel es la matriz que convolucionaremos con la imagen `img`. Hemos visto la sintaxis completa de este método en el tema de [transformaciones](https://pertusa.github.io/VisionPorComputador/transformaciones.html#transformaciones-en-entorno-de-vecindad), aunque puedes consultar un ejemplo de uso en este otro [enlace](https://www.geeksforgeeks.org/python/python-opencv-filter2d-function/).
 
 Se puede usar OpenCV para extraer los gradientes en ambas direcciones de una imagen en escala de grises usando convoluciones mediante las fórmulas vistas en teoría, y esto es lo que haremos en el siguiente ejercicio.
 
@@ -131,7 +131,7 @@ https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/
 dst = cv.GaussianBlur(src, (3,3), 0) # Realiza un filtrado gaussiano con un kernel de 3x3 píxeles y desviación típica 0
 ```
 
-Esta función admite [más parámetros](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1), como la desviación típica en el eje Y (si se omite es la misma que en el eje X) o el tipo de interpolación en los bordes (por defecto, `cv.BORDER_DEFAULT`).
+Esta función admite [más parámetros](https://docs.opencv.org/5.0/main_modules/imgproc_filter.html#gaussianblur), como la desviación típica en el eje Y (si se omite es la misma que en el eje X) o el tipo de interpolación en los bordes (por defecto, `BORDER_DEFAULT`).
 
 También podemos aplicar un filtro **bilateral** del siguiente modo:
 
@@ -142,7 +142,7 @@ dst = cv.bilateralFilter(src, 15, 80, 80) #  Aplica un filtro bilateral con un d
 
 Como ves, los últimos parámetros son dos umbrales en lugar de uno (es algo complicado de explicar, pero se usan para las imágenes en color). 
 
-Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la [referencia](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed) de la función.
+Normalmente se utiliza el mismo valor para ambos umbrales. Si es pequeño (< 10), el filtro no tendrá mucho efecto. Si es grande (> 150) tendrá un efecto fuerte, haciendo que la imagen tenga un estilo de cómic (_cartoon_). Para más información se puede consultar la [referencia](https://docs.opencv.org/5.0/main_modules/imgproc_filter.html#bilateralfilter) de la función.
 
 Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 
@@ -151,7 +151,7 @@ Por último, en OpenCV podemos usar un filtro **Canny** de la siguiente forma:
 dst = cv.Canny(src, 100, 200) # Filtro canny con los umbrales minimo y maximo (hysteresis) proporcionados
 ```
 
-Para más información sobre Canny en OpenCV puedes consultar [este enlace](https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed). Tal como ocurre con las funciones anteriores, los filtros Canny también pueden tener más parámetros.
+Para más información sobre Canny en OpenCV puedes consultar [este enlace](https://docs.opencv.org/5.0/main_modules/imgproc_feature.html#group-imgproc-feature-1ga04723e007ed888ddf11d9ba04e2232de). Tal como ocurre con las funciones anteriores, los filtros Canny también pueden tener más parámetros.
 
 ---
 ### Ejercicio
@@ -342,7 +342,7 @@ Esta función suele usarse tras extraer los contornos de una imagen mediante la 
 
 ## Detección de puntos aislados
 
-Como hemos visto en teoría, la Laplaciana es la derivada del gradiente y se puede usar para detectar puntos aislados. Puede implementarse mediante una convolución con un kernel laplaciano, pero OpenCV proporciona directamente la función [Laplacian](https://docs.opencv.org/4.5.2/d5/db5/tutorial_laplace_operator.html), que internamente llama a Sobel para calcular los gradientes. Ejemplo de uso:
+Como hemos visto en teoría, la Laplaciana es la derivada del gradiente y se puede usar para detectar puntos aislados. Puede implementarse mediante una convolución con un kernel laplaciano, pero OpenCV proporciona directamente la función [Laplacian](https://docs.opencv.org/5.0/main_modules/imgproc_filter.html#laplacian), que internamente llama a Sobel para calcular los gradientes. Ejemplo de uso:
 
 ```python
 ddepth = cv.CV_16S

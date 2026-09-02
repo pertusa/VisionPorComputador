@@ -27,7 +27,7 @@ nu20, nu11, nu02, nu30, nu21, nu12, nu03
 
 Como ves, no todos los momentos se calculan. Por ejemplo, como el momento `mu00` es igual a `m00`, [OpenCV no lo extrae](https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html).
 
-Si quieres conocer más detalles sobre la función `moments` puedes consultar [este](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=moments#moments) enlace.
+Si quieres conocer más detalles sobre la función `moments` puedes consultar [este](https://docs.opencv.org/5.0/main_modules/classcv_1_1Moments.html) enlace.
 
 ### Momentos de Hu
 
@@ -37,7 +37,7 @@ Los 7 momentos de Hu se calculan con la función `HuMoments` a partir de los mom
 hu = cv.HuMoments(momentos)  # El array hu contiene los 7 momentos de Hu
 ```
 
-La función [matchShapes](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#double%20matchShapes(InputArray%20contour1,%20InputArray%20contour2,%20int%20method,%20double%20parameter)) de OpenCV usa internamente estos momentos de Hu para comparar contornos, como veremos más adelante.
+La función [matchShapes](https://docs.opencv.org/5.0/main_modules/geometry_shape.html#matchshapes) de OpenCV usa internamente estos momentos de Hu para comparar contornos, como veremos más adelante.
 
 ### Cadenas de Freeman
 
@@ -196,6 +196,8 @@ if __name__ == '__main__':
 En este ejercicio necesitarás descargarte [estas imágenes](images/caracteristicas/shape_sample.zip), que debes descomprimir en un directorio llamado `shape_sample`.
 
 Para extraer los descriptores puedes usar algunas de [estas funciones]( https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html) de OpenCV.
+
+<!--- No encuentro enlace actualizado para el link anterior! ---->
 
 En el cálculo de la arcotangente (para la orientación) debes usar [la función _atan2_](https://www.w3schools.com/python/ref_math_atan2.asp) de la librería `math`.
 
@@ -360,7 +362,7 @@ hog.detectMultiScale(img)
 
 Para obtener más ayuda sobre las opciones de detectMultiScale puedes consultar [este enlace](https://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/). Puedes ver un ejemplo completo de detección de peatones en vídeos usando HOG [aquí](https://thedatafrog.com/en/articles/human-detection-video/).
 
-Desafortunadamente en OpenCV no hay una forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_hog.html) que produce este resultado:
+Desafortunadamente en OpenCV no hay una forma sencilla de visualizar los gradientes del descriptor HOG, pero la librería `scikit-image` sí que tiene funciones muy cómodas para calcular y visualizar HOG como puede verse en [este código de ejemplo](https://scikit-image.org/docs/stable/auto_examples/features_detection/plot_hog.html) que produce este resultado:
 
 ![astronaut](images/caracteristicas/astronaut.png)
 
@@ -493,7 +495,7 @@ En general, tenemos muchas combinaciones en OpenCV para usar detectores y descri
 SIFT está patentado pero sus derechos han expirado en 2020 y por tanto ahora puede usarse sin problema en OpenCV. 
 <!---Puedes ver otro ejemplo completo usando SIFT en [este enlace](https://www.analyticsvidhya.com/blog/2019/10/detailed-guide-powerful-sift-technique-image-matching-python/). 
 --->
-Sin embargo, [SURF](https://docs.opencv.org/master/df/dd2/tutorial_py_surf_intro.html) sigue con derechos de patente vigentes y desde OpenCV4.2 se dejó fuera de la librería ya que su filosofía es que todo lo que contenga sea de código abierto. 
+En OpenCV también puede usarse el descriptor [SURF](https://docs.opencv.org/5.0/tutorials_contrib/xfeatures2d/py_surf_intro/py_surf_intro.html), aunque continúa con derechos de patente hasta abril de 2027. 
 
 En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/master/02%20OpenCV%20Feature%20Detection%20and%20Description.md) puedes consultar muchos ejemplos de código que usan detectores y descriptores de OpenCV.
 
@@ -504,9 +506,9 @@ En [este enlace](https://github.com/methylDragon/opencv-python-reference/blob/ma
 
 Como hemos visto en teoría, también podemos usar una red neuronal convolucional (CNN) para extraer una representación vectorial de una imagen.
 
-Vamos a usar en OpenCV una red neuronal ya entrenada, en formato [ONNX](https://onnx.ai) (el formato estándar para intercambiar modelos entre librerías de aprendizaje profundo), para extraer descriptores neuronales:
+Vamos a usar en OpenCV una red neuronal ya entrenada, en formato [ONNX](https://onnx.ai) (estándar para intercambiar modelos entre librerías de aprendizaje profundo), para extraer descriptores neuronales:
 
-> **Nota**: hasta OpenCV 4 era habitual cargar modelos de la librería `Caffe` con la función `readNetFromCaffe`. **OpenCV 5 ha eliminado los importadores de Caffe, Darknet y Torch**, y ahora sólo admite ONNX, TensorFlow, TFLite y OpenVINO. Por eso este ejemplo usa un modelo ONNX.
+> Hasta OpenCV 4 era habitual cargar modelos de la librería `Caffe` con la función `readNetFromCaffe`. OpenCV 5 ha eliminado los importadores de Caffe, Darknet y Torch**, y ahora sólo admite ONNX, TensorFlow, TFLite y OpenVINO. 
 
 ```python
 import cv2 as cv
@@ -537,8 +539,7 @@ inputBlob = cv.dnn.blobFromImage(image, 1.0 / 255, (inWidth, inHeight), (0, 0, 0
 # Pasamos la imagen a la red
 net.setInput(inputBlob)
 
-# Hacemos la pasada forward. El modelo está recortado en la capa que nos interesa,
-# por lo que forward() ya devuelve directamente los descriptores neuronales.
+# Hacemos la pasada forward. El modelo está recortado en la capa que nos interesa, por lo que forward() ya devuelve directamente los descriptores neuronales en lugar de las clases.
 out = net.forward()
 
 # Convertimos la salida en un array unidimensional
@@ -548,10 +549,10 @@ nc = out.flatten()
 print(nc.tolist())
 ```
 
-Para poder usar este código necesitaremos descargar [el modelo de la red neuronal](images/caracteristicas/mobilenetv2_features.onnx) y dejarlo en el mismo directorio que el programa. A diferencia de Caffe, en ONNX la arquitectura y los pesos van en un único fichero.
+Para poder usar este código necesitaremos descargar [el modelo de la red neuronal](images/caracteristicas/mobilenetv2_features.onnx), en este caso una red y dejarlo en el mismo directorio que el programa. 
 
 Si ejecutamos este código se cargará una red de tipo [MobileNetV2](https://arxiv.org/abs/1801.04381) ya entrenada con millones de imágenes de [ImageNet](http://www.image-net.org). Dada una nueva imagen de entrada, esta se rescala y se pasa como entrada a la red neuronal. Escogemos como descriptor los valores de la penúltima capa (la de _pooling_ global), obteniendo así un vector de **1280 elementos**.
 
-> **Importante**: en OpenCV 4 se podía pedir la salida de una capa intermedia indicando su nombre, por ejemplo `net.forward('pool5/7x7_s1')`. **En OpenCV 5 esto no funciona con modelos ONNX**: `forward('nombre_de_capa')` devuelve la salida final de la red en lugar de la activación de esa capa, y además no da ningún error, por lo que es fácil no darse cuenta. Por eso el modelo que usamos aquí ya viene recortado en la capa que nos interesa, de forma que basta con llamar a `forward()` sin argumentos.
+> En OpenCV 4 se podía pedir la salida de una capa intermedia indicando su nombre, por ejemplo `net.forward('pool5/7x7_s1')`. En OpenCV 5 esto no funciona con modelos ONNX: `forward('nombre_de_capa')` devuelve la salida final de la red en lugar de la activación de esa capa, y además no da ningún error, por lo que es fácil no darse cuenta. Por eso el modelo que usamos aquí ya viene recortado en la capa que nos interesa, de forma que basta con llamar a `forward()` sin argumentos.
 
 Con este programa ya tendremos nuestro descriptor neuronal que podemos usar como entrada a otra técnica de aprendizaje automático como kNN o SVM.

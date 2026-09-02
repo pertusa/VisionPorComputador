@@ -105,7 +105,7 @@ La salida debería ser:
 
 ## Transformaciones globales
 
-Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](https://docs.opencv.org/4.12.0/d8/d01/tutorial_discrete_fourier_transform.html).
+Una de las transformaciones globales más usadas en imagen es la transformada de Fourier. En OpenCV tenemos la función `dft` que calcula esta transformada, aunque necesitamos hacer un preproceso para preparar la entrada a esta función, y un postproceso para calcular la magnitud y la fase a partir de su resultado. En Visión por Computador no entraremos en detalles sobre cómo usar la transformada de Fourier en OpenCV, pero si quieres saber más puedes consultar [este enlace](https://docs.opencv.org/5.0/main_modules/core_array.html#dft).
 
 ## Transformaciones afines
 
@@ -113,7 +113,7 @@ En OpenCV la mayoría de transformaciones geométricas se implementan creando un
 
 Esta función requiere como entrada una matriz de tamaño 2x3, ya que implementa las transformaciones afines mediante matrices aumentadas. Como hemos visto en teoría, la última fila de la matriz aumentada en una transformación afín es siempre (0,0,1) por lo que no hay que indicarla (por este motivo se indica una matriz de 2x3 en lugar de 3x3).
 
-La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983).
+La función `warpAffine` tiene también parámetros para indicar el tipo de interpolación (`flags`) y el comportamiento en los bordes, tal como puede verse en su [documentación](https://docs.opencv.org/5.0/main_modules/imgproc_transform.html#warpaffine).
 
 En general, podemos usar `warpAffine` para implementar cualquier transformación afín. Por ejemplo, podríamos implementar la siguiente traslación...
 
@@ -186,7 +186,7 @@ El tercer parámetro de `flip` puede ser 0 (reflexión sobre el eje x), positivo
 
 ### Escalado
 
-El escalado también se implementa mediante una [función específica](https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
+El escalado también se implementa mediante una [función específica](https://docs.opencv.org/5.0/main_modules/imgproc_transform.html#resize) llamada `resize`, que permite indicar unas dimensiones concretas o una proporción entre la imagen origen y destino.
 
 
 ```python
@@ -216,7 +216,7 @@ rows, cols = img.shape
 dst = cv.warpPerspective(img, M, (cols, rows))
 ```
 
-La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/4.12.0/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87).
+La lista completa de parámetros de esta función puede verse en [este enlace](https://docs.opencv.org/5.0/main_modules/imgproc_transform.html#warpperspective).
 
 También tenemos otra opción muy práctica para implementar una transformación de este tipo, ya que suele ser muy complicado estimar a priori los valores de la matriz para realizar una transformación concreta. Esta alternativa consiste en proporcionar dos arrays de 4 puntos (siendo cada punto un vector de dos dimensiones que representa las coordenadas del mismo en el plano XY): El primero será de la imagen original, y el segundo contiene la proyección de esos puntos (dónde van a quedar finalmente) en la imagen destino. Con estos datos podemos usar `getPerspectiveTransform` para calcular los valores de la matriz de transformación.
 
@@ -343,7 +343,7 @@ Esta función se invoca con los mismos parámetros que `erode` o `dilate` añadi
 * White Top Hat: `MORPH_TOPHAT`
 * Black Top Hat: `MORPH_BLACKHAT`
 
-En [este enlace](https://docs.opencv.org/4.12.0/d3/dbe/tutorial_opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
+En [este enlace](https://docs.opencv.org/5.0/tutorials/imgproc/opening_closing_hats/opening_closing_hats.html) puedes ver código de ejemplo para implementar un interfaz que permite probar estas operaciones modificando sus parámetros.
 
 ---
 

@@ -128,7 +128,7 @@ https://github.com/mgmacias95/Flower-Recognition/blob/master/flower.py
 
 Usando el siguiente código podemos entrenar un diccionario BoW a partir los descriptores SIFT extraídos de todas las imágenes de un conjunto de entrenamiento:
 
-> **Importante**: en OpenCV 5 las clases de BoW se han movido al módulo `xfeatures2d`, que forma parte de los módulos _contrib_. Por eso se escriben como `cv.xfeatures2d.BOWKMeansTrainer` (en OpenCV 4 era simplemente `cv.BOWKMeansTrainer`) y es necesario tener instalado `opencv-contrib-python`, tal y como se indica en la [página de instalación](install.md).
+> En OpenCV 5 las clases de BoW se han movido al módulo `xfeatures2d`, que forma parte de los módulos _contrib_. Por eso se escriben como `cv.xfeatures2d.BOWKMeansTrainer` (en OpenCV 4 era simplemente `cv.BOWKMeansTrainer`).
 
 ```python
 # Creamos una instancia BOW, en este caso el vocabulario tendrá 100 palabras
@@ -175,7 +175,7 @@ https://github.com/xanmolx/FaceDetectorUsingPCA/blob/master/PCA_Face_Recognition
 
 --->
 
-Podemos ver un ejemplo completo de reducción de dimensionalidad mediante PCA en [este enlace](http://man.hubwiz.com/docset/OpenCV.docset/Contents/Resources/Documents/d1/dee/tutorial_introduction_to_pca.html). La parte interesante está en la función `getOrientation`:
+Podemos ver un ejemplo completo de reducción de dimensionalidad mediante PCA en [este enlace](https://docs.opencv.org/5.0/tutorials/others/introduction_to_pca.html). La parte interesante está en la función `getOrientation`:
 
 ```python
 # Perform PCA analysis
@@ -245,9 +245,7 @@ Como puedes ver en los modelos Haar disponibles en el enlace anterior, es posibl
 
 Alternativamente a OpenCV, también puedes usar la librería `scikit-image` para [detectar caras](https://scikit-image.org/docs/dev/auto_examples/applications/plot_face_detection.html).
 
-En OpenCV puedes usar cualquier tipo de imágenes para entrenar tu propio modelo siguiendo los pasos que se indican en [este enlace](https://docs.opencv.org/master/dc/d88/tutorial_traincascade.html), aunque no es fácil. Para esto deberás instalar la versión de C++ de OpenCV y compilar varios programas: `opencv_createsamples`, `opencv_annotation`, `opencv_traincascade` y `opencv_visualisation`.
-
-Sin embargo, también puedes usar la librería `scikit-image`, con la cual se simplifica bastante el entrenamiento como puede verse en [este ejemplo](https://scikit-image.org/docs/dev/auto_examples/applications/plot_haar_extraction_selection_classification.html).
+Antes, en OpenCV se podía usar cualquier tipo de imágenes para entrenar tu propio modelo, pero a partir de la versión OpenCV 4 se ha eliminado esta posibilidad.  La alternativa es usar la librería `scikit-image`, con la cual se simplifica bastante el entrenamiento como puede verse en [este ejemplo](https://scikit-image.org/docs/stable/auto_examples/applications/plot_haar_extraction_selection_classification.html).
 
 ## Reconocimiento de caras
 
@@ -531,4 +529,4 @@ https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python
 
 En el ejercicio anterior, en lugar de HOG podríamos haber usado características neuronales extraidas de una de las últimas capas de una red convolucional de la forma que vimos [aquí](https://pertusa.github.io/VisionPorComputador/caracteristicas.html#descriptores-neuronales). Si tienes curiosidad puedes probarlo, verás como el porcentaje de acierto mejora significativamente. 
 
-Adicionalmente OpenCV también incorpora muchos [ejemplos de clasificación](https://github.com/opencv/opencv/tree/master/samples/dnn) usando redes neuronales para tareas como reconocimiento de caras, texto, etc. Es recomendable echar un vistazo a estos ejemplos porque probablemente te ayuden para el proyecto. 
+Adicionalmente OpenCV 5 también incorpora muchos [ejemplos de clasificación](https://github.com/opencv/opencv/tree/5.x/samples/dnn) usando redes neuronales para tareas como reconocimiento de caras, texto, etc. Es recomendable echar un vistazo a estos ejemplos porque pueden ser de ayuda para tu proyecto. 

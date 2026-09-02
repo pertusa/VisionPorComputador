@@ -25,13 +25,13 @@ Tal como hemos visto en teoría, podemos usar un algoritmo de detección de bord
 
 ![Contornos](images/segmentacion/contours_input.jpg) ![Contornos](images/segmentacion/contours_output.jpg)
 
-A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/4.10.0/d3/dc0/group__imgproc__shape.html#gae4156f04053c44f886e387cff0ef6e08) de `findContours`:
+A continuación podemos ver un ejemplo de [sintaxis](https://docs.opencv.org/5.0/main_modules/imgproc_shape.html#group-imgproc-shape-1gadf1ad6a0b82947fa1fe3c3d497f260e0) de `findContours`:
 
 ```python
 contours, hierarchy = cv.findContours(image, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 ```
 
-Esta función devuelve una lista de contornos detectados en la imagen junto con su jerarquía. La [jerarquía](https://docs.opencv.org/master/d9/d8b/tutorial_py_contours_hierarchy.html) hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unos contornos dentro de otros (en ese caso, los primeros serán "hijos" de los segundos, que son los contornos "padre"). 
+Esta función devuelve una lista de contornos detectados en la imagen junto con su jerarquía. La jerarquía hace referencia a la relación de los contornos entre sí, ya que a veces tenemos unos contornos dentro de otros (en ese caso, los primeros serán "hijos" de los segundos, que son los contornos "padre"). 
 
 El segundo parámetro de esta función es el tipo de algoritmo usado para devolver los contornos. El método más sencillo es `cv.RETR_LIST`, que devuelve simplemente un listado e ignora la jerarquía. Alternativamente se puede usar, por ejemplo, `cv.RETR_TREE`, que contiene la jerarquía completa. 
 
@@ -70,7 +70,7 @@ El algoritmo **Mean-shift** está implementado en la librería `sklearn` para [u
 
 > La librería [sklearn](https://scikit-learn.org/stable/) (en realidad `scikit`) es la más usada en python para algoritmos de aprendizaje automático tradicional, y la utilizan muchos programas que también usan OpenCV.
 
-En este último caso (usando OpenCV) tenemos dos opciones: El [método `meanshift`](https://docs.opencv.org/master/d7/d00/tutorial_meanshift.html), que suele usarse para _tracking_ (como veremos en el tema de vídeo), o `pyrMeanShiftFiltering`, que se usa directamente para segmentar imágenes en color:
+En este último caso (usando OpenCV) tenemos dos opciones: El [método `meanshift`](https://docs.opencv.org/5.0/tutorials/others/meanshift.html#meanshift), que suele usarse para _tracking_ (como veremos en el tema de vídeo), o `pyrMeanShiftFiltering`, que se usa directamente para segmentar imágenes en color:
 
 ```python
 dst = cv.pyrMeanShiftFiltering(img, 25, 60)
@@ -125,7 +125,7 @@ Para retina también:
 http://www.pittnuts.com/2015/12/image-segmentation-by-opencv/
 --->
 
-El algoritmo **k-means** se implementa en OpenCV mediante la función `kmeans`. En [este enlace](https://docs.opencv.org/master/d1/d5c/tutorial_py_kmeans_opencv.html) puedes ver un ejemplo de uso. Tal como hemos visto en teoría, a nivel práctico la principal diferencia con _Mean-shift_ es que con _k-means_ debemos indicar el número de clusters _K_, mientras que con _mean-shift_ no podemos indicar la cantidad de elementos distintos que queremos encontrar.
+El algoritmo **k-means** se implementa en OpenCV mediante la función `kmeans`. En [este enlace](https://docs.opencv.org/3.4.20/d1/d5c/tutorial_py_kmeans_opencv.html) puedes ver un ejemplo de uso. Tal como hemos visto en teoría, a nivel práctico la principal diferencia con _Mean-shift_ es que con _k-means_ debemos indicar el número de clusters _K_, mientras que con _mean-shift_ no podemos indicar la cantidad de elementos distintos que queremos encontrar.
 
 ![k-means](images/segmentacion/kmeans.jpg)
 
@@ -134,7 +134,7 @@ Este algoritmo también puede encontrarse para [uso general](https://scikit-lear
 
 ## Métodos basados en grafos
 
-El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ejemplo de esta función usada de forma interactiva en [este enlace](https://docs.opencv.org/4.12.0/d8/d83/tutorial_py_grabcut.html).
+El método basado en grafos más común en OpenCV es `GrabCut`. Puedes ver un ejemplo de esta función usada de forma interactiva en [este enlace](https://docs.opencv.org/5.0/js_tutorials/js_imgproc/js_grabcut/js_grabcut.html#foreground-extraction-using-grabcut-algorithm).
 
 ![grabcut](images/segmentacion/grabcut.jpg)
 
