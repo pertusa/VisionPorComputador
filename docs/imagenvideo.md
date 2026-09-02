@@ -196,7 +196,7 @@ Para hacer pruebas puedes usar la siguiente imagen:
 --->
 
 
-<a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg" alt="A full-color image shows a high-contrast and quite dramatic scene of a fire breather with a large orange-yellow flame extending from his lips. He wears dark but colorful orange-red clothing."></a><br>Imagen de <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541">Wikimedia</a>.
+<a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg"></a><br>Imagen de <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541">Wikimedia</a>.
 
 
 > Pista: Se puede usar el método `split` para separar los canales de una imagen. Ejemplo: 

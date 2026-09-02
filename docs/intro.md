@@ -573,7 +573,7 @@ Necesitarás estas dos imágenes para probar el código:
 Además de los eventos de ratón y los _sliders_, podemos añadir botones con la función `createButton` (sólo si hemos compilado OpenCV con la librería QT), y también existen opciones para dibujar sobre la ventana.
 -->
 
-Como alternativa a usar los elementos visuales nativos de la interfaz de OpenCV, puedes usar otras librerías más potentes como [imgui]( https://imgui-datascience.readthedocs.io/en/latest/), aunque en principo no nos hará falta para esta asignatura.
+Como alternativa a usar los elementos visuales nativos de la interfaz de OpenCV, puedes usar otras librerías más potentes como [imgui](https://imgui-datascience.readthedocs.io/en/latest/), aunque en principo no nos hará falta para esta asignatura.
 
 ## Vídeo
 
