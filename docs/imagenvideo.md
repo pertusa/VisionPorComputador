@@ -191,12 +191,15 @@ parser.add_argument('-i', '--imagen', type=str, default = 'Fire_breathing_2_Luc_
 
 Para hacer pruebas puedes usar la siguiente imagen:
 
+![Fire breathing](images/imagenvideo/Fire_breathing_2_Luc_Viatour.jpg)
+
+
 <!---
 ![Fire breathing](https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg")
---->
 
 
 <a href="https://commons.wikimedia.org/wiki/File:Fire_breathing_2_Luc_Viatour.jpg#/media/File:Fire_breathing_2_Luc_Viatour.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/1200px-Fire_breathing_2_Luc_Viatour.jpg"></a><br>Imagen de <a href="//commons.wikimedia.org/wiki/User:Lviatour" title="User:Lviatour">Luc Viatour</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=4632541">Wikimedia</a>.
+--->
 
 
 > Pista: Se puede usar el método `split` para separar los canales de una imagen. Ejemplo: 
