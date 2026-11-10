@@ -1,0 +1,4 @@
+En la teoría (transformaciones, página 10), sé que la arcotangente está al revés (debería ser Gv/Gu), pero esto implica cambiar la
+salida de la práctica de características. Lo dejo para el próximo curso porque este ya tenemos muchos cambios. El mismo
+  error se repite en T6 p. 25 (HOG).
+
